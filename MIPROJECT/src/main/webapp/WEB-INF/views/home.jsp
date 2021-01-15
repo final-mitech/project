@@ -8,6 +8,7 @@
 </head>
 <body>
 <a href="empList">사원목록</a><br>
+<a href="funddingList">사원목록</a><br>
 
 ${empVO.firstName } : ${evo.lastName }
 <h1>
