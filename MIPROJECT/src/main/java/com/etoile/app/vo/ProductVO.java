@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class ProductVO {
-	String productId;
-	String productName;
-	String productSerial;
-	String productBrand;
-	String productType;
-	int productPrice;
-	String productContent;
-	String productImage;
-	String productStatus;
-	String ppl;
-	int productRental;
+	private String productId;
+	private String productName;
+	private String productSerial;
+	private String productBrand;
+	private String productType;
+	private int productPrice;
+	private String productContent;
+	private String productImage;
+	private String productStatus;
+	private String ppl;
+	private int productRental;
 }
