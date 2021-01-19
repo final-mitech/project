@@ -7,6 +7,13 @@
 	<title>Home</title>
 </head>
 <body>
-	내용
+<a href="empList">사원목록</a><br>
+
+${empVO.firstName } : ${evo.lastName }
+<h1>
+	Hello world! 
+</h1>
+
+<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
