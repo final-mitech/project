@@ -4,16 +4,31 @@ Configuration 2.1//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
 
-	<definition name="home" template="/WEB-INF/views/home.jsp" />
-
+	<!-- 고객 사이트 -->
+	<definition name="home" template="/WEB-INF/views/home.jsp" />	
+	
 	<definition name="userTemplate"	template="/WEB-INF/views/tiles/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+		<put-attribute name="nav" value="" />
 		<put-attribute name="content" value="/WEB-INF/views/tiles/content.jsp" />
 	</definition>
 
 	<!-- 사용자 -->
-	<definition name="*/*" extends="userTemplate">
-		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+	<definition name="site/*/*" extends="userTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/site/{1}/{2}.jsp" />
 	</definition>
+	
+	<!-- 관리자 사이트 -->
+	<definition name="adminTemplate"	template="/WEB-INF/views/tiles/layout.jsp">
+		<put-attribute name="header" value="" />
+		<put-attribute name="nav" value="/WEB-INF/views/tiles/nav.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/tiles/content.jsp" />
+	</definition>
+
+	<!-- 관리자 -->
+	<definition name="admin/*/*" extends="adminTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/admin/{1}/{2}.jsp" />
+	</definition>
+
 	
 </tiles-definitions>
