@@ -6,28 +6,7 @@
 <html>
 <head>
 <style>
-nav {
-	float: left;
-	max-width: 160px;
-	margin: 0;
-	padding: 1em;
-}
 
-nav ul {
-	list-style-type: none;
-	padding: 0;
-}
-
-nav ul a {
-	text-decoration: none;
-}
-
-article {
-	margin-left: 170px;
-	padding: 1em;
-	overflow: hidden;
-	min-height: 400px;
-}
 
 </style>
 </head>

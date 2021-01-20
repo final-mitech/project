@@ -12,32 +12,30 @@
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 	crossorigin="anonymous">
 <link rel="stylesheet"
-	href="netdna.bootstrapcdn.com/font-awesome.min.css">
+	href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/font-awesome.min.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/tiles/header.jsp"></jsp:include>
 	<div class="container">
 		<div>
 			<a href="#">최신순</a> <a href="#">인기순</a>
 		</div>
 	</div>
-	<%-- <div class="container">
+	<div class="container">
 		<div class="row">
-			<c:forEach var="#" items="#">
+			<c:forEach var="list" items="${list }">
 				<div class="col-lg-4">
-					<div class="card">
-						<a href="#"> <img src="${list.productImage }" class="card-img-top">
-						</a>
+					<div class="card" onclick="location.href='productDetail.do?productId=${list.productId }'">
+						<img src="${list.productImage }" class="card-img-top">
 						<div class="card-body">
-							<h5 class="card-title" onclick="location.href='#'">${list.productName }</h5>
-							<p class="card-text" onclick="location.href='#'">${list.productRental }</p>
+							<h5 class="card-title">${list.productName }</h5>
+							<p class="card-text">${list.productRental }</p>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
 		<div>
-			<input type="text" id="search" name="search"><i class="fa-search fa-lg"></i>
+			<input type="text" id="search" name="search"><i class="fa fa-search" aria-hidden="true"></i>
 			<nav aria-label="...">
 				<ul class="pagination">
 					<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
@@ -48,6 +46,6 @@
 				</ul>
 			</nav>
 		</div>
-	</div> --%>
+	</div>
 </body>
 </html>

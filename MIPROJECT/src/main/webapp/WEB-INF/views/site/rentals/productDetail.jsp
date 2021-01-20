@@ -13,23 +13,29 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<jsp:include page="../../tiles/header.jsp"></jsp:include>
+	<br>
 	<div class="container">
 		<div class="row">
 			<div class="col-7">
-				<img src="#">
+				<img src="${product.productImage }">
 			</div>
 			<div class="col-5">
 				<div>
-					<h1>${#.productName }</h1>
-					<h3>${#.productBrand }</h3>
+					<h1>${product.productName }</h1>
 					<br />
-					<h3>${#.productContent }</h3>
+					<h3>${product.productContent }</h3>
 				</div>
-				<div>
-					<p style="font-size:15px;">${#.productPay }</p>
-					<a><input type="date" ></a>
-				</div>
+				<form id="frm" name="frm">
+					<div>
+						<p style="font-size: 15px;" align="right">${product.productRental }</p>
+						<p align="center">
+							<input type="date" id="startRental" name="startRental"> ~
+							<input type="date" id="endRental" name="endRental">
+						</p>
+						<button type="button" style="float: right;"
+							onclick="location.href='payPage.do?productId=${product.productId}'">대여하기</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
