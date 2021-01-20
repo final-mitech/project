@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.etoile.app.rental.service.RentalService;
+import com.etoile.app.rentals.mapper.RentalMapper;
 import com.etoile.app.vo.ProductVO;
 
 @Service("memberService")
