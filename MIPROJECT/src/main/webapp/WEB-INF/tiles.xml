@@ -19,7 +19,7 @@ Configuration 2.1//EN"
 	</definition>
 	
 	<!-- 관리자 사이트 -->
-	<definition name="adminTemplate"	template="/WEB-INF/views/tiles/layout.jsp">
+	<definition name="adminTemplate"	template="/WEB-INF/views/tiles/layout_admin.jsp">
 		<put-attribute name="header" value="" />
 		<put-attribute name="nav" value="/WEB-INF/views/tiles/nav.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/tiles/content.jsp" />
