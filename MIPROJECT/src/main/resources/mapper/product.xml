@@ -4,6 +4,11 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.etoile.app.dao.ProductMapper">
+	
+	<select id="productList" resultType="productVO" parameterType="productVO">
+		SELECT * FROM PRODUCT
+	</select>
+	
 	<insert id="productInsert">
 		insert into product(product_id, product_name,
 		product_type, product_image, product_rental) values
