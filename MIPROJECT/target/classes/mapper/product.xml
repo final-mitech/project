@@ -3,11 +3,14 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.etoile.app.dao.ProductMapper">
-	<insert id="productInsert">
-		insert into product(product_id, product_name,
-		product_type, product_image, product_rental) values
-		(p_seq, #{productName}, #{productType}, #{productImage}, #{productRental})
-	</insert>
+<mapper namespace="com.etoile.app.rental.mapper.RentalMapper">
+	
+	<select id="productList" resultType="productVO" parameterType="productVO">
+		SELECT * FROM PRODUCT
+	</select>
+	
+	<select id="productSelect" resultType="productVO">
+		SELECT * FROM PRODUCT WHERE product_id = #{productId}
+	</select>
 
 </mapper>
