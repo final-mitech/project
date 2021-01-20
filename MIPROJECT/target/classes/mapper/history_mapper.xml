@@ -17,8 +17,7 @@
 		  FROM product
 		  <where>
 		  	<if test="productStatus !=null and productStatus!=''"> product_status = #{productStatus}</if>
-		  </where>
-		 ORDER BY product_id   
+		  </where>  
 	</select>
 	
 	<!-- 한 상품에 대한 상세조회 -->
