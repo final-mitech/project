@@ -16,7 +16,8 @@ public class HistoryController {
 	@Autowired
 	private HistoryService historyService;
 	
-	@RequestMapping("/admin/historyList.do")
+	//물품이력 메인페이지
+	@RequestMapping("/admin/historyList")
 	public String historyList(ProductVO vo, Paging paging, Model model) {
 		//페이징 처리
 		if(paging == null) {
@@ -39,5 +40,20 @@ public class HistoryController {
 		model.addAttribute("list", productList);
 		
 		return "admin/product_history/historyList";
+	}
+	//물품상태 업데이트
+	@RequestMapping("admin/historyUpdate")
+	public void historyUpdate(ProductVO vo) {
+		historyService.productUpdate(vo);
+		System.out.println(vo.getProductId());
+	}
+	
+	//물품이력 상세페이지
+	@RequestMapping("/admin/productSelect")
+	public String productSelect(ProductVO vo, Model model) {
+		//데이터 조회
+		vo = historyService.productSelect(vo);
+		model.addAttribute("product", vo);
+		return "admin/product_history/productSelect";
 	}
 }
