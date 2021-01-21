@@ -12,5 +12,10 @@
 	<select id="productSelect" resultType="productVO">
 		SELECT * FROM PRODUCT WHERE product_id = #{productId}
 	</select>
+	
+	<insert id="RentalInsert">
+		insert into rental(product_id, rental_start, rental_end, rental_address, rental_pay)
+		values (#{productId}, #{rentalStart}, #{rentalEnd}, #{rentalAddress}, #{rentalPay})
+	</insert>
 
 </mapper>

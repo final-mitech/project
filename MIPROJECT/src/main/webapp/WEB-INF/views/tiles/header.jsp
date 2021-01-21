@@ -20,7 +20,7 @@
 <body>
 	<div class="container">
 		<div>
-			<a href="#"> <img src="/etoile/images/main.png"
+			<a href="#"> <img src="../images/main.png"
 				onclick="location.href='#'"></a>
 			<button style="float: right;" class="btn btn-outline-dark">signup</button>
 			<button style="float: right;" class="btn btn-outline-dark">login</button>
@@ -33,7 +33,7 @@
 				</button>
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
 					<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="#">RENTALS</a></li>
+					<li class="nav-item"><a class="nav-link" href="productList.do">RENTALS</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">MY STYLING</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">FUNDDNG</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">AUCTION</a></li>
