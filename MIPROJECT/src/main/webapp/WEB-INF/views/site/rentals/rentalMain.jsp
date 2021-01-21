@@ -13,6 +13,21 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/font-awesome.min.css">
+<style type="text/css">
+a {
+	text-decoration: none;
+	color: #999999;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #999999;
+}
+a:active {
+	text-decoration: none;
+	color: #666666;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -20,11 +35,13 @@
 			<a href="#">최신순</a> <a href="#">인기순</a>
 		</div>
 	</div>
+	<br>
 	<div class="container">
 		<div class="row">
 			<c:forEach var="list" items="${list }">
-				<div class="col-lg-4">
-					<div class="card" onclick="location.href='productDetail.do?productId=${list.productId }'">
+				<div class="col-lg-3">
+					<div class="card"
+						onclick="location.href='productDetail.do?productId=${list.productId }'">
 						<img src="${list.productImage }" class="card-img-top">
 						<div class="card-body">
 							<h5 class="card-title">${list.productName }</h5>
@@ -35,17 +52,10 @@
 			</c:forEach>
 		</div>
 		<div>
-			<input type="text" id="search" name="search"><i class="fa fa-search" aria-hidden="true"></i>
-			<nav aria-label="...">
-				<ul class="pagination">
-					<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
-					<li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
-			</nav>
+			<input type="text" id="search" name="search">
+			<i class="fa fa-search" aria-hidden="true"></i>
 		</div>
+		
 	</div>
 </body>
 </html>
