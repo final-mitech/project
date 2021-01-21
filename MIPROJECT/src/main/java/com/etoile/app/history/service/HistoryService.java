@@ -20,4 +20,6 @@ public interface HistoryService {
 	int rentalInsert(RentalVO vo);
 	//상품정보 삭제
 	int productDelete(ProductVO vo);
+	//총 상품량 조회
+	int productCount(ProductVO vo);
 }

@@ -51,4 +51,9 @@ public class HistoryServiceImpl implements HistoryService {
 		return dao.productDelete(vo);
 	}
 
+	@Override
+	public int productCount(ProductVO vo) {
+		return dao.productCount(vo);
+	}
+
 }

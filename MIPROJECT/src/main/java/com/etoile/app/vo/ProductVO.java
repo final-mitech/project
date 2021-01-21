@@ -15,4 +15,8 @@ public class ProductVO {
 	private String productStatus;
 	private String ppl;
 	private int productRental;
+	
+	//페이징관련 처리를 위한 필드
+	private int start;
+	private int end;
 }
