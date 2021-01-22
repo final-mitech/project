@@ -17,16 +17,27 @@ public class RentalServiceImpl implements RentalService {
 	private RentalMapper dao;
 	
 	@Override
-	public List<ProductVO> productList(ProductVO vo) {
-		return dao.productList(vo);
+	public List<ProductVO> rentalProductList(ProductVO vo) {
+		return dao.rentalProductList(vo);
 	}
 	@Override
-	public ProductVO productSelect(ProductVO vo) {
-		return dao.productSelect(vo);
+	public ProductVO rentalProductSelect(ProductVO vo) {
+		return dao.rentalProductSelect(vo);
 	}
 	
 	@Override
 	public int RentalInsert(RentalVO vo) {
 		return dao.RentalInsert(vo);
 	}
+	@Override
+	public List<ProductVO> searchList(ProductVO vo) {
+		return dao.searchList(vo);
+	}
+	@Override
+	public int productCnt(ProductVO vo) {
+		return dao.productCnt(vo);
+	}
+	
+	
+	
 }
