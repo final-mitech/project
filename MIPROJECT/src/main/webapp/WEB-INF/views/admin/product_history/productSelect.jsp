@@ -57,6 +57,19 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<c:if test="${product.ppl eq 'own' }">
+				<button type="button" class="btn btn-light btn-lg btn-block"
+					onclick="location.href='historyList'">목록보기</button>
+			</c:if>
+			<c:if test="${product.ppl eq 'ppl' }">
+			<button type="button" class="btn btn-light btn-lg btn-block"
+				onclick="location.href='pplList'">목록보기</button>
+			</c:if>
+		</div>
+		<div class="row">
+			<br />
+		</div>
 		<div class="row overflow-auto">
 			<table class="table">
 				<thead class="thead-light">

@@ -21,18 +21,18 @@
 <script>
 	function changeSort() {
 		let selected = $('#sort').val();
-
+		console.log(selected);
 		if (selected == 'all') {
-			location.href = '/etoile/admin/historyList';
+			location.href = '/etoile/admin/pplList';
 		} else {
-			location.href = '/etoile/admin/historyList?productStatus='
+			location.href = '/etoile/admin/pplList?productStatus='
 					+ selected;
 		}
 
 	}
 
 	function goList(page) {
-		location.href = '/etoile/admin/historyList?page=' + page;
+		location.href = '/etoile/admin/pplList?page=' + page;
 	}
 </script>
 <script
