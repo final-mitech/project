@@ -84,7 +84,7 @@
 	<!-- 상품 상태 수정 -->
 	<update id="productUpdate">
 		UPDATE product SET product_status = #{productStatus} 
-		             WHRER product_id = #{productId}
+		             WHERE product_id = #{productId}
 	</update>
 	
 	<!-- 상품에 대한 대여정보 입력 -->

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.etoile.app.history.common.Paging;
 import com.etoile.app.history.service.HistoryService;
@@ -43,9 +45,10 @@ public class HistoryController {
 	}
 	//물품상태 업데이트
 	@RequestMapping("admin/historyUpdate")
-	public void historyUpdate(ProductVO vo) {
-		historyService.productUpdate(vo);
-		System.out.println(vo.getProductId());
+	@ResponseBody
+	public int historyUpdate(ProductVO vo) {
+		int n = historyService.productUpdate(vo);
+		return n;
 	}
 	
 	//물품이력 상세페이지

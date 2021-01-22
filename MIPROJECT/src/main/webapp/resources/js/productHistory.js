@@ -112,7 +112,7 @@ App = {
 
 					let trTag = $('<tr/>');
 					let record;
-					if (status == 'wait') {
+					if (status == 'waiting') {
 						record = '완료';
 					} else if (status == 'rental') {
 						record = '대여';

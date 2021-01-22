@@ -44,15 +44,30 @@
 
 <script type="text/javascript">
 	function changeStatus(tag) {
-		console.log(tag.id);
+		//저장해야할 정보를 각 가져옴
 		let selected = $('#'+tag.id+' option:selected').val();
-		console.log(selected);
-		let productId = $('#status').parent().prev().prev().text();
+		let productId = $('#'+tag.id).parent().prev().prev().text();
 		let today = new Date();
 		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-'
 				+ today.getDate();
+		
+		//블록체인에 내역 저장
 		App.setStatus(productId, selected, date);
-		//물품DB에 내역 저장
+		//물품DB에 상태 업데이트
+		$.ajax({
+			url : "historyUpdate", 
+			data : {
+				productId : productId,
+				productStatus : selected
+			}, 
+			type : "POST", 
+			success : function(result){
+			},
+			error : function(reject){
+				console.log(reject);
+			}
+
+		})
 		
 	}
 </script>
