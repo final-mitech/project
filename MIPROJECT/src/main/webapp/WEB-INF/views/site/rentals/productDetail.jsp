@@ -13,11 +13,13 @@
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
 	crossorigin="anonymous">
 <%
+	//날짜지정
 	Date date = new Date();
 	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 	String strdate = simpleDate.format(date);
 %>
 <script>
+	// 금액 실시간 반영
 $(document).ready( function() {
 	setViewTime = function (){
 		var getsDay = $("#startRental").val();
@@ -39,7 +41,7 @@ $(document).ready( function() {
 			$("#totalPay").html(${product.productRental });
 		}
 	}
-	setInterval('setViewTime()',1000);
+	setInterval('setViewTime()',100);
 });
 </script>
 </head>

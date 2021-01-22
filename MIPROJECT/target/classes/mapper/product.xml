@@ -5,12 +5,29 @@
 
 <mapper namespace="com.etoile.app.rental.mapper.RentalMapper">
 	
-	<select id="productList" resultType="productVO" parameterType="productVO">
-		SELECT * FROM PRODUCT
+	<select id="rentalProductList" resultType="productVO" parameterType="productVO">
+		SELECT b.* FROM (SELECT a.*, rownum rnum  FROM (
+		SELECT * FROM PRODUCT ) a ) b
+		where rnum between #{start} and #{end}
 	</select>
 	
-	<select id="productSelect" resultType="productVO">
+	<select id="productCnt" resultType="int">
+		SELECT count(*) from product
+		<where>
+			<if test="productName != null">
+				product_name like '%' || #{productName} || '%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="rentalProductSelect" resultType="productVO">
 		SELECT * FROM PRODUCT WHERE product_id = #{productId}
+	</select>
+	
+	<select id="searchList" resultType="productVO">
+		SELECT b.* FROM (SELECT a.*, rownum rnum  FROM (
+		SELECT * FROM PRODUCT WHERE product_name like '%' || #{productName} || '%' ) a ) b
+		where rnum between #{start} and #{end}
 	</select>
 	
 	<insert id="RentalInsert">

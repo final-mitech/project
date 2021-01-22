@@ -7,7 +7,9 @@ import com.etoile.app.vo.RentalVO;
 
 public interface RentalMapper {
 	
-	List<ProductVO> productList(ProductVO vo);
-	ProductVO productSelect(ProductVO vo);
+	List<ProductVO> rentalProductList(ProductVO vo);
+	ProductVO rentalProductSelect(ProductVO vo);
+	List<ProductVO> searchList(ProductVO vo);
 	int RentalInsert(RentalVO vo);
+	int productCnt(ProductVO vo);
 }
