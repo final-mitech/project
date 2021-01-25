@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +23,10 @@
 		<div>
 			<a href="#"> <img src="../images/main.png"
 				onclick="location.href='#'"></a>
-			<button style="float: right;" class="btn btn-outline-dark">signup</button>
-			<button style="float: right;" class="btn btn-outline-dark">login</button>
+			<c:if test="id eq null">
+				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='joinForm'">sign up</button>
+				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='loginForm'">login</button>
+			</c:if>
 		</div>
 		<div>
 			<nav class="navbar navbar-expand-md bg-dark navbar-dark" >

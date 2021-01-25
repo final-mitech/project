@@ -24,8 +24,8 @@
 	//아이디 중복체크
 	function idCheck() {
 		let id = $('#memberId').val();
-		console.log(id);
-		if (id != '' && $('#checked').val() == 0) {
+
+		if (id != '' && ($('#checked').val() == 0 || id != $('#checked').val())) {
 			$.ajax({
 				url : "idChecked",
 				data : {
@@ -35,7 +35,7 @@
 				success : function(result) {
 					if (result == 0) {
 						alert("아이디를 사용할 수 있습니다.");
-						$('#checked').val(1);
+						$('#checked').val(id);
 					} else {
 						alert("아이디를 사용할 수 없습니다.");
 					}
@@ -53,28 +53,56 @@
 		let checkedPwd = false;
 
 		//중복체크여부
-		if ($('#checked').val() == 1) {
+		if ($('#memberId').val() == $('#checked').val()) {
 			checkedId = true;
+		} else {
+			alert("중복 체크를 진행해주시기 바랍니다.");
 		}
-		console.log($('#password').val())
+
 		//비밀번호 일치여부
 		if ($('#password').val() != ''
 				&& $('#password').val() == $('#rePwd').val()) {
 			checkedPwd = true;
-		}
-		if (checkedId && checkedPwd) {
-			return true;
-		} else if (checkedPwd) {
-			alert("중복 체크를 진행해주시기 바랍니다.");
-			return false;
-		} else if (checkedId) {
+		} else {
 			alert("비밀번호가 일치하지 않습니다.");
-			return false;
 		}
 
-		return false;
+		console.log(checkedId, checkedPwd)
+		if (checkedId && checkedPwd) {
+			document.frm.submit();
+		}
 
 	}
+</script>
+
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("detailAddress").focus();
+            }
+        }).open();
+    }
 </script>
 </head>
 <body>
@@ -85,7 +113,8 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
-				<form action="#" method="POST" onsubmit="return inputCheck()">
+				<form id="frm" name="frm" action="memberInsert" method="POST"
+					onsubmit="return inputCheck()">
 					<!-- 아이디 -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
@@ -93,9 +122,9 @@
 							</span>
 						</div>
 						<input id="memberId" name="memberId" class="form-control"
-							placeholder="Id" type="text">
-						<button class="btn btn-secondary" onclick="idCheck()">중복체크</button>
-						<input id="checked" name="checked" vale="0" type="hidden">
+							placeholder="Id" type="text"> <input type="button"
+							class="btn btn-secondary" onclick="idCheck()" value="Check">
+						<input id="checked" name="checked" value="0" type="hidden">
 					</div>
 
 					<!-- 이름 -->
@@ -150,6 +179,41 @@
 					<div>
 						<input id="checkedPwd" name="checkedPwd" value="0" type="hidden">
 					</div>
+					<!-- 주소 -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-search"></i>
+							</span>
+						</div>
+						<input type="text" class="form-control" id="postcode" name="postcode" placeholder="우편번호">
+						<input type="button" class="btn btn-secondary" onclick="execDaumPostcode()" value="우편번호 찾기"><br> 
+
+					</div>
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-address-book"></i>
+							</span>
+						</div>
+						<input type="text" class="form-control" id="address" name="address" placeholder="주소"><br> 
+						<input type="text" class="form-control" id="detailAddress" name="detailAddress" placeholder="상세주소">
+					</div>
+					<!-- 회원 구분 -->
+					
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-id-badge"></i>
+							</span>
+						</div>
+						<div class="form-check form-check-inline">&nbsp;&nbsp;&nbsp;
+						  <input class="form-check-input" type="radio" name="grade" id="visit" value="visit">
+						  <label class="form-check-label" for="visit">개인회원</label>
+						</div>
+						<div class="form-check form-check-inline">&nbsp;&nbsp;&nbsp;
+						  <input class="form-check-input" type="radio" name="grade" id="business" value="business">
+						  <label class="form-check-label" for="business">기업회원</label>
+						</div>
+					</div>
+					
 					<!-- 전송버튼 -->
 					<div class="form-group">
 						<button type="submit" class="btn btn-dark btn-block">
@@ -158,7 +222,7 @@
 
 					<!-- 로그인 버튼 -->
 					<p class="text-center">
-						Have an account? <a href="">Log In</a>
+						Have an account? <a href="loginForm">Log In</a>
 					</p>
 				</form>
 			</div>
