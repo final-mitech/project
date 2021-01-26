@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoile.app.member.mapper.MemberMapper">
+	<!-- 회원 전체 조회 -->
+	<select id="memberList" resultType="MemberVO">
+		SELECT member_id,
+			   password,
+			   name,
+			   phone,
+			   email,
+			   address,
+			   grade
+		  FROM member
+		<where>
+			<if test="grade != null and grade !=''">grade = #{grade}</if>
+		</where>
+	</select>
+	
+	<!-- 회원 상세 조회 -->
+	<select id="memberSelect" resultType="MemberVO">
+		SELECT member_id,
+			   password,
+			   name,
+			   phone,
+			   email,
+			   address,
+			   grade
+		  FROM member
+		 WHERE member_id = #{memberId}
+	</select>
+	
+	<!-- 회원 등록 -->
+	<insert id="memberInsert">
+		INSERT INTO member (member_id,
+			   				password,
+			   				name,
+			   				phone,
+			   				email,
+			   				address,
+			   				grade)
+			   		 VALUES (#{memberID},
+			   		 		 #{password},
+			   		 		 #{name},
+			   		 		 #{phone},
+			   		 		 #{email},
+			   		 		 #{address},
+			   		 		 #{grade})
+	</insert>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="memberUpdate">
+		UPDATE member 
+			<set>
+				<if test="password != null">password = #{password}</if>
+				<if test="phone != null">phone = #{phone}</if>
+				<if test="email != null">email = #{email}</if>
+				<if test="address != null">address = #{address}</if>
+				<if test="grade != null">grade = #{grade}</if>
+			</set>
+			WHERE member_id = #{memberId}
+	</update>
+	
+	<!-- 아이디 중복여부 체크 -->
+	<select id="idChecked" resultType="Integer">
+		SELECT count(*)
+		  FROM member
+		 WHERE member_id = #{memberId}
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="login" resultType="Integer">
+		SELECT count(*)
+		  FROM member
+		 WHERE member_id = #{memberId}
+		   AND password = #{password}
+	</select>
+	
+	<!-- 페이징을 위한 멤버 카운트 -->
+	<select id="memberCount" resultType="Integer">
+		SELECT count(*)
+		  FROM member
+		<where>
+			<if test="grade != null and grade !=''">grade = #{grade}</if>
+		</where>
+	</select>
+</mapper>

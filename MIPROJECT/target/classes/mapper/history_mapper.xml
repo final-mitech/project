@@ -20,7 +20,7 @@
 		    <!-- 상품 상태별 조회 시 -->
 		  	<if test="productStatus !=null and productStatus!=''"> product_status = #{productStatus}</if>
 		  	<!-- 당사 보유 제품 및 협찬 제품 조회 시 -->
-		  	<if test="ppl !=null and ppl!=''"> ppl = #{ppl}</if>
+		  	<if test="ppl !=null and ppl!=''">AND ppl = #{ppl}</if>
 		  </where>  
 	) b ) a WHERE rn BETWEEN #{start} AND #{end}
 	</select>
@@ -120,7 +120,7 @@
 		    <!-- 상품 상태별 조회 시 -->
 		  	<if test="productStatus !=null and productStatus!=''"> product_status = #{productStatus}</if>
 		  	<!-- 당사 보유 제품 및 협찬 제품 조회 시 -->
-		  	<if test="ppl !=null and ppl!=''"> ppl = #{ppl}</if>
+		  	<if test="ppl !=null and ppl!=''">AND ppl = #{ppl}</if>
 		  </where>  
 	</select>
 </mapper>

@@ -8,6 +8,6 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String home() {
-		return "redirect:/admin/historyList";
+		return "redirect:site/joinForm";
 	}
 }
