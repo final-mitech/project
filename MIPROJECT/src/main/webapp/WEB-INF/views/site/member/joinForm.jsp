@@ -205,11 +205,11 @@
 							</span>
 						</div>
 						<div class="form-check form-check-inline">&nbsp;&nbsp;&nbsp;
-						  <input class="form-check-input" type="radio" name="grade" id="visit" value="visit">
+						  <input class="form-check-input" type="radio" name="grade" id="visit" value="VISIT">
 						  <label class="form-check-label" for="visit">개인회원</label>
 						</div>
 						<div class="form-check form-check-inline">&nbsp;&nbsp;&nbsp;
-						  <input class="form-check-input" type="radio" name="grade" id="business" value="business">
+						  <input class="form-check-input" type="radio" name="grade" id="business" value="BUSINESS">
 						  <label class="form-check-label" for="business">기업회원</label>
 						</div>
 					</div>

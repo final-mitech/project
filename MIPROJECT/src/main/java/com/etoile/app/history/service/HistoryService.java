@@ -2,6 +2,7 @@ package com.etoile.app.history.service;
 
 import java.util.List;
 
+import com.etoile.app.vo.CouponVO;
 import com.etoile.app.vo.ProductVO;
 import com.etoile.app.vo.RentalVO;
 
@@ -22,4 +23,5 @@ public interface HistoryService {
 	int productDelete(ProductVO vo);
 	//총 상품량 조회
 	int productCount(ProductVO vo);
+	
 }

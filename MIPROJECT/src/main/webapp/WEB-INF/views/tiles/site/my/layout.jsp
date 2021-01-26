@@ -6,24 +6,16 @@
 <html>
 <head>
 <style>
-nav {
+
+#side {
 	float: left;
-	max-width: 160px;
+	max-width: 190px;
 	margin: 0;
 	padding: 1em;
 }
 
-nav ul {
-	list-style-type: none;
-	padding: 0;
-}
-
-nav ul a {
-	text-decoration: none;
-}
-
 article {
-	margin-left: 170px;
+	margin-left: 200px;
 	padding: 1em;
 	overflow: hidden;
 	min-height: 400px;
@@ -31,13 +23,12 @@ article {
 
 </style>
 </head>
-
 <body>
 	<div class="container">
 		<header>
 			<tiles:insertAttribute name="header" />
 		</header>
-		<nav>
+		<nav id="side">
 			<tiles:insertAttribute name="nav" />
 		</nav>
 		<article>

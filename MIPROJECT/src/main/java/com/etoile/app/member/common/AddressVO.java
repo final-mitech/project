@@ -1,4 +1,4 @@
-package com.etoile.app.vo;
+package com.etoile.app.member.common;
 
 import lombok.Data;
 
