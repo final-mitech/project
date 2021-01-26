@@ -1,14 +1,19 @@
 package com.etoile.app.member.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.etoile.app.member.common.AddressVO;
 import com.etoile.app.member.service.MemberService;
-import com.etoile.app.vo.AddressVO;
+import com.etoile.app.vo.CouponVO;
+import com.etoile.app.vo.GradeVO;
 import com.etoile.app.vo.MemberVO;
 
 @Controller
@@ -34,9 +39,21 @@ public class MemberController {
 	@RequestMapping("site/memberInsert")
 	public String memberInsert(MemberVO vo, AddressVO addr) {
 		//주소 처리
-		String address = "("+ addr.getPostcode() +") " + addr.getAddress() + " " + addr.getDetailAddress();
+		String address = "("+ addr.getPostcode() +") " + addr.getAddress() + ", " + addr.getDetailAddress();
 		vo.setAddress(address);
-
+		
+		//각 등급별 쿠폰정보 조회 및 쿠폰테이블에 입력
+		GradeVO grade = memberService.gradeCoupon(vo.getGrade());
+		String[] benefit = grade.getGradeBenefit().split("%");
+		for(String str : benefit) {
+			CouponVO coupon = new CouponVO();
+			coupon.setMemberId(vo.getMemberId());
+			coupon.setCouponSort(vo.getGrade());
+			coupon.setGradeCoupon(Integer.parseInt(str));
+			coupon.setCouponUsed(0);
+			memberService.couponInsert(coupon);
+		}
+		
 		memberService.memberInsert(vo);
 		return "site/member/joinFormResult";
 	}
@@ -60,14 +77,41 @@ public class MemberController {
 	public String login(MemberVO vo, HttpServletRequest request) {
 		//세션에 값 담기
 		request.getSession().setAttribute("id", vo.getMemberId());
-		return "";
+		return "redirect:/";
 	}
 		
 	//로그아웃
 	@RequestMapping("site/logout")
 	public String logout(MemberVO vo, HttpServletRequest request) {
 		//세션에 담긴 값 삭제하기
-		request.getSession().removeAttribute("id");
-		return "";
+		request.getSession().invalidate();
+		return "redirect:/";
+	}
+	
+	//고객 상세정보
+	@RequestMapping("site/memberInfo")
+	public String memberInfo(HttpServletRequest request, Model model) {
+		String id = (String) request.getSession().getAttribute("id");
+		MemberVO vo = memberService.memberSelect(id);
+		model.addAttribute("info", vo);
+		return "site/my/memberInfo";
+		
+	}
+	
+	//고객 쿠폰내역 조회
+	@RequestMapping("site/couponInfo")
+	public String couponInfo(HttpServletRequest request, Model model) {
+		//고객 정보 조회
+		String id = (String) request.getSession().getAttribute("id");
+		MemberVO vo = memberService.memberSelect(id);
+		model.addAttribute("info", vo);
+		
+		//고객 쿠폰내역 조회
+		CouponVO coupon = new CouponVO();
+		coupon.setMemberId(id);
+		List<CouponVO> list = memberService.couponList(coupon);
+		model.addAttribute("coupon", list);
+		
+		return "site/my/memberCoupon";
 	}
 }

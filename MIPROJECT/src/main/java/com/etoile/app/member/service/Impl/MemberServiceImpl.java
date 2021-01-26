@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.etoile.app.member.mapper.MemberMapper;
 import com.etoile.app.member.service.MemberService;
+import com.etoile.app.vo.CouponVO;
+import com.etoile.app.vo.GradeVO;
 import com.etoile.app.vo.MemberVO;
 
 @Service("memberService")
@@ -21,8 +23,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberVO memberSelect(MemberVO vo) {
-		return dao.memberSelect(vo);
+	public MemberVO memberSelect(String id) {
+		return dao.memberSelect(id);
 	}
 
 	@Override
@@ -49,5 +51,32 @@ public class MemberServiceImpl implements MemberService{
 	public int memberCount(MemberVO vo) {
 		return dao.memberCount(vo);
 	}
+
+	@Override
+	public GradeVO gradeCoupon(String grade) {
+		return dao.gradeCoupon(grade);
+	}
+	
+	@Override
+	public List<CouponVO> couponList(CouponVO vo) {
+		return dao.couponList(vo);
+	}
+
+	@Override
+	public int couponInsert(CouponVO vo) {
+		return dao.couponInsert(vo);
+	}
+
+	@Override
+	public int couponUpdate(CouponVO vo) {
+		return dao.couponUpdate(vo);
+	}
+
+	@Override
+	public int couponDelete(CouponVO vo) {
+		return dao.couponDelete(vo);
+	}
+
+
 
 }

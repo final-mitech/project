@@ -19,9 +19,9 @@ function result(){
 	let id = $('#id').val();
 	let pwd = $('#password').val();
 	$.ajax({
-		url : "loginResult",
+		url : "/etoile/admin/loginResult",
 		data : {
-			memberId : id,
+			id : id,
 			password : pwd
 		},
 		type : "POST",
@@ -45,13 +45,13 @@ function result(){
 		<div class="row mt-3">
 			<div class="col-3"></div>
 			<div class="col-6">
-				<form id="frm" name="frm" method="post" action="login">
+				<form id="frm" name="frm" method="post" action="/etoile/admin/login">
 					<div class="row mb-3">
 						<div class="col-3">
 							<label for="id" class="form-label">Id</label>
 						</div>
 						<div class="col-9">
-							<input type="text" class="form-control" name="memberId" id="id">
+							<input type="text" class="form-control" name="id" id="id">
 						</div>
 					</div>
 					<div class="row">
@@ -64,8 +64,7 @@ function result(){
 						</div>
 					</div>
 					<div class="mb-3 form-check"></div>
-					<input type="button" id="submitBtn" onclick="result()"class="btn btn-dark" value="Login">&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" class="btn btn-dark" value="Register" onclick="location.href='joinForm'">
+					<input type="button" id="submitBtn" onclick="result()"class="btn btn-dark" value="Login">
 				</form>
 			</div>
 			<div class="col-3"></div>
