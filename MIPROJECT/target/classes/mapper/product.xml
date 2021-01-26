@@ -19,6 +19,9 @@
 			</if>
 		</where>
 	</select>
+	<select id="rentalList" resultType="RentalVO">
+		select * from rental r, product p where p.product_id = r.product_id
+	</select>
 	
 	<select id="rentalProductSelect" resultType="productVO">
 		SELECT * FROM PRODUCT WHERE product_id = #{productId}
@@ -31,8 +34,20 @@
 	</select>
 	
 	<insert id="RentalInsert">
-		insert into rental(product_id, rental_start, rental_end, rental_address, rental_pay)
-		values (#{productId}, #{rentalStart}, #{rentalEnd}, #{rentalAddress}, #{rentalPay})
+		insert into rental(rental_id, product_id, rental_start, rental_end, rental_address, rental_pay)
+		values (r_seq.nextval, #{productId}, #{rentalStart}, #{rentalEnd}, #{rentalAddress}, #{rentalPay})
 	</insert>
+	
+	<select id="selectPick" resultType="int">
+		select count(*) from pick where product_id like #{productId}
+	</select>
+	
+	<insert id="productPickInsert">
+		insert into pick (pick_id, product_id) values (pi_seq.nextval, #{productId})
+	</insert>
+	
+	<delete id="pickDelete">
+		delete from pick where product_id like #{productId}
+	</delete>
 
 </mapper>

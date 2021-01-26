@@ -22,4 +22,5 @@ public interface HistoryMapper {
 	int productDelete(ProductVO vo);
 	//총 상품량 조회
 	int productCount(ProductVO vo);
+	
 }

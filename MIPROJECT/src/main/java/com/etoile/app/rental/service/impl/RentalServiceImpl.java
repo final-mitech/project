@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.etoile.app.rental.mapper.RentalMapper;
 import com.etoile.app.rental.service.RentalService;
+import com.etoile.app.vo.PickVO;
 import com.etoile.app.vo.ProductVO;
 import com.etoile.app.vo.RentalVO;
 
@@ -37,7 +38,21 @@ public class RentalServiceImpl implements RentalService {
 	public int productCnt(ProductVO vo) {
 		return dao.productCnt(vo);
 	}
-	
-	
+	@Override
+	public int productPickInsert(PickVO vo) {
+		return dao.productPickInsert(vo);
+	}
+	@Override
+	public List<RentalVO> rentalList(RentalVO vo) {
+		return dao.rentalList(vo);
+	}
+	@Override
+	public int selectPick(PickVO vo) {
+		return dao.selectPick(vo);
+	}
+	@Override
+	public int pickDelete(PickVO vo) {
+		return dao.pickDelete(vo);
+	}
 	
 }

@@ -16,26 +16,29 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/font-awesome.min.css">
 	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <style type="text/css">
-a {
+/* 최신.인기순정렬버튼 */
+#sort a {
 	text-decoration: none;
 	color: #999999;
 }
 
-a:hover {
+#sort a:hover {
 	text-decoration: none;
 	color: #999999;
 }
-a:active {
+#sort a:active {
 	text-decoration: none;
 	color: #666666;
 }
-input {
+/* 검색어입력칸 */
+#frm input {
 	float: left;
 	BORDER-BOTTOM: 1px solid;
 	BORDER-LEFT: medium none;
 	BORDER-RIGHT: medium none;
 	BORDER-TOP: medium none;
 }
+/* 돋보기버튼 */
 button {
 	 border: none;
 	 background-color: white;
@@ -50,32 +53,11 @@ button {
 		location.href='productList.do?page='+page;
 	}
 	
-	function changePick(){
-		$.ajax({
-			url : "pickUp.do",
-			data : "memberId=" + memberId,
-			type: "post",
-			success : function(data) {
-				var result = JSON.parse(data);
-				if (result.status == 404) {
-					$('#btn-pick>i').attr('class','far fa-heart fa-2x');
-				} else {
-					$('#btn-pick>i').attr('class','fas fa-heart fa-2x');
-				}
-				
-			}
-			error : function() {
-				alert("에러");
-			}
-			
-		})
-		
-	}
 </script>
 </head>
 <body>
 	<div class="container">
-		<div>
+		<div id="sort">
 			<a href="#">최신순</a> <a href="#">인기순</a>
 		</div>
 	</div>
@@ -83,7 +65,7 @@ button {
 	<div class="container">
 		<div class="row">
 			<c:forEach var="list" items="${list }">
-				<div class="col-lg-3 mb-1" style="height:500px">
+				<div class="col-lg-3 mb-1" style="height:450px">
 					<div class="card" id="product-card" style="position: relative;"
 						onclick="location.href='productDetail.do?productId=${list.productId }'">
 						<div class="card-header" style="height:300px; border:0px; background-color:white;">
@@ -94,11 +76,6 @@ button {
 						</div>
 						<div class="card-footer" style="border:0px; background-color:white;">
 							<p class="card-text" style="float:left;">${list.productRental }</p>
-							<div style="float:right;" onclick="event.cancelBubble=true;">
-								<button type="button" id="btn-pick">
-									<i class="far fa-heart fa-2x" style="color:red;" ></i>
-								</button>
-							</div>
 						</div>
 					</div>
 				</div>
