@@ -25,6 +25,10 @@ input {
 	BORDER-RIGHT: medium none;
 	BORDER-TOP: medium none;
 }
+
+input:focus {
+	outline: none;
+}
 </style>
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -67,9 +71,23 @@ input {
 		}).open();
 	}
 </script>
+<script>
+$(function() {
+		var dday = new Date(${rentalStart}).getTime();
+		var now = new Date(${rentalEnd}).getTime();
+		var distance = dday - now + 1;
+		document.getElementById("renDay").value = distance;
+		document.getElementById("rentalPay").value = distance * ${product.productRental};
+})
+</script>
 <script type="text/javascript">
 	$(function() {
 		$("#rental_pay").click(function() {
+			var rentalPay = document.getElementById("rentalPay").value;
+			var rentalName= document.getElementById('rentalName').value;
+			var rentalEmail = document.getElementById('email').value;
+			var renTalAddress = document.getElementById('address').value;
+			var renTalPostcode = document.getElementById('postcode').value;
 			IMP.init('imp74103314');
 			IMP.request_pay({
 				pg : 'inicis',
@@ -77,34 +95,30 @@ input {
 				merchant_uid : 'merchant_' + new Date().getTime(),
 				name : '주문명:결제테스트',
 				//결제창에서 보여질 이름
-				amount : 10000,
+				amount : rentalPay,
 				//가격
-				buyer_email : 'iamport@siot.do',
-				buyer_name : '구매자이름',
-				buyer_tel : '010-1234-5678',
-				buyer_addr : document.getElementById('address').value,
-				buyer_postcode : '123-456',
+				buyer_email : rentalEmail,
+				buyer_name : rentalName,
+				buyer_tel : "010-1234-1234",
+				buyer_addr : renTalAddress,
+				buyer_postcode : renTalPostcode,
 				m_redirect_url : 'ProductList.do'
 			}, function(rsp) {
 				console.log(rsp);
 				if (rsp.success) {
 					var msg = '결제가 완료되었습니다.';
+					//결제 성공시 상품리스트로 이동
+					$("#frm").submit();
 				} else {
 					var msg = '결제에 실패하였습니다.';
 				}
 				alert(msg);
+				
 			});
 		});
 	})
 </script>
-<script>
-$(function() {
-		var dday = new Date(${startRental}).getTime();
-		var now = new Date(${endRental}).getTime();
-		var distance = dday - now + 1;
-		document.getElementById("renDay").value = distance;
-})
-</script>
+
 
 </head>
 <body>
@@ -127,37 +141,67 @@ $(function() {
 			</table>
 		</div>
 		<hr>
+		<form id="frm" action="RentalInsert.do">
 		<div class="row">
+		<input type="hidden" name="productId" value="${product.productId }"> 
 			<div class="col-8">
 				<br> <br> <br> <br>
 				<table align="center">
 					<tr>
 						<th width="200px" style="font-size: 15px;">대여자 명</th>
-						<td width="400px"><input type="text" style="float: left;"
-							size="50">
+						<td width="400px" colspan="2">
+							<input type="text" style="float: left;" id="rentalName" name="rentalName" value="${name }" size="50">
+						</td>
 					</tr>
 					<tr>
-						<th width="200px" style="font-size: 15px;">대여 일수</th>
-						<td width="400px"><input type="text" id="renDay" name="renDay" style="float: left;"
-							size="50">
+						<th width="200px" style="font-size: 15px;">연락처</th>
+						<td width="400px" colspan="2">
+							<input type="text" id="phone" name="phone" style="float: left;" size="50">
+						</td>
 					</tr>
 					<tr>
 						<th width="200px" style="font-size: 15px;" rowspan="4">주소</th>
-						<td width="400px"><input type="text" id="postcode" size="10"
-							placeholder="우편번호" readonly>
-						<button onclick="PostCode()" style="float: left">검색</button>
+						<td width="100px">
+							<input type="text" id="postcode" size="10" placeholder="우편번호" readonly>
+						</td>
+						<td>
+							<button type="button" onclick="PostCode()" style="float: left">검색</button>
+						</td>
 					</tr>
 					<tr>
-						<td><input type="text" id="address" size="50"
-							placeholder="주소" readonly /></td>
+						<td colspan="2">
+							<input type="text" id="address" size="50" placeholder="주소" readonly />
+						</td>
 					</tr>
 					<tr>
-						<td><input type="text" id="detailAddress" size="50"
-							placeholder="상세주소"></td>
+						<td colspan="2">
+							<input type="text" id="detailAddress" size="50" placeholder="상세주소">
+						</td>
 					</tr>
 					<tr>
-						<td><input type="text" id="extraAddress" size="50"
-							placeholder="참고항목" readonly></td>
+						<td colspan="2"><input type="text" id="extraAddress"
+							size="50" placeholder="참고항목" readonly></td>
+					</tr>
+					<tr>
+						<th width="200px" style="font-size: 15px;">대여 일수</th>
+						<td width="400px" colspan="2"><input type="text" id="renDay"
+							name="renDay" style="float: left;" size="50" readonly></td>
+					</tr>
+					<tr>
+						<th width="200px" style="font-size: 15px;">대여 일</th>
+						<td width="180px">start <input type="text" id="rentalStart"
+							name="rentalStart" value="${rentalStart }" size="15"
+							style="float: none;" readonly>
+						</td>
+						<td width="180px">end <input type="text" id="rentalEnd" name="rentalEnd"
+							value="${rentalEnd }" size="15" style="float: none;" readonly>
+						</td>
+					</tr>
+					<tr>
+						<th width="200px" style="font-size: 15px;">EMail</th>
+						<td width="400px" colspan="2"><input type="text"
+							style="float: left;" id="email" name="email" value="${email }"
+							size="50">
 					</tr>
 				</table>
 			</div>
@@ -168,7 +212,13 @@ $(function() {
 						<th style="font-size: 15px;">결제 금액</th>
 					</tr>
 					<tr>
-						<th style="font-size: 18px; vertical-align: top;" height="50px">${product.productRental }</th>
+						<th style="font-size: 18px; vertical-align: top;" height="50px">
+							<input type="text" id="rentalPay" name="rentalPay"
+							style="font-size: 18px; font-weight: bold; text-align: center; BORDER-BOTTOM: none;">
+						</th>
+					</tr>
+					<tr>
+						<th style="font-size: 13px;">쿠폰적용</th>
 					</tr>
 					<tr>
 						<th style="font-size: 13px;">총 상품금액</th>
@@ -179,8 +229,8 @@ $(function() {
 					</tr>
 				</table>
 			</div>
-
 		</div>
+		</form>
 	</div>
 </body>
 </html>

@@ -14,4 +14,6 @@ public class RentalVO {
 	private int rentalPrice;
 	private String rentalAddress;
 	private String rentalPay;
+	private String productImage;
+	private String productName;
 }
