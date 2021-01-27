@@ -48,10 +48,15 @@ public class RentalController {
 		int n = rentalService.RentalInsert(vo);
 		String rentalEnd = httpServletRequest.getParameter("rentalEnd");
 		String rentalStart = httpServletRequest.getParameter("rentalStart");
+		String address = httpServletRequest.getParameter("address");
+		String detailAddress = httpServletRequest.getParameter("detailAddress");
+		String rental_address = address + detailAddress;
 		if (n != 0) {
 			model.addAttribute("rentalEnd", rentalEnd);
 			model.addAttribute("rentalStart", rentalStart);
-			viewPath = "redirect:MyPageRental.do";
+			model.addAttribute("address", address);
+			model.addAttribute("rental_address", rental_address);
+			viewPath = "redirect:rentalList.do";
 		}
 		return viewPath;
 	}
@@ -71,9 +76,9 @@ public class RentalController {
 	 }
 	 
 
-	// 마이페이지-rental 메인
-	@RequestMapping("/site/MyPageRental.do")
-	public String MyRentalList(RentalVO vo1, Model model, HttpServletRequest httpServletRequest) {
+	// 마이페이지-rental 메인 (결제완료시 자동이동)
+	@RequestMapping("/site/rentalList.do")
+	public String rentalList(RentalVO vo1, Model model, HttpServletRequest httpServletRequest) {
 		String rentalEnd = httpServletRequest.getParameter("rentalEnd");
 		String rentalStart = httpServletRequest.getParameter("rentalStart");
 		String rentalPay = httpServletRequest.getParameter("totalPay");
@@ -83,7 +88,23 @@ public class RentalController {
 		model.addAttribute("rentalStart", rentalStart);
 		model.addAttribute("rentalPay", rentalPay);
 
-		return "site/rentals/MypageRental";
+		return "site/my/MypageRental";
+	}
+	
+	//마이페이지-rental (마이페이지에서 rental버튼 클릭시)
+	@RequestMapping("/site/MypageRental.do")
+	public String MypageRental(RentalVO vo, Model model) {
+		List<RentalVO> rentalList = rentalService.rentalList(vo);
+		model.addAttribute("list",rentalList);
+		return "site/my/MypageRental";
+	}
+	
+	//마이페이지-pick (마이페이지에서 pick버튼 클릭)
+	@RequestMapping("/site/pickList.do")
+	public String pickList(PickVO vo, Model model) {
+		List<PickVO> pickList = rentalService.pickList(vo);
+		model.addAttribute("list", pickList);
+		return "site/my/mypagePick";
 	}
 	
 	//pick테이블에서 조회

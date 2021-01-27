@@ -20,7 +20,8 @@
 		</where>
 	</select>
 	<select id="rentalList" resultType="RentalVO">
-		select * from rental r, product p where p.product_id = r.product_id
+		select * from rental r, product p
+		where p.product_id = r.product_id
 	</select>
 	
 	<select id="rentalProductSelect" resultType="productVO">
@@ -33,6 +34,11 @@
 		where rnum between #{start} and #{end}
 	</select>
 	
+	<select id="pickList" resultType="pickVO">
+		SELECT * from product pr, pick pi
+		where pr.product_id = pi.product_id
+	</select>
+		
 	<insert id="RentalInsert">
 		insert into rental(rental_id, product_id, rental_start, rental_end, rental_address, rental_pay)
 		values (r_seq.nextval, #{productId}, #{rentalStart}, #{rentalEnd}, #{rentalAddress}, #{rentalPay})

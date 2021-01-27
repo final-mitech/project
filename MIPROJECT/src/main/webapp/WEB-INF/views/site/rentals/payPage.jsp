@@ -88,12 +88,13 @@ $(function() {
 			var rentalEmail = document.getElementById('email').value;
 			var renTalAddress = document.getElementById('address').value;
 			var renTalPostcode = document.getElementById('postcode').value;
+			var ProductName = document.getElementById('productName').value;
 			IMP.init('imp74103314');
 			IMP.request_pay({
 				pg : 'inicis',
 				pay_method : 'card',
 				merchant_uid : 'merchant_' + new Date().getTime(),
-				name : '주문명:결제테스트',
+				name : ProductName,
 				//결제창에서 보여질 이름
 				amount : rentalPay,
 				//가격
@@ -144,8 +145,9 @@ $(function() {
 		<form id="frm" action="RentalInsert.do">
 		<div class="row">
 		<input type="hidden" name="productId" value="${product.productId }"> 
+		<input type="hidden" id="productName" name="productName" value="${product.productName }"> 
 			<div class="col-8">
-				<br> <br> <br> <br>
+				<br>
 				<table align="center">
 					<tr>
 						<th width="200px" style="font-size: 15px;">대여자 명</th>
