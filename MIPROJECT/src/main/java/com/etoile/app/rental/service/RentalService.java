@@ -12,6 +12,7 @@ public interface RentalService {
 	ProductVO rentalProductSelect(ProductVO vo);
 	List<ProductVO> searchList(ProductVO vo);
 	List<RentalVO> rentalList(RentalVO vo);
+	List<PickVO> pickList(PickVO vo);
 	int selectPick(PickVO vo);
 	int RentalInsert(RentalVO vo);
 	int productCnt(ProductVO vo);

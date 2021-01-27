@@ -54,5 +54,9 @@ public class RentalServiceImpl implements RentalService {
 	public int pickDelete(PickVO vo) {
 		return dao.pickDelete(vo);
 	}
+	@Override
+	public List<PickVO> pickList(PickVO vo) {
+		return dao.pickList(vo);
+	}
 	
 }
