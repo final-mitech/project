@@ -22,11 +22,11 @@
 	<c:if test="${admin ne null and admin ne '' }">
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item"><a href="">고객정보관리</a></li>
-			<li class="list-group-item"><a href="">물품관리</a></li>
+			<li class="list-group-item"><a href="/etoile/admin/historyList.a">물품관리</a></li>
 			<li class="list-group-item"><a href="">대여관리</a></li>
 			<li class="list-group-item"><a href="">경매관리</a></li>
 			<li class="list-group-item"><a href="">펀딩관리</a></li>
-			<li class="list-group-item"><a href="/etoile/admin/logout">로그아웃</a></li>	
+			<li class="list-group-item"><a href="/etoile/admin/logout.a">로그아웃</a></li>	
 	</ul>
 	</c:if>
 </body>

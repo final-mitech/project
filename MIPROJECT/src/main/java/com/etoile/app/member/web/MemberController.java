@@ -81,7 +81,7 @@ public class MemberController {
 	}
 		
 	//로그아웃
-	@RequestMapping("site/logout")
+	@RequestMapping("site/logout.do")
 	public String logout(MemberVO vo, HttpServletRequest request) {
 		//세션에 담긴 값 삭제하기
 		request.getSession().invalidate();
@@ -89,7 +89,7 @@ public class MemberController {
 	}
 	
 	//고객 상세정보
-	@RequestMapping("site/memberInfo")
+	@RequestMapping("site/memberInfo.do")
 	public String memberInfo(HttpServletRequest request, Model model) {
 		String id = (String) request.getSession().getAttribute("id");
 		MemberVO vo = memberService.memberSelect(id);
@@ -99,7 +99,7 @@ public class MemberController {
 	}
 	
 	//고객 쿠폰내역 조회
-	@RequestMapping("site/couponInfo")
+	@RequestMapping("site/couponInfo.do")
 	public String couponInfo(HttpServletRequest request, Model model) {
 		//고객 정보 조회
 		String id = (String) request.getSession().getAttribute("id");

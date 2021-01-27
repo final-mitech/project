@@ -21,18 +21,18 @@
 <script>
 	function changeSort() {
 		let selected = $('#sort').val();
-		console.log(selected);
+
 		if (selected == 'all') {
-			location.href = '/etoile/admin/pplList.a';
+			location.href = '/etoile/admin/historyList.a';
 		} else {
-			location.href = '/etoile/admin/pplList.a?productStatus='
+			location.href = '/etoile/admin/historyList.a?productStatus='
 					+ selected;
 		}
 
 	}
 
 	function goList(page) {
-		location.href = '/etoile/admin/pplList.a?page=' + page;
+		location.href = '/etoile/admin/historyList.a?page=' + page;
 	}
 </script>
 <script
@@ -55,7 +55,7 @@
 		App.setStatus(productId, selected, date);
 		//물품DB에 상태 업데이트
 		$.ajax({
-			url : "historyUpdate", 
+			url : "historyUpdate.a", 
 			data : {
 				productId : productId,
 				productStatus : selected
@@ -76,21 +76,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-9">
-				<a href="historyList.a">물품리스트</a>
+				<a href="#">개인회원</a>
 				<a>&nbsp;|&nbsp;</a>
-				<a href="pplList.a">협찬리스트</a>
+				<a href="#">기업회원</a>
 			</div>
 			<div class="col-3">
 				<select id="sort" class="form-control" onchange="changeSort()">
 					<option value="all" <c:if test="${sort eq 'all'}"> selected </c:if>>ALL</option>
-					<option value="waiting"
-						<c:if test="${sort eq 'waiting'}"> selected </c:if>>대기중</option>
-					<option value="rental"
-						<c:if test="${sort eq 'rental'}"> selected </c:if>>대여중</option>
-					<option value="wash"
-						<c:if test="${sort eq 'wash'}"> selected </c:if>>세탁중</option>
-					<option value="repair"
-						<c:if test="${sort eq 'repair'}"> selected </c:if>>수선중</option>
+					<option value="VISIT"
+						<c:if test="${sort eq 'VISIT'}"> selected </c:if>>VISIT</option>
+					<option value="VIP"
+						<c:if test="${sort eq 'VIP'}"> selected </c:if>>VIP</option>
+					<option value="VVIP"
+						<c:if test="${sort eq 'VVIP'}"> selected </c:if>>VVIP</option>
 				</select>
 			</div>
 		</div>
@@ -98,34 +96,18 @@
 			<table class="table table-striped table-hover text-center">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col-4">NO</th>
-						<th scope="col-4">PRODUCT</th>
-						<th scope="col-4">STATUS</th>
+						<th scope="col-4">NAME</th>
+						<th scope="col-4">ID</th>
+						<th scope="col-4">GRADE</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="product" items="${list }">
+					<c:forEach var="member" items="${list }">
 						<tr
-							onclick="location.href='productSelect.a?productId=${product.productId }'">
+							onclick="location.href='productSelect.a?productId=${member.productId }'">
 							<th scope="row">${product.productId }</th>
 							<td>${product.productName }</td>
-							<td onclick="event.cancelBubble=true"><c:if
-									test="${product.productStatus eq 'rental' and product.productStatus ne null}">
-									<select class="form-control">
-										<option value="rental" selected>대여중</option>
-									</select>
-								</c:if> <c:if
-									test="${product.productStatus ne 'rental' and product.productStatus ne null}">
-									<select id="status${product.productId }" class="form-control"
-										onchange="changeStatus(this)">
-										<option value="waiting"
-											<c:if test="${product.productStatus eq 'waiting'}"> selected </c:if>>대기중</option>
-										<option value="wash"
-											<c:if test="${product.productStatus eq 'wash'}"> selected </c:if>>세탁중</option>
-										<option value="repair"
-											<c:if test="${product.productStatus eq 'repair'}"> selected </c:if>>수선중</option>
-									</select>
-								</c:if></td>
+							<td>${product.productName }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

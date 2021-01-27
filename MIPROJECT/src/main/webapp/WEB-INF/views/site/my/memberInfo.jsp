@@ -19,8 +19,8 @@
 <body>
 	<div class="container">
 		<div class="row">
-		<button type="button" class="btn btn-light" onclick="location.href='/etoile/site/memberInfo'">My Detail Info</button>
-		<button type="button" class="btn btn-light" onclick="location.href='/etoile/site/couponInfo'">My Coupon</button>
+		<button type="button" class="btn btn-light" onclick="location.href='/etoile/site/memberInfo.do'">My Detail Info</button>
+		<button type="button" class="btn btn-light" onclick="location.href='/etoile/site/couponInfo.do'">My Coupon</button>
 		</div>
 		<div class="row mt-3">
 			<table class="table">

@@ -23,16 +23,16 @@
 		let selected = $('#sort').val();
 
 		if (selected == 'all') {
-			location.href = '/etoile/admin/historyList';
+			location.href = '/etoile/admin/historyList.a';
 		} else {
-			location.href = '/etoile/admin/historyList?productStatus='
+			location.href = '/etoile/admin/historyList.a?productStatus='
 					+ selected;
 		}
 
 	}
 
 	function goList(page) {
-		location.href = '/etoile/admin/historyList?page=' + page;
+		location.href = '/etoile/admin/historyList.a?page=' + page;
 	}
 </script>
 <script
@@ -55,7 +55,7 @@
 		App.setStatus(productId, selected, date);
 		//물품DB에 상태 업데이트
 		$.ajax({
-			url : "historyUpdate", 
+			url : "historyUpdate.a", 
 			data : {
 				productId : productId,
 				productStatus : selected
@@ -76,9 +76,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-9">
-				<a href="historyList">물품리스트</a>
+				<a href="historyList.a">물품리스트</a>
 				<a>&nbsp;|&nbsp;</a>
-				<a href="pplList">협찬리스트</a>
+				<a href="pplList.a">협찬리스트</a>
 			</div>
 			<div class="col-3">
 				<select id="sort" class="form-control" onchange="changeSort()">
@@ -106,7 +106,7 @@
 				<tbody>
 					<c:forEach var="product" items="${list }">
 						<tr
-							onclick="location.href='productSelect?productId=${product.productId }'">
+							onclick="location.href='productSelect.a?productId=${product.productId }'">
 							<th scope="row">${product.productId }</th>
 							<td>${product.productName }</td>
 							<td onclick="event.cancelBubble=true"><c:if

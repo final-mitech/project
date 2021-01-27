@@ -31,6 +31,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 한국어 처리 필터 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -46,6 +47,26 @@
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 서비스 전 회원 여부 체크 -->
+	<filter>
+		<filter-name>loginCheckFilter</filter-name>
+		<filter-class>com.etoile.app.member.common.LoginCheckFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginCheckFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- 서비스 전 관리자 여부 체크 -->
+	<filter>
+		<filter-name>adminCheckFilter</filter-name>
+		<filter-class>com.etoile.app.admin.common.AdminCheckFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>adminCheckFilter</filter-name>
+		<url-pattern>*.a</url-pattern>
 	</filter-mapping>
 
 </web-app>

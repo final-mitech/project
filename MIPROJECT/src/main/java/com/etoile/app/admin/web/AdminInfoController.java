@@ -33,7 +33,7 @@ public class AdminInfoController {
 	}
 		
 	//로그아웃
-	@RequestMapping("admin/logout")
+	@RequestMapping("admin/logout.a")
 	public String logout(AdminInfoVO vo, HttpServletRequest request) {
 		//세션에 담긴 값 삭제하기
 		request.getSession().invalidate();

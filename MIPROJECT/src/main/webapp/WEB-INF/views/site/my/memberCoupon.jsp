@@ -20,10 +20,10 @@
 	<div class="container">
 		<div class="row">
 			<button type="button" class="btn btn-light"
-				onclick="location.href='/etoile/site/memberInfo'">My Detail
+				onclick="location.href='/etoile/site/memberInfo.do'">My Detail
 				Info</button>
 			<button type="button" class="btn btn-light"
-				onclick="location.href='/etoile/site/couponInfo'">My Coupon</button>
+				onclick="location.href='/etoile/site/couponInfo.do'">My Coupon</button>
 		</div>
 		<!-- 등급별 혜택 -->
 		<div class="row mt-3">
