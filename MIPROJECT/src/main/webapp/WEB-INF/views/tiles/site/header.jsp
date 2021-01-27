@@ -26,8 +26,8 @@
 				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/loginForm'">login</button>
 			</c:if>
 			<c:if test="${id ne null and id ne ''}">
-				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/memberInfo'">MY</button>
-				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/logout'">logout</button>
+				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/memberInfo.do'">MY</button>
+				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/logout.do'">logout</button>
 			</c:if>
 		</div>
 		<div>

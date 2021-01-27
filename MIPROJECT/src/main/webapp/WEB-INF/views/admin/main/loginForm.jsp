@@ -43,7 +43,7 @@ function result(){
 <body>
 	<div class="container text-center" >
 		<div class="row mt-3">
-			<div class="col-3"></div>
+			<div class="col-1"></div>
 			<div class="col-6">
 				<form id="frm" name="frm" method="post" action="/etoile/admin/login">
 					<div class="row mb-3">
@@ -67,7 +67,7 @@ function result(){
 					<input type="button" id="submitBtn" onclick="result()"class="btn btn-dark" value="Login">
 				</form>
 			</div>
-			<div class="col-3"></div>
+			<div class="col-5"></div>
 		</div>
 
 	</div>

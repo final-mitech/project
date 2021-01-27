@@ -20,10 +20,10 @@
 	<div class="container">
 		<div class="row">
 			<button type="button" class="btn btn-light"
-				onclick="location.href='/etoile/site/memberInfo'">My Detail
+				onclick="location.href='/etoile/site/memberInfo.do'">My Detail
 				Info</button>
 			<button type="button" class="btn btn-light"
-				onclick="location.href='/etoile/site/couponInfo'">My Coupon</button>
+				onclick="location.href='/etoile/site/couponInfo.do'">My Coupon</button>
 		</div>
 		<!-- 등급별 혜택 -->
 		<div class="row mt-3">
@@ -34,10 +34,12 @@
 				</div>
 				<ul class="list-group list-group-flush">
 					<c:forEach var="benefit" items="${coupon }">
-						<li class="list-group-item">대여료 할인 : ${benefit.gradeCoupon }%
-							<c:if test="${benefit.couponUsed eq 0 }">미사용</c:if> <c:if
-								test="${benefit.couponUsed eq 1 }">사용완료</c:if>
-						</li>
+						<c:if test="${benefit.gradeCoupon ne null and benefit.gradeCoupon ne '' }">
+							<li class="list-group-item">대여료 할인 : ${benefit.gradeCoupon }%
+								<c:if test="${benefit.couponUsed eq 0 }">미사용</c:if> <c:if
+									test="${benefit.couponUsed eq 1 }">사용완료</c:if>
+							</li>
+						</c:if>
 					</c:forEach>
 				</ul>
 			</div>
@@ -50,12 +52,14 @@
 					<p class="card-text">펀딩 참여 시 구입한 내역입니다.</p>
 				</div>
 				<ul class="list-group list-group-flush">
-					<c:forEach var="benefit" items="${coupon }">
-						<li class="list-group-item">대여료 할인 : ${benefit.fundingCoupon }%
-							<c:if test="${benefit.couponUsed eq 0 }">미사용</c:if> <c:if
-								test="${benefit.couponUsed eq 1 }">사용완료</c:if>
-						</li>
-					</c:forEach>
+					<c:if test="${benefit.fundingCoupon ne null and benefit.fundingCoupon ne '' }">
+						<c:forEach var="benefit" items="${coupon }">
+							<li class="list-group-item">대여료 할인 : ${benefit.fundingCoupon }%
+								<c:if test="${benefit.couponUsed eq 0 }">미사용</c:if> <c:if
+									test="${benefit.couponUsed eq 1 }">사용완료</c:if>
+							</li>
+						</c:forEach>
+					</c:if>
 				</ul>
 			</div>
 		</div>

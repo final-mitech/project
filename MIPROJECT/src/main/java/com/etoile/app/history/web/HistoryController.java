@@ -19,7 +19,7 @@ public class HistoryController {
 	private HistoryService historyService;
 
 	// 보유물품이력 메인페이지
-	@RequestMapping("/admin/historyList")
+	@RequestMapping("/admin/historyList.a")
 	public String historyList(ProductVO vo, Paging paging, Model model) {
 		//보유물품 표기
 		vo.setPpl("own");
@@ -48,7 +48,7 @@ public class HistoryController {
 	}
 
 	// 협찬물품이력 메인페이지
-	@RequestMapping("/admin/pplList")
+	@RequestMapping("/admin/pplList.a")
 	public String pplList(ProductVO vo, Paging paging, Model model) {
 		//협찬물품 표기
 		vo.setPpl("ppl");
@@ -77,7 +77,7 @@ public class HistoryController {
 	}
 
 	// 보유물품 및 협찬물품 상태 업데이트
-	@RequestMapping("admin/historyUpdate")
+	@RequestMapping("admin/historyUpdate.a")
 	@ResponseBody
 	public int historyUpdate(ProductVO vo) {
 		int n = historyService.productUpdate(vo);
@@ -85,7 +85,7 @@ public class HistoryController {
 	}
 
 	// 보유물품 및 협찬물품 이력 상세페이지
-	@RequestMapping("/admin/productSelect")
+	@RequestMapping("/admin/productSelect.a")
 	public String productSelect(ProductVO vo, Model model) {
 		// 데이터 조회
 		vo = historyService.productSelect(vo);
