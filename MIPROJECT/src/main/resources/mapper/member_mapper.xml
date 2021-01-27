@@ -3,6 +3,7 @@
 <mapper namespace="com.etoile.app.member.mapper.MemberMapper">
 	<!-- 회원 전체 조회 -->
 	<select id="memberList" resultType="MemberVO">
+	SELECT a.* FROM ( SELECT b.*, rownum rn from (
 		SELECT member_id,
 			   password,
 			   name,
@@ -12,8 +13,12 @@
 			   grade
 		  FROM member
 		<where>
-			<if test="grade != null and grade !=''">grade = #{grade}</if>
-		</where>
+			<!-- 개인고객만 조회할 경우 -->
+			<if test="grade == 'MEMBER'"> grade IN ('VISIT', 'VIP', 'VIP')</if>
+			<!-- 각 등급별 조회할 경우 -->
+			<if test="grade == 'VISIT' or grade == 'VIP' or grade == 'VVIP' or grade == 'BUSINESS'" >grade = #{grade}</if>
+		</where> 
+	) b ) a WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	
 	<!-- 회원 상세 조회 -->
@@ -80,9 +85,13 @@
 		SELECT count(*)
 		  FROM member
 		<where>
-			<if test="grade != null and grade !=''">grade = #{grade}</if>
+			<!-- 개인고객만 조회할 경우 -->
+			<if test="grade == 'MEMBER'"> grade IN ('VISIT', 'VIP', 'VIP')</if>
+			<!-- 각 등급별 조회할 경우 -->
+			<if test="grade == 'VISIT' or grade == 'VIP' or grade == 'VIP' or grade == 'BUSINESS'" >grade = #{grade}</if>
 		</where>
 	</select>
+	
 	<!-- 등급별 조건 및 혜택 조회 -->
 	<select id="gradeCoupon" resultType="GradeVO">
 		SELECT grade,
@@ -107,6 +116,7 @@
 			<if test="memberId != null and memberId !=''">member_id = #{memberId}</if>
 		</where>
 	</select>
+	
 	<!-- 쿠폰 등록 -->
 	<insert id="couponInsert">
 		INSERT INTO coupon (coupon_id,
@@ -122,6 +132,7 @@
 			   			   #{fundingCoupon},
 			   			   #{couponUsed})
 	</insert>
+	
 	<!-- 쿠폰 수정 0:미사용, 1:사용 -->
 	<update id="couponUpdate">
 		UPDATE coupon
@@ -133,9 +144,22 @@
 		</set>
 		WHERE member_id = #{memberId} AND coupon_id = #{couponId}
 	</update>
+	
 	<!-- 쿠폰 삭제 -->	
 	<delete id="couponDelete">
 		DELETE coupon 
 		 WHERE member_id = #{memberId} AND coupon_id = #{couponId}
 	</delete>
+	
+	<!-- 고객별 대여이력 조회 -->
+	<select id="memberRentalList" resultType="com.etoile.app.member.common.RecordVO">
+		SELECT p.product_name, 
+			   r.rental_start, 
+			   r.rental_end, 
+			   r.rental_pay 
+		  FROM product p, rental r 
+		 WHERE p.product_id = r.product_id 
+		   AND member_id= #{memberId}
+	 	 ORDER BY r.rental_start
+	 </select> 	
 </mapper>

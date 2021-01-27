@@ -2,6 +2,7 @@ package com.etoile.app.member.service;
 
 import java.util.List;
 
+import com.etoile.app.member.common.RecordVO;
 import com.etoile.app.vo.CouponVO;
 import com.etoile.app.vo.GradeVO;
 import com.etoile.app.vo.MemberVO;
@@ -32,4 +33,7 @@ public interface MemberService {
 		public int couponUpdate(CouponVO vo);
 		//쿠폰 삭제
 		public int couponDelete(CouponVO vo);
+		
+		//고객별 대여이력 조회
+		public List<RecordVO> memberRentalList(String id);
 }

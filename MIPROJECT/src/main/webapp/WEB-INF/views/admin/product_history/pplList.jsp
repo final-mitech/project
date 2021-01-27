@@ -129,10 +129,9 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-			</table>
-
-			<tag:historyPaging jsFunc="goList" />
+			</table>		
 		</div>
+		<tag:historyPaging jsFunc="goList" />
 	</div>
 </body>
 </html>
