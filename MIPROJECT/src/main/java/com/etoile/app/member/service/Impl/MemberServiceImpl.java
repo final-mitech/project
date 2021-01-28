@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.etoile.app.member.common.RecordVO;
 import com.etoile.app.member.mapper.MemberMapper;
 import com.etoile.app.member.service.MemberService;
 import com.etoile.app.vo.CouponVO;
 import com.etoile.app.vo.GradeVO;
 import com.etoile.app.vo.MemberVO;
+import com.etoile.app.vo.RentalVO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -76,6 +78,13 @@ public class MemberServiceImpl implements MemberService{
 	public int couponDelete(CouponVO vo) {
 		return dao.couponDelete(vo);
 	}
+
+	@Override
+	public List<RecordVO> memberRentalList(String id) {
+		return dao.memberRentalList(id);
+	}
+
+
 
 
 

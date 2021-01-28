@@ -130,8 +130,10 @@
 					</c:forEach>
 				</tbody>
 			</table>
-
-			<tag:historyPaging jsFunc="goList" />
+		</div>
+		<tag:historyPaging jsFunc="goList" />
+		<div class="text-right">
+			<button type="button" class="btn btn-outline-dark" onclick="location.href='productInsertForm.a'">등록</button>
 		</div>
 	</div>
 </body>

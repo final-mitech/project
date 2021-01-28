@@ -40,7 +40,10 @@ public class HistoryServiceImpl implements HistoryService {
 	public int productUpdate(ProductVO vo) {
 		return dao.productUpdate(vo);
 	}
-
+	@Override
+	public int productInfoUpdate(ProductVO vo) {
+		return dao.productInfoUpdate(vo);
+	}
 	@Override
 	public int rentalInsert(RentalVO vo) {
 		return dao.rentalInsert(vo);
@@ -55,5 +58,7 @@ public class HistoryServiceImpl implements HistoryService {
 	public int productCount(ProductVO vo) {
 		return dao.productCount(vo);
 	}
+
+
 
 }

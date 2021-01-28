@@ -17,6 +17,8 @@ public interface HistoryService {
 	int productInsert(ProductVO vo);
 	//상품 상태정보 수정
 	int productUpdate(ProductVO vo);
+	//상품 정보 수정
+	int productInfoUpdate(ProductVO vo);
 	//상품에 대한 대여정보 입력
 	int rentalInsert(RentalVO vo);
 	//상품정보 삭제

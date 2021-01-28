@@ -18,10 +18,6 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row">
-		<button type="button" class="btn btn-light" onclick="location.href='/etoile/site/memberInfo.do'">My Detail Info</button>
-		<button type="button" class="btn btn-light" onclick="location.href='/etoile/site/couponInfo.do'">My Coupon</button>
-		</div>
 		<div class="row mt-3">
 			<table class="table">
 				<thead>
@@ -56,37 +52,23 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="row mt-3">
+		<div class="row">
 			<table class="table">
 				<thead>
 					<tr>
+						<th>대여제품</th>
+						<th>대여기간</th>
+						<th>대여금액</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">아이디</th>
-						<td scope="col">${info.memberId }</td>
-					</tr>
-					<tr>
-						<th scope="row">이름</th>
-						<td scope="col">${info.name }</td>
-					</tr>
-					<tr>
-						<th scope="row">연락처</th>
-						<td scope="col">${info.phone }</td>
-					</tr>
-					<tr>
-						<th scope="row">이메일</th>
-						<td scope="col">${info.email }</td>
-					</tr>
-					<tr>
-						<th scope="row">주소</th>
-						<td scope="col">${info.address }</td>
-					</tr>
-					<tr>
-						<th scope="row">등급</th>
-						<td scope="col">${info.grade }</td>
-					</tr>
+					<c:forEach var="record" items="${list }">
+						<tr>
+							<td>${record.productName}</td>
+							<td>${record.rentalStart} ~ ${record.rentalEnd}</td>
+							<td>${record.rentalPay}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>

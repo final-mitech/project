@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
+	//회원 정보
 	private String memberId;
 	private String password;
 	private String name;
@@ -11,4 +12,8 @@ public class MemberVO {
 	private String email;
 	private String address;
 	private String grade;
+	
+	//페이징처리
+	private int start;
+	private int end;
 }
