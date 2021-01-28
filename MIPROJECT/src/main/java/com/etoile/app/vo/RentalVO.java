@@ -16,4 +16,8 @@ public class RentalVO {
 	private String rentalPay;
 	private String productImage;
 	private String productName;
+	private String productStatus;
+	private String ppl;
+	private String name;
+	private String rentalWaybill;
 }

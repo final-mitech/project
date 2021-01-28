@@ -97,7 +97,6 @@ button {
 			</c:forEach>
 		</div>
 		<div>
-
 			<div style="float: center;">
 				<tag:historyPaging jsFunc="goList" />
 			</div>
