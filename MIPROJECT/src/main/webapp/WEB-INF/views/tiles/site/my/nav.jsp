@@ -21,7 +21,7 @@
 <body>
 	
 	<ul class="list-group list-group-flush">
-		<li class="list-group-item"><a href="/etoile/site/memberInfo">My Info</a></li>
+		<li class="list-group-item"><a href="/etoile/site/memberInfo.do">My Info</a></li>
 		<li class="list-group-item"><a href="/etoile/site/MypageRental.do">RENTAL</a></li>
 		<li class="list-group-item"><a href="">MY STYLING</a></li>
 		<li class="list-group-item"><a href="">FUNDING</a></li>

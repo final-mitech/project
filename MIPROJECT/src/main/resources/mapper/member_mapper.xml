@@ -56,11 +56,11 @@
 	<update id="memberUpdate">
 		UPDATE member 
 			<set>
-				<if test="password != null">password = #{password}</if>
-				<if test="phone != null">phone = #{phone}</if>
-				<if test="email != null">email = #{email}</if>
-				<if test="address != null">address = #{address}</if>
-				<if test="grade != null">grade = #{grade}</if>
+				<if test="password != null">password = #{password},</if>
+				<if test="phone != null">phone = #{phone},</if>
+				<if test="email != null">email = #{email},</if>
+				<if test="address != null">address = #{address},</if>
+				<if test="grade != null">grade = #{grade},</if>
 			</set>
 			WHERE member_id = #{memberId}
 	</update>
@@ -137,10 +137,10 @@
 	<update id="couponUpdate">
 		UPDATE coupon
 		<set> 
-			<if test="couponSort != null and couponSort !=''">coupon_sort = #{couponSort}</if>
-			<if test="gradeCoupon != null and gradeCoupon !=''">grade_coupon = #{gradeCoupon}</if>
-			<if test="fundingCoupon != null and fundingCoupon !=''">funding_coupon = #{fundingCoupon}</if>
-			<if test="couponUsed != null and couponUsed !=''">coupon_used = #{couponUsed}</if>
+			<if test="couponSort != null and couponSort !=''">coupon_sort = #{couponSort},</if>
+			<if test="gradeCoupon != null and gradeCoupon !=''">grade_coupon = #{gradeCoupon},</if>
+			<if test="fundingCoupon != null and fundingCoupon !=''">funding_coupon = #{fundingCoupon},</if>
+			<if test="couponUsed != null and couponUsed !=''">coupon_used = #{couponUsed},</if>
 		</set>
 		WHERE member_id = #{memberId} AND coupon_id = #{couponId}
 	</update>

@@ -58,14 +58,20 @@
 			</div>
 		</div>
 		<div class="row">
-			<c:if test="${product.ppl eq 'own' }">
-				<button type="button" class="btn btn-light btn-lg btn-block"
-					onclick="location.href='historyList'">목록보기</button>
-			</c:if>
-			<c:if test="${product.ppl eq 'ppl' }">
-			<button type="button" class="btn btn-light btn-lg btn-block"
-				onclick="location.href='pplList'">목록보기</button>
-			</c:if>
+			<div class="col"><button type="button" class="btn btn-light btn-lg btn-block"
+						onclick="location.href='/etoile/admin/productUpdateForm.a?productId=${product.productId}'">수정하기</button></div>
+			<div class="col"><button type="button" class="btn btn-light btn-lg btn-block"
+						onclick="location.href='/etoile/admin/productDelete.a?productId=${product.productId}'">삭제하기</button></div>
+			<div class="col">
+				<c:if test="${product.ppl eq 'own' }">
+					<button type="button" class="btn btn-light btn-lg btn-block"
+						onclick="location.href='/etoile/admin/historyList.a'">목록보기</button>
+				</c:if>
+				<c:if test="${product.ppl eq 'ppl' }">
+					<button type="button" class="btn btn-light btn-lg btn-block"
+						onclick="location.href='/etoile/admin/pplList.a'">목록보기</button>
+				</c:if>
+			</div>
 		</div>
 		<div class="row">
 			<br />
