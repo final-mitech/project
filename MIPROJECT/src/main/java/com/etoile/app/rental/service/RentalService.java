@@ -2,6 +2,7 @@ package com.etoile.app.rental.service;
 
 import java.util.List;
 
+import com.etoile.app.vo.CouponVO;
 import com.etoile.app.vo.PickVO;
 import com.etoile.app.vo.ProductVO;
 import com.etoile.app.vo.RentalProductVO;
@@ -24,4 +25,5 @@ public interface RentalService {
 	int updateWaybill (RentalVO vo);
 	int rentalProductStatus (RentalProductVO vo);
 	int updateStatus (ProductVO vo);
+	int usedCoupon (CouponVO vo);
 }

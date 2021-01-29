@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.etoile.app.rental.mapper.RentalMapper;
 import com.etoile.app.rental.service.RentalService;
+import com.etoile.app.vo.CouponVO;
 import com.etoile.app.vo.PickVO;
 import com.etoile.app.vo.ProductVO;
 import com.etoile.app.vo.RentalProductVO;
@@ -78,6 +79,10 @@ public class RentalServiceImpl implements RentalService {
 	@Override
 	public int updateStatus(ProductVO vo) {
 		return dao.updateStatus(vo);
+	}
+	@Override
+	public int usedCoupon(CouponVO vo) {
+		return dao.usedCoupon(vo);
 	}
 	
 }
