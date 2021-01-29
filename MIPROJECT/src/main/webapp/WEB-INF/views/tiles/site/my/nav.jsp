@@ -25,7 +25,7 @@
 		<li class="list-group-item"><a href="/etoile/site/MypageRental.do">RENTAL</a></li>
 		<li class="list-group-item"><a href="">MY STYLING</a></li>
 		<li class="list-group-item"><a href="">FUNDING</a></li>
-		<li class="list-group-item"><a href="">AUCTION</a></li>	
+		<li class="list-group-item"><a href="/etoile/site/myAuctionJoin.do">AUCTION</a></li>	
 	</ul>
 </body>
 </html>
