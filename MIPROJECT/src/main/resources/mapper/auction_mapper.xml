@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- users_mapper.xml -->
+<mapper namespace="com.etoile.app.auction.mapper.AuctionMapper">
+	<!-- 경매 요청등록 -->
+	<insert id="insertAuction">
+		INSERT INTO AUCTION(AUCTION_ID, MEMBER_ID,
+		AUCTION_NAME, AUCTION_BRAND,
+		AUCTION_CATEGORY, AUCTION_IMAGE,
+		AUCTION_CONTENT, AUCTION_BEST_PRICE,
+		AUCTION_IMMEDIATE_BID,
+		AUCTION_SERIAL)
+		VALUES( A_SEQ.NEXTVAL,
+		#{memberId}, #{auctionName},
+		#{auctionBrand},
+		#{auctionCategory}, #{auctionImage},
+		#{auctionContent}, #{auctionBestPrice},
+		#{auctionImmediateBid},
+		#{auctionSerial} )
+	</insert>
+
+	<!-- 경매 전체조회 -->
+	<select id="getAuction" resultType="auctionVO">
+		SELECT A.*
+		FROM( SELECT B.*,
+		ROWNUM RN FROM (
+		SELECT *
+		FROM AUCTION
+		WHERE AUCTION_CONDITION='1' OR
+		AUCTION_CONDITION='2' OR
+		AUCTION_CONDITION='3' OR
+		AUCTION_CONDITION='8'
+		ORDER BY
+		AUCTION_CONDITION
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- total count -->
+	<select id="getAuctionCount" resultType="int">
+		SELECT COUNT(*)
+		FROM AUCTION
+		<where>
+			<if test="auctionName != null and auctionName != '' ">
+				AUCTION_NAME like '%' || #{auctionName} || '%'
+			</if>
+		</where>
+	</select>
+
+	<!-- 경매 단건조회 -->
+	<select id="getAuctionOne" resultType="auctionVO"> <!--id는 Mapper, resultType은 VO에서 참조 -->
+		SELECT *
+		FROM AUCTION
+		WHERE AUCTION_ID = #{auctionId}
+	</select>
+
+	<!-- 경매 한건 조회하기 -->
+	<select id="getAuctionJoinOne" resultType="auctionJoinVO">
+		SELECT
+		* FROM
+		AUCTION_JOIN
+		WHERE AUCTION_ID = #{auctionId}
+	</select>
+
+	<!-- 경매 검색하기 -->
+	<select id="getSearch" resultType="auctionVO">
+		SELECT A.*
+		FROM( SELECT B.*,
+		ROWNUM RN FROM (
+		SELECT *
+		FROM AUCTION
+		WHERE
+		AUCTION_NAME LIKE '%' ||
+		#{auctionName} || '%'
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 경매 최신순 정렬 -->
+	<select id="getRecent" resultType="auctionVO">
+		SELECT A.*
+		FROM( SELECT B.*,
+		ROWNUM RN FROM (
+		SELECT *
+		FROM AUCTION
+		ORDER BY
+		AUCTION_START DESC
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 경매 인기순 정렬 -->
+	<select id="getHottest" resultType="auctionVO">
+		SELECT A.*
+		FROM( SELECT B.*,
+		ROWNUM RN FROM (
+		SELECT *
+		FROM AUCTION
+		ORDER BY AUCTION_JOIN_COUNT DESC
+		NULLS LAST
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 경매 최고가 등록 -->
+	<update id="updateAuctionBp">
+		UPDATE AUCTION
+		SET AUCTION_BEST_PRICE=#{auctionPay}
+		WHERE AUCTION_ID=#{auctionId}
+	</update>
+
+	<!-- 경매 참여하기 -->
+	<insert id="insertAuctionJoin">
+		INSERT INTO AUCTION_JOIN(AUCTION_JOIN_ID, MEMBER_ID,
+		AUCTION_ID, AUCTION_PAY, AUCTION_DATE)
+		VALUES(AJ_SEQ.NEXTVAL,
+		#{memberId}, #{auctionId}, #{auctionPay}, sysdate)
+	</insert>
+
+	<!-- 경매 총 참여 수 등록 -->
+	<update id="updateAuctionCount">
+		UPDATE AUCTION
+		SET AUCTION_JOIN_COUNT=
+		(SELECT COUNT(*)
+		FROM AUCTION_JOIN
+		WHERE AUCTION_ID=#{auctionId})
+		WHERE
+		AUCTION_ID=#{auctionId}
+	</update>
+
+	<!-- 최근참여자 조회 -->
+	<select id="getJoinRecent" resultType="auctionJoinVO">
+		SELECT MEMBER_ID,
+		AUCTION_PAY FROM
+		(SELECT *
+		FROM AUCTION_JOIN
+		WHERE
+		AUCTION_ID=#{auctionId}
+		)
+		WHERE ROWNUM &lt;= 3
+		ORDER
+		BY AUCTION_JOIN_ID
+		DESC
+	</select>
+
+	<!-- 최고가, 최고액 참여자 조회 -->
+	<select id="getJoinTop" resultType="auctionJoinVO">
+		SELECT MEMBER_ID, AUCTION_PAY
+		FROM
+		(SELECT *
+		FROM AUCTION_JOIN
+		WHERE AUCTION_ID=#{auctionId}
+		)
+		WHERE
+		ROWNUM &lt;= 1
+		ORDER
+		BY AUCTION_JOIN_ID DESC
+	</select>
+
+	<!--마이 경매 참여내역 -->
+	<select id="getMyAuctionJoin" resultType="auctionVO">
+		SELECT A.*
+		FROM( SELECT
+		B.*,
+		ROWNUM RN FROM (
+		SELECT A.AUCTION_ID, A.AUCTION_NAME,
+		A.AUCTION_START, A.AUCTION_END,
+		A.AUCTION_IMAGE,
+		A.AUCTION_BRAND,
+		A.AUCTION_BEST_PRICE, A.AUCTION_CONDITION, A. AUCTION_IMMEDIATE_BID,
+		J.AUCTION_JOIN_ID, J.AUCTION_DATE, J.AUCTION_PAY
+		FROM AUCTION A JOIN
+		AUCTION_JOIN J
+		ON (A.AUCTION_ID = J.AUCTION_ID)
+		WHERE J.MEMBER_ID='세션3'
+		ORDER BY
+		AUCTION_DATE DESC
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 마이 경매 총 참여 수 -->
+	<!-- total count -->
+	<select id="getMyJoinCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		AUCTION_JOIN
+		WHERE MEMBER_ID='세션3'
+	</select>
+
+	<!-- 마이 경매 낙찰 받은 내역 -->
+	<select id="getMyAuctionBid" resultType="auctionVO">
+		SELECT A.*
+		FROM( SELECT
+		B.*,
+		ROWNUM RN FROM (
+		SELECT A.AUCTION_ID, A.AUCTION_NAME,
+		A.AUCTION_IMAGE, A.AUCTION_SUCCESS_BID,
+		A.AUCTION_MEMBER_ID,
+		A.AUCTION_BEST_PRICE, J.AUCTION_JOIN_ID, J.AUCTION_DELIVERY,
+		J.AUCTION_DATE,
+		J.AUCTION_ADDRESS
+		FROM AUCTION A JOIN AUCTION_JOIN J
+		ON
+		A.AUCTION_ID = J.AUCTION_ID
+		WHERE A.AUCTION_MEMBER_ID = '세션10' AND
+		J.AUCTION_DELIVERY IS NOT NULL
+		ORDER BY
+		J.AUCTION_DELIVERY
+		)B) A
+		WHERE RN
+		BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 마이 경매 총 낙찰 수 -->
+	<!-- total count -->
+	<select id="getMyBidCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		AUCTION
+		WHERE AUCTION_MEMBER_ID='세션10'
+	</select>
+
+	<!-- 마이 경매 총 대리 경매 수 -->
+	<!-- total count -->
+	<select id="getMyReqCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		AUCTION
+		WHERE MEMBER_ID='user10'
+	</select>
+
+	<!-- 마이 경매 대리 경매 요청 내역 -->
+	<select id="getMyAuctionReq" resultType="AuctionVO">
+		SELECT A.*
+		FROM( SELECT
+		B.*,
+		ROWNUM RN FROM (
+		SELECT AUCTION_ID, MEMBER_ID, AUCTION_NAME,
+		AUCTION_BRAND, AUCTION_START, AUCTION_END,
+		AUCTION_CONDITION,
+		AUCTION_BEST_PRICE, AUCTION_IMAGE
+		FROM AUCTION WHERE MEMBER_ID='user10'
+		ORDER BY
+		AUCTION_ID DESC
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 마이 경매 배송지 입력 -->
+	<update id="myAuctionAddr">
+		UPDATE AUCTION_JOIN
+		SET
+		AUCTION_ADDRESS=#{auctionAddress}
+		WHERE
+		AUCTION_JOIN_ID=#{auctionJoinId}
+	</update>
+
+	<!-- 마이 경매 회수요청 -->
+	<update id="myAuctionRecover">
+		UPDATE AUCTION
+		SET AUCTION_CONDITION='7'
+		WHERE
+		AUCTION_ID=#{auctionId}
+	</update>
+
+	<!-- 마이 경매 진행확정 -->
+	<update id="myAuctionConfirm">
+		UPDATE AUCTION
+		SET AUCTION_CONDITION='2',
+		AUCTION_START= SYSDATE+4,
+		AUCTION_END=SYSDATE+10
+		WHERE
+		AUCTION_ID=#{auctionId}
+	</update>
+
+	<!-- 마이 경매 정산받기 -->
+	<update id="myAuctionSettle">
+		UPDATE AUCTION
+		SET AUCTION_CONDITION='8'
+		WHERE
+		AUCTION_ID=#{auctionId}
+	</update>
+
+	<!-- 관리자 경매 요청리스트 -->
+	<select id="getAdminReq" resultType="auctionVO">
+		SELECT A.*
+		FROM( SELECT B.*,
+		ROWNUM RN FROM (
+		SELECT *
+		FROM AUCTION
+		WHERE AUCTION_CONDITION='0' OR
+		AUCTION_CONDITION='4' OR
+		AUCTION_CONDITION='5' OR
+		AUCTION_CONDITION='6'
+		OR
+		AUCTION_CONDITION='7' OR
+		AUCTION_CONDITION='8'
+		ORDER BY
+		AUCTION_CONDITION
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 관리자 요청 내역 count -->
+	<select id="getAdminReqCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		AUCTION
+		WHERE AUCTION_CONDITION='0' OR
+		AUCTION_CONDITION='4' OR
+		AUCTION_CONDITION='5' OR
+		AUCTION_CONDITION='6' OR
+		AUCTION_CONDITION='7'
+		OR
+		AUCTION_CONDITION='8'
+	</select>
+
+	<!-- 관리자 경매 현황 리스트 -->
+	<select id="getAdminList" resultType="auctionVO">
+		SELECT A.*
+		FROM( SELECT B.*,
+		ROWNUM RN FROM (
+		SELECT *
+		FROM AUCTION
+		WHERE AUCTION_CONDITION='1' OR
+		AUCTION_CONDITION='2' OR
+		AUCTION_CONDITION='3'
+		ORDER BY
+		AUCTION_CONDITION
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 관리자 경매 현황 count -->
+	<select id="getAdminListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		AUCTION
+		WHERE AUCTION_CONDITION='1' OR
+		AUCTION_CONDITION='2' OR
+		AUCTION_CONDITION='3'
+	</select>
+
+</mapper>
