@@ -99,9 +99,8 @@ $(document).ready( function() {
 	<div class="container">
 		<div class="row">
 			<div class="col-5">
-				<div style="height: 300px">
-					<img src="${product.productImage }"
-						style="height: 500px; width: 100%; overflow: hidden;">
+				<div style="height: 500px; overflow: hidden;">
+					<img src="${product.productImage }" style="height: 120%; width: 100%; overflow: hidden;">
 				</div>
 			</div>
 			<div class="col-1">
@@ -116,13 +115,12 @@ $(document).ready( function() {
 				<div>
 					<h1>${product.productName }</h1>
 					<br />
-					<h3>${product.productContent }</h3>
+					<p>${product.productContent }</p>
 				</div>
 				<form id="frm" name="frm" action="payPage.do" method="get">
 					<input type="hidden" id="productId" name="productId" value="${product.productId}">
 					<div>
-						<p style="font-size: 15px;" align="right" id="totalPay"
-							name="totalPay"></p>
+						<p style="font-size: 23px; padding-right:50px; font-weight: bold;" align="right" id="totalPay" name="totalPay"></p>
 						<p align="center">
 							<input type="date" id="rentalStart" name="rentalStart" min="<%=strdate%>" required>
 							~
