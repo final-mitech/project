@@ -56,40 +56,6 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="row mt-3">
-			<table class="table">
-				<thead>
-					<tr>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">아이디</th>
-						<td scope="col">${info.memberId }</td>
-					</tr>
-					<tr>
-						<th scope="row">이름</th>
-						<td scope="col">${info.name }</td>
-					</tr>
-					<tr>
-						<th scope="row">연락처</th>
-						<td scope="col">${info.phone }</td>
-					</tr>
-					<tr>
-						<th scope="row">이메일</th>
-						<td scope="col">${info.email }</td>
-					</tr>
-					<tr>
-						<th scope="row">주소</th>
-						<td scope="col">${info.address }</td>
-					</tr>
-					<tr>
-						<th scope="row">등급</th>
-						<td scope="col">${info.grade }</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 	</div>
 </body>
 </html>

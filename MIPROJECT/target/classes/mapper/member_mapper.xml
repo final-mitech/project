@@ -154,12 +154,17 @@
 	<!-- 고객별 대여이력 조회 -->
 	<select id="memberRentalList" resultType="com.etoile.app.member.common.RecordVO">
 		SELECT p.product_name, 
+			   p.product_type,
+			   p.ppl,
+			   r.rental_id,
+			   r.member_id,
 			   r.rental_start, 
 			   r.rental_end, 
 			   r.rental_pay 
 		  FROM product p, rental r 
 		 WHERE p.product_id = r.product_id 
-		   AND member_id= #{memberId}
+		   <if test="memberId != null and memberId !=''">AND member_id= #{memberId}</if>
+		   AND rental_waybill is null
 	 	 ORDER BY r.rental_start
 	 </select> 	
 </mapper>
