@@ -26,7 +26,7 @@
 					<label>펀딩 등록 요청</label>
 				</div>
 				<div class="row">
-					<table class="table">
+					<table class="table text-center">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">펀딩번호</th>
@@ -54,7 +54,7 @@
 					<label>경매 등록 요청</label>
 				</div>
 				<div class="row">
-					<table class="table">
+					<table class="table text-center">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">경매번호</th>
@@ -83,7 +83,7 @@
 					<label>대여 등록 요청</label>
 				</div>
 				<div class="row">
-					<table class="table">
+					<table class="table text-center">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">대여번호</th>
@@ -95,7 +95,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="rental" items="${rentalList }">
-								<tr onclick="location.href='/etoile/admin/rentalRequest.a'">
+								<tr onclick="location.href='/etoile/admin/rentalList.a'">
 									<th scope="row">${rental.rentalId }</th>
 									<td>${rental.memberId }</td>
 									<td>${rental.productName }</td>

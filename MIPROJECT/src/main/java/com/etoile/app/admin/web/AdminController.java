@@ -37,7 +37,7 @@ public class AdminController {
 	public String login(AdminInfoVO vo, HttpServletRequest request) {
 		//세션에 값 담기
 		request.getSession().setAttribute("admin", vo.getId());
-		return "redirect:/admin";
+		return "redirect:/admin/main.a";
 	}
 		
 	//로그아웃
