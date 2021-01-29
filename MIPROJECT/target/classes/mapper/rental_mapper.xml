@@ -56,7 +56,12 @@
 		insert into rental(rental_id, member_id, product_id, rental_start, rental_end, rental_address, rental_pay)
 		values (r_seq.nextval, #{memberId}, #{productId}, #{rentalStart}, #{rentalEnd}, #{rentalAddress}, #{rentalPay})
 	</insert>
-	
+	<!-- 대여하며 쿠폰사용 유무 체크 -->
+	<update id="usedCoupon">
+		UPDATE coupon
+		SET coupon_used = 1
+		WHERE coupon_id = #{couponId}
+	</update>
 	<!-- pick여부조회 -->
 	<select id="selectPick" resultType="int">
 		select count(*) from pick 
@@ -84,7 +89,6 @@
 		and rental_waybill is null
 		order by rental_id
 	</select>
-	
 	<!-- 관리자페이지 회수조회 -->
 	<select id="rentalReList" resultType="RentalVO">
 		select * from ( select r.*, pr.product_name, pr.ppl, pr.product_status
@@ -112,6 +116,7 @@
 		UPDATE product 
 		SET   product_status = #{productStatus} 
 		where product_id = (SELECT product_id FROM  rental where rental_id = #{rentalId} ) 
-		
 	</update>
+	
+	
 </mapper>
