@@ -37,7 +37,7 @@ public class AdminController {
 	public String login(AdminInfoVO vo, HttpServletRequest request) {
 		//세션에 값 담기
 		request.getSession().setAttribute("admin", vo.getId());
-		return "redirect:/admin";
+		return "redirect:/admin/main.a";
 	}
 		
 	//로그아웃
@@ -48,6 +48,7 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 	
+
 	//고객관련 정보조회 서비스
 	@Autowired
 	private MemberService memberService;
@@ -119,5 +120,20 @@ public class AdminController {
 		model.addAttribute("list", rentalList);
 		
 		return "admin/member/memberRental";
+	}
+	
+	//메인페이지
+	@RequestMapping("admin/main.a")
+	public String main(Model model) {
+		//펀딩 요청 리스트
+		
+		//경매 요청 리스트
+		
+		//대여 요청 리스트
+		List<RecordVO> rentalList = memberService.memberRentalList(null);
+		model.addAttribute("rentalList", rentalList);
+		
+		
+		return "admin/main/main";
 	}
 }

@@ -38,10 +38,15 @@
 				</button>
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
 					<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="/etoile/site/productList.do">RENTALS</a></li>
+					<li class="nav-item"><a class="nav-link" href="/etoile/site/productList">RENTALS</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">MY STYLING</a></li>
+<<<<<<< HEAD
 						<li class="nav-item"><a class="nav-link" href="#">FUNDDNG</a></li>
 						<li class="nav-item"><a class="nav-link" href="/etoile/site/auctionMain">AUCTION</a></li>
+=======
+						<li class="nav-item"><a class="nav-link" href="/etoile/site/fundingList">FUNDING</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">AUCTION</a></li>
+>>>>>>> branch 'master' of https://github.com/final-mitech/project.git
 					</ul>
 				</div>
 			</nav>

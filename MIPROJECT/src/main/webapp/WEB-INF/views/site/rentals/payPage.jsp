@@ -33,8 +33,7 @@ input:focus {
 </style>
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
@@ -79,12 +78,48 @@ $(function() {
 		var distance = dday - now + 1;
 		document.getElementById("renDay").value = distance;
 		document.getElementById("rentalPay").value = distance * ${product.productRental};
+		document.getElementById("totalrentalPay").value = distance * ${product.productRental};
 })
+</script>
+<script>
+	$(document).ready( function() {
+		$("#couponUsed").on("change", function() {
+			var rentalPay = document.getElementById("rentalPay").value;
+			var rentalDay = document.getElementById("renDay").value;
+			var couponUsed = document.getElementById("couponUsed").value;
+			var kind = $("#couponUsed option:selected").data("kind");
+			var id = $("#couponUsed option:selected").data("id");
+			
+			console.log(id);
+			if (couponUsed == "notused") {
+				var notCpnPay = 0;
+				$("#couponUse").val(notCpnPay);
+				$("#totalrentalPay").val(rentalPay);
+			}  else if (kind == 'g') {
+				var gCpn = $("#couponUsed option:selected").val();
+				var gCpn = gCpn * 0.01;
+				var gCpnPay = gCpn * rentalPay;
+				console.log(gCpnPay);
+				$("#couponUse").val(gCpnPay);
+				var gCpnUsePay = $("#couponUse").val();
+				$("#totalrentalPay").val(rentalPay-gCpnUsePay);
+				$("#couponId").val(id);
+			} else if (kind == 'f') {
+				var fCpn = $("#couponUsed option:selected").val();
+				var gCpn = fCpn * ${product.productRental };
+				$("#couponUse").val(gCpn);
+				
+				var gCpnUsePay = $("#couponUse").val();
+				$("#totalrentalPay").val(rentalPay-gCpnUsePay);
+				$("#couponId").val(id);
+			}  
+		})
+	})
 </script>
 <script type="text/javascript">
 	$(function() {
 		$("#rental_pay").click(function() {
-			var rentalPay = document.getElementById("rentalPay").value;
+			var rentalPay = document.getElementById("totalrentalPay").value;
 			var rentalName= document.getElementById('rentalName').value;
 			var rentalEmail = document.getElementById('email').value;
 			var renTalAddress = document.getElementById('address').value;
@@ -120,8 +155,6 @@ $(function() {
 		});
 	})
 </script>
-
-
 </head>
 <body>
 	<br />
@@ -142,17 +175,24 @@ $(function() {
 						<th width="300" style="font-size: 15px;">
 							${product.productRental }</th>
 						<th width="200" style="font-size: 15px;">
-							<c:forEach var="member" items="${member }">
-								<select>
-									<option>1</option>
-								</select>
-							</c:forEach>
+							<select id="couponUsed">
+								<option value="notused" selected>사용안함</option>
+								<c:forEach var="coupons" items="${coupon }">
+									<c:if test="${coupons.fundingCoupon eq 0 && coupons.couponUsed eq 0}">
+										<option data-id="${coupons.couponId}" data-kind="g" value="${coupons.gradeCoupon }">${coupons.gradeCoupon } % 할인쿠폰</option>
+									</c:if>
+									<c:if test="${coupons.gradeCoupon eq 0 && coupons.couponUsed eq 0 && coupons.couponSort eq product.productName}">
+										<option data-id="${coupons.couponId}" data-kind="f" value="${coupons.fundingCoupon }">${coupons.fundingCoupon } 일 대여권</option>
+									</c:if>
+								</c:forEach>
+							</select>
 						</th>
 					</tr>
 				</table>
 			</div>
 			<hr>
 			<div class="row">
+				<input type="hidden" id="couponId" name="couponId">
 				<input type="hidden" name="productId" value="${product.productId }">
 				<input type="hidden" id="productName" name="productName"
 					value="${product.productName }">
@@ -193,8 +233,9 @@ $(function() {
 						</tr>
 						<tr>
 							<th width="200px" style="font-size: 15px;">대여 일수</th>
-							<td width="400px" colspan="2"><input type="text" id="renDay"
-								name="renDay" style="float: left;" size="50" readonly></td>
+							<td width="400px" colspan="2">
+								<input type="text" id="renDay" name="renDay" style="float: left;" size="50" readonly>
+							</td>
 						</tr>
 						<tr>
 							<th width="200px" style="font-size: 15px;">대여 일</th>
@@ -219,35 +260,36 @@ $(function() {
 					<br> <br> <br>
 					<table align="center">
 						<tr>
-							<th style="font-size: 15px;">결제 금액</th>
+							<th style="font-size: 13px;">총 상품금액</th>
 						</tr>
 						<tr>
-							<th style="font-size: 18px; vertical-align: top;" height="50px">
-								<input type="text" id="totalrentalPay" name="totalrentalPay"
-								style="font-size: 18px; font-weight: bold; text-align: center; BORDER-BOTTOM: none;"
-								readonly>
+							<th style="height:20">
+								<input type="text" id="rentalPay" name="rentalPay" size="30" 
+									style="text-align: center; BORDER-BOTTOM: none; font-size: 15px;" readonly>
 							</th>
 						</tr>
 						<tr>
 							<th style="font-size: 13px;">쿠폰적용가</th>
 						</tr>
 						<tr>
-							<th><input type="text" id="couponUse" name="couponUse"
-								style="text-align: center; BORDER-BOTTOM: none;" readonly>
+							<th>
+								<input type="text" id="couponUse" name="couponUse" value="0" size="30" 
+									style="text-align: center; BORDER-BOTTOM: none; font-size: 15px;" readonly>
 							</th>
 						</tr>
 						<tr>
-							<th style="font-size: 13px;">총 상품금액</th>
+							<th style="font-size: 15px;">결제 금액</th>
 						</tr>
 						<tr>
-							<th><input type="text" id="rentalPay" name="rentalPay"
-								size="30"
-								style="text-align: center; BORDER-BOTTOM: none; font-size: 15px;"
-								readonly></th>
+							<th style="font-size: 18px; vertical-align: top;" height="50px">
+								<input type="text" id="totalrentalPay" name="totalrentalPay" value="${product.productRental }"
+									style="font-size: 18px; font-weight: bold; text-align: center; BORDER-BOTTOM: none;" readonly>
+							</th>
 						</tr>
 						<tr>
-							<th><button type="button" class="btn btn-secondary"
-									id="rental_pay">결제하기</button></th>
+							<th>
+								<button type="button" class="btn btn-secondary" id="rental_pay">결제하기</button>
+							</th>
 						</tr>
 					</table>
 				</div>

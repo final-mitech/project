@@ -25,7 +25,7 @@
 			<li class="list-group-item"><a href="/etoile/admin/historyList.a">물품관리</a></li>
 			<li class="list-group-item"><a href="/etoile/admin/rentalList.a">대여관리</a></li>
 			<li class="list-group-item"><a href="/etoile/admin/auctionReqList.a">경매관리</a></li>
-			<li class="list-group-item"><a href="">펀딩관리</a></li>
+			<li class="list-group-item"><a href="/etoile/admin/fundingRegisterList.a">펀딩관리</a></li>
 			<li class="list-group-item"><a href="/etoile/admin/logout.a">로그아웃</a></li>	
 	</ul>
 	</c:if>

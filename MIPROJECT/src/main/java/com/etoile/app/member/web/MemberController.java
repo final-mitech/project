@@ -111,7 +111,7 @@ public class MemberController {
 		coupon.setMemberId(id);
 		List<CouponVO> list = memberService.couponList(coupon);
 		model.addAttribute("coupon", list);
-		
+		System.out.println(list);
 		return "site/my/memberCoupon";
 	}
 }
