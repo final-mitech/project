@@ -189,17 +189,17 @@ function update(){
 			<div class="form-group">
 				<label for="productType">상품유형&nbsp;&nbsp;</label>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="productType" value="가방" id="bag"
+					<input class="form-check-input" type="radio" name="productType" value="bag" id="bag"
 					<c:if test="${productVO.productType eq 'bag' }">checked</c:if>> 
 						<label class="form-check-label" for="bag">가방</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="productType" value="옷" id="dress"
+					<input class="form-check-input" type="radio" name="productType" value="dress" id="dress"
 					<c:if test="${productVO.productType eq 'dress' }">checked</c:if>> 
 					<label class="form-check-label" for="dress">옷</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="productType" value="잡화" id="goods"
+					<input class="form-check-input" type="radio" name="productType" value="goods" id="goods"
 					<c:if test="${productVO.productType eq 'goods' }">checked</c:if>> 
 					<label class="form-check-label" for="goods">잡화</label>
 				</div>
