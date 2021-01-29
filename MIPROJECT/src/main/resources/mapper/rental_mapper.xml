@@ -7,11 +7,22 @@
 	
 	<!-- 물품리스트 출력+페이징 -->
 	<select id="rentalProductList" resultType="productVO" parameterType="productVO">
-		SELECT b.* FROM (SELECT a.*, rownum rnum  FROM (
-		SELECT * FROM PRODUCT where product_status like 'waiting') a ) b
+		SELECT b.* FROM (SELECT a.*, rownum rnum  
+						FROM ( SELECT * FROM PRODUCT 
+								where product_status like 'waiting') a ) b
 		where rnum between #{start} and #{end}
 	</select>
-	
+	<!-- 물품리스트 인기순(대여순)+페이징 -->
+	<select id="rentalProductList2" resultType="productVO" >
+		SELECT b.* FROM (SELECT a.*, rownum rnum  
+						FROM ( select NVL(r.CNT, 0) ren, p.*
+								from product p LEFT OUTER JOIN (select count(*) cnt, product_id 
+																from rental group by product_id) r
+																on p.product_id = r.product_id
+																order by ren desc) a 
+							) b
+		where rnum between #{start} and #{end}
+	</select>
 	<!-- product테이블 총 데이터수량 조회 -->
 	<select id="productCnt" resultType="int">
 		SELECT count(*) from product

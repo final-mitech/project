@@ -11,6 +11,7 @@ import com.etoile.app.vo.RentalVO;
 public interface RentalMapper {
 	
 	List<ProductVO> rentalProductList(ProductVO vo);
+	List<ProductVO> rentalProductList2(ProductVO vo);
 	ProductVO rentalProductSelect(ProductVO vo);
 	List<ProductVO> searchList(ProductVO vo);
 	List<RentalVO> rentalList(RentalVO vo);

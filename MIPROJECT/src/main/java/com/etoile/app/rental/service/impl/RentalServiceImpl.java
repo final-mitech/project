@@ -84,5 +84,9 @@ public class RentalServiceImpl implements RentalService {
 	public int usedCoupon(CouponVO vo) {
 		return dao.usedCoupon(vo);
 	}
+	@Override
+	public List<ProductVO> rentalProductList2(ProductVO vo) {
+		return dao.rentalProductList2(vo);
+	}
 	
 }

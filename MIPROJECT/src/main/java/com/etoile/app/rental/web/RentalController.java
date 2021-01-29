@@ -45,6 +45,23 @@ public class RentalController {
 		model.addAttribute("list", productList);
 		return "site/rentals/rentalMain";
 	}
+	// rental메인 물품리스트 인기순(대여순) 페이지
+		@RequestMapping("/site/productList2")
+		public String productList2(ProductVO vo, Paging paging, Model model) {
+			if (paging == null) {
+				paging.setPage(1);
+			}
+			paging.setPageUnit(8);
+			paging.setTotalRecord(rentalService.productCnt(vo));
+			vo.setStart(paging.getFirst());
+			vo.setEnd(paging.getLast());
+			model.addAttribute("paging", paging);
+			
+			List<ProductVO> productList = rentalService.rentalProductList2(vo);
+			model.addAttribute("list", productList);
+			return "site/rentals/rentalMain";
+		}
+	
 
 	// 물품상세페이지에서 선택한 날짜값을 가지고 이동하는 결제페이지
 	@RequestMapping("/site/payPage.do")
@@ -55,9 +72,9 @@ public class RentalController {
 		String rentalAddress = httpServletRequest.getParameter("rentalAddress");
 		String id = (String) httpServletRequest.getSession().getAttribute("id");
 		ProductVO product = rentalService.rentalProductSelect(pvo);
-		MemberVO member = memberService.memberSelect(id);
 		cvo.setMemberId(id);
 		List<CouponVO> coupon = memberService.couponList(cvo);
+		MemberVO member = memberService.memberSelect(id);
 		model.addAttribute("product", product);
 		model.addAttribute("rentalEnd", rentalEnd);
 		model.addAttribute("rentalStart", rentalStart);
@@ -153,7 +170,7 @@ public class RentalController {
 	}
 
 	// rental 물품리스트에서 하나 선택시 이동되는 물품상세페이지
-	@RequestMapping("/site/productDetail.do")
+	@RequestMapping("/site/productDetail")
 	public String productDetail(ProductVO vo, Model model) {
 		ProductVO product = new ProductVO();
 		product = rentalService.rentalProductSelect(vo);
@@ -162,7 +179,7 @@ public class RentalController {
 	}
 
 	// rental 물품리스트 검색&페이징기능
-	@RequestMapping("/site/productSearch.do")
+	@RequestMapping("/site/productSearch")
 	public String searchList(ProductVO vo, Paging paging, Model model) {
 		if (paging == null) {
 			paging.setPage(1);
