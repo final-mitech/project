@@ -21,7 +21,7 @@
 
 .card-body-footer a:hover {
 	text-decoration: none;
-	color: #00b3b3;
+	color: #008080;
 	font-weight: bold;
 }
 
@@ -34,13 +34,18 @@
 <body>
 	<br>
 	<div class="container">
+		<div class="row">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="/etoile/site/MypageRental.do">MyRental</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="/etoile/site/pickList.do" style="background: #e5e5e5;">MyPick</a>
+				</li>
+			</ul>
+		</div>
+		<div class="row" style="background: #e5e5e5;"><br></div>
 		<div class="row" style="background: #e5e5e5;">
-			<div>
-				<button class="btn" onclick="location.href='MypageRental.do'">
-					RentalList</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="btn" onclick="location.href='pickList.do'">My Pick</button>
-			</div>
 			<br>
 			<c:forEach var="list" items="${list }">
 				<div class="container">
@@ -56,7 +61,7 @@
 							</div>
 							<div class="card-body-footer"
 								style="float: right; margin-right: 20px">
-								<a href="/etoile/site/productDetail.do">대여하러가기</a>
+								<a href="/etoile/site/productDetail.do?productId=${list.productId }">대여하러가기</a>
 							</div>
 						</div>
 					</div>

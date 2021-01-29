@@ -9,6 +9,7 @@ import com.etoile.app.rental.mapper.RentalMapper;
 import com.etoile.app.rental.service.RentalService;
 import com.etoile.app.vo.PickVO;
 import com.etoile.app.vo.ProductVO;
+import com.etoile.app.vo.RentalProductVO;
 import com.etoile.app.vo.RentalVO;
 
 @Service("rentalService")
@@ -57,6 +58,26 @@ public class RentalServiceImpl implements RentalService {
 	@Override
 	public List<PickVO> pickList(PickVO vo) {
 		return dao.pickList(vo);
+	}
+	@Override
+	public List<RentalVO> allRentalList(RentalVO vo) {
+		return dao.allRentalList(vo);
+	}
+	@Override
+	public int updateWaybill(RentalVO vo) {
+		return dao.updateWaybill(vo);
+	}
+	@Override
+	public List<RentalVO> rentalReList(RentalVO vo) {
+		return dao.rentalReList(vo);
+	}
+	@Override
+	public int rentalProductStatus(RentalProductVO vo) {
+		return dao.rentalProductStatus(vo);
+	}
+	@Override
+	public int updateStatus(ProductVO vo) {
+		return dao.updateStatus(vo);
 	}
 	
 }

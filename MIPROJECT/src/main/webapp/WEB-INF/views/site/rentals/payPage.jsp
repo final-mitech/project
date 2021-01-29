@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,115 +125,134 @@ $(function() {
 </head>
 <body>
 	<br />
-	<div class="container">
-		<div>
-			<table align="center">
-				<tr>
-					<th></th>
-					<th width="300">상품명</th>
-					<th width="300">주문 금액</th>
-				</tr>
-				<tr>
-					<th><img src="${product.productImage }" width="200"></th>
-					<th width="400" style="font-size: 15px;">
-						"${product.productName }"</th>
-					<th width="300" style="font-size: 15px;">
-						${product.productRental }</th>
-				</tr>
-			</table>
-		</div>
-		<hr>
-		<form id="frm" action="RentalInsert.do">
-		<div class="row">
-		<input type="hidden" name="productId" value="${product.productId }"> 
-		<input type="hidden" id="productName" name="productName" value="${product.productName }"> 
-			<div class="col-8">
-				<br>
+	<form id="frm" action="RentalInsert.do">
+		<div class="container">
+			<div>
 				<table align="center">
 					<tr>
-						<th width="200px" style="font-size: 15px;">대여자 명</th>
-						<td width="400px" colspan="2">
-							<input type="text" style="float: left;" id="rentalName" name="rentalName" value="${name }" size="50">
-						</td>
+						<th></th>
+						<th width="400">상품명</th>
+						<th width="300">주문 금액</th>
+						<th width="200">쿠폰</th>
 					</tr>
 					<tr>
-						<th width="200px" style="font-size: 15px;">연락처</th>
-						<td width="400px" colspan="2">
-							<input type="text" id="phone" name="phone" style="float: left;" size="50">
-						</td>
-					</tr>
-					<tr>
-						<th width="200px" style="font-size: 15px;" rowspan="4">주소</th>
-						<td width="100px">
-							<input type="text" id="postcode" size="10" placeholder="우편번호" readonly>
-						</td>
-						<td>
-							<button type="button" onclick="PostCode()" style="float: left">검색</button>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="text" id="address" size="50" placeholder="주소" readonly />
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="text" id="detailAddress" size="50" placeholder="상세주소">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2"><input type="text" id="extraAddress"
-							size="50" placeholder="참고항목" readonly></td>
-					</tr>
-					<tr>
-						<th width="200px" style="font-size: 15px;">대여 일수</th>
-						<td width="400px" colspan="2"><input type="text" id="renDay"
-							name="renDay" style="float: left;" size="50" readonly></td>
-					</tr>
-					<tr>
-						<th width="200px" style="font-size: 15px;">대여 일</th>
-						<td width="180px">start <input type="text" id="rentalStart"
-							name="rentalStart" value="${rentalStart }" size="15"
-							style="float: none;" readonly>
-						</td>
-						<td width="180px">end <input type="text" id="rentalEnd" name="rentalEnd"
-							value="${rentalEnd }" size="15" style="float: none;" readonly>
-						</td>
-					</tr>
-					<tr>
-						<th width="200px" style="font-size: 15px;">EMail</th>
-						<td width="400px" colspan="2"><input type="text"
-							style="float: left;" id="email" name="email" value="${email }"
-							size="50">
-					</tr>
-				</table>
-			</div>
-			<div class="col-4">
-				<br> <br> <br>
-				<table align="center">
-					<tr>
-						<th style="font-size: 15px;">결제 금액</th>
-					</tr>
-					<tr>
-						<th style="font-size: 18px; vertical-align: top;" height="50px">
-							<input type="text" id="rentalPay" name="rentalPay"
-							style="font-size: 18px; font-weight: bold; text-align: center; BORDER-BOTTOM: none;">
+						<th><img src="${product.productImage }" width="200"></th>
+						<th width="400" style="font-size: 15px;">
+							"${product.productName }"</th>
+						<th width="300" style="font-size: 15px;">
+							${product.productRental }</th>
+						<th width="200" style="font-size: 15px;">
+							<c:forEach var="member" items="${member }">
+								<select>
+									<option>1</option>
+								</select>
+							</c:forEach>
 						</th>
 					</tr>
-					<tr>
-						<th style="font-size: 13px;">쿠폰적용</th>
-					</tr>
-					<tr>
-						<th style="font-size: 13px;">총 상품금액</th>
-					</tr>
-					<tr>
-						<th><button type="button" class="btn btn-secondary"
-								id="rental_pay">결제하기</button></th>
-					</tr>
 				</table>
 			</div>
+			<hr>
+			<div class="row">
+				<input type="hidden" name="productId" value="${product.productId }">
+				<input type="hidden" id="productName" name="productName"
+					value="${product.productName }">
+				<div class="col-8">
+					<br>
+					<table align="center">
+						<tr>
+							<th width="200px" style="font-size: 15px;">대여자 명</th>
+							<td width="400px" colspan="2"><input type="text"
+								style="float: left;" id="rentalName" name="rentalName"
+								value="${member.name }" size="50"></td>
+						</tr>
+						<tr>
+							<th width="200px" style="font-size: 15px;">연락처</th>
+							<td width="400px" colspan="2"><input type="text" id="phone"
+								name="phone" style="float: left;" size="50"
+								value="${member.phone }"></td>
+						</tr>
+						<tr>
+							<th width="200px" style="font-size: 15px;" rowspan="4">주소</th>
+							<td width="100px"><input type="text" id="postcode" size="10"
+								placeholder="우편번호" readonly></td>
+							<td>
+								<button type="button" onclick="PostCode()" style="float: left">검색</button>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="text" id="address"
+								name="address" size="50" placeholder="주소" readonly /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="text" id="detailAddress"
+								name="detailAddress" size="50" placeholder="상세주소"></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="text" id="extraAddress"
+								size="50" placeholder="참고항목" readonly></td>
+						</tr>
+						<tr>
+							<th width="200px" style="font-size: 15px;">대여 일수</th>
+							<td width="400px" colspan="2"><input type="text" id="renDay"
+								name="renDay" style="float: left;" size="50" readonly></td>
+						</tr>
+						<tr>
+							<th width="200px" style="font-size: 15px;">대여 일</th>
+							<td width="180px">start <input type="text" id="rentalStart"
+								name="rentalStart" value="${rentalStart }" size="15"
+								style="float: none;" readonly>
+							</td>
+							<td width="180px">end <input type="text" id="rentalEnd"
+								name="rentalEnd" value="${rentalEnd }" size="15"
+								style="float: none;" readonly>
+							</td>
+						</tr>
+						<tr>
+							<th width="200px" style="font-size: 15px;">EMail</th>
+							<td width="400px" colspan="2"><input type="text"
+								style="float: left;" id="email" name="email" value="${email }"
+								size="50">
+						</tr>
+					</table>
+				</div>
+				<div class="col-4">
+					<br> <br> <br>
+					<table align="center">
+						<tr>
+							<th style="font-size: 15px;">결제 금액</th>
+						</tr>
+						<tr>
+							<th style="font-size: 18px; vertical-align: top;" height="50px">
+								<input type="text" id="totalrentalPay" name="totalrentalPay"
+								style="font-size: 18px; font-weight: bold; text-align: center; BORDER-BOTTOM: none;"
+								readonly>
+							</th>
+						</tr>
+						<tr>
+							<th style="font-size: 13px;">쿠폰적용가</th>
+						</tr>
+						<tr>
+							<th><input type="text" id="couponUse" name="couponUse"
+								style="text-align: center; BORDER-BOTTOM: none;" readonly>
+							</th>
+						</tr>
+						<tr>
+							<th style="font-size: 13px;">총 상품금액</th>
+						</tr>
+						<tr>
+							<th><input type="text" id="rentalPay" name="rentalPay"
+								size="30"
+								style="text-align: center; BORDER-BOTTOM: none; font-size: 15px;"
+								readonly></th>
+						</tr>
+						<tr>
+							<th><button type="button" class="btn btn-secondary"
+									id="rental_pay">결제하기</button></th>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</div>
-		</form>
-	</div>
+	</form>
 </body>
 </html>

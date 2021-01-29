@@ -124,9 +124,9 @@ $(document).ready( function() {
 						<p style="font-size: 15px;" align="right" id="totalPay"
 							name="totalPay"></p>
 						<p align="center">
-							<input type="date" id="rentalStart" name="rentalStart"
-								min="<%=strdate%>" required> ~ <input type="date"
-								id="rentalEnd" name="rentalEnd" min="<%=strdate%>" required>
+							<input type="date" id="rentalStart" name="rentalStart" min="<%=strdate%>" required>
+							~
+							<input type="date" id="rentalEnd" name="rentalEnd" min="<%=strdate%>" required>
 						</p>
 						<button type="submit" style="float: right;">대여하기</button>
 					</div>

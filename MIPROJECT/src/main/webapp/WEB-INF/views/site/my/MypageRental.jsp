@@ -21,7 +21,7 @@
 
 .card-body-footer a:hover {
 	text-decoration: none;
-	color: #00b3b3;
+	color: #008080;
 	font-weight: bold;
 }
 
@@ -29,35 +29,46 @@
 	border: 0px;
 	outline: 0;
 }
+p {
+	font-weight: bold;
+}
 </style>
 </head>
 <body>
 	<br>
 	<div class="container">
+		<div class="row">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="/etoile/site/MypageRental.do" style="background: #e5e5e5;">MyRental</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="/etoile/site/pickList.do">MyPick</a>
+				</li>
+			</ul>
+		</div>
+		<div class="row" style="background: #e5e5e5;"><br></div>
 		<div class="row" style="background: #e5e5e5;">
-			<div>
-				<button class="btn" onclick="location.href='MypageRental.do'">
-					RentalList</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="btn" onclick="location.href='pickList.do'">My Pick</button>
-			</div>
 			<br>
 			<c:forEach var="list" items="${list }">
 				<div class="container">
 					<div class="row no-gutters">
-						<div class="col-4 mb-3" style="background: #ffffff; overflow: hidden; height: 200px"">
-							<img src="${list.productImage }" class="card-img"
-								style="height: 120%; width: 85%; overflow: hidden;">
+						<div class="col-4 mb-3" style="background: #ffffff; overflow: hidden; height: 200px">
+							<img src="${list.productImage }" class="card-img" style="height: 120%; width: 85%; overflow: hidden;">
 						</div>
 						<div class="col-8 mb-3" style="background: #ffffff; height: 200px">
 							<div class="card-body">
-								<p>${list.productName }</p>
+								<p style="font-size:20px;">${list.productName }</p>
 								<p>${list.rentalStart }~${list.rentalEnd }</p>
 								<p>${list.rentalPay }</p>
 							</div>
-							<div class="card-body-footer"
-								style="float: right; margin-right: 20px">
-								<a href="#">마이스타일링</a>
+							<div class="card-body-footer" style="float: right; margin-right: 20px">
+								<c:if test="${list.rentalWaybill ne null}">
+									<a href="#">마이스타일링</a>
+								</c:if>
+								<c:if test="${list.rentalWaybill eq null}">
+									<a href="#" style="pointer-events: none;">배송준비중</a>
+								</c:if>
 							</div>
 						</div>
 					</div>
