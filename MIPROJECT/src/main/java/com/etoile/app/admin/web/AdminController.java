@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.etoile.app.admin.mapper.AdminInfoMapper;
+import com.etoile.app.auction.service.AuctionService;
+import com.etoile.app.funding.FundingVO;
+import com.etoile.app.funding.service.FundingService;
 import com.etoile.app.history.common.Paging;
 import com.etoile.app.member.common.RecordVO;
 import com.etoile.app.member.service.MemberService;
 import com.etoile.app.vo.AdminInfoVO;
+import com.etoile.app.vo.AuctionVO;
 import com.etoile.app.vo.MemberVO;
 
 @Controller
@@ -122,13 +126,23 @@ public class AdminController {
 		return "admin/member/memberRental";
 	}
 	
+	@Autowired
+	private FundingService fundingService;
+	@Autowired
+	private AuctionService auctionService;
+	
 	//메인페이지
 	@RequestMapping("admin/main.a")
 	public String main(Model model) {
 		//펀딩 요청 리스트
-		
+		List<FundingVO> fundingList = fundingService.fundingList(null);
+		model.addAttribute("fundingList", fundingList);
 		//경매 요청 리스트
-		
+		AuctionVO auctionVO = new AuctionVO();
+		auctionVO.setStart(1);
+		auctionVO.setEnd(5);
+		List<AuctionVO> auctionList = auctionService.getAuction(auctionVO);
+		model.addAttribute("auctionList", auctionList);
 		//대여 요청 리스트
 		List<RecordVO> rentalList = memberService.memberRentalList(null);
 		model.addAttribute("rentalList", rentalList);
