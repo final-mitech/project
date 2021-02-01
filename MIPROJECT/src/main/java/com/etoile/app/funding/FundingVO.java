@@ -23,5 +23,7 @@ public class FundingVO {
 	
 	private String fundingDday;
 	
+	private String page;
+	
 
 }

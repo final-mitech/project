@@ -1,5 +1,6 @@
 package com.etoile.app.funding.web;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,7 @@ public class FundingContorller {
 	// (관리자) 요청된 펀딩 목록 조회
 	@RequestMapping("/admin/fundingRequestList.a")
 	public String fundingRequestList(Model model, FundingVO vo) {
+		vo.setPage("requestPage");
 		List<FundingVO> fundings = fundingService.fundingRequestList(vo);
 		model.addAttribute("fundings", fundings);
 
@@ -76,6 +78,7 @@ public class FundingContorller {
 	// (관리자) 등록된 펀딩 목록 조회
 	@RequestMapping("/admin/fundingRegisterList.a")
 	public String fundingRegisterList(Model model, FundingVO vo) {
+		vo.setPage("registerPage");
 		List<FundingVO> fundings = fundingService.fundingRegisterList(vo);
 		model.addAttribute("fundings", fundings);
 
@@ -141,23 +144,54 @@ public class FundingContorller {
 
 		return viewPath;
 	}
-	
-	
-	//블록체인
-	
-	
+
+	// 펀딩 상태 수정
+	@PostMapping("admin/conditionUpdate.a")
+	@ResponseBody
+	public String conditionUpdate(FundingVO vo) {
+		
+		int n = fundingService.conditionUpdate(vo);
+		if (n != 0) {
+			return "SUCCESS";
+		} else
+			return "FAIL";
+	}
+
+	// 블록체인
+
 	// 펀딩 참여 등록 , 수정
-	@RequestMapping(value="site/fundingJoinInsert.do")
+	@RequestMapping(value = "site/fundingJoinInsert.do")
 	@ResponseBody
 	public FundingJoinVO fundingJoinInsert(FundingJoinVO vo, FundingVO vo2) {
-		
-		vo.setMemberId("user"); //로그인 세션때무네 임시로만들어놓으뮤ㅠ
+
+		vo.setMemberId("user"); // 로그인 세션때무네 임시로만들어놓으뮤ㅠ
 
 		fundingService.fundingJoinInsert(vo);
 		fundingService.fundingJoinUpdate(vo2);
-		
+
 		return vo;
 	}
 	
+	//마이페이지
+	
+	//마이 펀딩
+	@RequestMapping("site/myFundingList.do")
+	public String myFundingList(Model model, FundingVO vo) {
+		
+		List<FundingVO> fundings = fundingService.myFundingList(vo);
+		model.addAttribute("fundings", fundings);
+
+		return "site/my/myFundingList";
+	}
+
+	//조인 펀딩
+	@RequestMapping("site/joinFundingList.do")
+	public String joinFundingList(Model model, FundingJoinVO vo) {
+
+		List<FundingJoinVO> fundings = fundingService.joinFundingList(vo);
+		model.addAttribute("fundings", fundings);
+
+		return "site/my/joinFundingList";
+	}
 
 }

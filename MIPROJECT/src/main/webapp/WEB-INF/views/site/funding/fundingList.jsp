@@ -65,9 +65,13 @@
 				</button>
 			</div>
 			<div>
-				<a href="/etoile/admin/fundingRequestList.a">임시) 관리자 요청된 펀딩 목록
-					리스트 ! </a> <a href="/etoile/admin/fundingRegisterList.a">임시) 관리자
-					등록된 펀딩 목록 리스트 !</a>
+				<a href="/etoile/admin/fundingRequestList.a">요청 펀딩 목록
+					</a> <a href="/etoile/admin/fundingRegisterList.a">
+					등록 펀딩 목록</a>
+					<a href="/etoile/site/myFundingList.do">마이펀딩
+					</a>
+					<a href="/etoile/site/joinFundingList.do">조인펀딩
+					</a>
 			</div>
 		</div>
 
