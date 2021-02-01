@@ -61,7 +61,7 @@
 							</div>
 							<div class="card-body-footer"
 								style="float: right; margin-right: 20px">
-								<a href="/etoile/site/productDetail.do?productId=${list.productId }">대여하러가기</a>
+								<a href="/etoile/site/productDetail?productId=${list.productId }">대여하러가기</a>
 							</div>
 						</div>
 					</div>

@@ -88,8 +88,9 @@ $(function() {
 			var rentalDay = document.getElementById("renDay").value;
 			var couponUsed = document.getElementById("couponUsed").value;
 			var kind = $("#couponUsed option:selected").data("kind");
+			var id = $("#couponUsed option:selected").data("id");
 			
-			console.log(kind);
+			console.log(id);
 			if (couponUsed == "notused") {
 				var notCpnPay = 0;
 				$("#couponUse").val(notCpnPay);
@@ -102,6 +103,7 @@ $(function() {
 				$("#couponUse").val(gCpnPay);
 				var gCpnUsePay = $("#couponUse").val();
 				$("#totalrentalPay").val(rentalPay-gCpnUsePay);
+				$("#couponId").val(id);
 			} else if (kind == 'f') {
 				var fCpn = $("#couponUsed option:selected").val();
 				var gCpn = fCpn * ${product.productRental };
@@ -109,6 +111,7 @@ $(function() {
 				
 				var gCpnUsePay = $("#couponUse").val();
 				$("#totalrentalPay").val(rentalPay-gCpnUsePay);
+				$("#couponId").val(id);
 			}  
 		})
 	})
@@ -175,10 +178,10 @@ $(function() {
 							<select id="couponUsed">
 								<option value="notused" selected>사용안함</option>
 								<c:forEach var="coupons" items="${coupon }">
-									<c:if test="${coupons.fundingCoupon eq 0}">
+									<c:if test="${coupons.fundingCoupon eq 0 && coupons.couponUsed eq 0}">
 										<option data-id="${coupons.couponId}" data-kind="g" value="${coupons.gradeCoupon }">${coupons.gradeCoupon } % 할인쿠폰</option>
 									</c:if>
-									<c:if test="${coupons.gradeCoupon eq 0}">
+									<c:if test="${coupons.gradeCoupon eq 0 && coupons.couponUsed eq 0 && coupons.couponSort eq product.productName}">
 										<option data-id="${coupons.couponId}" data-kind="f" value="${coupons.fundingCoupon }">${coupons.fundingCoupon } 일 대여권</option>
 									</c:if>
 								</c:forEach>
@@ -189,6 +192,7 @@ $(function() {
 			</div>
 			<hr>
 			<div class="row">
+				<input type="hidden" id="couponId" name="couponId">
 				<input type="hidden" name="productId" value="${product.productId }">
 				<input type="hidden" id="productName" name="productName"
 					value="${product.productName }">

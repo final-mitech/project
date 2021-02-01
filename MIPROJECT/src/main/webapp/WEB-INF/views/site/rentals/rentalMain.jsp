@@ -51,14 +51,14 @@ button {
 		document.getElementById("frm").submit();
 	}
 	function goList(page) {
-		location.href = 'productList.do?page=' + page;
+		location.href = 'productList?page=' + page;
 	}
 </script>
 </head>
 <body>
 	<div class="container">
 		<div id="sort">
-			<a href="#">최신순</a> <a href="#">인기순</a>
+			<a href="productList">최신순</a> <a href="productList2">인기순</a>
 		</div>
 		<div style="float: right;">
 			<form id="frm" action="productSearch.do">
@@ -77,7 +77,7 @@ button {
 			<c:forEach var="list" items="${list }">
 				<div class="col-lg-3 mb-1" style="height: 450px">
 					<div class="card" id="product-card" style="position: relative;"
-						onclick="location.href='productDetail.do?productId=${list.productId }'">
+						onclick="location.href='productDetail?productId=${list.productId }'">
 						<div class="card-header"
 							style="height: 280px; border: 0px; background-color: white; overflow: hidden;">
 							<img src="${list.productImage }" class="card-img-top"
