@@ -10,14 +10,17 @@
 		AUCTION_CATEGORY, AUCTION_IMAGE,
 		AUCTION_CONTENT, AUCTION_BEST_PRICE,
 		AUCTION_IMMEDIATE_BID,
-		AUCTION_SERIAL)
-		VALUES( A_SEQ.NEXTVAL,
+		AUCTION_SERIAL, AUCTION_CONDITION, AUCTION_UPDATE_DATE)
+		VALUES(
+		A_SEQ.NEXTVAL,
 		#{memberId}, #{auctionName},
 		#{auctionBrand},
 		#{auctionCategory}, #{auctionImage},
-		#{auctionContent}, #{auctionBestPrice},
+		#{auctionContent},
+		#{auctionBestPrice},
 		#{auctionImmediateBid},
-		#{auctionSerial} )
+		#{auctionSerial}, '0',
+		sysdate )
 	</insert>
 
 	<!-- 경매 전체조회 -->
@@ -69,12 +72,17 @@
 		FROM( SELECT B.*,
 		ROWNUM RN FROM (
 		SELECT *
-		FROM AUCTION
+		FROM
+		(SELECT * FROM AUCTION WHERE AUCTION_CONDITION='1' OR
+		AUCTION_CONDITION='2' OR
+		AUCTION_CONDITION='3' OR
+		AUCTION_CONDITION='8')
 		WHERE
 		AUCTION_NAME LIKE '%' ||
-		#{auctionName} || '%'
+		upper(#{auctionName}) || '%'
 		)B) A
-		WHERE RN BETWEEN #{start} AND #{end}
+		WHERE RN BETWEEN
+		#{start} AND #{end}
 	</select>
 
 	<!-- 경매 최신순 정렬 -->
@@ -84,6 +92,10 @@
 		ROWNUM RN FROM (
 		SELECT *
 		FROM AUCTION
+		WHERE AUCTION_CONDITION='1' OR
+		AUCTION_CONDITION='2' OR
+		AUCTION_CONDITION='3' OR
+		AUCTION_CONDITION='8'
 		ORDER BY
 		AUCTION_START DESC
 		)B) A
@@ -97,10 +109,15 @@
 		ROWNUM RN FROM (
 		SELECT *
 		FROM AUCTION
+		WHERE AUCTION_CONDITION='1' OR
+		AUCTION_CONDITION='2' OR
+		AUCTION_CONDITION='3' OR
+		AUCTION_CONDITION='8'
 		ORDER BY AUCTION_JOIN_COUNT DESC
 		NULLS LAST
 		)B) A
-		WHERE RN BETWEEN #{start} AND #{end}
+		WHERE RN BETWEEN
+		#{start} AND #{end}
 	</select>
 
 	<!-- 경매 최고가 등록 -->
@@ -288,19 +305,26 @@
 		SELECT A.*
 		FROM( SELECT B.*,
 		ROWNUM RN FROM (
-		SELECT *
+		SELECT AUCTION_ID, MEMBER_ID, AUCTION_NAME,
+		TO_CHAR(AUCTION_UPDATE_DATE,
+		'YYYY-MM-DD
+		HH24:MI') AS
+		AUCTION_UPDATE_DATE, AUCTION_CONDITION
 		FROM AUCTION
-		WHERE AUCTION_CONDITION='0' OR
+		WHERE
+		AUCTION_CONDITION='0' OR
 		AUCTION_CONDITION='4' OR
-		AUCTION_CONDITION='5' OR
+		AUCTION_CONDITION='5'
+		OR
 		AUCTION_CONDITION='6'
 		OR
 		AUCTION_CONDITION='7' OR
 		AUCTION_CONDITION='8'
 		ORDER BY
-		AUCTION_CONDITION
+		AUCTION_UPDATE_DATE DESC
 		)B) A
-		WHERE RN BETWEEN #{start} AND #{end}
+		WHERE RN
+		BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 관리자 요청 내역 count -->
@@ -343,4 +367,74 @@
 		AUCTION_CONDITION='3'
 	</select>
 
+	<!-- 관리자 경매상품 등록 -->
+	<insert id="auctionAdminPut">
+		INSERT INTO AUCTION(AUCTION_ID, MEMBER_ID,
+		AUCTION_NAME, AUCTION_BRAND, AUCTION_TITLE,
+		AUCTION_CATEGORY,
+		AUCTION_IMAGE,
+		AUCTION_CONTENT, AUCTION_BEST_PRICE,
+		AUCTION_IMMEDIATE_BID,
+		AUCTION_SERIAL, AUCTION_START, AUCTION_END,
+		AUCTION_CONDITION,
+		AUCTION_UPDATE_DATE)
+		VALUES( A_SEQ.NEXTVAL,
+		#{memberId}, #{auctionName},
+		#{auctionBrand}, #{auctionTitle},
+		#{auctionCategory}, #{auctionImage},
+		#{auctionContent},
+		#{auctionBestPrice},
+		#{auctionImmediateBid},
+		#{auctionSerial},
+		SYSDATE+4, SYSDATE+10, '2', sysdate)
+	</insert>
+
+	<!-- 요청리스트 -> 관리자 컨펌 -->
+	<update id="auctionReqConfirm">
+		UPDATE AUCTION SET
+		AUCTION_CONDITION=#{auctionCondition}, AUCTION_UPDATE_DATE=sysdate
+		WHERE AUCTION_ID=#{auctionId}
+	</update>
+
+	<!-- 경매 현황리스트 정렬 -->
+	<select id="auctionAdminSelect" resultType="auctionVo">
+		SELECT A.*
+		FROM( SELECT B.*,
+		ROWNUM RN FROM (
+		SELECT *
+		FROM AUCTION
+		<where>
+			<if test="auctionCondition == 1">
+				AUCTION_CONDITION='1'
+			</if>
+			<if test="auctionCondition == 2">
+				AUCTION_CONDITION='2'
+			</if>
+			<if test="auctionCondition == 3">
+				AUCTION_CONDITION='3'
+			</if>
+		</where>
+		ORDER BY
+		AUCTION_ID DESC
+		)B) A
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 경매 현황리스트 정렬 count -->
+	<select id="adminSelectCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		AUCTION
+		<where>
+			<if test="auctionCondition == 1">
+				AUCTION_CONDITION='1'
+			</if>
+			<if test="auctionCondition == 2">
+				AUCTION_CONDITION='2'
+			</if>
+			<if test="auctionCondition == 3">
+				AUCTION_CONDITION='3'
+			</if>
+		</where>
+	</select>
 </mapper>

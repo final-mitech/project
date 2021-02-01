@@ -32,4 +32,6 @@ public class AuctionVO {
 	private int auctionJoinCount;
 	private int auctionDelivery;
 	private String auctionAddress;  
+	private String auctionUpdateDate;
+	private String selectWord;
 }
