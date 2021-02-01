@@ -1,6 +1,5 @@
 package com.etoile.app.funding.web;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,9 +185,11 @@ public class FundingContorller {
 
 	//조인 펀딩
 	@RequestMapping("site/joinFundingList.do")
-	public String joinFundingList(Model model, FundingJoinVO vo) {
-
-		List<FundingJoinVO> fundings = fundingService.joinFundingList(vo);
+	public String joinFundingList(Model model, FundingVO vo) {
+		
+		vo.setMemberId("user");
+		
+		List<FundingVO> fundings = fundingService.joinFundingList(vo);
 		model.addAttribute("fundings", fundings);
 
 		return "site/my/joinFundingList";

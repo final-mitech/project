@@ -25,12 +25,12 @@
 		<div class="row">
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					onclick="location.href='/etoile/admin/fundingRegisterList.a'">펀딩
-						등록 리스트</a></li>
-				<li class="nav-item"><a class="nav-link active"
-					data-toggle="tab"
 					onclick="location.href='/etoile/admin/fundingRequestList.a'">펀딩
 						요청 리스트</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					data-toggle="tab"
+					onclick="location.href='/etoile/admin/fundingRegisterList.a'">펀딩
+						등록 리스트</a></li>
 			</ul>
 			<table class="table">
 				<thead class="thead-dark">
