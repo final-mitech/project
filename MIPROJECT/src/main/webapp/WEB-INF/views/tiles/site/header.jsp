@@ -20,7 +20,7 @@
 	<div class="container">
 		<div>
 			<a href="#"> <img src="/etoile/images/main.png"
-				onclick="location.href='#'"></a>
+				onclick="location.href='/etoile'"></a>
 			<c:if test="${id eq null or id eq ''}">
 				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/joinForm'">sign up</button>
 				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/loginForm'">login</button>
