@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>funding/fundingSelect.jsp</title>
+<title>funding/fundingList.jsp</title>
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
@@ -468,13 +468,6 @@
 													aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</c:when>
-										<c:when test="${parsePer ge 0}">
-											<div class="progress">
-												<div class="progress-bar progress-bar"
-													role="progressbar" style="width: 0%" aria-valuenow="0"
-													aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</c:when>
 									</c:choose>
 								</div>
 								<!-- 상태바 종료 -->
@@ -506,9 +499,7 @@
 								<div class="product-price">
 									<span>총 가격 : </span> <span id="fundingPrice"
 										name="fundingPrice"></span>
-
 								</div>
-
 							</div>
 
 
@@ -591,12 +582,20 @@
 	
 	<script>
 		function selectGift() {
-			var a = frm.fundingGift.value;
-			//console.log(a.split(':')[1]);
-			var b = a.split(':')[1];
+			var a = frm.fundingGift.value; //상품명]1일권:1원 , db에 들어갈 애
+			//console.log(a);
+			var b = a.split(':')[1]; //1원
+			//console.log(b);
 			$('#fundingPrice').html(b);
 
-			frm.fundingPrice.value = parseInt(b.replace(',', ''));
+			frm.fundingPrice.value = parseInt(b.replace(',', '')); //1
+			
+			/* var a = frm.fundingGift.value; 
+			var b = a.split(':')[1];
+			var c = b.replace('원','');
+
+			$('#fundingPrice').append($('<tr />').append($('<td />').html(a)));
+			frm.fundingPrice.value = parseInt(b.replace(',', '')); */
 		}
 		selectGift();
 

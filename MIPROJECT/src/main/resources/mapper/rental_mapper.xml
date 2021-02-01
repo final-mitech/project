@@ -29,8 +29,9 @@
 		<where>
 			<if test="productName != null">
 				product_name like '%' || #{productName} || '%'
+				ANd product_status like 'waiting'
 			</if>
-			product_status like 'waiting'
+
 		</where>
 	</select>
 	

@@ -91,4 +91,22 @@ public class FundingServiceImpl implements FundingService {
 		return dao.fundingJoinUpdate(vo);
 	}
 
+	@Override
+	public int conditionUpdate(FundingVO vo) {
+		
+		return dao.conditionUpdate(vo);
+	}
+
+	@Override
+	public List<FundingVO> myFundingList(FundingVO vo) {
+
+		return dao.myFundingList(vo);
+	}
+
+	@Override
+	public List<FundingJoinVO> joinFundingList(FundingJoinVO vo) {
+		
+		return dao.joinFundingList(vo);
+	}
+
 }
