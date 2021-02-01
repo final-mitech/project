@@ -238,7 +238,7 @@
                         <div align="center">
                             <button type="button" class="btn joinBtn btn-lg"
                                 id="joinBtn">경매요청합니다!</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btnMain" onclick="location.href='auctionMain'">목록</button>
+                            <button type="button" class="btn btnMain" onclick="location.href='/site/auctionMain'">목록</button>
                         </div>
                     </form>
                     <br />

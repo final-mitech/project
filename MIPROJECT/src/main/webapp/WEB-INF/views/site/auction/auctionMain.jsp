@@ -28,21 +28,11 @@
     }
 
     .btnReq {
-      background-color: rgb(241, 219, 147);
+      background-color: rgb(218, 212, 196);
       height: 90%;
-      color: rgb(78, 68, 68);
       font-size: large;
-      font-weight: bold;
       float: right;
-    }
-
-    .btnGo {
-      background-color: rgb(147, 188, 241);
-      height: 90%;
-      color: rgb(78, 68, 68);
-      font-size: large;
-      font-weight: bold;
-      float: right;
+      text-align: center;
     }
 
     .btnReq:hover {
@@ -50,20 +40,18 @@
     }
 
     .btnTitle {
-      background-color: rgb(192, 184, 177);
-      color: rgb(78, 68, 68);
-      border-style: hidden;
-      border-radius: unset;
-      border-color: rgb(192, 184, 177);
       font-size: small;
-      font-weight: bold;
-      height: 7%;
+      height: 8%;
       padding-left: 20%;
     }
 
     .badge {
-      padding: 3% 6%;
       float: right;
+      font-size: smaller;
+      width: 60px;
+      height: 20px;
+      padding-top: 5px;
+      margin-top: 2px;
     }
 
     .card {
@@ -78,20 +66,20 @@
     .card-text {
       padding-top: 20px;
       height: 200px;
-      border-color: rgb(156, 151, 147);
+      border-color: rgb(0, 0, 0);
       font-size: small;
     }
 
     .btnJoin {
-      background-color: #A4ACC8;
-      color:  rgb(78, 68, 68);
+      background-color: rgb(66, 64, 64);
+      color: #FBFBF4;
+      border-color:  rgb(66, 64, 64);
       font-size: medium;
-      font-weight: bold;
       height: 40px;
       padding-top: 6px;
     }
 
-    .btnJoin:hover{
+    .btnJoin:hover {
       color: #FBFBF4;
     }
 
@@ -99,7 +87,6 @@
       padding: 0px;
       border-color: #A4ACC8;
     }
-
   </style>
 </head>
 
@@ -140,21 +127,18 @@
               <button type="button" class="btn btnTitle" readonly>
                 경매번호 ${vo.auctionId}
                 <c:if test="${vo.auctionCondition eq '2' }">
-                  <span class="badge badge-pill badge-light"
-                    style="background-color: #C4BCCC; color: rgb(78, 68, 68);">오픈예정</span>
+                  <span class="badge badge-pill badge-light" style="background-color:  #c6e1ff;">오픈예정</span>
                 </c:if>
                 <c:if test="${vo.auctionCondition eq '1' }">
-                  <span class="badge badge-pill badge-light"
-                    style="background-color: #f8f8d2; color:rgb(78, 68, 68);">경매중</span>
+                  <span class="badge badge-pill badge-light" style="background-color: #ffc1bd;">경매중</span>
                 </c:if>
                 <c:if test="${vo.auctionCondition eq '3' || vo.auctionCondition eq '8'}">
-                  <span class="badge badge-pill badge-light"
-                    style="background-color: #C8CAC4; color:rgb(78, 68, 68);">경매마감</span>
+                  <span class="badge badge-pill badge-light" style="background-color: #C8CAC4;">경매마감</span>
                 </c:if>
               </button>
               <div class="card-body">
-                <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top" src="/etoile/images/${vo.auctionImage}"
-                    alt="Card image" width="100%" height="230px"></a>
+                <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top"
+                    src="/etoile/images/${vo.auctionImage}" alt="Card image" width="100%" height="230px"></a>
               </div>
               <div class="card-text">
                 <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>
