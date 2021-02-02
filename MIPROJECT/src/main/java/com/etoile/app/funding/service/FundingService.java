@@ -24,4 +24,9 @@ public interface FundingService {
 	public int fundingJoinInsert(FundingJoinVO vo); //펀딩 참여 등록
 	public int fundingJoinUpdate(FundingVO vo); //펀딩 참여 수정
 	
+	public int conditionUpdate(FundingVO vo); //펀딩 상태 수정
+	
+	public List<FundingVO> myFundingList(FundingVO vo); //마이 페이지 - 마이 펀딩 목록 조회
+	public List<FundingVO> joinFundingList(FundingVO vo); //마이 페이지 - 조인 펀딩 목록 조회
+	
 }

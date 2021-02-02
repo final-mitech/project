@@ -13,6 +13,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <style>
 </style>
@@ -23,9 +24,13 @@
 	<div class="container">
 		<div class="row">
 			<ul class="nav nav-tabs">
-				<li class="nav-item">
-				<a class="nav-link active" data-toggle="tab" href="/etoile/admin/fundingRegisterList.a">등록된 펀딩 리스트</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="/etoile/admin/fundingRequestList.a">요청받은 펀딩 리스트</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+					onclick="location.href='/etoile/admin/fundingRequestList.a'">펀딩
+						요청 리스트</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					data-toggle="tab"
+					onclick="location.href='/etoile/admin/fundingRegisterList.a'">펀딩
+						등록 리스트</a></li>
 			</ul>
 			<table class="table">
 				<thead class="thead-dark">
@@ -54,19 +59,19 @@
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
 							<td>${f.fundingImage }</td>
-							<td>
-								<!-- Default dropright button -->
-								<div class="btn-group dropright">
-									<button type="button" class="btn btn-secondary dropdown-toggle"
-										data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">${f.fundingCondition }</button>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">펀딩 중</a> <a
-											class="dropdown-item" href="#">펀딩 마감</a> <a
-											class="dropdown-item" href="#">펀딩 대기</a>
-									</div>
-								</div>
-							</td>
+							<td class="eventDel"><select
+								id="conditionChange${f.fundingId }" class="form-control"
+								onchange="conditionChange(${f.fundingId })">
+									<option
+										<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
+										펀딩오픈예정</option>
+									<option
+										<c:if test="${f.fundingCondition eq '펀딩중'}"> selected </c:if>>
+										펀딩중</option>
+									<option
+										<c:if test="${f.fundingCondition eq '펀딩마감'}"> selected </c:if>>
+										펀딩마감</option>
+							</select></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -82,20 +87,6 @@
 
 	</div>
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
-
 	<!-- clickSelect : 펀딩 상세보기 -->
 	<script>
 		$('.clickSelect').on('click', clickSelectFunc);
@@ -105,6 +96,36 @@
 			let id = $(this).data('id');
 
 			location.href = 'fundingUpdateForm.a?fundingId=' + id;
+		}
+		
+		$('.eventDel').on('click',function(e){
+			e.stopPropagation();
+		})			
+		
+		function conditionChange(id) {
+			let fundingId = id;
+			let fundingCondition = $('#conditionChange'+id).val();
+			
+			$.ajax({
+				url: 'conditionUpdate.a',
+				type: 'post',
+				data: {
+					fundingId: fundingId,
+					fundingCondition: fundingCondition
+				},
+				success: function(data) {
+					if(data=="SUCCESS") {
+						alert(fundingCondition+"으로 상태가 변경되었습니다.");
+					}
+					else {
+					location.href="/etoile/admin/funding/fundingUpdateFail"; 
+					}
+				},
+				error: function(data) {
+					location.href="/etoile/admin/funding/fundingUpdateFail"; 
+				}
+				
+			}); 
 		}
 	</script>
 </body>

@@ -36,8 +36,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="funding" items="${fundingList }">
-								<tr onclick="">
+							<c:forEach var="funding" begin="0" end="4" items="${fundingList }">
+								<tr onclick="location.href='/etoile/admin/fundingRegisterList.a'">
 									<th scope="row">${funding.fundingId }</th>
 									<td>${funding.fundingName }</td>
 									<td>${funding.fundingCategory  }</td>
@@ -64,8 +64,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="auction" items="${auctionList }">
-								<tr onclick="">
+							<c:forEach var="auction" begin="0" end="4" items="${auctionList }">
+								<tr onclick="location.href='/etoile/admin/auctionReqList.a'">
 									<th scope="row">${auction.auctionId }</th>
 									<td>${auction.auctionName }</td>
 									<td>${auction.auctionCategory  }</td>
@@ -94,7 +94,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="rental" items="${rentalList }">
+							<c:forEach var="rental" begin="0" end="4" items="${rentalList }">
 								<tr onclick="location.href='/etoile/admin/rentalList.a'">
 									<th scope="row">${rental.rentalId }</th>
 									<td>${rental.memberId }</td>
