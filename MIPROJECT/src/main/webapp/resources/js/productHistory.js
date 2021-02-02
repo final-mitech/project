@@ -88,15 +88,15 @@ App = {
 		getHistory();
 	},
 	setStatus: function(productId, status, date, form) {
-		web3.eth.getAccounts(function(error, accounts) {
-			let account = accounts[0];
-			App.contract.methods.setProductStatus(productId, status, date)
-				.send({ from: account, value: 0 })
-				.then(function(result) {
-					document.forms[form].submit();
-				});
+      web3.eth.getAccounts(function(error, accounts) {
+         let account = accounts[0];
+         App.contract.methods.setProductStatus(productId, status, date)
+            .send({ from: account, value: 0 })
+            .then(function(result) {
+               document.forms[form].submit();
+            });
 
-		})
+      })
 
 
 	},

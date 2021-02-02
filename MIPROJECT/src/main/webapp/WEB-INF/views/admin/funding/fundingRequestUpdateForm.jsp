@@ -178,7 +178,7 @@ body {
 					</div>
 				</div>
 
-				<div class="form-group">
+<%-- 				<div class="form-group">
 					<label for="fundingCondition" class="col-sm-3 control-label">펀딩상태</label>
 					<div class="col-sm-9">
 						<input type="text" name="fundingCondition" id="fundingCondition"
@@ -186,7 +186,7 @@ body {
 							value="${selectVo.fundingCondition}">
 					</div>
 				</div>
-
+ --%>
 				<div class="form-group">
 					<label for="fundingGift" class="col-sm-9 control-label">펀딩
 						기프트</label>

@@ -47,6 +47,11 @@
 .h6.mb-0.mr-3 {
 	padding: 1em;
 }
+
+.clickSelect {
+	width: 280px;
+	height: 550px;
+} 
 </style>
 
 </head>
@@ -79,11 +84,10 @@
 
 			<c:forEach items="${fundings }" var="f">
 
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="card clickSelect" style="width: 300px"
-						data-id="${f.fundingId }">
+				<div class="col-lg-3 col-md-6 mb-4" style="height: 600px">
+					<div class="card clickSelect" data-id="${f.fundingId }" >
 						<img class="card-img-top" src="../images/${f.fundingImage }"
-							alt="Card image" style="width: 290px" height="200px">
+							alt="Card image" style="width: 270px" height="200px" align="center">
 						<div class="card-body">
 							<h4 class="card-title" align="left" style="display: inline">
 								<b>${f.fundingTitle }</b>

@@ -31,7 +31,7 @@
 				funding_condition IN ('접수완료','검수중','검수완료')
 			</if>
 			<if test="page == 'registerPage'">
-				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감', '펀딩완료')
+				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
 			</if>
 		</where>
 		order by funding_id
@@ -158,19 +158,15 @@
 	<!-- 마이 페이지 - 마이 펀딩 조회 -->
 	<select id="myFundingList"
 		resultType="com.etoile.app.funding.FundingVO">
-		SELECT funding_id,
-		funding_name,
-		funding_brand,
-		funding_category,
-		funding_image,
-		funding_condition
-		FROM funding
-		ORDER BY funding_id
+		SELECT f.funding_id, f.funding_name, f.funding_brand, f.funding_category, f.funding_condition, f.funding_content, f.funding_totalprice, j.funding_price, j.funding_gift
+		FROM funding f , funding_join j
+		WHERE f.funding_id = j.funding_id
+   		AND j.member_id = #{memberId}
 	</select>
 	
 	<!-- 마이 페이지 - 조인 펀딩 조회 -->
 	<select id="joinFundingList" resultType="com.etoile.app.funding.FundingVO">
-		SELECT f.funding_id, f.funding_name, f.funding_brand, f.funding_category, f.funding_condition, f.funding_content, j.funding_price
+		SELECT f.funding_id, f.funding_name, f.funding_brand, f.funding_category, f.funding_condition, f.funding_content, f.funding_totalprice, j.funding_price, j.funding_gift
 		FROM funding f , funding_join j
 		WHERE f.funding_id = j.funding_id
    		AND j.member_id = #{memberId}

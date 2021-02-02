@@ -16,24 +16,48 @@
 <script>
 	var myModal = document.getElementById('myModal')
 	var myInput = document.getElementById('myInput')
-
 	myModal.addEventListener('shown.bs.modal', function() {
 		myInput.focus()
 	})
 </script>
 <script>
-	function updateWaybill(id) {
+	/* function updateWaybill(id) {
+		var rentalId = $("#"+id).parent().find("#rentalId").val();
+		var waybill = $("#"+id).parent().prev().find("#rentalWaybill").val();
 		var today = new Date();
 		var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-'
 				+ today.getDate();
 
-		let status = "rental";
-		//let productId = document.getElementById('productId').value;
-		let productId = id;
-		console.log(productId, status, date);
+		var status = "rental";
+		var prodId = id;
+		var productId = "\""+id+"\"";
+		
 		App.setStatus(productId, status, date);
+		
+		$.ajax ({
+			url: "updateWaybill.a",
+			type: "post",
+			data: {
+				rentalWaybill: waybill,
+				rentalId: rentalId,
+				productId: prodId
+			},
+			success: function() {
+				location.href="/etoile/admin/rentalList.a";
+			}
+		})
+	} */
+	
+	   function updateWaybill(tag) {
+	      var today = new Date();
+	      var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-'
+	            + today.getDate();
 
-	}
+	      let status = "rental";
+	      let productId = document.forms[$(tag).attr('name')].elements['productId'].value;
+	      App.setStatus(productId, status, date, $(tag).attr('name'));
+	      
+	   }
 </script>
 <style>
 tr {
@@ -93,16 +117,17 @@ input:focus {
 				<tr>
 					<td width="400">${list.productName }</td>
 					<td width="80" style="text-align: center">${list.ppl }</td>
-					<td width="300" style="text-align: center"><input type="text"
-						value="${list.rentalStart }" size="7" readonly> ~ <input
-						type="text" value="${list.rentalEnd }" size="7" readonly>
+					<td width="300" style="text-align: center">
+						<input type="text" value="${list.rentalStart }" size="7" readonly>
+						~
+						<input type="text" value="${list.rentalEnd }" size="7" readonly>
 					</td>
 					<td style="text-align: center">
 						<button id="insertWay" type="button" data-toggle="modal"
 							data-target="#myModal${list.rentalId }">등록</button>
 					</td>
 				</tr>
-				<form id="frm" action="updateWaybill.a" onsubmit="updateWaybill(${list.productId })">
+				<form id="frm${list.rentalId }" name="frm${list.rentalId }" action="updateWaybill.a" >
 					<div class="modal fade" id="myModal${list.rentalId }" tabindex="-1"
 						aria-labelledby="dropLabel">
 						<div class="modal-dialog" role="document">
@@ -113,9 +138,6 @@ input:focus {
 										aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
-									<input type="hidden" id="rentalId" name="rentalId"
-										value="${list.rentalId }"> <input type="hidden"
-										id="productId" name="productId" value="${list.productId }">
 									<input type="text" id="name" name="name" value="${list.name }"
 										readonly><br> <input type="text"
 										id="rentalAddress" name="rentalAddress"
@@ -125,9 +147,11 @@ input:focus {
 										placeholder="송장번호입력">
 								</div>
 								<div class="modal-footer">
+									<input type="hidden" id="rentalId" name="rentalId" value="${list.rentalId }">
+									<input type="hidden" id="${list.productId }" name="productId" value="${list.productId }">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">취소</button>
-									<button type="submit" class="btn btn-primary">등록</button>
+									<button type="button" class="btn btn-primary" onclick="updateWaybill(this.form);">등록</button>
 								</div>
 							</div>
 						</div>
