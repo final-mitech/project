@@ -43,7 +43,7 @@
 						<th scope="col">카테고리</th>
 						<th scope="col">목표금액</th>
 						<th scope="col">현재모금액</th>
-						<th scope="col">이미지</th>
+<!-- 						<th scope="col">이미지</th> -->
 						<th scope="col">펀딩상태</th>
 					</tr>
 				</thead>
@@ -58,7 +58,7 @@
 							<td>${f.fundingCategory }</td>
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
-							<td>${f.fundingImage }</td>
+<%-- 							<td>${f.fundingImage }</td> --%>
 							<td class="eventDel"><select
 								id="conditionChange${f.fundingId }" class="form-control"
 								onchange="conditionChange(${f.fundingId })">

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.etoile.app.admin.mapper.CodeMapper;
 import com.etoile.app.funding.FundingJoinVO;
 import com.etoile.app.funding.FundingVO;
 import com.etoile.app.funding.service.FundingService;
@@ -19,6 +20,9 @@ public class FundingContorller {
 
 	@Autowired
 	private FundingService fundingService;
+	
+	@Autowired
+	private CodeMapper codeMapper;
 
 	// 펀딩 목록 조회
 	@RequestMapping("/site/fundingList")
@@ -34,7 +38,8 @@ public class FundingContorller {
 	@GetMapping("/site/fundingInsertForm.do") // 호출명
 	public String fundingInsertForm(Model model, FundingVO vo) { // 메소드명
 		model.addAttribute("fundings", fundingService.fundingList(vo)); // 등록 폼에도 DB값을 가져와야 하므로 적어줌
-
+		model.addAttribute("cateList", codeMapper.codeList("category"));
+		model.addAttribute("branList", codeMapper.codeList("brand"));
 		return "site/funding/fundingInsertForm"; // 페이지명 일치
 	}
 
@@ -119,7 +124,9 @@ public class FundingContorller {
 	@PostMapping("admin/fundingRequestUpdate.a")
 	public String fundingRequestUpdate(Model model, FundingVO vo) {
 		String viewPath = null;
-
+		
+		vo.setFundingCondition("검수완료");
+		
 		int n = fundingService.fundingRequestUpdate(vo);
 		if (n != 0) {
 			viewPath = "redirect:fundingRequestList.a"; // 리퀘스트 매핑 메소드 호출
@@ -175,6 +182,8 @@ public class FundingContorller {
 	//마이 펀딩
 	@RequestMapping("site/myFundingList.do")
 	public String myFundingList(Model model, FundingVO vo) {
+		
+		vo.setMemberId("user");
 		
 		List<FundingVO> fundings = fundingService.myFundingList(vo);
 		model.addAttribute("fundings", fundings);

@@ -24,10 +24,10 @@
 	<div class="container">
 		<div class="row">
 			<ul class="nav nav-tabs">
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+				<li class="nav-item"><a class="nav-link active" data-toggle="tab"
 					onclick="location.href='/etoile/admin/fundingRequestList.a'">펀딩
 						요청 리스트</a></li>
-				<li class="nav-item"><a class="nav-link active"
+				<li class="nav-item"><a class="nav-link "
 					data-toggle="tab"
 					onclick="location.href='/etoile/admin/fundingRegisterList.a'">펀딩
 						등록 리스트</a></li>
@@ -37,13 +37,12 @@
 					<tr>
 						<th scope="col">NO.</th>
 						<!-- 						<th scope="col">회원ID</th> -->
-						<th scope="col">펀딩명</th>
+<!-- 						<th scope="col">펀딩명</th> -->
 						<th scope="col">상품명</th>
 						<th scope="col">브랜드</th>
 						<th scope="col">모델번호</th>
 						<th scope="col">카테고리</th>
 						<th scope="col">요청사항</th>
-						<th scope="col">이미지</th>
 						<th scope="col">펀딩상태</th>
 					</tr>
 				</thead>
@@ -52,13 +51,12 @@
 						<tr class="clickSelect" data-id="${f.fundingId }">
 							<th scope="row">${f.fundingId }</th>
 							<%-- 							<td>${f.memberId }</td> <!-- 회원ID??? --> --%>
-							<td>${f.fundingTitle }</td>
+<%-- 							<td>${f.fundingTitle }</td> --%>
 							<td>${f.fundingName }</td>
 							<td>${f.fundingBrand }</td>
 							<td>${f.fundingSerial }</td>
 							<td>${f.fundingCategory }</td>
 							<td>${f.fundingContent }</td>
-							<td>${f.fundingImage }</td>
 							<td class="eventDel">
 								 <select id="conditionChange${f.fundingId }"
 								class="form-control" onchange="conditionChange(${f.fundingId })">
