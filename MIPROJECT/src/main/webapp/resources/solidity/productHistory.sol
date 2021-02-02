@@ -1,7 +1,7 @@
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
-contract ProdcutHistory{
+contract ProductHistory{
     
     struct ProductStatus{
         string status;
