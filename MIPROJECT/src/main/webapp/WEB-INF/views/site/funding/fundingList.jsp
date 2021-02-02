@@ -47,6 +47,11 @@
 .h6.mb-0.mr-3 {
 	padding: 1em;
 }
+
+.clickSelect {
+	width: 280px;
+	height: 550px;
+} 
 </style>
 
 </head>
@@ -65,9 +70,13 @@
 				</button>
 			</div>
 			<div>
-				<a href="/etoile/admin/fundingRequestList.a">임시) 관리자 요청된 펀딩 목록
-					리스트 ! </a> <a href="/etoile/admin/fundingRegisterList.a">임시) 관리자
-					등록된 펀딩 목록 리스트 !</a>
+				<a href="/etoile/admin/fundingRequestList.a">요청 펀딩 목록
+					</a> <a href="/etoile/admin/fundingRegisterList.a">
+					등록 펀딩 목록</a>
+					<a href="/etoile/site/myFundingList.do">마이펀딩
+					</a>
+					<a href="/etoile/site/joinFundingList.do">조인펀딩
+					</a>
 			</div>
 		</div>
 
@@ -75,11 +84,10 @@
 
 			<c:forEach items="${fundings }" var="f">
 
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="card clickSelect" style="width: 300px"
-						data-id="${f.fundingId }">
+				<div class="col-lg-3 col-md-6 mb-4" style="height: 600px">
+					<div class="card clickSelect" data-id="${f.fundingId }" >
 						<img class="card-img-top" src="../images/${f.fundingImage }"
-							alt="Card image" style="width: 290px" height="200px">
+							alt="Card image" style="width: 270px" height="200px" align="center">
 						<div class="card-body">
 							<h4 class="card-title" align="left" style="display: inline">
 								<b>${f.fundingTitle }</b>

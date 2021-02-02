@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div class="container">
-		<a href="#"> <img src="/etoile/images/main.png"
+		<a href="/etoile/admin/main.a"> <img src="/etoile/images/main.png"
 			onclick="location.href='#'"></a>
 	</div>
 </body>

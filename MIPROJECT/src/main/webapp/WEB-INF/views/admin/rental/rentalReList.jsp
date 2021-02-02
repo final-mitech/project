@@ -7,11 +7,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
+
+<script src="<c:url value="/resources/js/productHistory.js" />"></script>
 <script>
-	$(document).ready(function() {
-		$("#productStatus").on("change",function(){
-			var status = document.getElementById("productStatus").value;
-			var rentalId = document.getElementById("rentalId").value;
+	function selStatus(tag){
+			var status = $("#"+tag.id).val();
+			var rentalId = $("#rentalId").val();
+			var productId = $("#"+tag.id).parent().find("#productId").val();
+			var form = $("#frm").attr("name", "frmr"+rentalId);
+			
+			let today = new Date();
+			let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-'
+					+ today.getDate();
+			
+			App.setStatus(productId, status, date, form);
 			$.ajax ({
 				url: "rentalProductStatus.a",
 				type: "post",
@@ -23,8 +36,7 @@
 					location.href="/etoile/admin/rentalReList.a";
 				}
 			})
-		})
-	})
+		}
 </script>
 <style>
 tr {
@@ -91,19 +103,19 @@ select {
 						</td>
 						<td style="text-align: center">
 						<c:if test="${list.productStatus eq 'rental'}">
-							<select name="productStatus" id="productStatus">
+							<select name="Status" id="Status${list.rentalId }" onchange="selStatus(this)">
 								<option value="rental" selected>배송중</option>
 								<option value="waiting">회수완료</option>
 							</select>
 						</c:if>
 						<c:if test="${list.productStatus eq 'waiting'}">
-							<select name="productStatus" id="productStatus">
+							<select name="Status" id="Status${list.rentalId }" onchange="selStatus(this)">
 								<option value="rental">배송중</option>
 								<option value="waiting" selected>회수완료</option>
 							</select>
 						</c:if>
-							<input type="hidden" id="status" value="${list.productStatus }">
 							<input type="hidden" id="rentalId" value="${list.rentalId }">
+							<input type="hidden" id="productId" value="${list.productId }">
 						</td>
 					</tr>
 				</c:forEach>

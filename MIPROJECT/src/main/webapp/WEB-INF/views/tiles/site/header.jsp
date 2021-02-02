@@ -20,7 +20,7 @@
 	<div class="container">
 		<div>
 			<a href="#"> <img src="/etoile/images/main.png"
-				onclick="location.href='#'"></a>
+				onclick="location.href='/etoile'"></a>
 			<c:if test="${id eq null or id eq ''}">
 				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/joinForm'">sign up</button>
 				<button style="float: right;" class="btn btn-outline-dark" onclick="location.href='/etoile/site/loginForm'">login</button>
@@ -39,14 +39,9 @@
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
 					<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link" href="/etoile/site/productList">RENTALS</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">MY STYLING</a></li>
-<<<<<<< HEAD
-						<li class="nav-item"><a class="nav-link" href="#">FUNDDNG</a></li>
-						<li class="nav-item"><a class="nav-link" href="/etoile/site/auctionMain">AUCTION</a></li>
-=======
+						<li class="nav-item"><a class="nav-link" href="/etoile/site/reviewList">MY STYLING</a></li>
 						<li class="nav-item"><a class="nav-link" href="/etoile/site/fundingList">FUNDING</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">AUCTION</a></li>
->>>>>>> branch 'master' of https://github.com/final-mitech/project.git
+						<li class="nav-item"><a class="nav-link" href="/etoile/site/auctionMain">AUCTION</a></li>
 					</ul>
 				</div>
 			</nav>

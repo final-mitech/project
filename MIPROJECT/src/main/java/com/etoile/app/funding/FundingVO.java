@@ -23,5 +23,12 @@ public class FundingVO {
 	
 	private String fundingDday;
 	
+	private String page;
+	
+	//마이페이지 조인펀딩리스트
+	private String fundingJoinId;
+	private String memberId; //세션
+	private int fundingPrice;
+	
 
 }
