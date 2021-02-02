@@ -43,6 +43,12 @@ App = {
 	},
 
 	setFund: function () {
+	//login체크
+	if(memberid == '') {
+		location.href="/etoile/site/loginForm";
+		return ;
+	}
+	
 		console.log('setFund');
 
 		var price = $('#blockPrice').val();
