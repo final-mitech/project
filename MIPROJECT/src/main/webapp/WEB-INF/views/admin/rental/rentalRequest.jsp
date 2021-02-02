@@ -37,14 +37,13 @@ input:focus {
 	outline: none;
 }
 
-
 #insertWay {
 	border: 0;
 	padding: 6px 13px;
 }
 
 #inserWay:hover {
-	background-color : #cccccc;
+	background-color: #cccccc;
 }
 </style>
 </head>
@@ -78,7 +77,8 @@ input:focus {
 						type="text" value="${list.rentalEnd }" size="7" readonly>
 					</td>
 					<td style="text-align: center">
-						<button id="insertWay" type="button" data-toggle="modal" data-target="#myModal${list.rentalId }">등록</button>
+						<button id="insertWay" type="button" data-toggle="modal"
+							data-target="#myModal${list.rentalId }">등록</button>
 					</td>
 				</tr>
 				<form id="frm" action="updateWaybill.a">
@@ -93,10 +93,13 @@ input:focus {
 								</div>
 								<div class="modal-body">
 									<input type="hidden" name="rentalId" value="${list.rentalId }">
-									<input type="hidden" name="productId" value="${list.productId }">
-									<input type="text" id="name" name="name" value="${list.name }" readonly><br>
-									<input type="text" id="rentalAddress" name="rentalAddress" value="${list.rentalAddress }" readonly style="text-align:center" size="50"><br>
-									<input type="text" name="rentalWaybill" placeholder="송장번호입력">
+									<input type="hidden" name="productId"
+										value="${list.productId }"> <input type="text"
+										id="name" name="name" value="${list.name }" readonly><br>
+									<input type="text" id="rentalAddress" name="rentalAddress"
+										value="${list.rentalAddress }" readonly
+										style="text-align: center" size="50"><br> <input
+										type="text" name="rentalWaybill" placeholder="송장번호입력">
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
