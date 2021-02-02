@@ -7,11 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/font-awesome.min.css">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
@@ -40,8 +35,9 @@
 	BORDER-TOP: medium none;
 }
 /* 돋보기버튼 */
-button {
+#S {
 	border: none;
+	color: gray;
 	background-color: white;
 	text-decoration: none;
 }

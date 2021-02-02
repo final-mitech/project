@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.etoile.app.member.common.AddressVO;
@@ -60,7 +61,11 @@ public class MemberController {
 	
 	//로그인 페이지
 	@RequestMapping("site/loginForm")
-	public String loginForm() {
+	public String loginForm(HttpServletRequest request) {
+		//로그인 이전페이지 주소 저장하기
+		String referrer = request.getHeader("Referer");
+		request.getSession().setAttribute("prevPage", referrer);
+		
 		return "site/member/loginForm";
 	}
 	
@@ -75,17 +80,25 @@ public class MemberController {
 	//로그인 성공 시 처리
 	@RequestMapping("site/login")
 	public String login(MemberVO vo, HttpServletRequest request) {
+		//로그인 이전 페이지 주소 가져온 후 세션 값 삭제하기
+		String redirectUrl = (String) request.getSession().getAttribute("prevPage");
+		request.getSession().removeAttribute("prevPage");
 		//세션에 값 담기
-		request.getSession().setAttribute("id", vo.getMemberId());
-		return "redirect:/";
+		request.getSession().setAttribute("id", vo.getMemberId());        
+        //return "redirect:/";
+		return "redirect:"+redirectUrl.replace("http://localhost/etoile", "");
+
 	}
 		
 	//로그아웃
 	@RequestMapping("site/logout.do")
 	public String logout(MemberVO vo, HttpServletRequest request) {
+		//로그아웃 이전 페이지 주소 가져오기
+		String referrer = request.getHeader("Referer");
+		
 		//세션에 담긴 값 삭제하기
 		request.getSession().invalidate();
-		return "redirect:/";
+		return "redirect:"+referrer.replace("http://localhost/etoile", "");
 	}
 	
 	//고객 상세정보

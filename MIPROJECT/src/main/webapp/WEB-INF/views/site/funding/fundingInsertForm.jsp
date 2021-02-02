@@ -89,8 +89,8 @@ body {
 					<div class="col-sm-9">
 						<select name="fundingBrand" id="fundingBrand" class="form-control">
 							<option value="none" selected="selected">브랜드 선택안함</option>
-							<c:forEach items="${fundings }" var="f">
-								<option>${f.fundingBrand}</option>
+							<c:forEach items="${branList }" var="b">
+								<option>${b.codeDetail}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -109,8 +109,8 @@ body {
 						<select name="fundingCategory" id="fundingCategory"
 							class="form-control">
 							<!-- <option value="none" selected="selected"> 카테고리 선택안함 </option> -->
-							<c:forEach items="${fundings }" var="f">
-								<option>${f.fundingCategory}</option>
+							<c:forEach items="${cateList }" var="c">
+								<option>${c.codeDetail}</option>
 							</c:forEach>
 						</select>
 					</div>
