@@ -21,6 +21,26 @@
         .nav-link:hover {
             color: rgb(78, 68, 68)
         }
+
+        .form-inline>.conditionChange {
+            width: 100px;
+            background-color: #f5f5f5;
+            border-color: #f5f5f5;
+            text-align: center;
+        }
+
+        .btnAdmin {
+            background-color: #cacaca;
+            color: rgb(78, 68, 68);
+            font-size: large;
+            font-weight: bold;
+            float: right;
+            text-align: center;
+        }
+
+        .btnAdmin:hover {
+            color: #FBFBF4;
+        }
     </style>
 </head>
 
@@ -37,51 +57,89 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-2">
-                <p>경매상태별정렬</p>
+            <div class="col-2" style="padding-left: 0px; padding-right: 2px;">
+                <button class="btn btnAdmin btn-lg" onclick="location.href='/etoile/admin/auctionAdminForm.a'">경매등록</button>
             </div>
         </div>
         <br />
         <div class="row">
-            <table class="table" align="center">
+            <table class="table">
                 <thead class="thead-dark">
-                    <tr>
-                        <th>경매번호</th>
+                    <tr align="center">
+                        <th>대리경매번호</th>
+                        <th>요청일자</th>
+                        <th>경매상태</th>
                         <th>아이디</th>
                         <th>상품명</th>
-                        <th>브랜드</th>
-                        <th>유형</th>
-                        <th>경매상태</th>
                         <th>경매상태관리</th>
                     </tr>
                 </thead>
 
                 <c:forEach var="vo" items="${list }">
-                    <tr onclick="모달해서수정폼할거얌">
+                    <tr onclick="모달해서수정폼할거얌" align="center">
                         <td>${vo.auctionId}</td>
-                        <td>${vo.memberId}</td>
-                        <td>${vo.auctionName}</td>
-                        <td>${vo.auctionBrand}</td>
-                        <td>${vo.auctionCategory}</td>
+                        <td>${vo.auctionUpdateDate}</td>
                         <c:if test="${vo.auctionCondition eq '0'}">
-                            <td>접수대기</td>
+                            <td><input type="text" class="form-control condition"
+                                    style="width: 90px; background-color: #f7e6e6; border-color: #f7e6e6; text-align: center;"
+                                    value="접수대기" readonly>
+                            </td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '4'}">
-                            <td>접수완료</td>
+                            <td><input type="text" class="form-control condition"
+                                    style="width: 90px; background-color: #fad3d3; border-color: #fad3d3; text-align: center;"
+                                    value="접수완료" readonly>
+                            </td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '5'}">
-                            <td>검수중</td>
+                            <td><input type="text" class="form-control condition"
+                                    style="width: 90px; background-color: #ebe3fa; border-color: #ebe3fa; text-align: center;"
+                                    value="검수중" readonly>
+                            </td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '6'}">
-                            <td>검수완료</td>
+                            <td><input type="text" class="form-control condition"
+                                    style="width: 90px; background-color: #d4c2f7; border-color: #dccdf8; text-align: center;"
+                                    value="검수완료" readonly>
+                            </td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '7'}">
-                            <td>회수요청</td>
+                            <td><input type="text" class="form-control condition"
+                                    style="width: 90px; background-color: #b1d7ff; border-color: #b1d7ff; text-align: center;"
+                                    value="회수요청" readonly>
+                            </td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '8'}">
-                            <td>정산요청</td>
+                            <td><input type="text" class="form-control condition"
+                                    style="width: 90px; background-color: #b6d5f5; border-color: #dccdf8; text-align: center;"
+                                    value="정산요청" readonly>
+                            </td>
                         </c:if>
-                        <td>드롭다운</td>
+                        <td>${vo.memberId}</td>
+                        <td>${vo.auctionName}</td>
+                        <td style="width: 200px;">
+                            <form class="form-inline" id="frm" name="frm">
+                                <c:if test="${vo.auctionCondition eq '0'}">
+                                    <input type="hidden" class="conditionAuctionId" value="${vo.auctionId}">
+                                    <input type="text" class="form-control conditionChange" name="" value="접수완료"
+                                        readonly>&nbsp;&nbsp;&nbsp;
+                                    <button class="form-control btn btn-secondary btnConfirm">확인</button>
+                                </c:if>
+                                <c:if test="${vo.auctionCondition eq '4'}">
+                                    <input type="hidden" class="conditionAuctionId" value="${vo.auctionId}">
+                                    <input type="text" class="form-control conditionChange" name="" value="검수중"
+                                        readonly>&nbsp;&nbsp;&nbsp;
+                                    <button class="form-control btn btn-secondary btnConfirm">확인</button>
+                                </c:if>
+                                <c:if test="${vo.auctionCondition eq '5'}">
+                                    <input type="hidden" class="conditionAuctionId" value="${vo.auctionId}">
+                                    <input type="text" class="form-control conditionChange" name="" value="검수완료"
+                                        readonly>&nbsp;&nbsp;&nbsp;
+                                    <button class="form-control btn btn-secondary btnConfirm">확인</button>
+                                </c:if>
+
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
@@ -103,6 +161,34 @@
         location.href = str[3] + "?page=" + p;
 
     }
+
+    var conditionChange = $('.conditionChange').val();
+    var conditionAuctionId = $('.conditionAuctionId').val();
+
+    $(function () {
+        $('.btnConfirm').click(function () {
+            $.ajax({
+                url: "auctionReqConfirm.a",
+                type: 'POST',
+                //dataType: 'json', //받아오는 타입
+                data: {
+                    conditionChange: conditionChange,
+                    conditionAuctionId: conditionAuctionId
+                },
+                success: function (data) {
+                    if (data == "1") {
+                        alert("정상적으로 등록되었습니다 :)");
+                        location.href = "auctionReqList.a";
+                    } else {
+                        alert("등록되지 않았습니다 :(")
+                    }
+                },
+                error: function (e) {
+                    alert("등록되지 않았습니다!");
+                }
+            });
+        });
+    });
 </script>
 
 </html>

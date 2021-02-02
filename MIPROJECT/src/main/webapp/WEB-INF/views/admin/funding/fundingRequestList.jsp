@@ -36,7 +36,7 @@
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">NO.</th>
-						<!-- 						<th scope="col">회원ID</th> -->
+						<th scope="col">회원ID</th>
 <!-- 						<th scope="col">펀딩명</th> -->
 						<th scope="col">상품명</th>
 						<th scope="col">브랜드</th>
@@ -50,7 +50,7 @@
 					<c:forEach var="f" items="${fundings }">
 						<tr class="clickSelect" data-id="${f.fundingId }">
 							<th scope="row">${f.fundingId }</th>
-							<%-- 							<td>${f.memberId }</td> <!-- 회원ID??? --> --%>
+							<td>${f.memberId }</td>
 <%-- 							<td>${f.fundingTitle }</td> --%>
 							<td>${f.fundingName }</td>
 							<td>${f.fundingBrand }</td>

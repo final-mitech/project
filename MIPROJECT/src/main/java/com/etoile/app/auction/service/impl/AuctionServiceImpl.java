@@ -174,4 +174,40 @@ public class AuctionServiceImpl implements AuctionService{
 		return auctionMapper.getAdminListCount(vo);
 	}
 
+	@Override //요청리스트 -> 관리자 컨펌
+	public int auctionReqConfirm(AuctionVO vo) {
+		
+		return auctionMapper.auctionReqConfirm(vo);
+	}
+
+	@Override //관리자 경매상품 등록 
+	public int auctionAdminPut(AuctionVO vo) {
+		
+		return auctionMapper.auctionAdminPut(vo);
+	}
+
+	@Override //경매 현황리스트 정렬 
+	public List<AuctionVO> auctionAdminSelect(AuctionVO vo) {
+
+		return auctionMapper.auctionAdminSelect(vo);
+	}
+
+	@Override // 현황리스트 정렬 count
+	public int adminSelectCount(AuctionVO vo) {
+		
+		return 	auctionMapper.adminSelectCount(vo);
+	}
+
+	@Override //오픈예정 -> 경매중
+	public int updateAuctionStart(AuctionVO vo) {
+		
+		return auctionMapper.updateAuctionStart(vo);
+	}
+ 
+	@Override //경매중 -> 경매마감
+	public int updateAuctionEnd(AuctionVO vo) {
+		
+		return auctionMapper.updateAuctionEnd(vo);
+	}
+
 }

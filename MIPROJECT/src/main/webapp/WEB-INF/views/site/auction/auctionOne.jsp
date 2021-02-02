@@ -12,8 +12,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.0/dist/web3.min.js"></script>
-	<script type="text/javascript" src="/auction/js/abi.js"></script>
-	<script type="text/javascript" src="/auction/js/index.js"></script>
+	<script type="text/javascript" src="/etoile/resources/js/AuctionAbi.js"></script>
+	<script type="text/javascript" src="/etoile/resources/js/AuctionBid.js"></script>
 	<style>
 		span {
 			display: inline-block;
@@ -39,11 +39,12 @@
 		.info[readonly] {
 			background-color: #f5f5f5;
 			border-color: #f5f5f5;
-			border: 1px solid  #f5f5f5;
+			border: 1px solid #f5f5f5;
 
 		}
-		.thead{
-			background-color:rgb(192, 184, 177);
+
+		.thead {
+			background-color: rgb(192, 184, 177);
 		}
 	</style>
 </head>
@@ -55,7 +56,7 @@
 		<div class="row">
 			<div class="col-5" align="center">
 				<br />
-				<img class="card-img-top" src="/etoile/images/${vo.auctionImage}" alt="Card image" style="width: 100%"> 
+				<img class="card-img-top" src="/etoile/images/${vo.auctionImage}" alt="Card image" style="width: 100%">
 				<br />
 				<br />
 				<br />
@@ -122,8 +123,8 @@
 								value="${vo.auctionBestPrice}" name="bestPrice" style="width: 30%" readonly>eth
 						</div>
 						<div class="form-group">
-							<label for="">즉시낙찰가</label> <input type="text" class="form-control info" id=""
-								value="${vo.auctionImmediateBid}" name="" style="width: 30%" readonly>eth
+							<label for="">즉시낙찰가</label> <input type="text" class="form-control info" id="ImmediateBid"
+								value="${vo.auctionImmediateBid}" name="ImmediateBid" style="width: 30%" readonly>eth
 						</div>
 						<br />
 						<button type="button" class="btn btn-success" align="center" data-toggle="modal"
@@ -153,9 +154,8 @@
 										</div>
 										<br />
 										<div class="form-group form-inline">
-											<label for="">입찰가</label>&nbsp;&nbsp;
-											<input type="text" class="form-control" id="bid" name="" value=""
-												style="width: 10%; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth<br />
+											<label for="">입찰가</label>
+											<input type="text" class="form-control" id="bid" style="width: 10%; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth											
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -187,8 +187,15 @@
 		console.log(sum);
 
 		$('#bid').attr('value', sum);
+		// $('#bid1').attr('value', sum);
 		$('#auctionPay').attr('value', sum);
+
+		// var ImmediateBid = $('#ImmediateBid').val();
+		// console.log(ImmediateBid);
+		// $('#immediateBid').attr('value', ImmediateBid);
+		// $('#immediateBid1').attr('value', ImmediateBid);
 	});
+
 </script>
 
 </html>

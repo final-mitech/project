@@ -1,5 +1,6 @@
 package com.etoile.app.auction.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.etoile.app.vo.AuctionJoinVO;
@@ -83,4 +84,22 @@ public interface AuctionService {
 
 	// 관리자 경매 현황 count
 	public int getAdminListCount(AuctionVO vo);
+
+	// 요청리스트 -> 관리자 컨펌
+	public int auctionReqConfirm(AuctionVO vo);
+
+	// 관리자 경매상품 등록
+	public int auctionAdminPut(AuctionVO vo);
+
+	// 경매 현황리스트 정렬
+	public List<AuctionVO> auctionAdminSelect(AuctionVO vo);
+
+	// 현황리스트 정렬 count
+	public int adminSelectCount(AuctionVO vo);
+
+	// 오픈예정 -> 경매중
+	public int updateAuctionStart(AuctionVO vo);
+
+	// 경매중 -> 경매마감
+	public int updateAuctionEnd(AuctionVO vo);
 }

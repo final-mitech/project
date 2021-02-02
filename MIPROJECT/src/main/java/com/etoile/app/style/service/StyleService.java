@@ -1,13 +1,26 @@
 package com.etoile.app.style.service;
 
-import java.sql.SQLException;
 import java.util.List;
+
+import com.etoile.app.vo.ProductVO;
+import com.etoile.app.vo.RecommendVO;
 import com.etoile.app.vo.StylingVO;
 
 public interface StyleService {
-	List<StylingVO> stylingList(StylingVO vo) throws SQLException; 	//스타일링 목록 조회
-	StylingVO stylingSelect(StylingVO vo) throws SQLException;
-	int stylingInsert(StylingVO vo) throws SQLException;
-	int stylingDelete(StylingVO vo) throws SQLException;
-	int stylingUpdate(StylingVO vo) throws SQLException;
+	List<StylingVO> stylingList(StylingVO vo); 	// 리뷰 목록 조회
+	StylingVO stylingSelect(StylingVO vo);		// 리뷰 한건 조회 (상세)
+	
+	List<StylingVO> stylingSearch(StylingVO vo); //리뷰 검색 리스트
+	int stylingCount(StylingVO vo);				// 총 리뷰 수 카운트
+	
+	int stylingInsert(StylingVO vo);			// 리뷰 등록
+	List<ProductVO> productReviewList(ProductVO vo);	// 리뷰 등록폼 제품 리스트
+	
+	int stylingRecommend(RecommendVO vo);			// 리뷰 추천 (좋아요) 
+	int stylingRecommendDelete(RecommendVO vo);			// 리뷰 추천 취소 (좋아요취소)
+	int selectRecommend(RecommendVO vo);
+	
+	List<StylingVO> myPageStyling(StylingVO vo);	//마이페이지 리뷰 목록 조회
+	StylingVO myPageStylingDetail(StylingVO vo);	// 마이페이지 리뷰 한건 조회
+	List<StylingVO> myPageStylingRecommend(StylingVO vo);	//마이페이지 좋아요 목록 조회
 }
