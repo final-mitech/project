@@ -1,4 +1,4 @@
-package com.etoile.app.style.mapper;
+package com.etoile.app.style.service;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import com.etoile.app.vo.ProductVO;
 import com.etoile.app.vo.RecommendVO;
 import com.etoile.app.vo.StylingVO;
 
-public interface StyleMapper {
+public interface StyleService {
 	List<StylingVO> stylingList(StylingVO vo); 	// 리뷰 목록 조회
 	StylingVO stylingSelect(StylingVO vo);		// 리뷰 한건 조회 (상세)
 	
