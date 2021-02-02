@@ -87,14 +87,13 @@ App = {
 		App.contract.options.address = "0xc8A67962b14c8f00D3dc2240198CeD80354ef41B";
 		getHistory();
 	},
-	setStatus: function(productId, status, date) {
-		console.log(productId, status, date);
+	setStatus: function(productId, status, date, form) {
 		web3.eth.getAccounts(function(error, accounts) {
 			let account = accounts[0];
 			App.contract.methods.setProductStatus(productId, status, date)
 				.send({ from: account, value: 0 })
 				.then(function(result) {
-					console.log(result);
+					document.forms[form].submit();
 				});
 
 		})

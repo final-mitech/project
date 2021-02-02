@@ -67,8 +67,9 @@
 			alert("비밀번호가 일치하지 않습니다.");
 		}
 
-		console.log(checkedId, checkedPwd)
+
 		if (checkedId && checkedPwd) {
+			document.frm.action = "memberInsert";
 			document.frm.submit();
 		}
 
@@ -113,7 +114,7 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
-				<form id="frm" name="frm" action="memberInsert" method="POST"
+				<form id="frm" name="frm" action="#" method="POST"
 					onsubmit="return inputCheck()">
 					<!-- 아이디 -->
 					<div class="form-group input-group">
