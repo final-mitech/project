@@ -30,6 +30,6 @@ public interface FundingMapper {
 	public int conditionUpdate(FundingVO vo); //펀딩 상태 수정
 	
 	public List<FundingVO> myFundingList(FundingVO vo); //마이 페이지 - 마이 펀딩 목록 조회
-	public List<FundingJoinVO> joinFundingList(FundingJoinVO vo); //마이 페이지 - 조인 펀딩 목록 조회
+	public List<FundingVO> joinFundingList(FundingVO vo); //마이 페이지 - 조인 펀딩 목록 조회
 		
 }

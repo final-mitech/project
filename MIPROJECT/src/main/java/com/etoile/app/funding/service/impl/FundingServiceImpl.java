@@ -104,7 +104,7 @@ public class FundingServiceImpl implements FundingService {
 	}
 
 	@Override
-	public List<FundingJoinVO> joinFundingList(FundingJoinVO vo) {
+	public List<FundingVO> joinFundingList(FundingVO vo) {
 		
 		return dao.joinFundingList(vo);
 	}

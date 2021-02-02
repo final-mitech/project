@@ -7,13 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
 <script>
 	$(document).ready(function() {
-		$("#productStatus").on("change",function(){
+		$('select').on("change",function(){
 			var status = document.getElementById("productStatus").value;
 			var rentalId = document.getElementById("rentalId").value;
-			
+			console.log("111111111");
 			$.ajax ({
 				url: "rentalProductStatus.a",
 				type: "post",
@@ -22,10 +21,9 @@
 					rentalId: rentalId
 				},
 				success: function() {
-					location.href="/etoile/admin/rentalReList.a";
+					/* location.href="/etoile/admin/rentalReList.a"; */
 				}
 			})
-
 		})
 	})
 </script>
@@ -62,7 +60,6 @@ select {
 }
 
 </style>
-
 </head>
 <body>
 	<div class="container">
@@ -106,8 +103,8 @@ select {
 								<option value="waiting" selected>회수완료</option>
 							</select>
 						</c:if>
+							<input type="hidden" id="status" value="${list.productStatus }">
 							<input type="hidden" id="rentalId" value="${list.rentalId }">
-							<input type="hidden" id="productId" value="${list.productId }">
 						</td>
 					</tr>
 				</c:forEach>

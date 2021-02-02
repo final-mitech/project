@@ -135,7 +135,6 @@ App = {
 
 function getHistory() {
 	let productId = $('#id').val();
-	console.log(productId);
 	App.getStatus(productId);
 
 }
