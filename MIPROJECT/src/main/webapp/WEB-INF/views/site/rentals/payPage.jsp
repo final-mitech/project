@@ -110,7 +110,12 @@ $(function() {
 				$("#couponUse").val(gCpn);
 				
 				var gCpnUsePay = $("#couponUse").val();
+				
+				if ( 0 > rentalPay-gCpnUsePay) {
+					$("#totalrentalPay").val("0");
+				} else {
 				$("#totalrentalPay").val(rentalPay-gCpnUsePay);
+				}
 				$("#couponId").val(id);
 			}  
 		})
