@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -20,60 +20,61 @@
 	text-align: right;
 	/* 	color: #ccc; */
 }
+
+.profileWrap {
+	border: 2px solid black
+}
 </style>
 </head>
 <body>
 	<div class="container">
+		<ul class="nav nav-tabs">
+			<li class="nav-item"><a class="nav-link active" data-toggle="tab"
+				onclick="location.href='/etoile/site/myFundingList.do'">마이 펀딩</a></li>
+			<li class="nav-item"><a class="nav-link"
+				data-toggle="tab"
+				onclick="location.href='/etoile/site/joinFundingList.do'">조인 펀딩</a></li>
+		</ul>
 		<div>
 			<c:forEach items="${fundings }" var="f">
 				<div class="profileWrap">
 					<div class="profImg">
-						<img src="../../images/${f.fundingImage }" style="width: 100px"
+						<img src="../images/${f.fundingImage }" style="width: 100px"
 							height="100px">
-					</div>
+						<c:choose>
+							<c:when test="${f.fundingCondition eq '접수완료'}">
+								<span class="badge badge-pill badge-secondary dist"
+									style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+							</c:when>
+							<c:when test="${f.fundingCondition eq '검수중'}">
+								<span class="badge badge-pill badge-danger dist"
+									style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+							</c:when>
+							<c:when test="${f.fundingCondition eq '검수완료'}">
+								<span class="badge badge-pill badge-success dist"
+									style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+							</c:when>
+							<c:when test="${f.fundingCondition eq '펀딩오픈예정'}">
+								<span class="badge badge-pill badge-secondary dist"
+									style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+							</c:when>
+							<c:when test="${f.fundingCondition eq '펀딩중'}">
+								<span class="badge badge-pill badge-danger dist"
+									style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+							</c:when>
+							<c:when test="${f.fundingCondition eq '펀딩마감'}">
+								<span class="badge badge-pill badge-success dist"
+									style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+							</c:when>
+						</c:choose>
+						<!-- </div> -->
 
-					<span class="badge badge-pill badge-danger dist"
-						style="float: right; font-size: 1rem;">펀딩중</span>
-					<!-- 라벨 색 -->
-					<c:choose>
-						<c:when test="${f.fundingCondition eq '접수완료'}">
-							<span class="badge badge-pill badge-secondary dist"
-								style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-						</c:when>
-						<c:when test="${f.fundingCondition eq '검수중'}">
-							<span class="badge badge-pill badge-danger dist"
-								style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-						</c:when>
-						<c:when test="${f.fundingCondition eq '검수완료'}">
-							<span class="badge badge-pill badge-success dist"
-								style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-						</c:when>
-						<c:when test="${f.fundingCondition eq '펀딩오픈예정'}">
-							<span class="badge badge-pill badge-secondary dist"
-								style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-						</c:when>
-						<c:when test="${f.fundingCondition eq '펀딩중'}">
-							<span class="badge badge-pill badge-danger dist"
-								style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-						</c:when>
-						<c:when test="${f.fundingCondition eq '펀딩마감'}">
-							<span class="badge badge-pill badge-success dist"
-								style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-						</c:when>
-					</c:choose>
-					<!-- 라벨 색 종료 -->
-					<div class="profileInfo">
-						<span>${f.fundingName }</span><span>상품명</span> <span>${f.fundingBrand }</span>
-						<span>브랜드</span> <span>${f.fundingCategory }</span> <span>카테고리</span>
+						<!-- <div class="profileInfo"> -->
+						<span>상품명 : </span><span>${f.fundingName }</span><br /> <span>브랜드
+							: </span><span>${f.fundingBrand }</span><br /> <span>카테고리 : </span><span>${f.fundingCategory }</span><br />
+						<span>요청사항 : </span><span>${f.fundingCategory }</span><br />
 
 						<!-- 상태바 -->
-						<div class="col">
-							<div class="progress">
-								<div class="progress-bar bg-warning " role="progressbar"
-									style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
-									aria-valuemax="100">접수완료</div>
-							</div>
-						</div>
 						<div class="col">
 							<c:choose>
 								<c:when test="${f.fundingCondition eq '펀딩마감'}">
@@ -122,10 +123,12 @@
 							</c:choose>
 						</div>
 						<!-- 상태바 종료 -->
-						<a href="#">상세보기</a>
+						<!-- 						<a href="#">상세보기</a> -->
 					</div>
 				</div>
+				<br />
 			</c:forEach>
+
 		</div>
 	</div>
 
