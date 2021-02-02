@@ -113,24 +113,24 @@
             height: auto;
         }
 
-        .joinBtn {
-            background-color: #ca371d;
-            border-color: #ca371d;
+        .putBtn {
+            background-color: #3975a7;
+            border-color: #3975a7;
             color: #FFF;
         }
 
-        .joinBtn:hover {
-            background-color: #ca371d;
-            border-color: #ca371d;
+        .putBtn:hover {
+            background-color: #3975a7;
+            border-color: #3975a7;
             color: #FFF;
 
         }
 
-        .joinBtn:focus {
-            background-color: #ca371d;
-            border-color: #ca371d;
+        .putBtn:focus {
+            background-color: #3975a7;
+            border-color: #3975a7;
             color: #FFF;
-            outline: #ca371d;
+            outline: #3975a7;
             box-shadow: none;
         }
 
@@ -155,7 +155,7 @@
             box-shadow: none;
         }
 
-        .h2 {
+        .h4 {
             color: rgb(70, 65, 61);
             font-weight: 400;
         }
@@ -167,30 +167,28 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
-                <br />
-                <br />
+
                 <div>
-                    <h2 class="h2" align="center">경매 요청 상품 정보 입력</h2>
-                    <br />
-                    <span class="rounded" align="center">
-                        <p>고객님의 상품을 경매에 올릴 수 있습니다. 아래의 정보를 모두 기입해 주세요!</p>
-                    </span>
-                    <br />
-                    <br />
+                    <h4 class="h4" align="center">경매 등록 상품 정보 입력</h4>
+                    <br/>
                     <form id="frm" name="frm" action="" class="">
                         <div class="form1">
                             <div class="form-group">
                                 <label for="">아이디</label> <input type="text" class="form-control" id="memberId"
-                                    name="memberId" style="width: 30%" value="">
+                                    name="memberId" style="width: 40%" value="admin" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="">상품사진</label>
                                 <div class="filebox preview-image">
                                     <input class="form-control" readonly id="auctionImage" name="auctionImage"
-                                        style="width: 30%">&nbsp;&nbsp;&nbsp;
+                                        style="width: 50%">&nbsp;&nbsp;&nbsp;
                                     <label for="input-file">파일업로드</label> <input type="file" id="input-file"
                                         class="upload-hidden">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Title</label> <input type="text" class="form-control" id="auctionName"
+                                    name="auctionTitle" style="width: 100%">
                             </div>
                             <div class="form-group">
                                 <label for="">상품명</label> <input type="text" class="form-control" id="auctionName"
@@ -225,20 +223,20 @@
                             </div>
                             <div class="form-group">
                                 <label for="">경매시작가</label>
-                                <input type="text" class="form-control" placeholder="금액만 입력해 주세요." id="auctionBestPrice"
+                                <input type="text" class="form-control" placeholder="금액만 입력" id="auctionBestPrice"
                                     name="auctionBestPrice" style="width: 40%" required>
                             </div>
                             <div class="form-group">
                                 <label for="">즉시 낙찰가</label>
-                                <input type="text" class="form-control" placeholder="금액만 입력해 주세요."
+                                <input type="text" class="form-control" placeholder="금액만 입력"
                                     id="auctionImmediateBid" name="auctionImmediateBid" style="width: 40%" required>
                             </div>
                         </div>
                         <br />
                         <div align="center">
-                            <button type="button" class="btn joinBtn btn-lg"
-                                id="joinBtn">경매요청합니다!</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btnMain" onclick="location.href='/site/auctionMain'">목록</button>
+                            <button type="button" class="btn putBtn btn-lg"
+                                id="putBtn">관리자 경매등록!</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btnMain" onclick="location.href='auctionReqList.a'">취소</button>
                         </div>
                     </form>
                     <br />
@@ -253,17 +251,17 @@
     //요청버튼을 누르고 상품을 배송해 주시면, 마이페이지에서 상품의 검수 확인이 가능합니다.
     $(function () {
 
-        $('#joinBtn').click(function () {
+        $('.putBtn').click(function () {
 
             $.ajax({
-                url: "auctionJoin.do",
+                url: "auctionAdminPut.a",
                 type: 'POST',
                 //dataType: 'json', //받아오는 타입
                 data: $("#frm").serialize(),
                 success: function (data) {
                     if (data == "1") {
                         alert("정상적으로 등록되었습니다 :)");
-                        location.href = "auctionMain.do";
+                        location.href = "auctionAdminList.a";
                     } else {
                         alert("등록되지 않았습니다 :(")
                     }
