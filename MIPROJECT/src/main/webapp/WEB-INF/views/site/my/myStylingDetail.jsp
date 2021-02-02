@@ -12,7 +12,7 @@
 		<div class="row">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="/etoile/site/myPageStyling"
+				<a class="nav-link active" aria-current="page" href="/etoile/site/myPageStyling.do"
 				   style="background: #e5e5e5;">STYLING LIST</a></li>
 				<li class="nav-item">
 				<a class="nav-link active" href="/etoile/site/myPageRecommend.do">RECOMMEND</a></li>

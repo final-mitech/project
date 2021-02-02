@@ -101,7 +101,7 @@ public class StyleController {
 		vo.setMemberId(memberId);
 //		vo.setMemberId("user");
 		styleService.stylingInsert(vo);
-		return "site/review/reviewRegister";
+		return "redirect:/site/MypageRental.do";
 	}
 
 	// 리뷰 추천(좋아요) 등록 & 취소(삭제)

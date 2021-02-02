@@ -84,7 +84,7 @@
 						<div class="col-lg-8 col-xl-9">
 							<div class="card">						
 								<div class="card-body">
-									<form action="commentsInsert">
+									<form action="commentsInsert.do">
 										<div class="form-group">
 											<textarea class="form-control" name="commentContent" id="textarea" cols="30" rows="2"
 												 	 placeholder="댓글을 입력하세요"></textarea>
@@ -114,7 +114,7 @@
 														<button class="btn btn-transparent p-0 mr-3">
 															<i class="fa fa-thumbs-down"></i>
 														</button>
-														<button onclick='location.href="commentsDelete?commentId=${vo.commentId}&styleId=${vo.styleId }"'
+														<button onclick='location.href="commentsDelete.do?commentId=${vo.commentId}&styleId=${vo.styleId }"'
 																class="btn btn-transparent text-dark font-weight-bold p-0 ml-2">삭제</button>
 														<button
 															class="btn btn-transparent text-dark font-weight-bold p-0 ml-2">수정</button>
