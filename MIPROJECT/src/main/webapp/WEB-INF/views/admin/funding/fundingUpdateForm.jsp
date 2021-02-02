@@ -360,16 +360,16 @@
 						</div>
 						<div id="thumb" class="owl-carousel product-thumb">
 							<div class="item">
-								<img src="../images/f2.jpg" />
+								<img src="../images/${selectVo.fundingImage}" />
 							</div>
 							<div class="item">
-								<img src="../images/f3.jpg" />
+								<img src="../images/${selectVo.fundingImage}" />
 							</div>
 							<div class="item">
-								<img src="../images/f4.jpg" />
+								<img src="../images/${selectVo.fundingImage}" />
 							</div>
 							<div class="item">
-								<img src="../images/f5.jpg" />
+								<img src="../images/${selectVo.fundingImage}" />
 							</div>
 							<div class="item">
 								<img src="../images/${selectVo.fundingImage}" />

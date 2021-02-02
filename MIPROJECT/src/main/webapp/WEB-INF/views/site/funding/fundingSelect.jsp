@@ -380,13 +380,13 @@
 								<img src="/etoile/images/${selectVo.fundingImage}" />
 							</div>
 							<div class="item">
-								<img src="" />
+								<img src="/etoile/images/${selectVo.fundingImage}" />
 							</div>
 							<div class="item">
-								<img src="" />
+								<img src="/etoile/images/${selectVo.fundingImage}" />
 							</div>
 							<div class="item">
-								<img src="" />
+								<img src="/etoile/images/${selectVo.fundingImage}" />
 							</div>
 <%-- 							<div class="item">
 								<img src="../images/${selectVo.fundingImage}" />
@@ -490,7 +490,7 @@
 								<div class="product-gift">
 									<span>펀딩 기프트 선택</span> <select onchange="selectGift()"
 										id="fundingGift" name="fundingGift" class="form-control">
-										<c:forTokens items="${selectVo.fundingGift}" delims="/"
+										<c:forTokens items="${selectVo.fundingGift}" delims=","
 											var="token1">
 											<option value="${selectVo.fundingName}]${token1}">${token1}</option>
 										</c:forTokens>
@@ -511,9 +511,14 @@
 								<div class="qtyplus">+</div>
 							</form>
 						</div> -->
-
-							<button value="등록" class="round-black-btn"
+							<c:if test="${selectVo.fundingCondition eq '펀딩오픈예정'}">
+							<button value="등록" class="round-black-btn" disabled=”disabled”
+								id="joinbutton">펀딩 참여는 조금만 기다려 주세요 ^^</button>
+								</c:if>
+								<c:if test="${selectVo.fundingCondition ne '펀딩오픈예정'}">
+								<button value="등록" class="round-black-btn"
 								id="joinbutton">펀딩참여하기</button>
+									</c:if>
 								<!-- submit 지움 -->
 						</div>
 					</div>

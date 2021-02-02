@@ -38,9 +38,9 @@
 						<th scope="col">NO.</th>
 						<th scope="col">펀딩명</th>
 						<th scope="col">상품명</th>
-						<th scope="col">브랜드</th>
-						<th scope="col">모델번호</th>
-						<th scope="col">카테고리</th>
+<!-- 						<th scope="col">브랜드</th> -->
+<!-- 						<th scope="col">모델번호</th> -->
+<!-- 						<th scope="col">카테고리</th> -->
 						<th scope="col">목표금액</th>
 						<th scope="col">현재모금액</th>
 <!-- 						<th scope="col">이미지</th> -->
@@ -53,9 +53,9 @@
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
-							<td>${f.fundingBrand }</td>
-							<td>${f.fundingSerial }</td>
-							<td>${f.fundingCategory }</td>
+<%-- 							<td>${f.fundingBrand }</td> --%>
+<%-- 							<td>${f.fundingSerial }</td> --%>
+<%-- 							<td>${f.fundingCategory }</td> --%>
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
 <%-- 							<td>${f.fundingImage }</td> --%>

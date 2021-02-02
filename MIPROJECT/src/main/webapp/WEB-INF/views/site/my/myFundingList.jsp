@@ -39,7 +39,7 @@
 			<c:forEach items="${fundings }" var="f">
 				<div class="profileWrap">
 					<div class="profImg">
-						<img src="../images/${f.fundingImage }" style="width: 100px"
+						<img src="/etoile/images/${f.fundingImage }" style="width: 100px"
 							height="100px">
 						<c:choose>
 							<c:when test="${f.fundingCondition eq '접수완료'}">
@@ -72,7 +72,7 @@
 						<!-- <div class="profileInfo"> -->
 						<span>상품명 : </span><span>${f.fundingName }</span><br /> <span>브랜드
 							: </span><span>${f.fundingBrand }</span><br /> <span>카테고리 : </span><span>${f.fundingCategory }</span><br />
-						<span>요청사항 : </span><span>${f.fundingCategory }</span><br />
+						<span>요청사항 : </span><span>${f.fundingContent }</span><br />
 
 						<!-- 상태바 -->
 						<div class="col">
