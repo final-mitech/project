@@ -1,6 +1,7 @@
 package com.etoile.app.member.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.etoile.app.member.common.RecordVO;
 import com.etoile.app.vo.CouponVO;
@@ -11,6 +12,8 @@ import com.etoile.app.vo.MemberVO;
 public interface MemberMapper {
 	//회원 전체 조회
 	public List<MemberVO> memberList(MemberVO vo);
+	//회원 전체 다운로드
+	public List<Map<String, Object>> memberDownload(MemberVO vo);
 	//회원 상세 조회
 	public MemberVO memberSelect(String id);
 	//회원 등록
