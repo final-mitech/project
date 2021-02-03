@@ -142,7 +142,7 @@
               </div>
               <div class="card-text">
                 <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>
-                <p style="font-size: small; text-align: center;">참여 수 &nbsp;${vo.auctionJoinCount} </p>
+                <p style="font-size: small; text-align: center;">입찰 수 &nbsp;${vo.auctionJoinCount} </p>
                 <p style="padding-left: 20px;">경매시작가: ${vo.auctionBestPrice} </p>
                 <p style="padding-left: 20px;">즉시입찰가: ${vo.auctionImmediateBid}</p>
                 <p style="padding-left: 20px;">경매기간: ${vo.auctionStart} ~ ${vo.auctionEnd}</p>

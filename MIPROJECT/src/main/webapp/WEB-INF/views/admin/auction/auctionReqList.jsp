@@ -30,8 +30,7 @@
         }
 
         .btnAdmin {
-            background-color: #cacaca;
-            color: rgb(78, 68, 68);
+            background-color: #ecc1f1;
             font-size: large;
             font-weight: bold;
             float: right;
@@ -40,6 +39,17 @@
 
         .btnAdmin:hover {
             color: #FBFBF4;
+        }
+
+        .btnConfirm {
+            background-color: #f5f5f5;
+            border-color: #f5f5f5;
+
+        }
+
+        .btnReq {
+            background-color: #fddbdb;
+            border-color: #fddbdb;
         }
     </style>
 </head>
@@ -58,7 +68,8 @@
                 </ul>
             </div>
             <div class="col-2" style="padding-left: 0px; padding-right: 2px;">
-                <button class="btn btnAdmin btn-lg" onclick="location.href='/etoile/admin/auctionAdminForm.a'">경매등록</button>
+                <button class="btn btnAdmin btn-lg"
+                    onclick="location.href='/etoile/admin/auctionAdminForm.a'">경매등록</button>
             </div>
         </div>
         <br />
@@ -76,70 +87,130 @@
                 </thead>
 
                 <c:forEach var="vo" items="${list }">
-                    <tr onclick="모달해서수정폼할거얌" align="center">
+                    <tr align="center">
+
                         <td>${vo.auctionId}</td>
                         <td>${vo.auctionUpdateDate}</td>
                         <c:if test="${vo.auctionCondition eq '0'}">
-                            <td><input type="text" class="form-control condition"
-                                    style="width: 90px; background-color: #f7e6e6; border-color: #f7e6e6; text-align: center;"
-                                    value="접수대기" readonly>
-                            </td>
+                            <td> 접수대기</td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '4'}">
-                            <td><input type="text" class="form-control condition"
-                                    style="width: 90px; background-color: #fad3d3; border-color: #fad3d3; text-align: center;"
-                                    value="접수완료" readonly>
-                            </td>
+                            <td>접수완료</td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '5'}">
-                            <td><input type="text" class="form-control condition"
-                                    style="width: 90px; background-color: #ebe3fa; border-color: #ebe3fa; text-align: center;"
-                                    value="검수중" readonly>
-                            </td>
+                            <td>검수중</td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '6'}">
-                            <td><input type="text" class="form-control condition"
-                                    style="width: 90px; background-color: #d4c2f7; border-color: #dccdf8; text-align: center;"
-                                    value="검수완료" readonly>
-                            </td>
+                            <td>검수완료</td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '7'}">
-                            <td><input type="text" class="form-control condition"
-                                    style="width: 90px; background-color: #b1d7ff; border-color: #b1d7ff; text-align: center;"
-                                    value="회수요청" readonly>
-                            </td>
+                            <td>회수요청 </td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '8'}">
-                            <td><input type="text" class="form-control condition"
-                                    style="width: 90px; background-color: #b6d5f5; border-color: #dccdf8; text-align: center;"
-                                    value="정산요청" readonly>
-                            </td>
+                            <td>정산요청 </td>
                         </c:if>
                         <td>${vo.memberId}</td>
                         <td>${vo.auctionName}</td>
-                        <td style="width: 200px;">
-                            <form class="form-inline" id="frm" name="frm">
-                                <c:if test="${vo.auctionCondition eq '0'}">
-                                    <input type="hidden" class="conditionAuctionId" value="${vo.auctionId}">
-                                    <input type="text" class="form-control conditionChange" name="" value="접수완료"
-                                        readonly>&nbsp;&nbsp;&nbsp;
-                                    <button class="form-control btn btn-secondary btnConfirm">확인</button>
-                                </c:if>
-                                <c:if test="${vo.auctionCondition eq '4'}">
-                                    <input type="hidden" class="conditionAuctionId" value="${vo.auctionId}">
-                                    <input type="text" class="form-control conditionChange" name="" value="검수중"
-                                        readonly>&nbsp;&nbsp;&nbsp;
-                                    <button class="form-control btn btn-secondary btnConfirm">확인</button>
-                                </c:if>
-                                <c:if test="${vo.auctionCondition eq '5'}">
-                                    <input type="hidden" class="conditionAuctionId" value="${vo.auctionId}">
-                                    <input type="text" class="form-control conditionChange" name="" value="검수완료"
-                                        readonly>&nbsp;&nbsp;&nbsp;
-                                    <button class="form-control btn btn-secondary btnConfirm">확인</button>
-                                </c:if>
-
+                        <c:if test="${vo.auctionCondition eq '0'}">
+                            <td style="width: 200px;">
+                                <form id="frm1">
+                                    <input type="hidden" id="auctionCondition" name="auctionCondition"
+                                        value="${vo.auctionCondition}">
+                                    <input type="hidden" id="auctionId" name="auctionId" value="${vo.auctionId}">
+                                    <button class="btn btnConfirm1" name="">접수하기</button>
+                                </form>
+                            </td>
+                        </c:if>
+                        <c:if test="${vo.auctionCondition eq '4'}">
+                            <td style="width: 200px;">
+                                <form id="frm2">
+                                    <input type="hidden" id="auctionCondition" name="auctionCondition"
+                                        value="${vo.auctionCondition}">
+                                    <input type="hidden" id="auctionId" name="auctionId" value="${vo.auctionId}">
+                                    <button class="btn btnConfirm2" name="">검수승인</button>
+                                </form>
+                            </td>
+                        </c:if>
+                        </form>
+                        <c:if test="${vo.auctionCondition eq '6'}">
+                            <td style="width: 200px;">고객확정 후 오픈예정</td>
+                        </c:if>
+                        <c:if test="${vo.auctionCondition eq '7'}">
+                            <td style="width: 200px;">회수 확인바랍니다</td>
+                        </c:if>
+                        <c:if test="${vo.auctionCondition eq '8'}">
+                            <td style="width: 200px;">정산 확인바랍니다</td>
+                        </c:if>
+                        <c:if test="${vo.auctionCondition eq '5'}">
+                            <td style="width: 200px;"><button class="btn btnReq" data-toggle="modal" name=""
+                                    data-target="#reqModal">검수</button>
+                            </td>
+                            <form action="" id="frm">
+                                <div class="modal fade" id="reqModal">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Request Info</h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="">이미지</label>
+                                                    <img src="/etoile/images/${vo.auctionImage}" class="img-fluid"
+                                                        style="width: 30%">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">아이디</label>
+                                                    <input type="text" class="form-control" id="memberId"
+                                                        value="${vo.memberId }" name="" style="width: 40%" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    상품명&nbsp;<input type="text" class="form-control" id="auctionName"
+                                                        name="auctionName" style="width: 60%;"
+                                                        value="${vo.auctionName}">
+                                                </div>
+                                                <div class="form-group">
+                                                    브랜드명&nbsp;<input type="text" class="form-control" id="auctionBrand"
+                                                        name="auctionBrand" style="width: 200px;"
+                                                        value="${vo.auctionBrand}">
+                                                </div>
+                                                <div class="form-group form-inline">
+                                                    최저입찰가&nbsp;<input type="text" class="form-control"
+                                                        id="auctionBestPrice" name="auctionBestPrice"
+                                                        style="width: 100px;" value="${vo.auctionBestPrice}"
+                                                        readonly>&nbsp;eth
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+                                                    즉시낙찰가&nbsp;<input type="text" class="form-control"
+                                                        id="auctionImmediateBid" name="auctionImmediateBid"
+                                                        style="width: 100px;" value="${vo.auctionImmediateBid}"
+                                                        readonly>&nbsp;eth<br />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Title</label>
+                                                    <input type="text" class="form-control" id="auctionTitle"
+                                                        value="${vo.auctionTitle}" name="auctionTitle"
+                                                        style="width: 60%">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">상세내용</label>
+                                                    <textarea type="text" class="form-control info" id="auctionContent"
+                                                        value="" name="auctionContent">${vo.auctionContent}</textarea>
+                                                </div>
+                                                <input type="hidden" id="auctionCondition" name="auctionCondition"
+                                                    value="6">
+                                                <input type="hidden" id="auctionId" name="auctionId"
+                                                    value="${vo.auctionId}">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-warning btn-block reqUpdate"
+                                                    style="height: 100%; font-weight: bold;">검수완료</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
-                        </td>
+                        </c:if>
                     </tr>
                 </c:forEach>
             </table>
@@ -162,29 +233,68 @@
 
     }
 
-    var conditionChange = $('.conditionChange').val();
-    var conditionAuctionId = $('.conditionAuctionId').val();
-
     $(function () {
-        $('.btnConfirm').click(function () {
+        $('.btnConfirm1').click(function () {
             $.ajax({
-                url: "auctionReqConfirm.a",
+                url: "/etoile/admin/auctionReqConfirm.a",
                 type: 'POST',
                 //dataType: 'json', //받아오는 타입
-                data: {
-                    conditionChange: conditionChange,
-                    conditionAuctionId: conditionAuctionId
-                },
+                data: $("#frm1").serialize(),
                 success: function (data) {
                     if (data == "1") {
-                        alert("정상적으로 등록되었습니다 :)");
-                        location.href = "auctionReqList.a";
+                        alert("정상적으로 접수승인되었습니다 :)");
+                        location.href = "/etoile/admin/auctionReqList.a";
                     } else {
-                        alert("등록되지 않았습니다 :(")
+                        alert("접수승인되지 않았습니다 :(")
                     }
                 },
                 error: function (e) {
-                    alert("등록되지 않았습니다!");
+                    alert("서버문제로 접수승인되지 않았습니다!");
+                }
+            });
+        });
+    });
+
+    $(function () {
+        $('.btnConfirm2').click(function () {
+            $.ajax({
+                url: "/etoile/admin/auctionReqConfirm.a",
+                type: 'POST',
+                //dataType: 'json', //받아오는 타입
+                data: $("#frm2").serialize(),
+                success: function (data) {
+                    if (data == "1") {
+                        alert("정상적으로 검수승인되었습니다 :)");
+                        location.href = "/etoile/admin/auctionReqList.a";
+                    } else {
+                        alert("검수승인되지 않았습니다 :(")
+                    }
+                },
+                error: function (e) {
+                    alert("서버문제로 검수승인되지 않았습니다!");
+                }
+            });
+        });
+    });
+
+
+    $(function () {
+        $('.reqUpdate').click(function () {
+            $.ajax({
+                url: "/etoile/admin/auctionReqUpdate.a",
+                type: 'POST',
+                //dataType: 'json', //받아오는 타입
+                data: $("#frm").serialize(),
+                success: function (data) {
+                    if (data == "1") {
+                        alert("정상적으로 검수완료 되었습니다 :) 고객에게 경매확정 메시지를 보냅니다.");
+                        location.href = "/etoile/admin/auctionReqList.a";
+                    } else {
+                        alert("검수완료되지 않았습니다 :(")
+                    }
+                },
+                error: function (e) {
+                    alert("서버문제로 검수완료되지 않았습니다!");
                 }
             });
         });

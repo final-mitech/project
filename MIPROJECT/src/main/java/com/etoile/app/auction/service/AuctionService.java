@@ -28,6 +28,9 @@ public interface AuctionService {
 	// 총 데이터 count
 	public int getAuctionCount(AuctionVO vo);
 
+	// 경매 인기순 count
+	public int getAuctionHottestCount(AuctionVO vo);
+
 	// 경매 참여 등록
 	public int insertAuctionJoin(AuctionJoinVO vo);
 
@@ -102,4 +105,7 @@ public interface AuctionService {
 
 	// 경매중 -> 경매마감
 	public int updateAuctionEnd(AuctionVO vo);
+
+	// 검수 후 수정
+	public int auctionReqUpdate(AuctionVO vo);
 }
