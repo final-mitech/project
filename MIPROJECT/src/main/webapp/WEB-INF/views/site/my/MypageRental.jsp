@@ -64,7 +64,7 @@ p {
 							</div>
 							<div class="card-body-footer" style="float: right; margin-right: 20px">
 								<c:if test="${list.rentalWaybill ne null}">
-									<a href="#">마이스타일링</a>
+									<a href="/etoile/site/productReviewList.do">마이스타일링</a>
 								</c:if>
 								<c:if test="${list.rentalWaybill eq null}">
 									<a href="#" style="pointer-events: none;">배송준비중</a>

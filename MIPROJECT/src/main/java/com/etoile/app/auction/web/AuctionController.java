@@ -161,7 +161,7 @@ public class AuctionController {
 
 	// 등록페이지 호출
 	@RequestMapping("/site/auctionJoinForm.do")
-	public String main() {
+	public String auctionJoinForm() {
 		return "site/auction/auctionJoin";
 	}
 
@@ -365,7 +365,7 @@ public class AuctionController {
 	}
 
 	// 관리자 경매 현황리스트 (경매상태가 디폴트)
-	@RequestMapping("/admin/getAdminList.a")
+	@RequestMapping("/admin/auctionAdminList.a")
 	public String getAdminList(AuctionVO vo, Model model, Paging paging) {
 		// 페이징처리
 		// 한 페이지 출력건수
@@ -390,6 +390,90 @@ public class AuctionController {
 		list = auctionService.getAdminList(vo);
 		model.addAttribute("list", list);
 
+		return "admin/auction/auctionAdminList";
+	}
+
+	// 관리자 경매등록 폼
+	@RequestMapping("/admin/auctionAdminForm.a")
+	public String auctionAdminForm() {
+
+		return "admin/auction/auctionAdminForm";
+	}
+
+	// 관리자 경매 DB 등록
+	@RequestMapping(value = "/admin/auctionAdminPut.a", method = RequestMethod.POST)
+	@ResponseBody
+	public String auctionAdminPut(AuctionVO vo) {
+		System.out.println(vo.toString());
+		int result = auctionService.auctionAdminPut(vo);
+		String str = Integer.toString(result);
+		System.out.println(str);
+		return str;
+	}
+
+	// 요청리스트 -> 관리자 컨펌
+	@RequestMapping(value = "/admin/auctionReqConfirm.a", method = RequestMethod.POST)
+	@ResponseBody
+	public String auctionReqConfirm(AuctionVO vo, String conditionChange, String conditionAuctionId) {
+		// 경매상태 데이터로 변경
+		if (conditionChange.equals("접수완료")) {
+			vo.setAuctionCondition("4");
+		} else if (conditionChange.equals("검수중")) {
+			vo.setAuctionCondition("5");
+		} else if (conditionChange.equals("검수완료")) {
+			vo.setAuctionCondition("6");
+		}
+
+		vo.setAuctionId(conditionAuctionId);
+
+		// 경매상태, 업데이트 일자 DB 등록
+		int result = auctionService.auctionReqConfirm(vo);
+		String str = Integer.toString(result);
+		System.out.println(str);
+
+		return str;
+	}
+
+	// 현황리스트 -> 정렬
+	@RequestMapping("/admin/auctionAdminSelect.a")
+	public String auctionAdminSelect(AuctionVO vo, Model model, Paging paging, String selectWord) {
+		//정렬 문자열 담기
+		vo.setAuctionCondition(selectWord);
+		System.out.println(selectWord);
+		// 페이징처리
+		// 한 페이지 출력건수
+		paging.setPageUnit(10);
+		// 전체 건수
+		if (vo.getSelectWord().equals("0")) {  //전체보기 일때
+			int totalCount = auctionService.getAdminListCount(vo);
+			paging.setTotalRecord(totalCount); 
+		} else {
+			int totalCount = auctionService.adminSelectCount(vo);
+			paging.setTotalRecord(totalCount); 
+		}
+		// 총 페이지 번호
+		paging.setPageSize(5);
+		// 페이지번호 파라미터
+		if (paging.getPage() == null) {
+			paging.setPage(1);
+		}
+		// 시작/마지막 레코드 번호
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast());
+
+		model.addAttribute("paging", paging);
+		model.addAttribute("selectWord", selectWord);
+
+		// 데이터조회
+		List<AuctionVO> list = new ArrayList<AuctionVO>();
+		if (vo.getSelectWord().equals("0")) { //전체보기 일때
+			list = auctionService.getAdminList(vo);
+		} else {
+			list = auctionService.auctionAdminSelect(vo);
+		}
+		
+		model.addAttribute("list", list);
+		
 		return "admin/auction/auctionAdminList";
 	}
 

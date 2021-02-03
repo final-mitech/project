@@ -39,7 +39,7 @@
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
 					<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link" href="/etoile/site/productList">RENTALS</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">MY STYLING</a></li>
+						<li class="nav-item"><a class="nav-link" href="/etoile/site/reviewList">MY STYLING</a></li>
 						<li class="nav-item"><a class="nav-link" href="/etoile/site/fundingList">FUNDING</a></li>
 						<li class="nav-item"><a class="nav-link" href="/etoile/site/auctionMain">AUCTION</a></li>
 					</ul>
