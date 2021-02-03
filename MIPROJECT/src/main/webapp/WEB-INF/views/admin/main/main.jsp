@@ -23,7 +23,12 @@
 		<div class="row">
 			<div class="col-5">
 				<div class="row">
-					<label><h3>Funding List</h3></label>
+					<div class="col-9">
+						<label><h3>Funding List</h3></label>
+					</div>
+					<div class="col-3">
+						<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/fundingRegisterList.a'">전체보기</button>
+					</div>
 				</div>
 				<div class="row">
 					<table class="table text-center">
@@ -51,7 +56,12 @@
 			<div class="col-1"></div>
 			<div class="col-5">
 				<div class="row">
-					<label><h3>Auction List</h3></label>
+					<div class="col-9">
+						<label><h3>Auction List</h3></label>
+					</div>
+					<div class="col-3">
+						<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/auctionReqList.a'">전체보기</button>
+					</div>
 				</div>
 				<div class="row">
 					<table class="table text-center">
@@ -85,7 +95,12 @@
 		<div class="row">
 			<div class="col-11">
 				<div class="row">
-					<label><h3>Rental List</h3></label>
+					<div class="col-11">
+						<label><h3>Rental List</h3></label>
+					</div>
+					<div class="col-1">
+						<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/rentalList.a'">전체</button>
+					</div>
 				</div>
 				<div class="row">
 					<table class="table text-center">

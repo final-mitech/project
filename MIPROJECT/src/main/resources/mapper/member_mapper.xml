@@ -21,6 +21,25 @@
 	) b ) a WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	
+	<!-- 회원 전체 다운로드 -->
+	<select id="memberDownload" resultType="map">
+		SELECT member_id,
+			   password,
+			   name,
+			   phone,
+			   email,
+			   address,
+			   grade
+		  FROM member
+		<where>
+			<!-- 개인고객만 조회할 경우 -->
+			<if test="grade == 'MEMBER'"> grade IN ('VISIT', 'VIP', 'VIP')</if>
+			<!-- 각 등급별 조회할 경우 -->
+			<if test="grade == 'VISIT' or grade == 'VIP' or grade == 'VVIP' or grade == 'BUSINESS'" >grade = #{grade}</if>
+		</where> 
+	</select>
+	
+	
 	<!-- 회원 상세 조회 -->
 	<select id="memberSelect" resultType="MemberVO">
 		SELECT member_id,
