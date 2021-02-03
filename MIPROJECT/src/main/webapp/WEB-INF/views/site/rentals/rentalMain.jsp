@@ -41,6 +41,14 @@
 	background-color: white;
 	text-decoration: none;
 }
+.card-body> h5 {
+	font-size: 16px; 
+	height: 20px;
+}
+.card-footer {
+	border: 0px;
+	background-color: white;
+}
 </style>
 <script>
 	function sSubmit() {
@@ -58,9 +66,10 @@
 		</div>
 		<div style="float: right;">
 			<form id="frm" action="productSearch.do">
-				<label> <input type="text" name="productName"
-					placeholder="검색할 상품명 입력" size="25px">
-				</label> <a class="link-secondary" onclick="sSubmit();" aria-label="Serch">
+				<label>
+					<input type="text" name="productName" placeholder="검색할 상품명 입력" size="25px">
+				</label>
+				<a class="link-secondary" onclick="sSubmit();" aria-label="Serch">
 					<i class="fa fa-search" id="S" aria-hidden="true"></i>
 				</a>
 			</form>
@@ -72,21 +81,17 @@
 		<div class="row">
 			<c:forEach var="list" items="${list }">
 				<div class="col-lg-3 mb-1" style="height: 450px">
-					<div class="card" id="product-card" style="position: relative;"
-						onclick="location.href='productDetail?productId=${list.productId }'">
-						<div class="card-header"
-							style="height: 280px; border: 0px; background-color: white; overflow: hidden;">
-							<img src="${list.productImage }" class="card-img-top"
-								style="height: 120%; width: 100%; overflow: hidden;">
+					<div class="card" id="product-card" style="position: relative;" onclick="location.href='productDetail?productId=${list.productId }'">
+						<div class="card-header" style="height: 280px; border: 0px; background-color: white; overflow: hidden;">
+							<img src="${list.productImage }" class="card-img-top" style="height: 120%; width: 100%; overflow: hidden;">
 						</div>
 						<div class="card-body">
-							<h5 class="card-title" style="font-size: 16px; height: 20px;">
+							<h5 class="card-title">
 								<strong>${list.productName }</strong>
 							</h5>
 						</div>
-						<div class="card-footer"
-							style="border: 0px; background-color: white;">
-							<p class="card-text" style="float: left;">${list.productRental }</p>
+						<div class="card-footer">
+							<p class="card-text" style="float: left;">￦ ${list.productRental }</p>
 						</div>
 					</div>
 				</div>
