@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,16 +83,20 @@ $(function() {
 		var dday = new Date(${rentalStart}).getTime();
 		var now = new Date(${rentalEnd}).getTime();
 		var distance = dday - now + 1;
+		
+		var rPay = distance * ${product.productRental}; 
+		var pRental = (rPay).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		
 		document.getElementById("renDay").value = distance;
-		document.getElementById("rentalPay").value = distance * ${product.productRental};
-		document.getElementById("totalrentalPay").value = distance * ${product.productRental};
+		document.getElementById("rentalPay").value = pRental;
+		document.getElementById("totalrentalPay").value = pRental;
 })
 </script>
 <script>
 	//쿠폰적용
 	$(document).ready( function() {
 		$("#couponUsed").on("change", function() {
-			var rentalPay = document.getElementById("rentalPay").value;
+			var rentalPay = Number((document.getElementById("rentalPay").value).replace(/,/g , ''));
 			var rentalDay = document.getElementById("renDay").value;
 			var couponUsed = document.getElementById("couponUsed").value;
 			var kind = $("#couponUsed option:selected").data("kind");
@@ -101,27 +106,31 @@ $(function() {
 			if (couponUsed == "notused") {
 				var notCpnPay = 0;
 				$("#couponUse").val(notCpnPay);
-				$("#totalrentalPay").val(rentalPay);
+				var pRental = (rentalPay).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$("#totalrentalPay").val(pRental);
 			}  else if (kind == 'g') {
 				var gCpn = $("#couponUsed option:selected").val();
 				var gCpn = gCpn * 0.01;
 				var gCpnPay = gCpn * rentalPay;
-				console.log(gCpnPay);
-				$("#couponUse").val(gCpnPay);
-				var gCpnUsePay = $("#couponUse").val();
-				$("#totalrentalPay").val(rentalPay-gCpnUsePay);
+				var pRental = (gCpnPay).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$("#couponUse").val(pRental);
+				var gCpnUsePay = rentalPay - Number($("#couponUse").val().replace(/,/g , ''));
+				var pRental = (gCpnUsePay).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$("#totalrentalPay").val(pRental);
 				$("#couponId").val(id);
 			} else if (kind == 'f') {
 				var fCpn = $("#couponUsed option:selected").val();
 				var gCpn = fCpn * ${product.productRental };
-				$("#couponUse").val(gCpn);
+				var pRental = (gCpn).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$("#couponUse").val(pRental);
 				
-				var gCpnUsePay = $("#couponUse").val();
+				var gCpnUsePay = Number($("#couponUse").val().replace(/,/g , ''));
 				
 				if ( 0 > rentalPay-gCpnUsePay) {
 					$("#totalrentalPay").val("0");
 				} else {
-				$("#totalrentalPay").val(rentalPay-gCpnUsePay);
+					var pRental = (rentalPay-gCpnUsePay).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					$("#totalrentalPay").val(pRental);
 				}
 				$("#couponId").val(id);
 			}  
@@ -132,7 +141,7 @@ $(function() {
 	//결제 API
 	$(function() {
 		$("#rental_pay").click(function() {
-			var rentalPay = document.getElementById("totalrentalPay").value;
+			var rentalPay = Number((document.getElementById("totalrentalPay").value).replace(/,/g , ''));
 			var rentalName= document.getElementById('rentalName').value;
 			var rentalEmail = document.getElementById('email').value;
 			var renTalAddress = document.getElementById('address').value;
@@ -218,8 +227,8 @@ $(function() {
 						<th><img src="${product.productImage }" width="200"></th>
 						<th width="400" style="font-size: 15px;">
 							"${product.productName }"</th>
-						<th width="300" style="font-size: 15px; mso-number-format:\#\,\#\#0\;">
-							${product.productRental }</th>
+						<th width="300" style="font-size: 15px;">
+							<fmt:formatNumber type="currency" maxFractionDigits="3" value="${product.productRental }" /></th>
 						<th width="200" style="font-size: 15px;">
 							<select id="couponUsed">
 								<option value="notused" selected>사용안함</option>

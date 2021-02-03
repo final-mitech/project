@@ -21,33 +21,6 @@
 	})
 </script>
 <script>
-	/* function updateWaybill(id) {
-		var rentalId = $("#"+id).parent().find("#rentalId").val();
-		var waybill = $("#"+id).parent().prev().find("#rentalWaybill").val();
-		var today = new Date();
-		var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-'
-				+ today.getDate();
-
-		var status = "rental";
-		var prodId = id;
-		var productId = "\""+id+"\"";
-		
-		App.setStatus(productId, status, date);
-		
-		$.ajax ({
-			url: "updateWaybill.a",
-			type: "post",
-			data: {
-				rentalWaybill: waybill,
-				rentalId: rentalId,
-				productId: prodId
-			},
-			success: function() {
-				location.href="/etoile/admin/rentalList.a";
-			}
-		})
-	} */
-	
 	   function updateWaybill(tag) {
 	      var today = new Date();
 	      var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-'
@@ -94,7 +67,6 @@ input:focus {
 </head>
 <body>
 	<div class="container-fluid">
-		<hr>
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="/etoile/admin/rentalList.a">대여 요청</a></li>
@@ -104,15 +76,17 @@ input:focus {
 		</ul>
 	</div>
 	<br>
-	<div>
-		<table align="center">
+	<div class="row">
+		<table class="table" align="center">
+			<thead class="thead-dark">
 			<tr>
 				<th width="400">상품명</th>
 				<th width="100">협찬유무</th>
 				<th width="300">대여기간</th>
 				<th width="100">배송정보</th>
 			</tr>
-
+			</thead>
+			<tbody>
 			<c:forEach var="list" items="${list }">
 				<tr>
 					<td width="400">${list.productName }</td>
@@ -158,6 +132,7 @@ input:focus {
 					</div>
 				</form>
 			</c:forEach>
+			</tbody>
 		</table>
 	</div>
 </body>

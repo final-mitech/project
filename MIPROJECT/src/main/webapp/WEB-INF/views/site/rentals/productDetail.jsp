@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*, java.text.*"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,8 @@ $(document).ready( function() {
 		var getsDay = $("#rentalStart").val();
 		var geteDay = $("#rentalEnd").val();
 		if (getsDay.trim() != "" && geteDay.trim() == "") {
-			$("#totalPay").html(${product.productRental });
+			var pRental = ("${product.productRental }").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$("#totalPay").html("￦"+pRental);
 		} else if(getsDay.trim() != "" && getsDay.trim() != ""){
 			var sDay = new Date($("#rentalStart").val());
 			var eDay = new Date($("#rentalEnd").val());
@@ -35,9 +37,11 @@ $(document).ready( function() {
 			var totalDay = (renDay / 100 / 60 / 60 / 24 / 10) + 1;
 			
 			var distance = totalDay * (${product.productRental });
-			$("#totalPay").html(distance);
+			var pRental = (distance).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$("#totalPay").html("￦"+pRental);
 		} else {
-			$("#totalPay").html(${product.productRental });
+			var pRental = ("${product.productRental }").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$("#totalPay").html("￦"+pRental);
 		}
 	}
 	setInterval('setViewTime()',100);
@@ -73,7 +77,6 @@ $(document).ready( function() {
 					productId: pId
 				},
 				success: function (count) {
-					console.log(count);
 					document.getElementById('searchPick').value = count;
 					if(count == 1){
 						$("#heart").attr("src","../images/heart2.png");
