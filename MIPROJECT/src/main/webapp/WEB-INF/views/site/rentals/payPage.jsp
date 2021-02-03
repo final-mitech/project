@@ -12,7 +12,7 @@ table {
 }
 
 tr {
-	hight: 20px;
+	height: 25px;
 }
 
 th {
@@ -27,6 +27,10 @@ input {
 	BORDER-TOP: medium none;
 }
 
+input[type= "checkbox" ] {
+	float: none;
+}
+
 input:focus {
 	outline: none;
 }
@@ -37,6 +41,7 @@ input:focus {
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
+	//주소찾기 API
 	function PostCode() {
 		new daum.Postcode({
 			oncomplete : function(data) {
@@ -72,6 +77,7 @@ input:focus {
 	}
 </script>
 <script>
+	//기간별 금액적용
 $(function() {
 		var dday = new Date(${rentalStart}).getTime();
 		var now = new Date(${rentalEnd}).getTime();
@@ -82,6 +88,7 @@ $(function() {
 })
 </script>
 <script>
+	//쿠폰적용
 	$(document).ready( function() {
 		$("#couponUsed").on("change", function() {
 			var rentalPay = document.getElementById("rentalPay").value;
@@ -122,6 +129,7 @@ $(function() {
 	})
 </script>
 <script type="text/javascript">
+	//결제 API
 	$(function() {
 		$("#rental_pay").click(function() {
 			var rentalPay = document.getElementById("totalrentalPay").value;
@@ -155,11 +163,44 @@ $(function() {
 					var msg = '결제에 실패하였습니다.';
 				}
 				alert(msg);
-				
 			});
 		});
 	})
 </script>
+
+<script>
+	function checkA(tag) {
+		var check = document.getElementsByName("checkAddress");
+		var totalA = "${member.address}";
+		var array = totalA.split(","); 
+		
+		for (var i=0; i<check.length; i++) {
+			if (check[i] != tag){
+			check[i].checked = false;
+			}
+		}
+		
+		for(var j=0; j<check.length; j++) {
+			if (check[j].checked == true) {
+				if (check[j].value == "memUser"){
+					document.getElementById("rentalName").value = "${member.name}";
+					document.getElementById("phone").value = "${member.phone}";
+					document.getElementById("postcode").value = array[0].substr(0,7);
+					document.getElementById("address").value = array[0].substr(8);
+					document.getElementById("detailAddress").value = array[1].substr(1);
+				}
+				else if (check[j].value == "newUser") {
+					document.getElementById("rentalName").value = "";
+					document.getElementById("phone").value = "";
+					document.getElementById("postcode").value = "";
+					document.getElementById("address").value = "";
+					document.getElementById("detailAddress").value = "";
+				}
+			}
+		}
+	}
+</script>
+
 </head>
 <body>
 	<br />
@@ -167,17 +208,17 @@ $(function() {
 		<div class="container">
 			<div>
 				<table align="center">
-					<tr>
+					<tr style="height:5px">
 						<th></th>
 						<th width="400">상품명</th>
 						<th width="300">주문 금액</th>
 						<th width="200">쿠폰</th>
 					</tr>
-					<tr>
+					<tr style="height:10px">
 						<th><img src="${product.productImage }" width="200"></th>
 						<th width="400" style="font-size: 15px;">
 							"${product.productName }"</th>
-						<th width="300" style="font-size: 15px;">
+						<th width="300" style="font-size: 15px; mso-number-format:\#\,\#\#0\;">
 							${product.productRental }</th>
 						<th width="200" style="font-size: 15px;">
 							<select id="couponUsed">
@@ -201,20 +242,28 @@ $(function() {
 				<input type="hidden" name="productId" value="${product.productId }">
 				<input type="hidden" id="productName" name="productName"
 					value="${product.productName }">
-				<div class="col-8">
+				<div class="col-9">
 					<br>
 					<table align="center">
+						<tr>
+							<th style="font-size:13px">
+								<input type="checkbox" name="checkAddress" value="newUser" onclick='checkA(this)'>새 주소
+							</th>
+							<th style="font-size:13px">
+								<input type="checkbox" name="checkAddress" value="memUser" onclick='checkA(this)'>내 주소
+							</th>
+						</tr>
 						<tr>
 							<th width="200px" style="font-size: 15px;">대여자 명</th>
 							<td width="400px" colspan="2"><input type="text"
 								style="float: left;" id="rentalName" name="rentalName"
-								value="${member.name }" size="50"></td>
+								size="50"></td>
 						</tr>
 						<tr>
 							<th width="200px" style="font-size: 15px;">연락처</th>
 							<td width="400px" colspan="2"><input type="text" id="phone"
 								name="phone" style="float: left;" size="50"
-								value="${member.phone }"></td>
+								></td>
 						</tr>
 						<tr>
 							<th width="200px" style="font-size: 15px;" rowspan="4">주소</th>
@@ -261,7 +310,7 @@ $(function() {
 						</tr>
 					</table>
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					<br> <br> <br>
 					<table align="center">
 						<tr>
