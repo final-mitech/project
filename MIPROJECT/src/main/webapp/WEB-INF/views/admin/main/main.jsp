@@ -19,11 +19,16 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-5">
 				<div class="row">
-					<label>펀딩 등록 요청</label>
+					<div class="col-9">
+						<label><h3>Funding List</h3></label>
+					</div>
+					<div class="col-3">
+						<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/fundingRegisterList.a'">전체보기</button>
+					</div>
 				</div>
 				<div class="row">
 					<table class="table text-center">
@@ -51,7 +56,12 @@
 			<div class="col-1"></div>
 			<div class="col-5">
 				<div class="row">
-					<label>경매 등록 요청</label>
+					<div class="col-9">
+						<label><h3>Auction List</h3></label>
+					</div>
+					<div class="col-3">
+						<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/auctionReqList.a'">전체보기</button>
+					</div>
 				</div>
 				<div class="row">
 					<table class="table text-center">
@@ -69,7 +79,12 @@
 									<th scope="row">${auction.auctionId }</th>
 									<td>${auction.auctionName }</td>
 									<td>${auction.auctionCategory  }</td>
-									<td>${auction.auctionCondition }</td>
+									<td>
+										<c:if test="${auction.auctionCondition eq 1}">경매중</c:if>
+										<c:if test="${auction.auctionCondition eq 2}">오픈예정</c:if>
+										<c:if test="${auction.auctionCondition eq 3}">경매완료</c:if>
+										<c:if test="${auction.auctionCondition eq 8}">정산요청</c:if>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -80,7 +95,12 @@
 		<div class="row">
 			<div class="col-11">
 				<div class="row">
-					<label>대여 등록 요청</label>
+					<div class="col-11">
+						<label><h3>Rental List</h3></label>
+					</div>
+					<div class="col-1">
+						<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/rentalList.a'">전체</button>
+					</div>
 				</div>
 				<div class="row">
 					<table class="table text-center">

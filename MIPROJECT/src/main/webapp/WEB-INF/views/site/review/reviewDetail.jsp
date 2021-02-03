@@ -53,7 +53,7 @@
 	<br/>
 	<div id="main-wrapper">
 		<div class="content-body">
-			<div class="container-fluid">
+			<div class="container" style="max-width: 1400px;">
 				<div class="row">
 					<div class="col-lg-4 col-xl-3">
 						<div class="card">

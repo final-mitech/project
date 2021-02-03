@@ -41,7 +41,7 @@ function result(){
 </script>
 </head>
 <body>
-	<div class="container text-center" >
+	<div class="container-fluid text-center" >
 		<div class="row mt-3">
 			<div class="col-1"></div>
 			<div class="col-6">

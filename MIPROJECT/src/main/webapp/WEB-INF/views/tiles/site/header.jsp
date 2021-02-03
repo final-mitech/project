@@ -15,9 +15,30 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
 	crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+	let url = $(location).attr('href');
+
+	let rental = 'product';
+	let myStyling = 'review';
+	let funding = 'funding';
+	let auction = 'auction';
+	
+	if(url.indexOf(rental) != -1){
+		$('#rental').attr('class', 'active');
+	}else if(url.indexOf(myStyling) != -1){
+		$('#styling').attr('class', 'active');
+	}else if(url.indexOf(funding) != -1){
+		$('#funding').attr('class', 'active');
+	}else if(url.indexOf(auction) != -1){
+		$('#auction').attr('class', 'active');
+	}
+	
+})
+</script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<div>
 			<a href="#"> <img src="/etoile/images/main.png"
 				onclick="location.href='/etoile'"></a>
@@ -38,10 +59,10 @@
 				</button>
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
 					<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="/etoile/site/productList">RENTALS</a></li>
-						<li class="nav-item"><a class="nav-link" href="/etoile/site/reviewList">MY STYLING</a></li>
-						<li class="nav-item"><a class="nav-link" href="/etoile/site/fundingList">FUNDING</a></li>
-						<li class="nav-item"><a class="nav-link" href="/etoile/site/auctionMain">AUCTION</a></li>
+						<li id="rental" class="nav-item"><a class="nav-link" href="/etoile/site/productList">RENTAL</a></li>
+						<li id="styling" class="nav-item"><a class="nav-link" href="/etoile/site/reviewList">MY STYLING</a></li>
+						<li id="funding" class="nav-item"><a class="nav-link" href="/etoile/site/fundingList">FUNDING</a></li>
+						<li id="auction" class="nav-item"><a class="nav-link" href="/etoile/site/auctionMain">AUCTION</a></li>
 					</ul>
 				</div>
 			</nav>

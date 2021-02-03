@@ -86,7 +86,11 @@ public class MemberController {
 		//세션에 값 담기
 		request.getSession().setAttribute("id", vo.getMemberId());        
         //return "redirect:/";
-		return "redirect:"+redirectUrl.replace("http://localhost/etoile", "");
+		String uri = redirectUrl.replace("http://localhost/etoile", "");
+		if(uri == null) {
+			uri = "/";
+		}
+		return "redirect:"+ uri;
 
 	}
 		

@@ -79,7 +79,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="max-width: 1400px;">
         <div class="row">
             <div class="col-11">
                 <br />

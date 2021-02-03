@@ -35,12 +35,16 @@
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-9">
-				<a href="/etoile/admin/memberList.a">개인회원</a>
-				<a>&nbsp;|&nbsp;</a>
-				<a href="/etoile/admin/businessList.a">기업회원</a>
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/etoile/admin/memberList.a">개인회원</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/etoile/admin/businessList.a"
+						style="background: #e5e5e5;">기업회원</a></li>
+				</ul>	
 			</div>
 			<div class="col-3">
 				<select id="sort" class="form-control" onchange="changeSort()">
@@ -76,6 +80,9 @@
 			</table>		
 		</div>
 		<tag:historyPaging jsFunc="goList" />
+		<div class="text-right">
+			<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/memberDownload.a'">다운로드</button>
+		</div>
 	</div>
 </body>
 </html>

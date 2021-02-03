@@ -344,7 +344,7 @@
 <body>
 
 	<div class="pd-wrap">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="heading-section">
 				<h2>펀딩 상품 수정 페이지</h2>
 			</div>

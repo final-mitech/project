@@ -25,6 +25,28 @@
 	) b ) a WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	
+	<!-- 상품들 상세 다운로드 및 상태별 상품들 상세 다운로드 -->
+	<select id="productDownload" resultType="map">
+		SELECT product_id as "productId",
+			   product_name as "productName",
+			   product_serial as "productSerial",
+			   product_brand as "productBrand",
+			   product_type as "productType",
+			   product_price as "productType",
+			   product_content as "productContent",
+			   product_image as "productImage",
+			   product_status as "productStatus",
+			   ppl,
+			   product_rental as "productRental" 
+		  FROM product
+		  <where>
+		    <!-- 상품 상태별 조회 시 -->
+		  	<if test="productStatus !=null and productStatus!=''"> product_status = #{productStatus}</if>
+		  	<!-- 당사 보유 제품 및 협찬 제품 조회 시 -->
+		  	<if test="ppl !=null and ppl!=''">AND ppl = #{ppl}</if>
+		  </where>  
+	</select>
+	
 	<!-- 한 상품에 대한 상세조회 -->
 	<select id="productSelect" resultType="ProductVO">
 		SELECT product_id,

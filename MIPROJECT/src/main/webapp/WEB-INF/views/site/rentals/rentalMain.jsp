@@ -2,13 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/font-awesome.min.css">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <style type="text/css">
 /* 최신.인기순정렬버튼 */
@@ -60,7 +59,7 @@
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<div id="sort">
 			<a href="productList">최신순</a> <a href="productList2">인기순</a>
 		</div>
@@ -77,13 +76,13 @@
 	</div>
 	<br>
 	<br>
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<div class="row">
 			<c:forEach var="list" items="${list }">
-				<div class="col-lg-3 mb-1" style="height: 450px">
+				<div class="col-3" style="height: 450px;">
 					<div class="card" id="product-card" style="position: relative;" onclick="location.href='productDetail?productId=${list.productId }'">
 						<div class="card-header" style="height: 280px; border: 0px; background-color: white; overflow: hidden;">
-							<img src="${list.productImage }" class="card-img-top" style="height: 120%; width: 100%; overflow: hidden;">
+							<img src="${list.productImage }" class="card-img-top" style="height: 150%; width: 100%; overflow: hidden; padding-bottom:100px;">
 						</div>
 						<div class="card-body">
 							<h5 class="card-title">
@@ -91,7 +90,9 @@
 							</h5>
 						</div>
 						<div class="card-footer">
-							<p class="card-text" style="float: left;">￦ ${list.productRental }</p>
+							<p class="card-text" style="float: left;">
+							<fmt:formatNumber type="currency" maxFractionDigits="3" value="${list.productRental }" />
+							</p>
 						</div>
 					</div>
 				</div>
