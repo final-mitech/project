@@ -31,10 +31,10 @@
 				<div class="col-3 mb-3">
 					<div class="card-deck">
 						<div class="card">
-							<div class="card-body">
-								<a href="/etoile/site/productDetail?productId=${list.productId }"><img
-									class="card-img-top" src="${list.productImage }"
-									alt="Card image" width="100%" height="230px"></a>
+							<div class="card-body" style="overflow: hidden; height:270px">
+								<a href="/etoile/site/productDetail?productId=${list.productId }">
+								<img class="card-img-top" src="${list.productImage }"
+									alt="Card image" style="overflow:hidden; width:100%; height:140%"></a>
 							</div>
 						</div>
 					</div>
