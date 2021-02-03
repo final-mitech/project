@@ -91,7 +91,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container" style="max-width: 1400px;">
     <br />
     <div class="row">
       <div class="col-3">

@@ -71,7 +71,7 @@ body {
 <body>
 
 
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<div align="center">
 			<form class="form-horizontal" role="form" id="frm" name="frm"
 				action="fundingInsert.do" method="post">

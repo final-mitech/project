@@ -166,7 +166,7 @@ function update(){
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="page-header">
 			<h3>상품 등록</h3>
 		</div>
