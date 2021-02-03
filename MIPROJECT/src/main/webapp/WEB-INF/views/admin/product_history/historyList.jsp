@@ -68,6 +68,7 @@
 		})
 		
 	}
+	
 </script>
 </head>
 <body>
@@ -130,8 +131,13 @@
 			</table>
 		</div>
 		<tag:historyPaging jsFunc="goList" />
-		<div class="text-right">
-			<button type="button" class="btn btn-outline-dark" onclick="location.href='productInsertForm.a'">등록</button>
+		<div class="row">
+			<div>
+				<button type="button" class="btn btn-outline-dark" onclick="location.href='productInsertForm.a'">등록</button>
+			</div>
+			<div class="text-right">
+				<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/productDownload.a?ppl=own&productStatus=${sort}'">다운로드</button>
+			</div>
 		</div>
 	</div>
 </body>

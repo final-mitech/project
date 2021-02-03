@@ -76,6 +76,11 @@
 			</table>		
 		</div>
 		<tag:historyPaging jsFunc="goList" />
+		<div class="row">
+			<div class="text-right">
+				<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/memberDownload.a'">다운로드</button>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

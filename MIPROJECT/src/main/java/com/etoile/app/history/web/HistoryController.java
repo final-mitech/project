@@ -2,9 +2,13 @@ package com.etoile.app.history.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.etoile.app.history.common.Paging;
 import com.etoile.app.history.service.HistoryService;
+import com.etoile.app.vo.MemberVO;
 import com.etoile.app.vo.ProductVO;
 
 @Controller
@@ -88,6 +94,25 @@ public class HistoryController {
 	public int historyUpdate(ProductVO vo) {
 		int n = historyService.productUpdate(vo);
 		return n;
+	}
+	
+	// 개인고객 정보 엑셀 다운로드
+	@RequestMapping("admin/productDownload.a")
+	public ModelAndView productDownload(ProductVO vo, HttpServletResponse response) throws IOException {
+		
+		List<Map<String, Object>> list = historyService.productDownload(vo);
+		List<String> header = new ArrayList<String>();
+		Map<String, Object> temp = list.get(0);
+		
+		for (String key : temp.keySet()) {
+			header.add(key);
+		}
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("headers", header);
+		map.put("filename", "download");
+		map.put("datas", list);
+		return new ModelAndView("commonExcelView", map);
 	}
 
 	// 보유물품 및 협찬물품 이력 상세페이지

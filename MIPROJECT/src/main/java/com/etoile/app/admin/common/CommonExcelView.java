@@ -24,14 +24,14 @@ public class CommonExcelView extends AbstractXlsxView {
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Sheet sheet = workbook.createSheet("Datatypes in Java");
+		Sheet sheet = workbook.createSheet("sheet");
 		Row row;
 		Cell cell;
 		int rowNum = 0;
 		String file_name = (String) model.get("filename") + System.currentTimeMillis() + ".xlsx";
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
 //header 출력
-		String[] headers = (String[]) model.get("headers");
+		List<String> headers = (List<String>) model.get("headers");
 		if (headers != null) {
 			row = sheet.createRow(rowNum++);
 			int colNum = 0;
@@ -50,7 +50,6 @@ public class CommonExcelView extends AbstractXlsxView {
 					Object field = map.get(header);
 					if (field == null) {
 						field = "";
-						System.out.println(header);
 					}
 					if (field instanceof String) {
 						cell.setCellValue((String) field);

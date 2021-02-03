@@ -23,7 +23,7 @@
 	
 	<!-- 회원 전체 다운로드 -->
 	<select id="memberDownload" resultType="map">
-		SELECT member_id,
+		SELECT member_id as "memberId",
 			   password,
 			   name,
 			   phone,

@@ -1,6 +1,7 @@
 package com.etoile.app.history.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,11 @@ public class HistoryServiceImpl implements HistoryService {
 	public List<ProductVO> prodcutList(ProductVO vo) {
 		return dao.prodcutList(vo);
 	}
-
+	
+	@Override
+	public List<Map<String, Object>> productDownload(ProductVO vo) {
+		return dao.productDownload(vo);
+	}
 	@Override
 	public ProductVO productSelect(ProductVO vo) {
 		return dao.productSelect(vo);
@@ -58,6 +63,8 @@ public class HistoryServiceImpl implements HistoryService {
 	public int productCount(ProductVO vo) {
 		return dao.productCount(vo);
 	}
+
+
 
 
 
