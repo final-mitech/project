@@ -39,7 +39,7 @@
 			<c:forEach items="${fundings }" var="f">
 				<div class="profileWrap">
 					<div class="profImg">
-						<img src="/etoile/images/${f.fundingImage }" style="width: 100px"
+						<img oneerror="this.src='/etoile/images/노이미지.JPG';" src="/etoile/images/${f.fundingImage }" style="width: 100px"
 							height="100px">
 						<c:choose>
 							<c:when test="${f.fundingCondition eq '접수완료'}">

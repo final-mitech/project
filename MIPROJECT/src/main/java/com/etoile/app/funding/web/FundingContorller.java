@@ -103,20 +103,31 @@ public class FundingContorller {
 	public String fundingUpdateForm(Model model, FundingVO vo) {
 		FundingVO selectVo = fundingService.fundingUpdateForm(vo);
 		model.addAttribute("selectVo", selectVo);
+		model.addAttribute("cateList", codeMapper.codeList("category"));
+		model.addAttribute("branList", codeMapper.codeList("brand"));
 
 		return "admin/funding/fundingUpdateForm"; // 페이지명 일치
 	}
 
+
 	// (관리자) 요청된 펀딩 수정 폼
 	@GetMapping("/admin/fundingRequestUpdateForm.a")
 	public String fundingRequestUpdateForm(Model model, FundingVO vo) {
+			
+		//상태변경
+		vo.setFundingCondition("검수중");
+		fundingService.conditionUpdate(vo);
+		
+		//단건조회
 		FundingVO selectVo = fundingService.fundingRequestUpdateForm(vo);
 		model.addAttribute("selectVo", selectVo);
+		model.addAttribute("cateList", codeMapper.codeList("category"));
+		model.addAttribute("branList", codeMapper.codeList("brand"));
 
 		return "admin/funding/fundingRequestUpdateForm"; // 페이지명 일치
 	}
 
-	// 펀딩 수정
+	// 등록된 펀딩 수정
 	@PostMapping("admin/fundingUpdate.a")
 	public String fundingUpdate(Model model, FundingVO vo) {
 		String viewPath = null;
@@ -130,12 +141,12 @@ public class FundingContorller {
 		return viewPath;
 	}
 
-	// 펀딩 수정
+	// 요청된 펀딩 수정
 	@PostMapping("admin/fundingRequestUpdate.a")
 	public String fundingRequestUpdate(Model model, FundingVO vo) {
 		String viewPath = null;
 		
-		vo.setFundingCondition("검수완료");
+		vo.setFundingCondition("펀딩오픈예정");
 		
 		int n = fundingService.fundingRequestUpdate(vo);
 		if (n != 0) {

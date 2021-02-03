@@ -37,7 +37,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="funding" begin="0" end="4" items="${fundingList }">
-								<tr onclick="location.href='/etoile/admin/fundingRegisterList.a'">
+								<tr onclick="location.href='/etoile/admin/fundingRequestList.a'">
 									<th scope="row">${funding.fundingId }</th>
 									<td>${funding.fundingName }</td>
 									<td>${funding.fundingCategory  }</td>
