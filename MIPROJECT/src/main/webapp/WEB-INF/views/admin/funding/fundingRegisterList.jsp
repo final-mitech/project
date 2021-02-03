@@ -21,7 +21,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"

@@ -39,7 +39,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-9">
                 <ul class="nav nav-tabs">

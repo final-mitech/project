@@ -60,7 +60,7 @@
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<div id="sort">
 			<a href="productList">최신순</a> <a href="productList2">인기순</a>
 		</div>

@@ -27,7 +27,7 @@
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active" data-toggle="tab"
 				onclick="location.href='/etoile/site/myFundingList.do'">마이 펀딩</a></li>

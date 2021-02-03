@@ -96,7 +96,7 @@ $(document).ready( function() {
 </head>
 <body>
 	<br>
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<div class="row">
 			<div class="col-5">
 				<div style="height: 500px; overflow: hidden;">

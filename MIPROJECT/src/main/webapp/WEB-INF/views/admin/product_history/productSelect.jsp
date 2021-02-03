@@ -24,7 +24,7 @@
 <script src="<c:url value="/resources/js/productHistory.js" />"></script>
 </head>
 <body>
-	<div class="containter">
+	<div class="containter-fluid">
 		<div class="row">
 			<div class="col-7">
 				<img src="${product.productImage }">

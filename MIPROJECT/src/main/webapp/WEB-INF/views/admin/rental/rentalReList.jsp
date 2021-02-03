@@ -73,7 +73,7 @@ select {
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<hr>
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active"

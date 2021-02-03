@@ -17,7 +17,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row mt-3">
 			<table class="table">
 				<thead>

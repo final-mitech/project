@@ -36,7 +36,7 @@ p {
 </head>
 <body>
 	<br>
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<div class="row">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">

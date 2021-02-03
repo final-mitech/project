@@ -35,7 +35,7 @@
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-9">
 				<a href="/etoile/admin/memberList.a">개인회원</a>
