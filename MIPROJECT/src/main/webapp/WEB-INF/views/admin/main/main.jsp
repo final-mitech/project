@@ -24,6 +24,7 @@
 			<div class="col-5">
 				<div class="row">
 					<label><h3>Funding List</h3></label>
+					<button type="button" class="btn btn-secondary btn-sm">전체보기</button>
 				</div>
 				<div class="row">
 					<table class="table text-center">
