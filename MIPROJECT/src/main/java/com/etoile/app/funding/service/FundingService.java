@@ -33,4 +33,8 @@ public interface FundingService {
 	public int getFundingCnt(FundingVO vo); // 총 데이터 count
 	
 	
+	public int fundingStartUpdate(FundingVO vo); //스케쥴러 (펀딩오픈예정 -> 펀딩중)
+	public int fundingEndUpdate(FundingVO vo); //스케쥴러 (펀딩중 -> 펀딩마감)
+	
+	
 }

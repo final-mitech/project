@@ -3,6 +3,8 @@ package com.etoile.app.auction.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,7 +56,8 @@ public class AuctionController {
 
 	// 상세페이지 호출
 	@RequestMapping("/site/auctionOne")
-	public String getAuctionOne(AuctionVO vo, AuctionJoinVO jo, Model model, String id) {
+	public String getAuctionOne(HttpServletRequest request, AuctionVO vo, AuctionJoinVO jo, Model model, String id) {
+		// 단건조회
 		vo.setAuctionId(id);
 		model.addAttribute("vo", auctionService.getAuctionOne(vo));
 
@@ -64,6 +67,10 @@ public class AuctionController {
 		model.addAttribute("list", list);
 
 		model.addAttribute("to", auctionService.getJoinTop(jo));
+
+		// 세션아이디
+		String loginId = (String) request.getSession().getAttribute("id");
+		model.addAttribute("loginId", loginId);
 
 		return "site/auction/auctionOne";
 	}
@@ -108,7 +115,7 @@ public class AuctionController {
 		// 한 페이지 출력건수
 		paging.setPageUnit(8);
 		// 전체 건수
-		int totalCount = auctionService.getAuctionCount(vo);
+		int totalCount = auctionService.getAuctionHottestCount(vo);
 		paging.setTotalRecord(totalCount); // 임의로 지정
 		// 총 페이지 번호
 		paging.setPageSize(5);
@@ -161,7 +168,9 @@ public class AuctionController {
 
 	// 등록페이지 호출
 	@RequestMapping("/site/auctionJoinForm.do")
-	public String auctionJoinForm() {
+	public String auctionJoinForm(HttpServletRequest request, Model model) {
+		String loginId = (String) request.getSession().getAttribute("id");
+		model.addAttribute("loginId", loginId);
 		return "site/auction/auctionJoin";
 	}
 
@@ -196,10 +205,15 @@ public class AuctionController {
 	// 마이페이지 경매 참여 내역
 	// 메인페이지 호출 (경매상태별이 디폴트)
 	@RequestMapping("/site/myAuctionJoin.do")
-	public String getMyAuctionJoin(AuctionVO vo, Model model, Paging paging) {
+	public String getMyAuctionJoin(HttpServletRequest request, AuctionVO vo, Model model, Paging paging) {
+
+		// 세션아이디
+		String loginId = (String) request.getSession().getAttribute("id");
+		vo.setMemberId(loginId);
+
 		// 페이징처리
 		// 한 페이지 출력건수
-		paging.setPageUnit(3);
+		paging.setPageUnit(5);
 		// 전체 건수
 		int totalCount = auctionService.getMyJoinCount(vo);
 		paging.setTotalRecord(totalCount); // 임의로 지정
@@ -226,10 +240,15 @@ public class AuctionController {
 	// 마이페이지 경매 낙찰 내역
 	// 메인페이지 호출 (배송상태별이 디폴트)
 	@RequestMapping("/site/myAuctionBid.do")
-	public String getMyAuctionBid(AuctionVO vo, Model model, Paging paging) {
+	public String getMyAuctionBid(HttpServletRequest request, AuctionVO vo, Model model, Paging paging) {
+
+		// 세션아이디
+		String loginId = (String) request.getSession().getAttribute("id");
+		vo.setMemberId(loginId);
+
 		// 페이징처리
 		// 한 페이지 출력건수
-		paging.setPageUnit(3);
+		paging.setPageUnit(5);
 		// 전체 건수
 		int totalCount = auctionService.getMyBidCount(vo);
 		paging.setTotalRecord(totalCount); // 임의로 지정
@@ -256,10 +275,15 @@ public class AuctionController {
 	// 마이페이지 대리 경매 내역
 	// 메인페이지 호출 (배송상태별이 디폴트)
 	@RequestMapping("/site/myAuctionReq.do")
-	public String getMyAuctionReq(AuctionVO vo, Model model, Paging paging) {
+	public String getMyAuctionReq(HttpServletRequest request, AuctionVO vo, Model model, Paging paging) {
+
+		// 세션아이디
+		String loginId = (String) request.getSession().getAttribute("id");
+		vo.setMemberId(loginId);
+
 		// 페이징처리
 		// 한 페이지 출력건수
-		paging.setPageUnit(3);
+		paging.setPageUnit(5);
 		// 전체 건수
 		int totalCount = auctionService.getMyReqCount(vo);
 		paging.setTotalRecord(totalCount); // 임의로 지정
@@ -414,17 +438,20 @@ public class AuctionController {
 	// 요청리스트 -> 관리자 컨펌
 	@RequestMapping(value = "/admin/auctionReqConfirm.a", method = RequestMethod.POST)
 	@ResponseBody
-	public String auctionReqConfirm(AuctionVO vo, String conditionChange, String conditionAuctionId) {
-		// 경매상태 데이터로 변경
-		if (conditionChange.equals("접수완료")) {
-			vo.setAuctionCondition("4");
-		} else if (conditionChange.equals("검수중")) {
-			vo.setAuctionCondition("5");
-		} else if (conditionChange.equals("검수완료")) {
-			vo.setAuctionCondition("6");
-		}
+	public String auctionReqConfirm(AuctionVO vo) {
 
-		vo.setAuctionId(conditionAuctionId);
+		System.out.println(vo.getAuctionCondition());
+		System.out.println(vo.getAuctionId());
+		
+		// 경매상태 데이터로 변경
+		if (vo.getAuctionCondition().equals("0")) {
+			vo.setAuctionCondition("4");
+		} else if (vo.getAuctionCondition().equals("4")) {
+			vo.setAuctionCondition("5");
+		}
+		
+		System.out.println(vo.getAuctionCondition());
+		System.out.println(vo.getAuctionId());
 
 		// 경매상태, 업데이트 일자 DB 등록
 		int result = auctionService.auctionReqConfirm(vo);
@@ -434,22 +461,37 @@ public class AuctionController {
 		return str;
 	}
 
+	// 요청리스트 검수완료 -> 관리자 수정
+	@RequestMapping(value = "/admin/auctionReqUpdate.a", method = RequestMethod.POST)
+	@ResponseBody
+	public String auctionReqUpdate(AuctionVO vo) {
+		// 경매상태 데이터로 변경
+		vo.setAuctionCondition("6");
+
+		// 경매상태, 업데이트 일자 DB 등록
+		int result = auctionService.auctionReqUpdate(vo);
+		String str = Integer.toString(result);
+		System.out.println(str);
+
+		return str;
+	}
+
 	// 현황리스트 -> 정렬
 	@RequestMapping("/admin/auctionAdminSelect.a")
 	public String auctionAdminSelect(AuctionVO vo, Model model, Paging paging, String selectWord) {
-		//정렬 문자열 담기
+		// 정렬 문자열 담기
 		vo.setAuctionCondition(selectWord);
 		System.out.println(selectWord);
 		// 페이징처리
 		// 한 페이지 출력건수
 		paging.setPageUnit(10);
 		// 전체 건수
-		if (vo.getSelectWord().equals("0")) {  //전체보기 일때
+		if (vo.getSelectWord().equals("0")) { // 전체보기 일때
 			int totalCount = auctionService.getAdminListCount(vo);
-			paging.setTotalRecord(totalCount); 
+			paging.setTotalRecord(totalCount);
 		} else {
 			int totalCount = auctionService.adminSelectCount(vo);
-			paging.setTotalRecord(totalCount); 
+			paging.setTotalRecord(totalCount);
 		}
 		// 총 페이지 번호
 		paging.setPageSize(5);
@@ -466,14 +508,14 @@ public class AuctionController {
 
 		// 데이터조회
 		List<AuctionVO> list = new ArrayList<AuctionVO>();
-		if (vo.getSelectWord().equals("0")) { //전체보기 일때
+		if (vo.getSelectWord().equals("0")) { // 전체보기 일때
 			list = auctionService.getAdminList(vo);
 		} else {
 			list = auctionService.auctionAdminSelect(vo);
 		}
-		
+
 		model.addAttribute("list", list);
-		
+
 		return "admin/auction/auctionAdminList";
 	}
 

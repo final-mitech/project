@@ -33,6 +33,10 @@ public interface FundingMapper {
 	public List<FundingVO> joinFundingList(FundingVO vo); //마이 페이지 - 조인 펀딩 목록 조회
 	
 	
-	public int getFundingCnt(FundingVO vo); // 총 데이터 count
+	public int getFundingCnt(FundingVO vo); //총 데이터 count
+	
+	
+	public int fundingStartUpdate(FundingVO vo); //스케쥴러 (펀딩오픈예정 -> 펀딩중)
+	public int fundingEndUpdate(FundingVO vo); //스케쥴러 (펀딩중 -> 펀딩마감)
 		
 }

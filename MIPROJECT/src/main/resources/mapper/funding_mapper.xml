@@ -21,7 +21,8 @@
 		funding_condition,
 		funding_gift,
 		member_id,
-		(CASE WHEN funding_condition='펀딩오픈예정' THEN 'D - ' ||
+		(CASE WHEN funding_condition='펀딩오픈예정' THEN 'D -
+		' ||
 		TO_CHAR(funding_start
 		- TRUNC(sysdate))
 		WHEN funding_start =
@@ -40,9 +41,11 @@
 				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
 			</if>
 			<if test="fundingBrand != null and fundingBrand != '' ">
-				AND (UPPER(FUNDING_BRAND) like '%' || UPPER(#{fundingBrand}) || '%'
+				AND (UPPER(FUNDING_BRAND) like '%' ||
+				UPPER(#{fundingBrand}) || '%'
 				OR
-				FUNDING_CONDITION like '%' || #{fundingBrand} || '%')
+				FUNDING_CONDITION like '%' ||
+				#{fundingBrand} || '%')
 			</if>
 		</where>
 		<if test="sort == 'registrationSort'">
@@ -225,4 +228,19 @@
 			</if>
 		</where>
 	</select>
+
+	<!-- 스케쥴러 -->
+	<!-- 펀딩오픈예정 -> 펀딩중 -->
+	<update id="fundingStartUpdate">
+		UPDATE FUNDING
+		SET FUNDING_CONDITION='펀딩중'
+		WHERE TRUNC(FUNDING_START) = TRUNC(SYSDATE)
+	</update>
+
+	<!-- 펀딩중 -> 펀딩마감 -->
+	<update id="fundingEndUpdate">
+		UPDATE FUNDING
+		SET FUNDING_CONDITION='펀딩마감'
+		WHERE TRUNC(FUNDING_END) > TRUNC(SYSDATE)
+	</update>
 </mapper>

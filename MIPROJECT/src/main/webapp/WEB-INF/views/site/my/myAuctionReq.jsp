@@ -23,14 +23,9 @@
         }
 
         .btnTitle {
-            background-color: rgb(192, 184, 177);
-            color: rgb(78, 68, 68);
-            border-style: hidden;
-            border-radius: unset;
-            border-color: rgb(192, 184, 177);
+            border-bottom-color: rgb(156, 151, 147);
             font-size: small;
-            font-weight: bold;
-            height: 30px;
+            height: 35px;
             padding-left: 5%;
         }
 
@@ -90,6 +85,10 @@
             background-color: rgb(206, 199, 194);
         }
 
+        .settleBtn {
+            background-color:  rgb(230, 126, 95);
+            border-color: rgb(230, 126, 95);
+        }
     </style>
 
 </head>
@@ -118,8 +117,9 @@
             <c:forEach var="vo" items="${list }">
                 <div class="col-12 mb-3">
                     <div class="card">
-                        <button type="button" class="btn btnTitle" readonly>
-                            대리 경매 번호 ${vo.auctionId}
+                        <button type="button" class="btn btnTitle" style="padding-left: 25%;" readonly>
+                             대리 경매 번호 ${vo.auctionId}
+                            <span style="float: right;">업데이트 일자:&nbsp; ${vo.auctionUpdateDate}</span>
                         </button>
 
                         <div class="row">
@@ -127,7 +127,7 @@
                                 <div class="card-body">
                                     <a href="auctionOne?id=${vo.auctionId}">
                                         <img class="imgCard" src="/etoile/images/${vo.auctionImage}" alt="Card image"
-                                            width="100%" height="218px"></a>
+                                            width="100%" height="213px"></a>
                                 </div>
                             </div>
 
@@ -164,7 +164,7 @@
                                             <div style="text-align:center;">
                                                 <span class="rounded-lg"
                                                     style="padding-top: 8px; height: 80px; background-color: rgb(255, 237, 188);">
-                                                    <p style="font-weight: bold;">경매 오픈예정입니다 :)</p>
+                                                    <p>경매 오픈예정입니다 :)</p>
                                                     <p style="font-size: small;">경매 기간:&nbsp;${vo.auctionStart} ~
                                                         ${vo.auctionEnd}</p>
                                                 </span>
@@ -174,9 +174,12 @@
                                             <form action="" id="frm1" name="frm1">
                                                 <div style="text-align:center; float: left;">
                                                     <input type="hidden" name="auctionId" value="${vo.auctionId}">
-                                                    <span class="rounded-lg" style="margin-top: 10px; margin-bottom: 10px;">
-                                                        <p style="font-weight: bold; margin-bottom: 1px;">검수완료 되었습니다.</p>
-                                                        <p style="font-weight: bold; margin-bottom: 8px;">경매 진행을 하시겠습니까?</p>
+                                                    <span class="rounded-lg"
+                                                        style="margin-top: 8px; margin-bottom: 5px;">
+                                                        <p style="margin-bottom: 1px;">검수완료 되었습니다.
+                                                        </p>
+                                                        <p style="margin-bottom: 8px;">경매 진행을 하시겠습니까?
+                                                        </p>
                                                         <button
                                                             class="btn btn-secondary btn-sm recoverBtn">회수하기</button>&nbsp;&nbsp;
                                                         <button class="btn btn-warning btn-sm confirmBtn">경매등록</button>
@@ -188,11 +191,11 @@
                                             <form action="" id="frm2" name="frm2">
                                                 <div style="text-align:center;">
                                                     <input type="hidden" name="auctionId" value="${vo.auctionId}">
-                                                    <span class="rounded-lg" style="padding-top: 15px;">
-                                                        <p style="font-weight: bold;">경매완료 :)</p>
-                                                        <p style="font-size:small; font-weight: bold;">정산받기 버튼을 눌러주세요!
+                                                    <span class="rounded-lg" style="padding-top: 8px; height: 80px;">
+                                                        <p style="font-size:medium; margin-bottom: 7px;">
+                                                            경매완료입니다 :)
                                                         </p>
-                                                        <button class="btn btn-primary settleBtn">정산받기</button>
+                                                        <button class="btn btn-sm settleBtn">정산받기</button>
                                                     </span>
                                                 </div>
                                             </form>
@@ -279,7 +282,7 @@
 
     $('.recoverBtn').click(function () {
         $.ajax({
-            url: "/etoile/site/myAuctionRecover",
+            url: "/etoile/site/myAuctionRecover.do",
             type: 'POST',
             data: $("#frm1").serialize(),
             success: function (data) {
@@ -298,7 +301,7 @@
 
     $('.confirmBtn').click(function () {
         $.ajax({
-            url: "/etoile/site/myAuctioneConfirm",
+            url: "/etoile/site/myAuctionConfirm.do",
             type: 'POST',
             data: $("#frm1").serialize(),
             success: function (data) {
@@ -317,7 +320,7 @@
 
     $('.settleBtn').click(function () {
         $.ajax({
-            url: "/etoile/site/myAuctionSettle",
+            url: "/etoile/site/myAuctionSettle.do",
             type: 'POST',
             data: $("#frm2").serialize(),
             success: function (data) {

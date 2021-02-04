@@ -168,9 +168,8 @@
             <div class="col-2"></div>
             <div class="col-8">
                 <br />
-                <br />
                 <div>
-                    <h2 class="h2" align="center">경매 요청 상품 정보 입력</h2>
+                    <h3 class="h2" align="center">Auction Request Info</h3>
                     <br />
                     <span class="rounded" align="center">
                         <p>고객님의 상품을 경매에 올릴 수 있습니다. 아래의 정보를 모두 기입해 주세요!</p>
@@ -181,13 +180,13 @@
                         <div class="form1">
                             <div class="form-group">
                                 <label for="">아이디</label> <input type="text" class="form-control" id="memberId"
-                                    name="memberId" style="width: 30%" value="">
+                                    name="memberId" style="width: 30%" value="${loginId }" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="">상품사진</label>
                                 <div class="filebox preview-image">
                                     <input class="form-control" readonly id="auctionImage" name="auctionImage"
-                                        style="width: 30%">&nbsp;&nbsp;&nbsp;
+                                        style="width: 50%">&nbsp;&nbsp;&nbsp;
                                     <label for="input-file">파일업로드</label> <input type="file" id="input-file"
                                         class="upload-hidden">
                                 </div>
@@ -256,14 +255,14 @@
         $('#joinBtn').click(function () {
 
             $.ajax({
-                url: "auctionJoin.do",
+                url: "/etoile/site/auctionJoin.do",
                 type: 'POST',
                 //dataType: 'json', //받아오는 타입
                 data: $("#frm").serialize(),
                 success: function (data) {
                     if (data == "1") {
                         alert("정상적으로 등록되었습니다 :)");
-                        location.href = "auctionMain.do";
+                        location.href = "/etoile/site/auctionMain.do";
                     } else {
                         alert("등록되지 않았습니다 :(")
                     }

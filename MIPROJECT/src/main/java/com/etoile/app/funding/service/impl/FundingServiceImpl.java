@@ -113,4 +113,16 @@ public class FundingServiceImpl implements FundingService {
 		return dao.getFundingCnt(vo);	
 	}
 
+	@Override
+	public int fundingStartUpdate(FundingVO vo) {
+
+		return dao.fundingStartUpdate(vo);
+	}
+
+	@Override
+	public int fundingEndUpdate(FundingVO vo) {
+		
+		return dao.fundingEndUpdate(vo);
+	}
+
 }
