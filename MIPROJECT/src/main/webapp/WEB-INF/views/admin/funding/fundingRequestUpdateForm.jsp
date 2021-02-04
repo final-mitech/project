@@ -519,7 +519,7 @@
 				<h2>펀딩 요청 확인</h2>
 			</div>
 			<form class="form-horizontal" role="form" id="frm" name="frm"
-				action="fundingRequestUpdate.a" method="post">
+				action="fundingRequestUpdate.a" method="post" encType="multipart/form-data">
 				<input type="hidden" name="fundingId" value="${selectVo.fundingId}">
 				<div class="row">
 					<div class="col-md-6">
@@ -554,6 +554,8 @@
 								<img src="../images/${selectVo.fundingImage}" />
 							</div>
 						</div>
+						<input type="file" id="uploadImage" name="uploadImage"/>
+<!-- <input type="submit" value="저장"> -->
 					</div>
 					<div class="col-md-6">
 						<div class="product-dtl">
