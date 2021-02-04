@@ -10,8 +10,6 @@ import com.etoile.app.funding.FundingVO;
 import com.etoile.app.funding.mapper.FundingMapper;
 import com.etoile.app.funding.service.FundingService;
 
-import lombok.Setter;
-
 @Service("fundingService")
 public class FundingServiceImpl implements FundingService {
 
@@ -107,6 +105,12 @@ public class FundingServiceImpl implements FundingService {
 	public List<FundingVO> joinFundingList(FundingVO vo) {
 		
 		return dao.joinFundingList(vo);
+	}
+
+	@Override //펀딩 전체 건수
+	public int getFundingCnt(FundingVO vo) {
+		
+		return dao.getFundingCnt(vo);	
 	}
 
 }

@@ -31,5 +31,8 @@ public interface FundingMapper {
 	
 	public List<FundingVO> myFundingList(FundingVO vo); //마이 페이지 - 마이 펀딩 목록 조회
 	public List<FundingVO> joinFundingList(FundingVO vo); //마이 페이지 - 조인 펀딩 목록 조회
+	
+	
+	public int getFundingCnt(FundingVO vo); // 총 데이터 count
 		
 }

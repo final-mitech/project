@@ -16,6 +16,8 @@ import com.etoile.app.admin.mapper.CodeMapper;
 import com.etoile.app.funding.FundingJoinVO;
 import com.etoile.app.funding.FundingVO;
 import com.etoile.app.funding.service.FundingService;
+import com.etoile.app.history.common.Paging;
+import com.etoile.app.vo.ProductVO;
 
 @Controller
 public class FundingContorller {
@@ -28,11 +30,34 @@ public class FundingContorller {
 
 	// 펀딩 목록 조회
 	@RequestMapping("/site/fundingList")
-	public String fundingList(Model model, FundingVO vo) {
+	public String fundingList(Model model, FundingVO vo, Paging paging) {
+		
+		//페이징 처리
+		// 한 페이지 출력건수
+		paging.setPageUnit(8);
+		
+		//전체 건수
+		int totalCount = fundingService.getFundingCnt(vo);
+		paging.setTotalRecord(totalCount); // 임의로 지정
+		
+		// 총 페이지 번호
+		paging.setPageSize(5);
+		
+		// 페이지번호 파라미터
+		if (paging.getPage() == null) {
+			paging.setPage(1);
+		}
+		// 시작/마지막 레코드 번호
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast());
+
+		model.addAttribute("paging", paging);
+		//
+		
 		vo.setPage("registerPage");
 		
 		List<FundingVO> fundings = fundingService.fundingList(vo);
-		System.out.println(fundings.get(1).getFundingTitle());
+		//System.out.println(fundings.get(1).getFundingTitle());
 		model.addAttribute("fundings", fundings);
 
 		return "site/funding/fundingList";
