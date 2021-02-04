@@ -2,9 +2,12 @@ package com.etoile.app;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.etoile.app.auction.service.AuctionService;
@@ -65,7 +68,14 @@ public class HomeController {
 
 	// 관리자 사이트로 연결
 	@RequestMapping("/admin")
-	public String admin() {
-		return "admin/main/loginForm";
+	public String admin(HttpServletRequest request) {
+		String adminId = (String) request.getSession().getAttribute("admin");
+		String viewPage = null;
+		if(adminId == null) {
+			viewPage = "admin/main/loginForm";
+		}else {
+			viewPage = "redirect:/admin/main.a";
+		}
+		return viewPage;
 	}
 }
