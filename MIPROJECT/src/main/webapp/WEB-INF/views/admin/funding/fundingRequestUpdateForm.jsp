@@ -694,9 +694,9 @@
 							id="description-tab" data-toggle="tab" href="#description"
 							role="tab" aria-controls="description" aria-selected="true">상품설명</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" id="review-tab"
+						<!-- <li class="nav-item"><a class="nav-link" id="review-tab"
 							data-toggle="tab" href="#review" role="tab"
-							aria-controls="review" aria-selected="false">문의하기</a></li>
+							aria-controls="review" aria-selected="false">문의하기</a></li> -->
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="description"
@@ -708,8 +708,8 @@
 						<div class="tab-pane fade" id="review" role="tabpanel"
 							aria-labelledby="review-tab">
 			</form>
-			<p class="mb-20">문의사항을 남겨주세요.</p>
-			<form class="review-form">
+			<%--<p class="mb-20">문의사항을 남겨주세요.</p>
+			 <form class="review-form">
 				<div class="form-group">
 					<div class="review-heading">문의내용</div>
 					<textarea class="form-control" rows="3"></textarea>
@@ -729,7 +729,7 @@
 								</div>
 							</div> -->
 				<button class="round-black-btn">문의하기</button>
-			</form>
+			</form> --%>
 		</div>
 	</div>
 	</div>

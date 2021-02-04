@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
 <!DOCTYPE html>
 <html>
 
@@ -49,7 +50,7 @@
 }
 
 .clickSelect {
-	width: 280px;
+	width: 310px;
 	height: 550px;
 } 
 </style>
@@ -87,7 +88,7 @@
 				<div class="col-lg-3 col-md-6 mb-4" style="height: 600px">
 					<div class="card clickSelect" data-id="${f.fundingId }" >
 						<img class="card-img-top" src="../images/${f.fundingImage }"
-							alt="Card image" style="width: 270px" height="200px" align="center">
+							alt="Card image" style="width: 300px" height="200px" align="center">
 						<div class="card-body">
 							<h4 class="card-title" align="left" style="display: inline">
 								<b>${f.fundingTitle }</b>
