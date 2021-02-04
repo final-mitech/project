@@ -1,6 +1,7 @@
 package com.etoile.app.member.service.Impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import com.etoile.app.member.service.MemberService;
 import com.etoile.app.vo.CouponVO;
 import com.etoile.app.vo.GradeVO;
 import com.etoile.app.vo.MemberVO;
-import com.etoile.app.vo.RentalVO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -23,7 +23,10 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberVO> memberList(MemberVO vo) {
 		return dao.memberList(vo);
 	}
-
+	@Override
+	public List<Map<String, Object>> memberDownload(MemberVO vo) {
+		return dao.memberDownload(vo);
+	}
 	@Override
 	public MemberVO memberSelect(String id) {
 		return dao.memberSelect(id);
@@ -83,6 +86,8 @@ public class MemberServiceImpl implements MemberService{
 	public List<RecordVO> memberRentalList(String id) {
 		return dao.memberRentalList(id);
 	}
+
+
 
 
 

@@ -70,7 +70,7 @@ body {
 
 <body>
 
-	<div class="container">
+	<div class="container-fluid">
 		<div align="center">
 			<form class="form-horizontal" role="form" id="frm" name="frm"
 				action="fundingRequestUpdate.a" method="post">

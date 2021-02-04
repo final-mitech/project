@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +26,7 @@
 <script src="<c:url value="/resources/js/productHistory.js" />"></script>
 </head>
 <body>
-	<div class="containter">
+	<div class="containter-fluid">
 		<div class="row">
 			<div class="col-7">
 				<img src="${product.productImage }">
@@ -38,9 +40,9 @@
 					<br />
 					<h3>${product.productName }</h3>
 					<br />
-					<h3>구입가격 - ${product.productPrice }</h3>
+					<h3>구입가격 - <fmt:formatNumber value="${product.productPrice }" type="currency"/></h3>
 					<br />
-					<h3>대여료 - ${product.productRental }</h3>
+					<h3>대여료 - <fmt:formatNumber value="${product.productRental }" type="currency"/></h3>
 					<br />
 					<c:if test="${product.productStatus eq 'waiting'}">
 						<h3>대기</h3>
@@ -58,10 +60,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col"><button type="button" class="btn btn-light btn-lg btn-block"
-						onclick="location.href='/etoile/admin/productUpdateForm.a?productId=${product.productId}'">수정하기</button></div>
-			<div class="col"><button type="button" class="btn btn-light btn-lg btn-block"
-						onclick="location.href='/etoile/admin/productDelete.a?productId=${product.productId}'">삭제하기</button></div>
+			<div class="col">
+				<button type="button" class="btn btn-light btn-lg btn-block"
+					onclick="location.href='/etoile/admin/productUpdateForm.a?productId=${product.productId}'">수정하기</button>
+			</div>
+			<div class="col">
+				<button type="button" class="btn btn-light btn-lg btn-block"
+					onclick="location.href='/etoile/admin/productDelete.a?productId=${product.productId}'">삭제하기</button>
+			</div>
 			<div class="col">
 				<c:if test="${product.ppl eq 'own' }">
 					<button type="button" class="btn btn-light btn-lg btn-block"

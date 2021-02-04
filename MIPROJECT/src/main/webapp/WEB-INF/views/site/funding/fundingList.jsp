@@ -58,7 +58,7 @@
 
 <body>
 
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 		<div class="row">
 			<div class="div sort">
 				<a href="#">최신순</a> <a href="#">인기순</a>

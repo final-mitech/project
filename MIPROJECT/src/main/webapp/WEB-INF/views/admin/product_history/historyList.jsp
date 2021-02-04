@@ -68,15 +68,23 @@
 		})
 		
 	}
+	
 </script>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
+	<div class="container-fluid">
+		<div class="row mb-2">
 			<div class="col-9">
-				<a href="historyList.a">물품리스트</a>
-				<a>&nbsp;|&nbsp;</a>
-				<a href="pplList.a">협찬리스트</a>
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/etoile/admin/historyList.a">물품리스트</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/etoile/admin/pplList.a"
+						style="background: #e5e5e5;">협찬리스트</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/etoile/admin/productInsertForm.a"
+						style="background: #e5e5e5;">등록하기</a></li>
+				</ul>
 			</div>
 			<div class="col-3">
 				<select id="sort" class="form-control" onchange="changeSort()">
@@ -130,9 +138,11 @@
 			</table>
 		</div>
 		<tag:historyPaging jsFunc="goList" />
-		<div class="text-right">
-			<button type="button" class="btn btn-outline-dark" onclick="location.href='productInsertForm.a'">등록</button>
-		</div>
+		<c:if test="${!empty list }">
+			<div class="text-right">
+				<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/productDownload.a?ppl=own&productStatus=${sort}'">다운로드</button>
+			</div>
+		</c:if>
 	</div>
 </body>
 </html>

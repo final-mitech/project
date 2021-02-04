@@ -18,7 +18,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="container text-center">
+	<div class="container text-center" style="max-width: 1400px;">
 		<h1>Wellcome to etoile</h1>
 		<button class="btn btn-dark" onclick="location.href='loginForm'">Login</button>
 	</div>

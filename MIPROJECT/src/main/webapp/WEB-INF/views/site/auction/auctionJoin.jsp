@@ -163,7 +163,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="max-width: 1400px;">
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">

@@ -166,8 +166,20 @@ function update(){
 </script>
 </head>
 <body>
-	<div class="container">
-		<div class="page-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<ul class="nav nav-tabs">
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="/etoile/admin/historyList.a"						
+					style="background: #e5e5e5;">물품리스트</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="/etoile/admin/pplList.a"
+					style="background: #e5e5e5;">협찬리스트</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="/etoile/admin/productInsertForm.a">등록하기</a></li>
+				</ul>
+			</div>
+		<div class="page-header mt-3">
 			<h3>상품 등록</h3>
 		</div>
 		<form:form id="frm" action="#"

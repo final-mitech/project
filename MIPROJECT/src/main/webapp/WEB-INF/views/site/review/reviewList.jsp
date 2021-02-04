@@ -24,7 +24,7 @@ function goList(page) {
 <body>
 	<div id="main-wrapper">
 		<div class="content-body">
-			<div class="container-fluid">
+			<div class="container" style="max-width: 1400px;">
 				<div class="row" align="center">
 					<div class="col-12 m-b-30" align="center">
 						<p class="text-muted"></p><h4 class="d-inline">MY STYLING LIST</h4><p class="text-muted"></p>
