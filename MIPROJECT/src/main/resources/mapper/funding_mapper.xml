@@ -29,7 +29,7 @@
 		FROM funding
 		<where>
 			<if test="page == 'requestPage'">
-				funding_condition IN ('접수완료','검수중','검수완료')
+				funding_condition IN ('접수완료','검수중')
 			</if>
 			<if test="page == 'registerPage'">
 				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
@@ -110,19 +110,20 @@
 	<!-- 펀딩 수정 -->
 	<update id="fundingUpdate">
 		UPDATE funding
-		SET funding_title = #{fundingTitle},
-		funding_name = #{fundingName},
-		funding_serial = #{fundingSerial},
-		funding_brand = #{fundingBrand},
-		funding_category = #{fundingCategory},
-		funding_content = #{fundingContent},
+		SET 
+		<if test="fundingTitle != null"> funding_title = #{fundingTitle},</if>
+		<if test="fundingName != null"> funding_name = #{fundingName},</if>
+		<if test="fundingSerial != null"> funding_serial = #{fundingSerial},</if>
+		<if test="fundingBrand != null"> funding_brand = #{fundingBrand},</if>
+		<if test="fundingCategory != null"> funding_category = #{fundingCategory},</if>
+		<if test="fundingContent != null"> funding_content = #{fundingContent},</if>
 		<if test="fundingImage != null"> funding_image = #{fundingImage}, </if>
-		funding_start = #{fundingStart},
-		funding_end = #{fundingEnd},
-		funding_goal = #{fundingGoal},
-		funding_totalprice = #{fundingTotalprice},
-		funding_condition = #{fundingCondition},
-		funding_gift = #{fundingGift}
+		<if test="fundingStart != null"> funding_start = #{fundingStart},</if>
+		<if test="fundingEnd != null"> funding_end = #{fundingEnd},</if>
+		<if test="fundingGoal != null"> funding_goal = #{fundingGoal},</if>
+		<if test="fundingTotalprice != null"> funding_totalprice = #{fundingTotalprice},</if>
+		<if test="fundingCondition != null"> funding_condition = #{fundingCondition},</if>
+		<if test="fundingGift != null"> funding_gift = #{fundingGift}</if>
 		WHERE funding_id = #{fundingId}
 	</update>
 
