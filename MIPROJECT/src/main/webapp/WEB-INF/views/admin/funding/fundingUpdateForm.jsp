@@ -349,7 +349,7 @@
 				<h2>펀딩 상품 수정 페이지</h2>
 			</div>
 			<form class="form-horizontal" role="form" id="frm" name="frm"
-				action="fundingUpdate.a" method="post">
+				action="fundingUpdate.a" method="post" onsubmit="submitCheck();">
 				<input type="hidden" name="fundingId" value="${selectVo.fundingId}">
 				<div class="row">
 					<div class="col-md-6">
@@ -403,9 +403,13 @@
 								</div>
 								<div class="row">
 									<div class="product-brand col-md-6">
-										<span>브랜드 : </span> <input class="form-control"
-											name="fundingBrand"
-											value='<c:out value="${selectVo.fundingBrand}" />'>
+										<span>브랜드 : </span>
+										 	<select name="fundingBrand"
+											id="fundingBrand" class="form-control">
+											<c:forEach items="${branList }" var="b">
+												<option>${b.codeDetail}</option>
+											</c:forEach>
+										</select>										
 									</div>
 									<div class="product-serial col-md-6">
 										<span>모델번호 : </span> <input class="form-control"
@@ -417,9 +421,14 @@
 								<span>$39.00</span><span class="line-through">$29.00</span>
 							</div> -->
 								<div class="product-category">
-									<span>카테고리 : </span> <input class="form-control"
-										name="fundingCategory"
-										value='<c:out value="${selectVo.fundingCategory}" />'>
+									<span>카테고리 : </span>
+									<select name="fundingCategory"
+										id="fundingCategory" class="form-control">
+										<c:forEach items="${cateList }" var="c">
+											<option>${c.codeDetail}</option>
+										</c:forEach>
+									</select>
+									
 								</div>
 								<div class="product-goal">
 									<span>목표금액 : </span> <input class="form-control"
@@ -428,12 +437,12 @@
 								</div>
 								<div class="row">
 									<div class="product-start col-md-6">
-										<span>펀딩시작날짜 : </span> <input class="form-control"
+										<span>펀딩시작날짜 : </span> <input type="date" class="form-control"
 											name="fundingStart"
 											value='<c:out value="${selectVo.fundingStart}" />'>
 									</div>
 									<div class="product-end col-md-6">
-										<span>펀딩마감날짜 : </span> <input class="form-control"
+										<span>펀딩마감날짜 : </span> <input type="date" class="form-control"
 											name="fundingEnd"
 											value='<c:out value="${selectVo.fundingEnd}" />'>
 									</div>
@@ -457,12 +466,11 @@
 							<div class="row">
 								<div class="product-gift col-md-12">
 									<span> 펀딩 기프트 선택 </span>
-									<c:forTokens items="${selectVo.fundingGift}" delims="/"
+									<c:forTokens items="${selectVo.fundingGift}" delims=","
 										var="token1">
 										<input id="fundingGift" name="fundingGift"
 											class="form-control" value="${token1}">
 									</c:forTokens>
-									</select>
 								</div>
 							</div>
 							<br />
@@ -471,6 +479,8 @@
 									<button type="submit" value="등록" class="btn btn-primary ">펀딩
 										수정하기</button>
 									<button type="reset" value="취소" class="btn btn-primary ">취소</button>
+									<button type="button" value="목록" class="btn btn-primary "
+										onclick="location.href='fundingRegisterList.a' ">목록보기</button>
 								</div>
 							</div>
 						</div>
@@ -484,9 +494,9 @@
 							id="description-tab" data-toggle="tab" href="#description"
 							role="tab" aria-controls="description" aria-selected="true">상품설명</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" id="review-tab"
+<!-- 						<li class="nav-item"><a class="nav-link" id="review-tab"
 							data-toggle="tab" href="#review" role="tab"
-							aria-controls="review" aria-selected="false">문의하기</a></li>
+							aria-controls="review" aria-selected="false">문의하기</a></li> -->
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="description"
@@ -498,13 +508,13 @@
 						<div class="tab-pane fade" id="review" role="tabpanel"
 							aria-labelledby="review-tab">
 			</form>
-			<p class="mb-20">문의사항을 남겨주세요.</p>
+<!-- 			<p class="mb-20">문의사항을 남겨주세요.</p>
 			<form class="review-form">
 				<div class="form-group">
 					<div class="review-heading">문의내용</div>
 					<textarea class="form-control" rows="3"></textarea>
 				</div>
-				<!-- <div class="row">
+				<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<input type="text" name="" class="form-control"
@@ -517,8 +527,8 @@
 											placeholder="Email Id*">
 									</div>
 								</div>
-							</div> -->
-				<button class="round-black-btn">문의하기</button>
+							</div>
+				<button class="round-black-btn">문의하기</button> -->
 			</form>
 		</div>
 	</div>
@@ -536,13 +546,18 @@
 		integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 	<script>
-	function selectGift() {
-		var a = frm.fundingGift.value;
-		//console.log(a.split(':')[1]);
-		var b = a.split(':')[1];
+		function selectGift() {
+			var a = frm.fundingGift.value;
+			//console.log(a.split(':')[1]);
+			var b = a.split(':')[1];
 
-	}
-	selectGift();
+		}
+		selectGift();
+		
+		function submitCheck() {
+			    alert("수정 완료");
+		}
+		
 		$(document)
 				.ready(
 						function() {

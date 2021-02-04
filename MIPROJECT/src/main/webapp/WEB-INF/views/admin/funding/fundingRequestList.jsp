@@ -66,9 +66,7 @@
 									<option
 										<c:if test="${f.fundingCondition eq '검수중'}"> selected </c:if>>
 										검수중</option>
-									<option
-										<c:if test="${f.fundingCondition eq '검수완료'}"> selected </c:if>>
-										검수완료</option>
+									
 							</select>
 							</td>
 						</tr>
