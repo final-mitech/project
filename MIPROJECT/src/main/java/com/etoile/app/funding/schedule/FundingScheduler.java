@@ -13,10 +13,11 @@ public class FundingScheduler {
 	@Autowired
 	FundingService fundingService;
 	
-//	@Scheduled(cron = "0 0 12 * * *")
-	@Scheduled(cron = "0 0 * * * *")
+	@Scheduled(cron = "0 0 0 * * *")
+	//@Scheduled(cron = "0 0 * * * *")
 	public void fundingScheduleUpdate() {
-		System.out.println("매시간 0분에 호출");
+		System.out.println("매일 오전 12시에 업뎃");
+		/* System.out.println("매시간 0분에 호출"); */
 		
 		FundingVO vo = new FundingVO();
 		
