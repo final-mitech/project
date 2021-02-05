@@ -178,7 +178,10 @@ public class AdminController {
 	@RequestMapping("admin/main.a")
 	public String main(Model model) {
 		// 펀딩 요청 리스트
-		List<FundingVO> fundingList = fundingService.fundingList(null);
+		FundingVO fundingVO = new FundingVO();
+		fundingVO.setStart(1);
+		fundingVO.setEnd(5);;
+		List<FundingVO> fundingList = fundingService.fundingList(fundingVO);
 		model.addAttribute("fundingList", fundingList);
 
 		// 경매 요청 리스트
