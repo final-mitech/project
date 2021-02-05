@@ -56,12 +56,23 @@ input:focus {
 }
 
 #insertWay {
-	border: 0;
+	border: 1 #dddddd;
+	background-color: #cccccc;
 	padding: 6px 13px;
+	border-radius:10px;
 }
 
-#inserWay:hover {
+#inserWay :hover {
+	background-color: #dddddd;
+}
+#download {
+	height: 40px;
+	float : right;
 	background-color: #cccccc;
+	font-color: #000000;
+}
+#download :hover {
+	background-color: #dddddd;
 }
 </style>
 </head>
@@ -73,6 +84,9 @@ input:focus {
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="/etoile/admin/rentalReList.a"
 				style="background: #e5e5e5;">회수 관리</a></li>
+			<li class="nav-item"><a class="nav-link active"
+				aria-current="page" href="/etoile/admin/rentalStatistics.a"
+				style="background: #e5e5e5;">대여 통계</a></li>
 		</ul>
 	</div>
 	<br>
@@ -108,8 +122,7 @@ input:focus {
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="dropLabel">송장번호 등록</h5>
-									<button type="button" class="btn-close" data-dismiss="modal"
-										aria-label="Close"></button>
+									<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
 									<input type="text" id="name" name="name" value="${list.name }"
@@ -123,8 +136,7 @@ input:focus {
 								<div class="modal-footer">
 									<input type="hidden" id="rentalId" name="rentalId" value="${list.rentalId }">
 									<input type="hidden" id="${list.productId }" name="productId" value="${list.productId }">
-									<button type="button" class="btn btn-secondary"
-										data-bs-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-close btn-dark" data-dismiss="modal">취소</button>
 									<button type="button" class="btn btn-primary" onclick="updateWaybill(this.form);">등록</button>
 								</div>
 							</div>
@@ -134,6 +146,9 @@ input:focus {
 			</c:forEach>
 			</tbody>
 		</table>
+	</div>
+	<div>
+		<button type="button" id="download" onclick="location.href='/etoile/admin/rentalExcel.a'">다운로드</button>
 	</div>
 </body>
 </html>

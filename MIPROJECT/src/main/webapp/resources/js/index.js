@@ -31,7 +31,7 @@ App = {
 	initContract: function () { //abi 
 		//컨트랙트 생성
 		App.contract = new web3.eth.Contract(abi);
-		App.contract.options.address = "0x3082A2F192Bb007f72547232AB49c89a4624B173; 
+		App.contract.options.address = "0x3082A2F192Bb007f72547232AB49c89a4624B173"; 
 
 		App.joinButtonEvents(); //펀딩 참여 버튼 누르는 이벤트
 

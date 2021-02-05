@@ -30,5 +30,12 @@ public class FundingVO {
 	private String memberId; //세션
 	private int fundingPrice;
 	
+	//페이징
+	private int start;
+	private int end;
+	private int count;
+	
+	//정렬
+	private String sort;
 
 }
