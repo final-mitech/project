@@ -52,9 +52,12 @@
 			order by funding_condition desc, funding_start
 		</if>
 		<if test="sort == 'popularitySort'">
-			order by funding_totalprice desc
+			order by funding_totalprice desc, funding_condition desc
 		</if>
-		order by funding_condition desc, funding_start
+		<if test="sort != 'registrationSort' and sort != 'popularitySort'">
+			order by funding_condition desc, funding_start
+		</if>
+	
 		) a ) b where rnum between #{start} and #{end}
 	</select>
 
