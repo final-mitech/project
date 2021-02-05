@@ -34,6 +34,12 @@ public interface AuctionService {
 	// 경매 참여 등록
 	public int insertAuctionJoin(AuctionJoinVO vo);
 
+	// 경매 참여 최근아이디 등록
+	public int insertAuctionMemberId(AuctionVO vo);
+
+	// 경매 즉시낙찰 후 배송상태 등록
+	public int updateAuctionDelivery(AuctionJoinVO vo);
+
 	// 경매 최고가 등록
 	public int updateAuctionBp(AuctionVO vo);
 
@@ -108,4 +114,7 @@ public interface AuctionService {
 
 	// 검수 후 수정
 	public int auctionReqUpdate(AuctionVO vo);
+
+	// 경매 즉시낙찰
+	public int updateImmediateBid(AuctionVO vo);
 }

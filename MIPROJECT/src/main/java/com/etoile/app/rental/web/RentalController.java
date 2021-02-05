@@ -1,7 +1,11 @@
 package com.etoile.app.rental.web;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.etoile.app.history.common.Paging;
 import com.etoile.app.member.common.AddressVO;
@@ -203,6 +208,23 @@ public class RentalController {
 		return "admin/rental/rentalRequest";
 	}
 	
+	//대여목록 엑셀다운로드
+	@RequestMapping("/admin/rentalExcel.a")
+	public ModelAndView rentalExcel (RentalVO vo, Model model) {
+		vo.setRentalWaybill(null);
+		List<Map<String, Object>> list = rentalService.rentalExcel(vo); 
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String[] headerList = {"RENTAL_ID", "PRODUCT_ID", "PRODUCT_NAME","MEMBER_ID", "NAME", "PHONE", "RENTAL_ADDRESS",
+				"RENTAL_START", "RENTAL_END", "RENTAL_PAY","RENTAL_WAYBILL"};
+		List<String> header = new ArrayList<>(Arrays.asList(headerList));
+
+		map.put("headers", header);
+		map.put("filename", "rentalList");
+		map.put("datas", list);
+		
+	return new ModelAndView("commonExcelView", map);
+	}
+	
 	// 관리자 사이트에서 배송정보가 입력된 rental건
 	@RequestMapping("/admin/rentalReList.a")
 	public String rentalReList (RentalVO vo, Model model) {
@@ -210,6 +232,24 @@ public class RentalController {
 		model.addAttribute("list", rentalReList);
 		return "admin/rental/rentalReList";
 	}
+	//대여회수목록 엑셀다운로드
+		@RequestMapping("/admin/rentalReExcel.a")
+		public ModelAndView rentalReExcel (RentalVO vo, Model model, HttpServletRequest httpServletRequest) {
+			String rentalWaybill = httpServletRequest.getParameter("rentalWaybill");
+			vo.setRentalWaybill(rentalWaybill);
+			List<Map<String, Object>> list = rentalService.rentalReExcel(vo); 
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String[] headerList = {"RENTAL_ID", "PRODUCT_ID", "PRODUCT_NAME","MEMBER_ID", "NAME", "PHONE", "RENTAL_ADDRESS",
+					"RENTAL_START", "RENTAL_END", "RENTAL_PAY","RENTAL_WAYBILL"};
+			List<String> header = new ArrayList<>(Arrays.asList(headerList));
+
+			map.put("headers", header);
+			map.put("filename", "rentalList");
+			map.put("datas", list);
+			
+		return new ModelAndView("commonExcelView", map);
+		}
+	
 	
 	// rental요청리스트에서 송장입력시 rental테이블에 번호등록
 	@RequestMapping("/admin/updateWaybill.a")
@@ -228,5 +268,14 @@ public class RentalController {
 		int productStatus = rentalService.rentalProductStatus(vo);
 		return "redirect:rentalReList.a";
 	}
+	
+	//관리자 rental 통계차트
+	@RequestMapping("/admin/rentalStatistics.a")
+	public String rentalStatistics (RentalVO vo, Model model) {
+		
+		return "admin/rental/rentalStatistics";
+	}
+	
+	
 	
 }
