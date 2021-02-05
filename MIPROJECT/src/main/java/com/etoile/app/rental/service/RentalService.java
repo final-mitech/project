@@ -19,6 +19,7 @@ public interface RentalService {
 	
 	//물품상세
 	ProductVO rentalProductSelect(ProductVO vo);
+	RentalVO rentalRentalSelect(RentalVO vo);
 	
 	//물품검색
 	List<ProductVO> searchList(ProductVO vo);
@@ -39,6 +40,9 @@ public interface RentalService {
 	
 	//대여중인 상품중 배송정보가 입력된것
 	List<RentalVO> rentalReList(RentalVO vo);
+	
+	//rental 통계
+	List<RentalVO> selectMonthRental(RentalVO vo);
 	
 	//고객이 해당상품 찜했는지 확인
 	int selectPick(PickVO vo);

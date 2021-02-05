@@ -8,8 +8,7 @@
 	<!-- 물품리스트 출력+페이징 -->
 	<select id="rentalProductList" resultType="productVO" parameterType="productVO">
 		SELECT b.* FROM (SELECT a.*, rownum rnum  
-						FROM ( SELECT * FROM PRODUCT 
-								where product_status like 'waiting') a ) b
+						FROM ( SELECT * FROM PRODUCT ) a ) b
 		where rnum between #{start} and #{end}
 	</select>
 	<!-- 물품리스트 인기순(대여순)+페이징 -->
@@ -29,21 +28,26 @@
 		<where>
 			<if test="productName != null">
 				product_name like '%' || #{productName} || '%'
-				ANd product_status like 'waiting'
 			</if>
-
 		</where>
 	</select>
 	
 	<!-- 물품상세조회 -->
 	<select id="rentalProductSelect" resultType="productVO">
-		SELECT * FROM PRODUCT WHERE product_id = #{productId}
+		SELECT * 
+		FROM product
+		WHERE product_id = #{productId}
+	</select>
+	<select id="rentalRentalSelect" resultType="RentalVO">
+		SELECT *
+		FROM rental
+		WHERE product_id = #{productId}
 	</select>
 	
 	<!-- 물품리스트 검색 -->
 	<select id="searchList" resultType="productVO">
 		SELECT b.* FROM (SELECT a.*, rownum rnum  FROM (
-		SELECT * FROM PRODUCT WHERE product_name like '%' || #{productName} || '%' ) a ) b
+		SELECT * FROM PRODUCT WHERE product_name like UPPER('%' || #{productName} || '%' )) a ) b
 		where rnum between #{start} and #{end}
 	</select>
 	
@@ -174,9 +178,10 @@
 	
 	<!-- 통계용 rental테이블 조회 -->
 	<select id="selectMonthRental" resultType="RentalVo">
-		SELECT TO_CHAR(rental_end,'YYYYMM'), count(*)
+		SELECT TO_CHAR(rental_end,'YYYY-MM') AS "date", COUNT(*) AS cnt, SUM(rental_pay) AS rental_pay
 		FROM rental
-		WHERE rental_end <![CDATA[ <= ]]> #{date}
-		GROUP BY TO_CHAR (rental_end,'YYYYMM')
+		WHERE TO_CHAR(rental_end,'YYYY-MM-dd') <![CDATA[ <= ]]> #{date}
+		GROUP BY TO_CHAR(rental_end,'YYYY-MM')
+		ORDER BY TO_CHAR(rental_end,'YYYY-MM')
 	</select>
 </mapper>
