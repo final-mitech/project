@@ -142,16 +142,17 @@
 	<!-- 경매 참여시 최고가, 최근아이디 등록 -->
 	<update id="updateAuctionBp">
 		UPDATE AUCTION
-		SET AUCTION_BEST_PRICE=#{auctionPay}, AUCTION_RECENT_NAME=#{memberId}
+		SET AUCTION_BEST_PRICE=#{auctionPay},
+		AUCTION_RECENT_NAME=#{memberId}
 		WHERE AUCTION_ID=#{auctionId}
 	</update>
 
 	<!-- 경매 참여하기 -->
 	<insert id="insertAuctionJoin">
 		INSERT INTO AUCTION_JOIN(AUCTION_JOIN_ID, MEMBER_ID,
-		AUCTION_ID, AUCTION_PAY, AUCTION_DATE, AUCTION_DELIVERY)
+		AUCTION_ID, AUCTION_PAY, AUCTION_DATE)
 		VALUES(AJ_SEQ.NEXTVAL,
-		#{memberId}, #{auctionId}, #{auctionPay}, sysdate, '1')
+		#{memberId}, #{auctionId}, #{auctionPay}, sysdate)
 	</insert>
 
 	<!-- 즉시낙찰 경매상태 업데이트 -->
@@ -161,6 +162,13 @@
 		AUCTION_UPDATE_DATE=SYSDATE
 		WHERE
 		AUCTION_ID=#{auctionId}
+	</update>
+
+	<!-- 즉시낙찰 배송상태 업데이트 -->
+	<update id="updateAuctionDelivery">
+		UPDATE AUCTION_JOIN
+		SET AUCTION_DELIVERY='1'
+		WHERE AUCTION_JOIN_ID=#{auction_join_id}
 	</update>
 
 	<!-- 경매 총 참여 수 등록 -->
@@ -263,7 +271,8 @@
 		J.AUCTION_DELIVERY IS NOT NULL
 		ORDER BY
 		AUCTION_DELIVERY,
-		AUCTION_DATE DESC
+		AUCTION_DATE
+		DESC
 		)B) A
 		WHERE RN
 		BETWEEN #{start} AND #{end}

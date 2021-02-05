@@ -105,8 +105,10 @@
 							<h5 class="card-title" align="left" style="display: inline">
 								<b>${f.fundingTitle }</b>
 							</h5>
-							<br/><br/>
-							
+							<br />
+
+						</div>
+						<div class="card-footer" style="background-color:white; border: 0;" >
 							<!-- 라벨 색 -->
 							<div>
 								<c:choose>
@@ -132,8 +134,9 @@
 									<b>${f.fundingDday }</b>
 								</h6>
 								<br />
-								
+
 							</div>
+
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
 									<div class="row no-gutters align-items-center">

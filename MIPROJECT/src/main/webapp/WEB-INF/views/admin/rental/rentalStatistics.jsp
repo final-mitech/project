@@ -14,32 +14,43 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="<c:url value="/resources/js/productHistory.js" />"></script>
 <script>
-	var myModal = document.getElementById('myModal')
-	var myInput = document.getElementById('myInput')
-	myModal.addEventListener('shown.bs.modal', function() {
-		myInput.focus()
-	})
-</script>
-<script>
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
 
 function drawVisualization() {
-	// Some raw data (not necessarily accurate)
-	var data = google.visualization.arrayToDataTable([
-		['Month', 'RentalCount', 'totalPay'],
-		['2004/05',  165,      938],
-    	['2005/06',  135,      1120],
-    	['2006/07',  157,      1167],
-    	['2007/08',  139,      1110],
-    	['2008/09',  136,      691]
-	]);
+	
+	var data = google.visualization.arrayToDataTable(
+		//for (var i=0; i<=6; i++) {
+		[
+			['Month', '월별 대여횟수', '월별 대여 총금액'],
+			['2004/05',  10,      938],
+	    	['2005/06',  15,      1120],
+	    	['2006/07',  5,      1167],
+	    	['2007/08',  7,      1110],
+	    	['2008/09',  20,      691],
+	    	['2008/10',  20,      1500]
+		]
+		//}
+	);
 
 	var options = {
-		title : '월별 대여 금액 & 횟수',
-    	seriesType: 'bars',
-    	series: {1: {type: 'line'}}
-	};
+		vAxes: {
+			0: { 
+				minValue : 0,
+				maxValue : 50	
+			},
+			1: {
+				minValue : 0,
+				maxValue : 2000	
+			}
+		},
+		
+    	series: {
+    		0: {targetAxisIndex: 0, type:"bars", lineWidth: 1, color: '#002699'},
+    		1: {targetAxisIndex: 1, type:'line', lineWidth: 2, color: '#b30000'}
+    	}
+        };
+	
 
 	var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 	chart.draw(data, options);

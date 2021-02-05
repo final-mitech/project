@@ -1,5 +1,7 @@
 package com.etoile.app.vo;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
@@ -11,4 +13,5 @@ public class RentalProductVO {
 	private String ppl;
 	private String name;
 	private String rentalId;
+	private Date rentalEnd;
 }

@@ -213,7 +213,10 @@ public class AuctionController {
 		int result = auctionService.insertAuctionJoin(vo);
 		String str = Integer.toString(result);
 		System.out.println(str);
-
+		
+		//경매 배송상태 등록
+		auctionService.updateAuctionDelivery(vo);
+		
 		// 경매 참여 수 등록
 		auctionService.updateAuctionCount(bo);
 		
@@ -539,5 +542,6 @@ public class AuctionController {
 
 		return "admin/auction/auctionAdminList";
 	}
+	
 
 }
