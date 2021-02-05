@@ -125,9 +125,27 @@ $(document).ready( function() {
 					<div>
 						<p style="font-size: 23px; padding-right:50px; font-weight: bold;" align="right" id="totalPay" name="totalPay"></p>
 						<p align="center">
-							<input type="date" id="rentalStart" name="rentalStart" min="<%=strdate%>" required>
-							~
-							<input type="date" id="rentalEnd" name="rentalEnd" min="<%=strdate%>" required>
+							<jsp:useBean id="now" class="java.util.Date" />
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />  
+								<c:if test="${rental.rentalEnd eq null}">
+									<input type="date" id="rentalStart" name="rentalStart" min="<%=strdate %>" required>
+								</c:if>
+								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd > nowDate }">
+									<input type="date" id="rentalStart" name="rentalStart" min="${rental.rentalEnd }" required>
+								</c:if>
+								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd < nowDate }">
+									<input type="date" id="rentalStart" name="rentalStart" min="<%=strdate %>" required>
+								</c:if>
+								~
+								<c:if test="${rental.rentalEnd eq null}">
+									<input type="date" id="rentalEnd" name="rentalEnd" min="<%=strdate %>" required>
+								</c:if>
+								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd > nowDate }">
+									<input type="date" id="rentalEnd" name="rentalEnd" min="${rental.rentalEnd }" required>
+								</c:if>
+								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd < nowDate }">
+									<input type="date" id="rentalEnd" name="rentalEnd" min="<%=strdate %>" required>
+								</c:if>
 						</p>
 						<button type="submit" style="float: right;">대여하기</button>
 					</div>

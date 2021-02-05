@@ -80,9 +80,11 @@
 			</table>		
 		</div>
 		<tag:historyPaging jsFunc="goList" />
+		<c:if test="${!empty list }">
 		<div class="text-right">
 			<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/etoile/admin/memberDownload.a'">다운로드</button>
 		</div>
+		</c:if>
 	</div>
 </body>
 </html>

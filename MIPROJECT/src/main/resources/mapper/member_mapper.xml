@@ -122,6 +122,13 @@
 		</where>
 	</select>
 	
+	<!-- 한달간 회원 대여이력 카운트 -->
+	<select id="rentalCount" resultType="Integer" parameterType="map">
+		SELECT COUNT(*) 
+		  FROM rental 
+		 WHERE member_id= #{id} 
+		   AND to_char(rental_end, 'yyyymm') = #{date} 
+	</select>
 	<!-- 쿠폰 조회 -->
 	<select id="couponList" resultType="CouponVO">
 		SELECT coupon_id,
@@ -164,10 +171,10 @@
 		WHERE member_id = #{memberId} AND coupon_id = #{couponId}
 	</update>
 	
-	<!-- 쿠폰 삭제 -->	
-	<delete id="couponDelete">
+	<!-- 등급별 쿠폰 삭제 -->	
+	<delete id="gradeCouponDelete">
 		DELETE coupon 
-		 WHERE member_id = #{memberId} AND coupon_id = #{couponId}
+		 WHERE funding_coupon = 0
 	</delete>
 	
 	<!-- 고객별 대여이력 조회 -->
@@ -186,4 +193,24 @@
 		   AND rental_waybill is null
 	 	 ORDER BY r.rental_start
 	 </select> 	
+	 
+	 <!-- 성공한 펀딩 내역 받아오기 -->
+	 <select id="sucessFunding" resultType="com.etoile.app.funding.FundingVO">
+	 	SELECT funding_id
+	 	  FROM funding
+	 	 WHERE funding_condition = '펀딩마감'
+	 	   AND funding_totalprice<![CDATA[ >= ]]>funding_goal
+	 </select>
+	 
+	 <!-- 성공한 펀딩에 참여한 내역 받아오기 -->
+	 <select id="sucessFundingJoin" resultType="com.etoile.app.funding.FundingJoinVO">
+	 	SELECT funding_join_id,
+	 		   member_id,
+	 		   funding_id,
+	 		   funding_price,
+	 		   funding_gift
+	 	  FROM funding_join
+	 	  WHERE funding_id = #{fundingId}
+	 </select>
+	 
 </mapper>

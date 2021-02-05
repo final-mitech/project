@@ -54,6 +54,8 @@ public class HomeController {
 		// 펀딩 리스트
 		FundingVO fundingVO = new FundingVO();
 		fundingVO.setPage("registerPage");
+		fundingVO.setStart(1);
+		fundingVO.setEnd(4);;
 		List<FundingVO> fundingList = fundingService.fundingList(fundingVO);
 		model.addAttribute("fundingList", fundingList);
 		

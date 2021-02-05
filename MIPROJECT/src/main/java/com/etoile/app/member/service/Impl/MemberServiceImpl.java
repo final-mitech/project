@@ -6,12 +6,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.etoile.app.funding.FundingJoinVO;
+import com.etoile.app.funding.FundingVO;
 import com.etoile.app.member.common.RecordVO;
 import com.etoile.app.member.mapper.MemberMapper;
 import com.etoile.app.member.service.MemberService;
 import com.etoile.app.vo.CouponVO;
 import com.etoile.app.vo.GradeVO;
 import com.etoile.app.vo.MemberVO;
+import com.etoile.app.vo.RentalVO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -58,7 +61,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public GradeVO gradeCoupon(String grade) {
+	public List<GradeVO> gradeCoupon(String grade) {
 		return dao.gradeCoupon(grade);
 	}
 	
@@ -67,6 +70,10 @@ public class MemberServiceImpl implements MemberService{
 		return dao.couponList(vo);
 	}
 
+	@Override
+	public int rentalCount(String id, String date) {
+		return dao.rentalCount(id, date);
+	}
 	@Override
 	public int couponInsert(CouponVO vo) {
 		return dao.couponInsert(vo);
@@ -78,14 +85,23 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int couponDelete(CouponVO vo) {
-		return dao.couponDelete(vo);
+	public int gradeCouponDelete(CouponVO vo) {
+		return dao.gradeCouponDelete(vo);
 	}
 
 	@Override
 	public List<RecordVO> memberRentalList(String id) {
 		return dao.memberRentalList(id);
 	}
+	@Override
+	public List<FundingVO> sucessFunding() {
+		return dao.sucessFunding();
+	}
+	@Override
+	public List<FundingJoinVO> sucessFundingJoin(String fundingId) {
+		return dao.sucessFundingJoin(fundingId);
+	}
+
 
 
 
