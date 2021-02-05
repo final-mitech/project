@@ -80,6 +80,9 @@ select {
 				style="background: #e5e5e5;">대여 요청</a></li>
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="/etoile/admin/rentalReList.a">회수 관리</a></li>
+			<li class="nav-item"><a class="nav-link active"
+				aria-current="page" href="/etoile/admin/rentalStatistics.a"
+				style="background: #e5e5e5;">대여 통계</a></li>
 		</ul>
 	</div>
 	<br>
@@ -117,14 +120,19 @@ select {
 										<option value="waiting" selected>회수완료</option>
 									</select>
 	
-								</c:if> <input type="hidden" id="rentalId" value="${list.rentalId }">
+								</c:if>
+								<input type="hidden" id="rentalId" value="${list.rentalId }">
 								<input type="hidden" id="productId" value="${list.productId }">
+								<input type="hidden" id="rentalWaybill" value="${list.rentalWaybill }">
 							</td>
 						</tr>
 					</c:forEach>
 				</form>
 			</tbody>
 		</table>
+	</div>
+	<div>
+		<button type="button" id="download" onclick="location.href='/etoile/admin/rentalReExcel.a'">다운로드</button>
 	</div>
 </body>
 </html>
