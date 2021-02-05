@@ -54,6 +54,7 @@
 		<if test="sort == 'popularitySort'">
 			order by funding_totalprice desc
 		</if>
+		order by funding_condition desc, funding_start
 		) a ) b where rnum between #{start} and #{end}
 	</select>
 
@@ -234,13 +235,20 @@
 	<update id="fundingStartUpdate">
 		UPDATE FUNDING
 		SET FUNDING_CONDITION='펀딩중'
-		WHERE TRUNC(FUNDING_START) = TRUNC(SYSDATE)
+		WHERE TRUNC(FUNDING_START) <![CDATA[ = ]]> TRUNC(SYSDATE)
 	</update>
 
 	<!-- 펀딩중 -> 펀딩마감 -->
 	<update id="fundingEndUpdate">
 		UPDATE FUNDING
 		SET FUNDING_CONDITION='펀딩마감'
-		WHERE TRUNC(FUNDING_END) > TRUNC(SYSDATE)
+		WHERE TRUNC(FUNDING_END) <![CDATA[ < ]]> TRUNC(SYSDATE)
+	</update>
+	
+	<!-- 펀딩 오픈 예정 -->
+	<update id="fundingOpenUpdate">
+		UPDATE FUNDING
+		SET FUNDING_CONDITION='펀딩오픈예정'
+		WHERE TRUNC(FUNDING_START) <![CDATA[ > ]]> TRUNC(SYSDATE)
 	</update>
 </mapper>
