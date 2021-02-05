@@ -26,7 +26,6 @@
             border-bottom-color: rgb(156, 151, 147);
             font-size: small;
             height: 35px;
-            padding-left: 5%;
         }
 
         .badge {
@@ -67,7 +66,7 @@
             color: white;
         }
 
-        .form-inline{
+        .form-inline {
             margin-top: 20px;
         }
     </style>
@@ -76,7 +75,8 @@
 <body>
     <div class="container" style="max-width: 1400px;">
         <div class="row">
-            <div class="col-11">
+            <div class="col-1"></div>
+            <div class="col-10">
                 <br />
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -96,9 +96,11 @@
 
         <div class="row">
             <c:forEach var="vo" items="${list }">
-                <div class="col-11 mb-3">
+                <div class="col-1"></div>
+                <div class="col-10 mb-3">
                     <div class="card">
                         <button type="button" class="btn btnTitle" readonly>
+                            <span style="float: left;">참여일자:&nbsp; ${vo.auctionDate}</span>
                             경매 참여 번호 ${vo.auctionJoinId}
                         </button>
 
@@ -111,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="col-1"></div>
-                            <div class="col-6">
+                            <div class="col-5">
                                 <div class="card-text" style="font-size: small;">
                                     <p
                                         style="font-size: medium; font-weight: bold; padding-top: 20px; margin-bottom: 8px;">

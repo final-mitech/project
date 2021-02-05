@@ -189,6 +189,23 @@ public class AuctionController {
 	@RequestMapping(value = "/site/auctionBidJoin.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertAuctionJoin(AuctionVO bo, AuctionJoinVO vo) {
+		// 경매 최고가, 최근아이디 등록
+		auctionService.updateAuctionBp(bo);
+
+		// 경매 참여 DB 등록
+		int result = auctionService.insertAuctionJoin(vo);
+		String str = Integer.toString(result);
+		System.out.println(str);
+
+		// 경매 참여 수 업데이트
+		auctionService.updateAuctionCount(bo);
+		return str;
+	}
+	
+	//즉시낙찰
+	@RequestMapping(value = "/site/auctionImmediateBid.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateImmediateBid(AuctionVO bo, AuctionJoinVO vo) {
 		// 경매 최고가 등록
 		auctionService.updateAuctionBp(bo);
 
@@ -199,6 +216,10 @@ public class AuctionController {
 
 		// 경매 참여 수 등록
 		auctionService.updateAuctionCount(bo);
+		
+		//경매상태 변경
+		auctionService.updateImmediateBid(bo);
+		
 		return str;
 	}
 

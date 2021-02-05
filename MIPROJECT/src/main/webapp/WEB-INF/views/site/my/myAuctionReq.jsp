@@ -61,7 +61,7 @@
             border-width: 1px;
             border-color: rgb(156, 151, 147);
             margin-right: 5px;
-            margin-left: 25px;
+            margin-left: 10%;
         }
 
         .progress {
@@ -79,6 +79,7 @@
             width: 230px;
             height: 110px;
             margin-top: 20px;
+            margin-right: 10%;
             padding-top: 10px;
             padding-left: 5px;
             padding-right: 5px;
@@ -86,7 +87,7 @@
         }
 
         .settleBtn {
-            background-color:  rgb(230, 126, 95);
+            background-color: rgb(230, 126, 95);
             border-color: rgb(230, 126, 95);
         }
     </style>
@@ -96,7 +97,8 @@
 <body>
     <div class="container" style="max-width: 1400px;">
         <div class="row">
-            <div class="col-12">
+            <div class="col-1"></div>
+            <div class="col-10">
                 <br />
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -111,14 +113,16 @@
                 </ul>
                 <br />
             </div>
+            <div class="col-1"></div>
         </div>
 
         <div class="row">
             <c:forEach var="vo" items="${list }">
-                <div class="col-12 mb-3">
+                <div class="col-1"></div>
+                <div class="col-10 mb-3">
                     <div class="card">
                         <button type="button" class="btn btnTitle" style="padding-left: 25%;" readonly>
-                             대리 경매 번호 ${vo.auctionId}
+                            대리 경매 번호 ${vo.auctionId}
                             <span style="float: right;">업데이트 일자:&nbsp; ${vo.auctionUpdateDate}</span>
                         </button>
 
@@ -133,8 +137,8 @@
 
                             <div class="col-8">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <div class="card-text" style="font-size: small; padding-left: 10px;">
+                                    <div class="col-5">
+                                        <div class="card-text" style="font-size: small; padding-left: 20%;">
                                             <p
                                                 style="font-size: medium; font-weight: bold; padding-top: 15px; margin-bottom: 10px;">
                                                 ${vo.auctionName}</p>
@@ -143,7 +147,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-7">
                                         <c:if test="${vo.auctionCondition eq '7' }">
                                             <div style="text-align:center;">
                                                 <span class="rounded-lg"
@@ -172,7 +176,7 @@
                                         </c:if>
                                         <c:if test="${vo.auctionCondition eq '6' }">
                                             <form action="" id="frm1" name="frm1">
-                                                <div style="text-align:center; float: left;">
+                                                <div style="text-align:center;">
                                                     <input type="hidden" name="auctionId" value="${vo.auctionId}">
                                                     <span class="rounded-lg"
                                                         style="margin-top: 8px; margin-bottom: 5px;">
@@ -259,6 +263,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-1"></div>
             </c:forEach>
             <br />
         </div>

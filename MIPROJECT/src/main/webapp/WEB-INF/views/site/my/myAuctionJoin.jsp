@@ -23,15 +23,9 @@
 		}
 
 		.btnTitle {
-			background-color: rgb(192, 184, 177);
-			color: rgb(78, 68, 68);
-			border-style: hidden;
-			border-radius: unset;
-			border-color: rgb(192, 184, 177);
+			border-bottom-color: rgb(156, 151, 147);
 			font-size: small;
-			font-weight: bold;
 			height: 30px;
-			padding-left: 12%;
 		}
 
 		.badge {
@@ -62,7 +56,8 @@
 <body>
 	<div class="container" style="max-width: 1400px;">
 		<div class="row">
-			<div class="col-11">
+			<div class="col-1"></div>
+			<div class="col-10">
 				<br />
 				<ul class="nav nav-tabs">
 					<li class="nav-item">
@@ -82,9 +77,11 @@
 
 		<div class="row">
 			<c:forEach var="vo" items="${list }">
-				<div class="col-11 mb-3">
+				<div class="col-1"></div>
+				<div class="col-10 mb-3">
 					<div class="card">
 						<button type="button" class="btn btnTitle" readonly>
+							<span style="float: left;">참여일자:&nbsp; ${vo.auctionDate}</span>
 							경매 참여 번호 ${vo.auctionJoinId}
 							<c:if test="${vo.auctionCondition eq '2' }">
 								<span class="badge badge-pill badge-light"

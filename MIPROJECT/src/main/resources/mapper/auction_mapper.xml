@@ -139,20 +139,29 @@
 		NULLS LAST
 	</select>
 
-	<!-- 경매 최고가 등록 -->
+	<!-- 경매 참여시 최고가, 최근아이디 등록 -->
 	<update id="updateAuctionBp">
 		UPDATE AUCTION
-		SET AUCTION_BEST_PRICE=#{auctionPay}
+		SET AUCTION_BEST_PRICE=#{auctionPay}, AUCTION_RECENT_NAME=#{memberId}
 		WHERE AUCTION_ID=#{auctionId}
 	</update>
 
 	<!-- 경매 참여하기 -->
 	<insert id="insertAuctionJoin">
 		INSERT INTO AUCTION_JOIN(AUCTION_JOIN_ID, MEMBER_ID,
-		AUCTION_ID, AUCTION_PAY, AUCTION_DATE)
+		AUCTION_ID, AUCTION_PAY, AUCTION_DATE, AUCTION_DELIVERY)
 		VALUES(AJ_SEQ.NEXTVAL,
-		#{memberId}, #{auctionId}, #{auctionPay}, sysdate)
+		#{memberId}, #{auctionId}, #{auctionPay}, sysdate, '1')
 	</insert>
+
+	<!-- 즉시낙찰 경매상태 업데이트 -->
+	<update id="updateImmediateBid">
+		UPDATE AUCTION SET AUCTION_CONDITION='3',
+		AUCTION_MEMBER_ID=#{memberId},
+		AUCTION_UPDATE_DATE=SYSDATE
+		WHERE
+		AUCTION_ID=#{auctionId}
+	</update>
 
 	<!-- 경매 총 참여 수 등록 -->
 	<update id="updateAuctionCount">
@@ -205,21 +214,24 @@
 		A.AUCTION_IMAGE,
 		A.AUCTION_BRAND,
 		A.AUCTION_BEST_PRICE, A.AUCTION_CONDITION, A. AUCTION_IMMEDIATE_BID,
-		J.AUCTION_JOIN_ID, J.AUCTION_DATE, J.AUCTION_PAY
-		FROM AUCTION A JOIN
+		A.AUCTION_UPDATE_DATE,
+		J.AUCTION_JOIN_ID, J.AUCTION_PAY, J.AUCTION_DATE
+		FROM AUCTION A
+		JOIN
 		AUCTION_JOIN J
 		ON (A.AUCTION_ID = J.AUCTION_ID)
 		WHERE
 		J.MEMBER_ID=#{memberId}
 		ORDER BY
 		AUCTION_CONDITION,
-		AUCTION_DATE DESC
+		AUCTION_UPDATE_DATE
+		DESC
 		NULLS LAST
 		)B) A
 		WHERE RN BETWEEN #{start} AND #{end}
 		ORDER BY
 		AUCTION_CONDITION,
-		AUCTION_DATE DESC
+		AUCTION_UPDATE_DATE DESC
 		NULLS LAST
 	</select>
 
@@ -250,12 +262,14 @@
 		WHERE A.AUCTION_MEMBER_ID = #{memberId} AND
 		J.AUCTION_DELIVERY IS NOT NULL
 		ORDER BY
-		AUCTION_DELIVERY
+		AUCTION_DELIVERY,
+		AUCTION_DATE DESC
 		)B) A
 		WHERE RN
 		BETWEEN #{start} AND #{end}
 		ORDER BY
-		AUCTION_DELIVERY
+		AUCTION_DELIVERY,
+		AUCTION_DATE DESC
 	</select>
 
 	<!-- 마이 경매 총 낙찰 수 -->
@@ -507,4 +521,6 @@
 		AUCTION_UPDATE_DATE=SYSDATE
 		WHERE TRUNC(AUCTION_END) = TRUNC(SYSDATE)
 	</update>
+
+
 </mapper>
