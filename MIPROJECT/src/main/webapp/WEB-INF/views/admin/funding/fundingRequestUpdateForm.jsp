@@ -7,217 +7,737 @@
 
 <head>
 <meta charset="UTF-8">
-<title>funding/fundingRequestUpdateForm.jsp</title>
+<title>funding/fundingUpdateForm.jsp</title>
 
 <link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 <script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+	crossorigin="anonymous">
+
+
 <style>
-body {
-	background:
-		url('https://static-communitytable.parade.com/wp-content/uploads/2014/03/rethink-target-heart-rate-number-ftr.jpg')
-		fixed;
-	background-size: cover;
+.pd-wrap {
+	padding: 40px 0;
+	font-family: 'Poppins', sans-serif;
 }
 
-*[role="form"] {
-	max-width: 530px;
-	padding: 15px;
-	margin: 0 auto;
-	border-radius: 0.3em;
-	background-color: #f2f2f2;
-}
-
-*[role="form"] h2 {
-	font-family: 'Open Sans', sans-serif;
-	font-size: 40px;
-	font-weight: 600;
-	color: #000000;
-	margin-top: 5%;
+.heading-section {
 	text-align: center;
+	margin-bottom: 20px;
+}
+
+.sub-heading {
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	display: block;
+	font-weight: 600;
+	color: #2e9ca1;
 	text-transform: uppercase;
-	letter-spacing: 4px;
+	letter-spacing: 2px;
+}
+
+.heading-section h2 {
+	font-size: 32px;
+	font-weight: 500;
+	padding-top: 10px;
+	padding-bottom: 15px;
+	font-family: 'Poppins', sans-serif;
+}
+
+.user-img {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	position: relative;
+	min-width: 80px;
+	background-size: 100%;
+}
+
+.carousel-testimonial .item {
+	padding: 30px 10px;
+}
+
+.quote {
+	position: absolute;
+	top: -23px;
+	color: #2e9da1;
+	font-size: 27px;
+}
+
+.name {
+	margin-bottom: 0;
+	line-height: 14px;
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.position {
+	color: #adadad;
+	font-size: 14px;
+}
+
+.owl-nav button {
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	outline: none;
+	height: 25px;
+}
+
+.owl-nav button svg {
+	width: 25px;
+	height: 25px;
+}
+
+.owl-nav button.owl-prev {
+	left: 25px;
+}
+
+.owl-nav button.owl-next {
+	right: 25px;
+}
+
+.owl-nav button span {
+	font-size: 45px;
+}
+
+.product-thumb .item img {
+	height: 100px;
+}
+
+/* .product-name {
+	font-size: 22px;
+	font-weight: 500;
+	line-height: 22px;
+	margin-bottom: 4px;
+} */
+.product-price-discount {
+	font-size: 22px;
+	font-weight: 400;
+	padding: 10px 0;
+	clear: both;
+}
+
+.product-price-discount span.line-through {
+	text-decoration: line-through;
+	margin-left: 10px;
+	font-size: 14px;
+	vertical-align: middle;
+	color: #a5a5a5;
+}
+
+.display-flex {
+	display: flex;
+}
+
+.align-center {
+	align-items: center;
+}
+
+.product-info {
+	width: 100%;
+}
+
+.reviews-counter {
+	font-size: 13px;
+}
+
+.reviews-counter span {
+	vertical-align: -2px;
+}
+
+.rate {
+	float: left;
+	padding: 0 10px 0 0;
+}
+
+.rate:not(:checked)>input {
+	position: absolute;
+	top: -9999px;
+}
+
+.rate:not(:checked)>label {
+	float: right;
+	width: 15px;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+	font-size: 21px;
+	color: #ccc;
+	margin-bottom: 0;
+	line-height: 21px;
+}
+
+.rate:not(:checked)>label:before {
+	content: '\2605';
+}
+
+.rate>input:checked ~ label {
+	color: #ffc700;
+}
+
+.rate:not(:checked)>label:hover, .rate:not(:checked)>label:hover ~ label
+	{
+	color: #deb217;
+}
+
+.rate>input:checked+label:hover, .rate>input:checked+label:hover ~ label,
+	.rate>input:checked ~ label:hover, .rate>input:checked ~ label:hover ~
+	label, .rate>label:hover ~ input:checked ~ label {
+	color: #c59b08;
+}
+
+.product-dtl p {
+	font-size: 14px;
+	line-height: 24px;
+	color: #7a7a7a;
+}
+
+.product-dtl .form-control {
+	font-size: 15px;
+}
+
+.product-dtl label {
+	line-height: 16px;
+	font-size: 15px;
+}
+
+.form-control:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.product-count {
+	margin-top: 15px;
+}
+
+.product-count .qtyminus, .product-count .qtyplus {
+	width: 34px;
+	height: 34px;
+	background: #212529;
+	text-align: center;
+	font-size: 19px;
+	line-height: 36px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.round-black-btn {
+	border-radius: 4px;
+	background: #212529;
+	color: #fff;
+	padding: 7px 45px;
+	display: inline-block;
+	margin-top: 20px;
+	border: solid 2px #212529;
+	transition: all 0.5s ease-in-out 0s;
+}
+
+.round-black-btn:hover, .round-black-btn:focus {
+	background: transparent;
+	color: #212529;
+	text-decoration: none;
+}
+
+.product-info-tabs {
+	margin-top: 25px;
+}
+
+.product-info-tabs .nav-tabs {
+	border-bottom: 2px solid #d8d8d8;
+}
+
+.product-info-tabs .nav-tabs .nav-item {
+	margin-bottom: 0;
+}
+
+.product-info-tabs .nav-tabs .nav-link {
+	border: none;
+	border-bottom: 2px solid transparent;
+	color: #323232;
+}
+
+.product-info-tabs .nav-tabs .nav-item .nav-link:hover {
+	border: none;
+}
+
+.product-info-tabs .nav-tabs .nav-item.show .nav-link,
+	.product-info-tabs .nav-tabs .nav-link.active, .product-info-tabs .nav-tabs .nav-link.active:hover
+	{
+	border: none;
+	border-bottom: 2px solid #d8d8d8;
+	font-weight: bold;
+}
+
+.product-info-tabs .tab-content .tab-pane {
+	padding: 30px 20px;
+	font-size: 15px;
+	line-height: 24px;
+	color: #7a7a7a;
+}
+
+.review-form .form-group {
+	clear: both;
+}
+
+.mb-20 {
+	margin-bottom: 20px;
+}
+
+.review-form .rate {
+	float: none;
+	display: inline-block;
+}
+
+.review-heading {
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 24px;
+	margin-bottom: 6px;
+	text-transform: uppercase;
+	color: #000;
+}
+
+.review-form .form-control {
+	font-size: 14px;
+}
+
+.review-form input.form-control {
+	height: 40px;
+}
+
+.review-form textarea.form-control {
+	resize: none;
+}
+
+.review-form .round-black-btn {
+	text-transform: uppercase;
+	cursor: pointer;
 }
 </style>
 
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script>
+	/* function selectGift() {
+		var a = frm.fundingGift.value;
+		//console.log(a.split(':')[1]);
+		var b = a.split(':')[1];
+
+	}
+	selectGift();  */
+
+	function submitCheckFunc() {
+
+		if (frm.fundingGoal.value == "0" || frm.fundingGoal.value == "") {
+			alert("목표금액을 설정해 주세요");
+
+			frm.fundingGoal.focus();
+
+			return false;
+		}
+		
+		/* if(frm.optionPlz.value == "" ) {
+			alert("펀딩 기프트 가격을 설정해 주세요");
+			
+			return false;
+		} */
+		
+		if (!confirm('새 펀딩을 등록하시겠습니까? 펀딩오픈예정으로 상태가 변경됩니다.')) {
+			return false;
+		}
+
+		//gift 합치기
+		var result = "";
+		$.each($(".optionPlusDiv"), function(index, el) {
+			if (index % 2 == 0) {
+				result += $(el).find('select').val() + ":";
+			} else {
+				result += $(el).find('input').val() + 'eth,';
+			}
+			//result+=$(el).find('select').val() +":" + $(el).find('input').val() + 'eth,';
+		});
+		$.each($(".plus"), function(index, el) {
+			result += $(el).find('select').val() + ":"
+					+ $(el).find('input').val() + 'eth,';
+		});
+		$('[name="fundingGift"]').val(result);
+		//	return true;
+
+		frm.submit();
+	}
+
+	$(document)
+			.ready(
+					function() {
+
+						//옵션 추가 
+						var cloneDiv = $(".plus").clone();
+
+						$("#optionPlusIcon").on({
+							"click" : function() {
+
+								$(".divoption").append($(cloneDiv).clone());
+
+							}/* ,
+										
+										"mouseover" : function() {
+											$("#optionPlusIcon").css({"color":"red"});
+										}*/
+						})
+
+						var slider = $("#slider");
+						var thumb = $("#thumb");
+						var slidesPerPage = 4; //globaly define number of elements per page
+						var syncedSecondary = true;
+						slider.owlCarousel({
+							items : 1,
+							slideSpeed : 2000,
+							nav : false,
+							autoplay : false,
+							dots : false,
+							loop : true,
+							responsiveRefreshRate : 200
+						}).on('changed.owl.carousel', syncPosition);
+						thumb
+								.on(
+										'initialized.owl.carousel',
+										function() {
+											thumb.find(".owl-item").eq(0)
+													.addClass("current");
+										})
+								.owlCarousel(
+										{
+											items : slidesPerPage,
+											dots : false,
+											nav : true,
+											item : 4,
+											smartSpeed : 200,
+											slideSpeed : 500,
+											slideBy : slidesPerPage,
+											navText : [
+													'<svg width="18px" height="18px" viewBox="0 0 11 20"><path style="fill:none;stroke-width: 1px;stroke: #000;" d="M9.554,1.001l-8.607,8.607l8.607,8.606"/></svg>',
+													'<svg width="25px" height="25px" viewBox="0 0 11 20" version="1.1"><path style="fill:none;stroke-width: 1px;stroke: #000;" d="M1.054,18.214l8.606,-8.606l-8.606,-8.607"/></svg>' ],
+											responsiveRefreshRate : 100
+										}).on('changed.owl.carousel',
+										syncPosition2);
+						function syncPosition(el) {
+							var count = el.item.count - 1;
+							var current = Math.round(el.item.index
+									- (el.item.count / 2) - .5);
+							if (current < 0) {
+								current = count;
+							}
+							if (current > count) {
+								current = 0;
+							}
+							thumb.find(".owl-item").removeClass("current").eq(
+									current).addClass("current");
+							var onscreen = thumb.find('.owl-item.active').length - 1;
+							var start = thumb.find('.owl-item.active').first()
+									.index();
+							var end = thumb.find('.owl-item.active').last()
+									.index();
+							if (current > end) {
+								thumb.data('owl.carousel').to(current, 100,
+										true);
+							}
+							if (current < start) {
+								thumb.data('owl.carousel').to(
+										current - onscreen, 100, true);
+							}
+						}
+						function syncPosition2(el) {
+							if (syncedSecondary) {
+								var number = el.item.index;
+								slider.data('owl.carousel').to(number, 100,
+										true);
+							}
+						}
+						thumb.on("click", ".owl-item", function(e) {
+							e.preventDefault();
+							var number = $(this).index();
+							slider.data('owl.carousel').to(number, 300, true);
+						});
+
+						$(".qtyminus").on("click", function() {
+							var now = $(".qty").val();
+							if ($.isNumeric(now)) {
+								if (parseInt(now) - 1 > 0) {
+									now--;
+								}
+								$(".qty").val(now);
+							}
+						})
+						$(".qtyplus").on("click", function() {
+							var now = $(".qty").val();
+							if ($.isNumeric(now)) {
+								$(".qty").val(parseInt(now) + 1);
+							}
+						});
+					});
+</script>
+
 </head>
-
-
-<!-- <script>
-    function imageLoad(img) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#imageLoad').empty();
-            $('#imageLoadLabel').html('미리보기');
-            $('#imageLoad').append($('<img />').attr('src', e.target.result).css('width', '290px').css('height',
-                '200px'));
-        }
-        reader.readAsDataURL(img.files[0]);
-    }
-
-    function imageReset() {
-        $('#imageLoad').empty();
-        $('#imageLoadLabel').empty();
-    }
-</script> -->
-
 
 <body>
 
-	<div class="container-fluid">
-		<div align="center">
+	<div class="pd-wrap">
+		<div class="container">
+			<div class="heading-section">
+				<h2>펀딩 요청 확인</h2>
+			</div>
 			<form class="form-horizontal" role="form" id="frm" name="frm"
-				action="fundingRequestUpdate.a" method="post">
-				<h2>Funding Request</h2>
+				action="fundingRequestUpdate.a" method="post" encType="multipart/form-data">
+				<input type="hidden" name="fundingId" value="${selectVo.fundingId}">
+				<div class="row">
+					<div class="col-md-6">
+						<div id="slider" class="owl-carousel product-slider">
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+						</div>
+						<div id="thumb" class="owl-carousel product-thumb">
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+							<div class="item">
+								<img src="../images/${selectVo.fundingImage}" />
+							</div>
+						</div>
+						<input type="file" id="uploadImage" name="uploadImage"/>
+<!-- <input type="submit" value="저장"> -->
+					</div>
+					<div class="col-md-6">
+						<div class="product-dtl">
+							<div class="product-info">
+								<div class="product-id" align="center">
+									<span>NO. </span> <span> ${selectVo.fundingId} </span>
+								</div>
+								<div class="product-title">
+									<span>펀딩명 : </span> <input class="form-control"
+										name="fundingTitle"
+										value='<c:out value="${selectVo.fundingTitle}" />' required>
+								</div>
+								<div class="product-name">
+									<span>상품명 : </span> <input class="form-control"
+										name="fundingName"
+										value='<c:out value="${selectVo.fundingName}" />'>
+								</div>
+								<div class="row">
+									<div class="product-brand col-md-6">
+										<span>브랜드 : </span> <select name="fundingBrand"
+											id="fundingBrand" class="form-control">
+											<c:forEach items="${branList }" var="b">
+												<option>${b.codeDetail}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="product-serial col-md-6">
+										<span>모델번호 : </span> <input class="form-control"
+											name="fundingSerial"
+											value='<c:out value="${selectVo.fundingSerial}" />'>
+									</div>
+								</div>
+								<!-- <div class="product-price-discount">
+								<span>$39.00</span><span class="line-through">$29.00</span>
+							</div> -->
+								<div class="product-category">
+									<span>카테고리 : </span> <select name="fundingCategory"
+										id="fundingCategory" class="form-control">
+										<c:forEach items="${cateList }" var="c">
+											<option>${c.codeDetail}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="product-goal">
+									<span>목표금액 : </span> <input class="form-control"
+										id="fundingGoal" name="fundingGoal"
+										value='<c:out value="${selectVo.fundingGoal}" />' required>
+								</div>
+								<div class="row">
+									<div class="product-start col-md-6">
+										<span>펀딩시작날짜 : </span> <input type="date" class="form-control"
+											name="fundingStart"
+											value='<c:out value="${selectVo.fundingStart}" />' required>
+									</div>
+									<div class="product-end col-md-6">
+										<span>펀딩마감날짜 : </span> <input type="date" class="form-control"
+											name="fundingEnd"
+											value='<c:out value="${selectVo.fundingEnd}" />' required>
+									</div>
+								</div>
+								<div class="row">
+									<div class="product-condition col-md-6">
+										<span>펀딩상태 : </span> <input class="form-control"
+											name="fundingCondition"
+											value='<c:out value="${selectVo.fundingCondition}" />'
+											readonly="readonly">
+									</div>
+									<div class="product-totalprice col-md-6">
+										<span>현재모금액 : </span> <input class="form-control"
+											name="fundingTotalprice"
+											value='<c:out value="${selectVo.fundingTotalprice}" />'
+											readonly="readonly">
+									</div>
+								</div>
+							</div>
 
-				<div class="form-group">
-					<label for="fundingId" class="col-sm-3 control-label">NO.</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingId" id="fundingId"
-							value="${selectVo.fundingId}" placeholder="NO."
-							class="form-control" readonly="readonly">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="fundingName" class="col-sm-3 control-label">*제품명</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingName" id="fundingName"
-							value="${selectVo.fundingName}" placeholder="제품명"
-							class="form-control" autofocus>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="fundingTitle" class="col-sm-3 control-label">펀딩명</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingTitle" id="fundingTitle"
-							value="${selectVo.fundingTitle}" placeholder="펀딩명 생성"
-							class="form-control" autofocus>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="fundingBrand" class="col-sm-3 control-label">*브랜드명</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingBrand" id="fundingBrand"
-							placeholder="브랜드명" class="form-control"
-							value="${selectVo.fundingBrand}">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="fundingSerial" class="col-sm-3 control-label">*모델번호
-					</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingSerial" id="fundingSerial"
-							placeholder="모델번호" class="form-control"
-							value="${selectVo.fundingSerial}">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="fundingCategory" class="col-sm-3 control-label">*제품유형</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingCategory" id="fundingCategory"
-							placeholder="제품유형" class="form-control"
-							value="${selectVo.fundingCategory}">
-					</div>
-				</div>
-				<!--                  <div class="form-group">
-                    <label for="fundingImage" class="col-sm-3 control-label">이미지</label>
-                    <div class="col-sm-9">
-                        <input type="file" name="fundingImage" id="fundingImage" placeholder="이미지" class="form-control"
-                            onchange="imageLoad(this)">
-                            <input type="file" name="fundingImage" id="fundingImage" placeholder="이미지" class="form-control"
-                            >
-                    </div>
-                </div> -->
-
-				<div class="form-group">
-					<label for="fundingContent" class="col-sm-9 control-label">*고객
-						요청사항</label>
-					<div class="col-sm-9">
-						<textarea class="form-control" rows="3" name="fundingContent"
-							id="fundingContent">${selectVo.fundingContent}</textarea>
-
-						<span class="help-block">고객 요청사항 검토 후 상품설명 수정</span>
-					</div>
-				</div>
-				<!--                 <div class="form-group">
-                    <label for="imageLoad" id="imageLoadLabel" class="col-sm-3 control-label"></label>
-                    <div class="col-sm-9" id="imageLoad" name="imageLoad">
-                    </div>
-                </div> -->
-				<!-- 고객 요청 폼에 없는 항목 관리자가 추가 -->
-				<div class="form-group">
-					<label for="fundingGoal" class="col-sm-3 control-label">목표금액</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingGoal" id="fundingGoal"
-							placeholder="목표금액" class="form-control"
-							value="${selectVo.fundingGoal}">
+							<div class="row">
+								<div class="product-gift col-md-12 divoption">
+									<span> 펀딩 기프트 선택 </span> <i class="fas fa-plus-circle"
+										id="optionPlusIcon"></i>&nbsp <span>
+										<!-- &lt; Gift Add  -->
+									</span> <input type="hidden" name="fundingGift">
+									<!-- 나중에히든으로 -->
+									<div class="row">
+										<c:forTokens items="${selectVo.fundingGift}" delims=","
+											var="token1">
+											<c:forTokens items="${token1}" delims=":" var="token2">
+												<div class="optionPlusDiv">
+													<c:if
+														test="${token2 eq '1일권' or token2 eq '2일권' or token2 eq '3일권' or token2 eq '4일권' or token2 eq '5일권'  }">
+														<select style="width: 100px;">
+															<option <c:if test="${token2 eq '1일권' }">selected</c:if>>1일권</option>
+															<option <c:if test="${token2 eq '2일권' }">selected</c:if>>2일권</option>
+															<option <c:if test="${token2 eq '3일권' }">selected</c:if>>3일권</option>
+															<option <c:if test="${token2 eq '4일권' }">selected</c:if>>4일권</option>
+															<option <c:if test="${token2 eq '5일권' }">selected</c:if>>5일권</option>
+														</select>
+													</c:if>
+													<c:if
+														test="${token2 ne '1일권' and token2 ne '2일권' and token2 ne '3일권' and token2 ne '4일권' and token2 ne '5일권'  }">
+														<c:forTokens items="${token2}" delims="eth" var="token3">
+															<input style="width: 100px;" value="${token3}"> eth
+													</c:forTokens>
+													</c:if>
+												</div>
+											</c:forTokens>
+										</c:forTokens>
+									</div>
+									<div class="plus">
+										<select style="width: 100px;">
+											<option>1일권</option>
+											<option>2일권</option>
+											<option>3일권</option>
+											<option>4일권</option>
+											<option>5일권</option>
+										</select> <input style="width: 100px;" id="optionPlz" name="optionPlz"> eth
+									</div>
+								</div>
+							</div>
+							<br />
+							<div class="row">
+								<div class="col-md-12">
+									<button type="button" value="등록" class="btn btn-primary "
+										onclick="return submitCheckFunc();">펀딩 수정하기</button>
+									<button type="reset" value="취소" class="btn btn-primary ">취소</button>
+									<button type="button" value="목록" class="btn btn-primary "
+										onclick="location.href='fundingRequestList.a' ">목록보기</button>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="fundingStart" class="col-sm-9 control-label">펀딩시작날짜</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingStart" id="fundingStart"
-							placeholder="펀딩시작날짜" class="form-control"
-							value="${selectVo.fundingStart}">
-					</div>
-				</div>
+				<!--  -->
+				<div class="product-info-tabs">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item"><a class="nav-link active"
+							id="description-tab" data-toggle="tab" href="#description"
+							role="tab" aria-controls="description" aria-selected="true">상품설명</a>
+						</li>
+						<!-- <li class="nav-item"><a class="nav-link" id="review-tab"
+							data-toggle="tab" href="#review" role="tab"
+							aria-controls="review" aria-selected="false">문의하기</a></li> -->
+					</ul>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="description"
+							role="tabpanel" aria-labelledby="description-tab">
+							<textarea class="form-control" rows="5" name="fundingContent"
+								id="fundingContent">${selectVo.fundingContent}</textarea>
+						</div>
 
-				<div class="form-group">
-					<label for="fundingEnd" class="col-sm-9 control-label">펀딩마감날짜</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingEnd" id="fundingEnd"
-							placeholder="펀딩마감날짜" class="form-control"
-							value="${selectVo.fundingEnd}">
-					</div>
-				</div>
-
-<%-- 				<div class="form-group">
-					<label for="fundingCondition" class="col-sm-3 control-label">펀딩상태</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingCondition" id="fundingCondition"
-							placeholder="펀딩상태" class="form-control"
-							value="${selectVo.fundingCondition}">
-					</div>
-				</div>
- --%>
-				<div class="form-group">
-					<label for="fundingGift" class="col-sm-9 control-label">펀딩
-						기프트</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingGift" id="fundingGift"
-							placeholder="펀딩 기프트" class="form-control"
-							value="${selectVo.fundingGift}">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="fundingTotalprice" class="col-sm-3 control-label">현재모금액</label>
-					<div class="col-sm-9">
-						<input type="text" name="fundingTotalprice" id="fundingTotalprice"
-							placeholder="현재모금액" class="form-control"
-							value="${selectVo.fundingTotalprice}" readonly="readonly">
-					</div>
-				</div>
-				<!-- /.form-group -->
-
-				<div align="center">
-					<button type="submit" value="등록" class="btn btn-primary ">펀딩
-						요청받기</button>
-					<button type="reset" value="취소" class="btn btn-primary ">취소</button>
-				</div>
-
+						<div class="tab-pane fade" id="review" role="tabpanel"
+							aria-labelledby="review-tab">
 			</form>
-			<!-- /form -->
+			<%--<p class="mb-20">문의사항을 남겨주세요.</p>
+			 <form class="review-form">
+				<div class="form-group">
+					<div class="review-heading">문의내용</div>
+					<textarea class="form-control" rows="3"></textarea>
+				</div>
+				<!-- <div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="text" name="" class="form-control"
+											placeholder="Name*">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="text" name="" class="form-control"
+											placeholder="Email Id*">
+									</div>
+								</div>
+							</div> -->
+				<button class="round-black-btn">문의하기</button>
+			</form> --%>
 		</div>
 	</div>
-	<!-- ./container -->
+	</div>
+	</div>
+	</div>
+
 </body>
 
 </html>

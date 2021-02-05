@@ -20,7 +20,7 @@ App = {
 		} else if (window.web3) { // 브라우저에 주입된 Mist 나 MetaMask 프로바이더 사용여부 확인
 			App.web3Provider = window.web3.currentProvider;
 		} else {
-			App.web3Provider = new Web3.providers.HttpProvider("http://127.0.0.1:7545");
+			App.web3Provider = new Web3.providers.HttpProvider("http://192.168.0.36:7545");
 		}
 
 		web3 = new Web3(App.web3Provider);
@@ -31,7 +31,7 @@ App = {
 	initContract: function () { //abi 
 		//컨트랙트 생성
 		App.contract = new web3.eth.Contract(abi);
-		App.contract.options.address = "0x33d47820Db6544D1B58020e7f7eBE952F7ed4dF7";
+		App.contract.options.address = "0x3082A2F192Bb007f72547232AB49c89a4624B173"; 
 
 		App.joinButtonEvents(); //펀딩 참여 버튼 누르는 이벤트
 

@@ -23,14 +23,9 @@
         }
 
         .btnTitle {
-            background-color: rgb(192, 184, 177);
-            color: rgb(78, 68, 68);
-            border-style: hidden;
-            border-radius: unset;
-            border-color: rgb(192, 184, 177);
+            border-bottom-color: rgb(156, 151, 147);
             font-size: small;
-            font-weight: bold;
-            height: 30px;
+            height: 35px;
             padding-left: 5%;
         }
 
@@ -112,7 +107,7 @@
                                 <div class="card-body">
                                     <a href="auctionOne?id=${vo.auctionId}">
                                         <img class="imgCard" src="/etoile/images/${vo.auctionImage}" alt="Card image"
-                                            width="100%" height="218px"></a>
+                                            width="100%" height="213px"></a>
                                 </div>
                             </div>
                             <div class="col-1"></div>

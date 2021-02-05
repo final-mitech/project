@@ -25,7 +25,7 @@
 		}
 
 		.modal-body {
-			padding: 5% 10% 5% 30%;
+			padding: 5% 10% 5% 25%;
 		}
 
 		.modal-body input[readonly] {
@@ -50,22 +50,22 @@
 </head>
 
 <body>
-	<br>
-	<br>
-	<div class="container" style="max-width: 1400px;">
+	<div class="container">
 		<div class="row">
 			<div class="col-5" align="center">
+				<br />
+				<h3 align="left" style="padding-left:10px;">Auction Info</h3>
 				<br />
 				<img class="card-img-top" src="/etoile/images/${vo.auctionImage}" alt="Card image" style="width: 100%">
 				<br />
 				<br />
 				<br />
-				<br />
+				<h6 align="left">최고액 입찰자</h6>
 				<table class="table table-sm" id="table1">
 					<tr align="center">
 						<thead class="thead" align="center">
 							<th>상품명</th>
-							<th>현재 최고액 참여자</th>
+							<th>입찰자 ID</th>
 						</thead>
 					</tr>
 					<tr align="center">
@@ -74,12 +74,12 @@
 					</tr>
 				</table>
 				<br />
-				<br />
+				<h6 align="left">최근 입찰자</h6>
 				<table class="table table-sm">
 					<tr align="center">
 						<thead class="thead" align="center">
-							<th>최근아이디</th>
-							<th>입찰가격</th>
+							<th>최근 ID</th>
+							<th>입찰가</th>
 						</thead>
 					</tr>
 					<c:forEach var="jo" items="${list }">
@@ -89,8 +89,8 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<form action="" id="join" name="join" method="post">
-					아이디: <input class="form-control" id="memberId" name="memberId" value="세션3"><br>
+				<form style="display: none;" id="join" name="join" method="post">
+					아이디: <input class="form-control" id="memberId" name="memberId" value="${loginId }"><br>
 					경매 가: <input class="form-control" id="auctionPay" name="auctionPay" value=""><br>
 					경매번호: <input class="form-control" id="auctionId" name="auctionId" value="${vo.auctionId}"><br>
 				</form>
@@ -99,36 +99,46 @@
 			<div class="col-1"></div>
 
 			<div class="col-6">
+				<br />
+				<br />
+				<br />
 				<div>
-					<form id="frm" name="frm" action="actionJoinForm.do" method="post">
+					<form id="frm" name="frm" action="" method="post">
+						<div class="form-group">
+							<label for="">Title</label> <input type="text" class="form-control info" id="" name=""
+								value="${vo.auctionTitle}" style="width: 60%; text-align:center;" readonly>
+						</div>
 						<div class="form-group">
 							<label for="">상품명</label> <input type="text" class="form-control info" id="" name=""
-								value="${vo.auctionName}" style="width: 60%" readonly>
+								value="${vo.auctionName}" style="width: 60%; text-align:center;" readonly>
 						</div>
 						<div class="form-group">
 							<label for="">경매번호</label> <input type="text" class="form-control info" id=""
-								value="${vo.auctionId}" name="" style="width: 60%" readonly>
+								value="${vo.auctionId}" name="" style="width: 30%; text-align:center;" readonly>
 						</div>
 						<div class="form-group">
 							<label for="">브랜드명</label> <input type="text" class="form-control info" id=""
-								value="${vo.auctionBrand}" name="" style="width: 60%" readonly>
+								value="${vo.auctionBrand}" name="" style="width: 30%; text-align:center;" readonly>
 						</div>
 						<div class="form-group">
 							<label for="bcontent">상세내용</label>
-							<textarea type="text" class="form-control info" id="" value="auctionContent" name=""
+							<textarea type="text" class="form-control info" id="" value="${auctionContent}" name=""
 								readonly></textarea>
 						</div>
-						<div class="form-group">
-							<label for="">현재입찰가</label> <input type="text" class="form-control info" id="bestPrice"
-								value="${vo.auctionBestPrice}" name="bestPrice" style="width: 30%" readonly>eth
-						</div>
-						<div class="form-group">
-							<label for="">즉시낙찰가</label> <input type="text" class="form-control info" id="ImmediateBid"
-								value="${vo.auctionImmediateBid}" name="ImmediateBid" style="width: 30%" readonly>eth
+						<br />
+						<div class="form-inline">
+							<label for="">현재입찰가</label>&nbsp;<input type="text" class="form-control info" id="bestPrice"
+								value="${vo.auctionBestPrice}" name="bestPrice" style="width: 15%; text-align:center;"
+								readonly>&nbsp;eth
+							&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+							<label for="">즉시낙찰가</label>&nbsp;<input type="text" class="form-control info"
+								id="ImmediateBid" value="${vo.auctionImmediateBid}" name="ImmediateBid"
+								style="width: 15%; text-align:center;" readonly>&nbsp;eth
 						</div>
 						<br />
-						<button type="button" class="btn btn-success" align="center" data-toggle="modal"
-							data-target="#bidModal" id="joinBid">경매 참여</button>
+						<br />
+						<button type="button" class="btn btn-success btn-lg" align="center" data-toggle="modal"
+							data-target="" id="joinBid" style="margin-left: 120px;">경매 참여</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn btn-outline-secondary" align="center"
 							onclick="location.href='auctionMain'">목록</button>
@@ -138,14 +148,14 @@
 							<div class="modal-dialog modal-dialog-centered modal-lg">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h4 class="modal-title">입찰 정보</h4>
+										<h4 class="modal-title">Bid Info</h4>
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
 											<label for="">아이디</label>
-											<input type="text" class="form-control" id="name" value="세션아이디" name=""
-												style="width: 60%" readonly><br />
+											<input type="text" class="form-control" id="name" value="${loginId }"
+												name="" style="width: 40%" readonly><br />
 										</div>
 										<div class="form-group">
 											<label for="">상품명</label>
@@ -154,8 +164,15 @@
 										</div>
 										<br />
 										<div class="form-group form-inline">
-											<label for="">입찰가</label>
-											<input type="text" class="form-control" id="bid" style="width: 10%; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth											
+											<input type="radio" class="form-control" id="bid" name="checkBid" value=""
+												style="width: 3%;">&nbsp;
+											입찰가&nbsp;<input type="text" class="form-control" id="bid1"
+												style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<input type="radio" class="form-control" id="immediateBid" name="checkBid"
+												value="" style="width: 3%;">&nbsp;
+											즉시낙찰가&nbsp;<input type="text" class="form-control" id="immediateBid1"
+												style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth<br />
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -178,7 +195,18 @@
 	<br />
 </body>
 <script>
+
+	var memberId = $('#memberId').val();
+	console.log(memberId);
+
 	$('#joinBid').click(function () {
+		//로그인 체크
+		if(memberId == ''){
+			location.href="/etoile/site/loginForm";
+		}else{
+			$('#joinBid').attr('data-target', '#bidModal');
+		}
+
 		//경매 가 세팅
 		var bestPrice = $('#bestPrice').val();
 		console.log(bestPrice);
@@ -187,15 +215,14 @@
 		console.log(sum);
 
 		$('#bid').attr('value', sum);
-		// $('#bid1').attr('value', sum);
+		$('#bid1').attr('value', sum);
 		$('#auctionPay').attr('value', sum);
 
-		// var ImmediateBid = $('#ImmediateBid').val();
-		// console.log(ImmediateBid);
-		// $('#immediateBid').attr('value', ImmediateBid);
-		// $('#immediateBid1').attr('value', ImmediateBid);
+		var ImmediateBid = $('#ImmediateBid').val();
+		console.log(ImmediateBid);
+		$('#immediateBid').attr('value', ImmediateBid);
+		$('#immediateBid1').attr('value', ImmediateBid);
 	});
-
 </script>
 
 </html>

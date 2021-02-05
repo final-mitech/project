@@ -40,7 +40,7 @@
 				<div class="profileWrap">
 					<div class="profImg">
 						<img src="/etoile/images/${f.fundingImage }" style="width: 100px"
-							height="100px">
+							height="100px" onclick="location.href='fundingSelect?fundingId=' + ${f.fundingId };"> 
 						<c:choose>
 							<c:when test="${f.fundingCondition eq '접수완료'}">
 								<span class="badge badge-pill badge-secondary dist"

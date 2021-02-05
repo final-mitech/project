@@ -82,6 +82,12 @@ public class AuctionServiceImpl implements AuctionService{
 		
 		return auctionMapper.updateAuctionCount(vo);
 	}
+	
+	@Override //전체리스트 인기순 count
+	public int getAuctionHottestCount(AuctionVO vo) {
+		
+		return auctionMapper.getAuctionHottestCount(vo);
+	}
 
 	@Override  //인기순 정렬
 	public List<AuctionVO> getHottest(AuctionVO vo) {
@@ -209,5 +215,13 @@ public class AuctionServiceImpl implements AuctionService{
 		
 		return auctionMapper.updateAuctionEnd(vo);
 	}
+
+	@Override  //검수 후 수정
+	public int auctionReqUpdate(AuctionVO vo) {
+		
+		return auctionMapper.auctionReqUpdate(vo);
+	}
+
+	
 
 }

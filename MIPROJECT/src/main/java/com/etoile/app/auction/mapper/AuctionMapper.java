@@ -27,6 +27,9 @@ public interface AuctionMapper {
 	// 경매 전체 count
 	public int getAuctionCount(AuctionVO vo);
 
+	// 경매 인기순 count
+	public int getAuctionHottestCount(AuctionVO vo);
+
 	// 경매 참여 등록
 	public int insertAuctionJoin(AuctionJoinVO jo);
 
@@ -71,35 +74,38 @@ public interface AuctionMapper {
 
 	// 마이 경매 정산받기
 	public int myAuctionSettle(AuctionVO vo);
-	
+
 	// 관리자 경매 요청 내역
 	public List<AuctionVO> getAdminReq(AuctionVO vo);
-	
+
 	// 관리자 경매 요청 내역
 	public List<AuctionVO> getAdminList(AuctionVO vo);
-	
+
 	// 관리자 요청 내역 count
 	public int getAdminReqCount(AuctionVO vo);
 
 	// 관리자 경매 현황 count
 	public int getAdminListCount(AuctionVO vo);
-	
-	//요청리스트 -> 관리자 컨펌
+
+	// 요청리스트 -> 관리자 컨펌
 	public int auctionReqConfirm(AuctionVO vo);
-	
-	//관리자 경매상품 등록 
+
+	// 관리자 경매상품 등록
 	public int auctionAdminPut(AuctionVO vo);
-	
-	//경매 현황리스트 정렬 
+
+	// 경매 현황리스트 정렬
 	public List<AuctionVO> auctionAdminSelect(AuctionVO vo);
-	
+
 	// 현황리스트 정렬 count
 	public int adminSelectCount(AuctionVO vo);
-	
-	//오픈예정 -> 경매중
+
+	// 오픈예정 -> 경매중
 	public int updateAuctionStart(AuctionVO vo);
-	
-	//경매중 -> 경매마감
+
+	// 경매중 -> 경매마감
 	public int updateAuctionEnd(AuctionVO vo);
+
+	// 검수 후 수정
+	public int auctionReqUpdate(AuctionVO vo);
 
 }

@@ -38,6 +38,8 @@
 		AUCTION_CONDITION
 		)B) A
 		WHERE RN BETWEEN #{start} AND #{end}
+		ORDER BY
+		AUCTION_CONDITION
 	</select>
 
 	<!-- total count -->
@@ -51,14 +53,14 @@
 		</where>
 	</select>
 
-	<!-- 경매 단건조회 -->
+	<!-- 경매 DB 단건조회 -->
 	<select id="getAuctionOne" resultType="auctionVO"> <!--id는 Mapper, resultType은 VO에서 참조 -->
 		SELECT *
 		FROM AUCTION
 		WHERE AUCTION_ID = #{auctionId}
 	</select>
 
-	<!-- 경매 한건 조회하기 -->
+	<!-- 경매 참여DB 단건조회 -->
 	<select id="getAuctionJoinOne" resultType="auctionJoinVO">
 		SELECT
 		* FROM
@@ -75,16 +77,20 @@
 		FROM
 		(SELECT * FROM AUCTION WHERE
 		AUCTION_CONDITION='1' OR
-		AUCTION_CONDITION='2' OR
-		AUCTION_CONDITION='3'
-		OR
-		AUCTION_CONDITION='8')
+		AUCTION_CONDITION='2')
 		WHERE
-		AUCTION_NAME LIKE '%' ||
-		upper(#{auctionName}) || '%'
+		AUCTION_NAME LIKE
+		'%' ||
+		UPPER(#{auctionName}) || '%'
+		ORDER BY
+		AUCTION_CONDITION
 		)B) A
-		WHERE RN BETWEEN
-		#{start} AND #{end}
+		WHERE
+		RN BETWEEN
+		#{start} AND
+		#{end}
+		ORDER BY
+		AUCTION_CONDITION
 	</select>
 
 	<!-- 경매 최신순 정렬 -->
@@ -96,12 +102,22 @@
 		FROM AUCTION
 		WHERE AUCTION_CONDITION='1' OR
 		AUCTION_CONDITION='2' OR
-		AUCTION_CONDITION='3' OR
-		AUCTION_CONDITION='8'
+		AUCTION_CONDITION='3'
 		ORDER BY
-		AUCTION_START DESC
+		AUCTION_START
+		DESC
 		)B) A
 		WHERE RN BETWEEN #{start} AND #{end}
+		ORDER BY
+		AUCTION_START
+		DESC
+	</select>
+
+	<!-- 인기순 count -->
+	<select id="getAuctionHottestCount" resultType="int">
+		SELECT COUNT(*)
+		FROM AUCTION
+		WHERE AUCTION_CONDITION='1'
 	</select>
 
 	<!-- 경매 인기순 정렬 -->
@@ -111,15 +127,16 @@
 		ROWNUM RN FROM (
 		SELECT *
 		FROM AUCTION
-		WHERE AUCTION_CONDITION='1' OR
-		AUCTION_CONDITION='2' OR
-		AUCTION_CONDITION='3' OR
-		AUCTION_CONDITION='8'
-		ORDER BY AUCTION_JOIN_COUNT DESC
+		WHERE AUCTION_CONDITION='1'
+		ORDER
+		BY AUCTION_JOIN_COUNT DESC
 		NULLS LAST
 		)B) A
 		WHERE RN BETWEEN
-		#{start} AND #{end}
+		#{start} AND
+		#{end}
+		ORDER BY AUCTION_JOIN_COUNT DESC
+		NULLS LAST
 	</select>
 
 	<!-- 경매 최고가 등록 -->
@@ -192,11 +209,18 @@
 		FROM AUCTION A JOIN
 		AUCTION_JOIN J
 		ON (A.AUCTION_ID = J.AUCTION_ID)
-		WHERE J.MEMBER_ID='세션3'
+		WHERE
+		J.MEMBER_ID=#{memberId}
 		ORDER BY
+		AUCTION_CONDITION,
 		AUCTION_DATE DESC
+		NULLS LAST
 		)B) A
 		WHERE RN BETWEEN #{start} AND #{end}
+		ORDER BY
+		AUCTION_CONDITION,
+		AUCTION_DATE DESC
+		NULLS LAST
 	</select>
 
 	<!-- 마이 경매 총 참여 수 -->
@@ -205,7 +229,7 @@
 		SELECT COUNT(*)
 		FROM
 		AUCTION_JOIN
-		WHERE MEMBER_ID='세션3'
+		WHERE MEMBER_ID=#{memberId}
 	</select>
 
 	<!-- 마이 경매 낙찰 받은 내역 -->
@@ -223,13 +247,15 @@
 		FROM AUCTION A JOIN AUCTION_JOIN J
 		ON
 		A.AUCTION_ID = J.AUCTION_ID
-		WHERE A.AUCTION_MEMBER_ID = '세션10' AND
+		WHERE A.AUCTION_MEMBER_ID = #{memberId} AND
 		J.AUCTION_DELIVERY IS NOT NULL
 		ORDER BY
-		J.AUCTION_DELIVERY
+		AUCTION_DELIVERY
 		)B) A
 		WHERE RN
 		BETWEEN #{start} AND #{end}
+		ORDER BY
+		AUCTION_DELIVERY
 	</select>
 
 	<!-- 마이 경매 총 낙찰 수 -->
@@ -238,7 +264,7 @@
 		SELECT COUNT(*)
 		FROM
 		AUCTION
-		WHERE AUCTION_MEMBER_ID='세션10'
+		WHERE AUCTION_MEMBER_ID=#{memberId}
 	</select>
 
 	<!-- 마이 경매 총 대리 경매 수 -->
@@ -247,7 +273,7 @@
 		SELECT COUNT(*)
 		FROM
 		AUCTION
-		WHERE MEMBER_ID='user10'
+		WHERE MEMBER_ID=#{memberId}
 	</select>
 
 	<!-- 마이 경매 대리 경매 요청 내역 -->
@@ -259,12 +285,19 @@
 		SELECT AUCTION_ID, MEMBER_ID, AUCTION_NAME,
 		AUCTION_BRAND, AUCTION_START, AUCTION_END,
 		AUCTION_CONDITION,
+		AUCTION_UPDATE_DATE,
 		AUCTION_BEST_PRICE, AUCTION_IMAGE
-		FROM AUCTION WHERE MEMBER_ID='user10'
+		FROM AUCTION
+		WHERE MEMBER_ID=#{memberId}
 		ORDER BY
-		AUCTION_ID DESC
+		AUCTION_UPDATE_DATE DESC
+		NULLS LAST
 		)B) A
 		WHERE RN BETWEEN #{start} AND #{end}
+		ORDER BY
+		AUCTION_UPDATE_DATE
+		DESC
+		NULLS LAST
 	</select>
 
 	<!-- 마이 경매 배송지 입력 -->
@@ -279,7 +312,8 @@
 	<!-- 마이 경매 회수요청 -->
 	<update id="myAuctionRecover">
 		UPDATE AUCTION
-		SET AUCTION_CONDITION='7'
+		SET AUCTION_CONDITION='7',
+		AUCTION_UPDATE_DATE=SYSDATE
 		WHERE
 		AUCTION_ID=#{auctionId}
 	</update>
@@ -289,7 +323,8 @@
 		UPDATE AUCTION
 		SET AUCTION_CONDITION='2',
 		AUCTION_START= TRUNC(SYSDATE+4),
-		AUCTION_END=TRUNC(SYSDATE+10)
+		AUCTION_END=TRUNC(SYSDATE+10),
+		AUCTION_UPDATE_DATE=SYSDATE
 		WHERE
 		AUCTION_ID=#{auctionId}
 	</update>
@@ -297,7 +332,8 @@
 	<!-- 마이 경매 정산받기 -->
 	<update id="myAuctionSettle">
 		UPDATE AUCTION
-		SET AUCTION_CONDITION='8'
+		SET AUCTION_CONDITION='8',
+		AUCTION_UPDATE_DATE=SYSDATE
 		WHERE
 		AUCTION_ID=#{auctionId}
 	</update>
@@ -308,11 +344,15 @@
 		FROM( SELECT B.*,
 		ROWNUM RN FROM (
 		SELECT AUCTION_ID, MEMBER_ID, AUCTION_NAME,
+		AUCTION_BRAND,
+		AUCTION_CONTENT, AUCTION_TITLE, AUCTION_IMAGE,
+		AUCTION_BEST_PRICE, AUCTION_IMMEDIATE,
 		TO_CHAR(AUCTION_UPDATE_DATE,
 		'YYYY-MM-DD
 		HH24:MI') AS
 		AUCTION_UPDATE_DATE, AUCTION_CONDITION
-		FROM AUCTION
+		FROM
+		AUCTION
 		WHERE
 		AUCTION_CONDITION='0' OR
 		AUCTION_CONDITION='4' OR
@@ -327,6 +367,8 @@
 		)B) A
 		WHERE RN
 		BETWEEN #{start} AND #{end}
+		ORDER BY
+		AUCTION_UPDATE_DATE DESC
 	</select>
 
 	<!-- 관리자 요청 내역 count -->
@@ -356,7 +398,10 @@
 		ORDER BY
 		AUCTION_CONDITION
 		)B) A
-		WHERE RN BETWEEN #{start} AND #{end}
+		WHERE RN BETWEEN
+		#{start} AND #{end}
+		ORDER BY
+		AUCTION_CONDITION
 	</select>
 
 	<!-- 관리자 경매 현황 count -->
@@ -394,7 +439,15 @@
 	<!-- 요청리스트 -> 관리자 컨펌 -->
 	<update id="auctionReqConfirm">
 		UPDATE AUCTION SET
-		AUCTION_CONDITION=#{auctionCondition}, AUCTION_UPDATE_DATE=sysdate
+		AUCTION_CONDITION=#{auctionCondition}, AUCTION_UPDATE_DATE=SYSDATE
+		WHERE AUCTION_ID=#{auctionId}
+	</update>
+
+	<!-- 요청리스트 -> 관리자 수정검토 -->
+	<update id="auctionReqUpdate">
+		UPDATE AUCTION SET AUCTION_NAME=#{auctionName},
+		AUCTION_TITLE=#{auctionTitle}, AUCTION_CONTENT=#{auctionContent},
+		AUCTION_CONDITION=#{auctionCondition}, AUCTION_UPDATE_DATE=SYSDATE
 		WHERE AUCTION_ID=#{auctionId}
 	</update>
 
@@ -420,6 +473,9 @@
 		AUCTION_ID DESC
 		)B) A
 		WHERE RN BETWEEN #{start} AND #{end}
+		ORDER
+		BY
+		AUCTION_ID DESC
 	</select>
 
 	<!-- 경매 현황리스트 정렬 count -->
@@ -441,12 +497,14 @@
 	</select>
 
 	<update id="updateAuctionStart">
-	UPDATE AUCTION SET AUCTION_CONDITION='1' 
-	WHERE TRUNC(AUCTION_START) = TRUNC(SYSDATE)
+		UPDATE AUCTION SET AUCTION_CONDITION='1' ,
+		AUCTION_UPDATE_DATE=SYSDATE
+		WHERE TRUNC(AUCTION_START) = TRUNC(SYSDATE)
 	</update>
-	
+
 	<update id="updateAuctionEnd">
-	UPDATE AUCTION SET AUCTION_CONDITION='3' 
-	WHERE TRUNC(AUCTION_END) = TRUNC(SYSDATE)
+		UPDATE AUCTION SET AUCTION_CONDITION='3' ,
+		AUCTION_UPDATE_DATE=SYSDATE
+		WHERE TRUNC(AUCTION_END) = TRUNC(SYSDATE)
 	</update>
 </mapper>

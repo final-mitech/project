@@ -13,7 +13,7 @@ public class AuctionSchedule {
 	@Autowired
 	AuctionService auctionService;
 
-	@Scheduled(cron = "0 10 9 * * *") // 0시 마다로 바꾸기
+	@Scheduled(cron = "0 0 12 * * *") // 0시 마다로 바꾸기
 	public void auctionSchedule() {
 	
 		AuctionVO vo = new AuctionVO();
