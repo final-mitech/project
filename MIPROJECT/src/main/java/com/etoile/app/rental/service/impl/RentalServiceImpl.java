@@ -1,6 +1,7 @@
 package com.etoile.app.rental.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +88,14 @@ public class RentalServiceImpl implements RentalService {
 	@Override
 	public List<ProductVO> rentalProductList2(ProductVO vo) {
 		return dao.rentalProductList2(vo);
+	}
+	@Override
+	public List<Map<String, Object>> rentalExcel(RentalVO vo) {
+		return dao.rentalExcel(vo);
+	}
+	@Override
+	public List<Map<String, Object>> rentalReExcel(RentalVO vo) {
+		return dao.rentalReExcel(vo);
 	}
 	
 }

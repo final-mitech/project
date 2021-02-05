@@ -30,9 +30,8 @@
         }
 
         .btnAdmin {
-            background-color: #ecc1f1;
+            background-color: rgb(218, 212, 196);
             font-size: large;
-            font-weight: bold;
             float: right;
             text-align: center;
         }
@@ -41,13 +40,29 @@
             color: #FBFBF4;
         }
 
-        .btnConfirm {
+        .btnConfirm1 {
+            background-color: #f5f5f5;
+            border-color: #f5f5f5;
+
+        }
+
+        .btnConfirm2 {
             background-color: #f5f5f5;
             border-color: #f5f5f5;
 
         }
 
         .btnReq {
+            background-color: #fddbdb;
+            border-color: #fddbdb;
+        }
+
+        .modal-body {
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+
+        .reqUpdate{
             background-color: #fddbdb;
             border-color: #fddbdb;
         }
@@ -67,9 +82,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-2" style="padding-left: 0px; padding-right: 2px;">
-                <button class="btn btnAdmin btn-lg"
-                    onclick="location.href='/etoile/admin/auctionAdminForm.a'">경매등록</button>
+            <div class="col-2" style="padding-left: 0px; padding-right: 10px;">
+                <button class="btn btnAdmin btn-lg" onclick="location.href='/etoile/admin/auctionAdminForm.a'">관리자
+                    경매등록</button>
             </div>
         </div>
         <br />
@@ -143,7 +158,7 @@
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '5'}">
                             <td style="width: 200px;"><button class="btn btnReq" data-toggle="modal" name=""
-                                    data-target="#reqModal">검수</button>
+                                    data-target="#reqModal">검수하기</button>
                             </td>
                             <form action="" id="frm">
                                 <div class="modal fade" id="reqModal">
@@ -203,8 +218,8 @@
                                                     value="${vo.auctionId}">
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-warning btn-block reqUpdate"
-                                                    style="height: 100%; font-weight: bold;">검수완료</button>
+                                                <button type="button" class="btn btn-block reqUpdate"
+                                                    style="height: 100%; font-size: large;">검수완료</button>
                                             </div>
                                         </div>
                                     </div>

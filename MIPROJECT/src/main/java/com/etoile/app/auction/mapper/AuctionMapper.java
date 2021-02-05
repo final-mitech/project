@@ -33,6 +33,15 @@ public interface AuctionMapper {
 	// 경매 참여 등록
 	public int insertAuctionJoin(AuctionJoinVO jo);
 
+	// 경매 참여 최근아이디 등록
+	public int insertAuctionMemberId(AuctionVO vo);
+
+	// 경매 즉시낙찰
+	public int updateImmediateBid(AuctionVO vo);
+	
+	// 경매 즉시낙찰 후 배송상태 등록
+	public int updateAuctionDelivery(AuctionJoinVO vo);
+
 	// 경매 최근참여자 3건
 	public List<AuctionJoinVO> getJoinRecent(AuctionJoinVO jo);
 

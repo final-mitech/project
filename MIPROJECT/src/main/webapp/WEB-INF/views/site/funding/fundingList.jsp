@@ -31,12 +31,12 @@
 }
 
 .search {
-	width: 200px;
+	width: 250px;
 	height: 30px;
 }
 
 .sort {
-	width: 200px;
+	width: 140px;
 	float: left;
 }
 
@@ -52,7 +52,7 @@
 .clickSelect {
 	width: 310px;
 	height: 550px;
-} 
+}
 </style>
 
 </head>
@@ -60,24 +60,32 @@
 <body>
 
 	<div class="container" style="max-width: 1400px;">
-		<div class="row">
-			<div class="div sort">
-				<a href="#">최신순</a> <a href="#">인기순</a>
-			</div>
+		<!-- 		<div class="row"> -->
+
+		<div class="div sort">
+			<a href="fundingList?sort=registrationSort">등록순</a> 
+			<a href="fundingList?sort=popularitySort">인기순</a>
+		</div>
+		<form action="fundingList">
 			<div class="input-group div search">
-				<input type="text" class="form-control" placeholder="검색어를 입력하세요">​​​​​​​
+				<input type="text" class="form-control" placeholder="검색어를 입력하세요"
+					name="fundingBrand">​​​​​​​
 				<button type="submit">
 					<i class="fas fa-search"></i>
 				</button>
 			</div>
-			<div>
-				<a href="/etoile/admin/fundingRequestList.a">요청 펀딩 목록
-					</a> <a href="/etoile/admin/fundingRegisterList.a">
-					등록 펀딩 목록</a>
-					<a href="/etoile/site/myFundingList.do">마이펀딩
-					</a>
-					<a href="/etoile/site/joinFundingList.do">조인펀딩
-					</a>
+		</form>
+		<!-- 			<div>
+				<a href="/etoile/admin/fundingRequestList.a">요청 펀딩 목록 </a> <a
+					href="/etoile/admin/fundingRegisterList.a"> 등록 펀딩 목록</a> <a
+					href="/etoile/site/myFundingList.do">마이펀딩 </a> <a
+					href="/etoile/site/joinFundingList.do">조인펀딩 </a>
+			</div> -->
+		<!-- 		</div> -->
+		<div class="row">
+			<div class="div register" align="right">
+				<button type="button" class="btn btn-dark"
+					onclick="location.href='fundingInsertForm.do' ">펀딩 요청하기</button>
 			</div>
 		</div>
 
@@ -86,9 +94,10 @@
 			<c:forEach items="${fundings }" var="f">
 
 				<div class="col-lg-3 col-md-6 mb-4" style="height: 600px">
-					<div class="card clickSelect" data-id="${f.fundingId }" >
+					<div class="card clickSelect" data-id="${f.fundingId }">
 						<img class="card-img-top" src="../images/${f.fundingImage }"
-							alt="Card image" style="width: 300px" height="200px" align="center">
+							alt="Card image" style="width: 300px" height="200px"
+							align="center">
 						<div class="card-body">
 							<h4 class="card-title" align="left" style="display: inline">
 								<b>${f.fundingTitle }</b>
@@ -208,16 +217,11 @@
 			</c:forEach>
 
 		</div>
-
-		<div class="row">
-			<div class="div register" align="right">
-				<button type="button" class="btn btn-dark"
-					onclick="location.href='fundingInsertForm.do' ">펀딩 요청하기</button>
-			</div>
+		<div style="float: center;">
+			<tag:historyPaging jsFunc="goList" />
 		</div>
 
 	</div>
-
 	<!-- 모달 창 보여주기 -->
 	<div class="modal fade" id="modalInsert" tabindex="-1" role="dialog"
 		aria-labelledby="modalInsertLabel" aria-hidden="ture">
@@ -271,7 +275,13 @@
 
 			location.href = 'fundingSelect?fundingId=' + id;
 		}
+
+		//페이징
+		function goList(page) {
+			location.href = 'fundingList?page=' + page;
+		}
 	</script>
+
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -1,5 +1,7 @@
 package com.etoile.app.funding.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,29 +12,55 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.etoile.app.admin.mapper.CodeMapper;
 import com.etoile.app.funding.FundingJoinVO;
 import com.etoile.app.funding.FundingVO;
 import com.etoile.app.funding.service.FundingService;
+import com.etoile.app.history.common.Paging;
 
 @Controller
 public class FundingContorller {
 
 	@Autowired
 	private FundingService fundingService;
-	
+
 	@Autowired
 	private CodeMapper codeMapper;
 
 	// 펀딩 목록 조회
 	@RequestMapping("/site/fundingList")
-	public String fundingList(Model model, FundingVO vo) {
+	public String fundingList(Model model, FundingVO vo, Paging paging) {
+
+		// 페이징 처리
+		// 한 페이지 출력건수
+		paging.setPageUnit(8);
+
+		// 전체 건수
+		int totalCount = fundingService.getFundingCnt(vo);
+		paging.setTotalRecord(totalCount); // 임의로 지정
+
+		// 총 페이지 번호
+		paging.setPageSize(5);
+
+		// 페이지번호 파라미터
+		if (paging.getPage() == null) {
+			paging.setPage(1);
+		}
+		// 시작/마지막 레코드 번호
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast());
+
+		model.addAttribute("paging", paging);
+		//
+
 		vo.setPage("registerPage");
-		
+
 		List<FundingVO> fundings = fundingService.fundingList(vo);
-		System.out.println(fundings.get(1).getFundingTitle());
+		// System.out.println(fundings.get(1).getFundingTitle());
 		model.addAttribute("fundings", fundings);
 
 		return "site/funding/fundingList";
@@ -41,9 +69,9 @@ public class FundingContorller {
 	// 펀딩 등록 폼
 	@GetMapping("/site/fundingInsertForm.do") // 호출명
 	public String fundingInsertForm(Model model, FundingVO vo, HttpServletRequest request) { // 메소드명
-		String id=(String) request.getSession().getAttribute("id");
+		String id = (String) request.getSession().getAttribute("id");
 		vo.setMemberId(id);
-		
+
 		model.addAttribute("fundings", fundingService.fundingList(vo)); // 등록 폼에도 DB값을 가져와야 하므로 적어줌
 		model.addAttribute("cateList", codeMapper.codeList("category"));
 		model.addAttribute("branList", codeMapper.codeList("brand"));
@@ -53,9 +81,9 @@ public class FundingContorller {
 	// 펀딩 등록
 	@RequestMapping("site/fundingInsert.do")
 	public String fundingInsert(Model model, FundingVO vo, HttpServletRequest request) {
-		String id=(String) request.getSession().getAttribute("id");
+		String id = (String) request.getSession().getAttribute("id");
 		vo.setMemberId(id);
-		
+
 		String viewPath = null;
 
 		int n = fundingService.fundingInsert(vo);
@@ -82,6 +110,7 @@ public class FundingContorller {
 	@RequestMapping("/admin/fundingRequestList.a")
 	public String fundingRequestList(Model model, FundingVO vo) {
 		vo.setPage("requestPage");
+		vo.setEnd(1000);
 		List<FundingVO> fundings = fundingService.fundingRequestList(vo);
 		model.addAttribute("fundings", fundings);
 
@@ -92,6 +121,7 @@ public class FundingContorller {
 	@RequestMapping("/admin/fundingRegisterList.a")
 	public String fundingRegisterList(Model model, FundingVO vo) {
 		vo.setPage("registerPage");
+		vo.setEnd(1000);
 		List<FundingVO> fundings = fundingService.fundingRegisterList(vo);
 		model.addAttribute("fundings", fundings);
 
@@ -109,16 +139,15 @@ public class FundingContorller {
 		return "admin/funding/fundingUpdateForm"; // 페이지명 일치
 	}
 
-
-	// (관리자) 요청된 펀딩 수정 폼
-	@GetMapping("/admin/fundingRequestUpdateForm.a")
+	// (관리자) 요청된 펀딩 수정 폼 (-> 파일 업로드 처리중!)
+	@RequestMapping("/admin/fundingRequestUpdateForm.a")
 	public String fundingRequestUpdateForm(Model model, FundingVO vo) {
-			
-		//상태변경
-		vo.setFundingCondition("검수중");
-		fundingService.conditionUpdate(vo);
 		
-		//단건조회
+		// 상태변경
+		vo.setFundingCondition("검수중"); 
+		fundingService.conditionUpdate(vo); // DB에 저장
+
+		// 단건조회
 		FundingVO selectVo = fundingService.fundingRequestUpdateForm(vo);
 		model.addAttribute("selectVo", selectVo);
 		model.addAttribute("cateList", codeMapper.codeList("category"));
@@ -142,12 +171,26 @@ public class FundingContorller {
 	}
 
 	// 요청된 펀딩 수정
-	@PostMapping("admin/fundingRequestUpdate.a")
-	public String fundingRequestUpdate(Model model, FundingVO vo) {
+	@PostMapping("admin/fundingRequestUpdate.a") 
+	public String fundingRequestUpdate(Model model, FundingVO vo, HttpServletRequest request,
+			@RequestParam(value="uploadImage", required = false) MultipartFile uploadImage) throws IllegalStateException, IOException {
+		// url을 통해 실제경로를 가져온다.
+		String path = request.getSession().getServletContext().getRealPath("/images");
+		System.out.println(uploadImage);
+		// 첨부파일 처리
+		if (uploadImage != null && uploadImage.getSize() > 0) {
+			File file = new File(path, uploadImage.getOriginalFilename());
+
+			uploadImage.transferTo(file);
+			// 파일명을 VO에 담고
+			vo.setFundingImage(uploadImage.getOriginalFilename());
+		}
+		
+		
 		String viewPath = null;
-		
+
 		vo.setFundingCondition("펀딩오픈예정");
-		
+
 		int n = fundingService.fundingRequestUpdate(vo);
 		if (n != 0) {
 			viewPath = "redirect:fundingRequestList.a"; // 리퀘스트 매핑 메소드 호출
@@ -175,7 +218,7 @@ public class FundingContorller {
 	@PostMapping("admin/conditionUpdate.a")
 	@ResponseBody
 	public String conditionUpdate(FundingVO vo) {
-		
+
 		int n = fundingService.conditionUpdate(vo);
 		if (n != 0) {
 			return "SUCCESS";
@@ -189,7 +232,7 @@ public class FundingContorller {
 	@RequestMapping(value = "site/fundingJoinInsert.do")
 	@ResponseBody
 	public FundingJoinVO fundingJoinInsert(FundingJoinVO vo, FundingVO vo2, HttpServletRequest request) {
-		String id=(String) request.getSession().getAttribute("id");
+		String id = (String) request.getSession().getAttribute("id");
 		vo.setMemberId(id);
 
 		fundingService.fundingJoinInsert(vo);
@@ -197,27 +240,27 @@ public class FundingContorller {
 
 		return vo;
 	}
-	
-	//마이페이지
-	
-	//마이 펀딩
+
+	// 마이페이지
+
+	// 마이 펀딩
 	@RequestMapping("site/myFundingList.do")
 	public String myFundingList(Model model, FundingVO vo, HttpServletRequest request) {
-		String id=(String) request.getSession().getAttribute("id");
+		String id = (String) request.getSession().getAttribute("id");
 		vo.setMemberId(id);
-		
+
 		List<FundingVO> fundings = fundingService.myFundingList(vo);
 		model.addAttribute("fundings", fundings);
 
 		return "site/my/myFundingList";
 	}
 
-	//조인 펀딩
+	// 조인 펀딩
 	@RequestMapping("site/joinFundingList.do")
 	public String joinFundingList(Model model, FundingVO vo, HttpServletRequest request) {
-		String id=(String) request.getSession().getAttribute("id");
+		String id = (String) request.getSession().getAttribute("id");
 		vo.setMemberId(id);
-		
+
 		List<FundingVO> fundings = fundingService.joinFundingList(vo);
 		model.addAttribute("fundings", fundings);
 

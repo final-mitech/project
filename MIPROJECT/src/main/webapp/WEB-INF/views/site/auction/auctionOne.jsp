@@ -12,8 +12,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.0/dist/web3.min.js"></script>
-	<script type="text/javascript" src="/etoile/resources/js/AuctionAbi.js"></script>
-	<script type="text/javascript" src="/etoile/resources/js/AuctionBid.js"></script>
+	<script type="text/javascript" src="/etoile/resources/js/biddingAbi.js"></script>
+	<script type="text/javascript" src="/etoile/resources/js/biddingIndex.js"></script>
 	<style>
 		span {
 			display: inline-block;
@@ -163,17 +163,29 @@
 												name="" style="width: 60%" readonly>
 										</div>
 										<br />
-										<div class="form-group form-inline">
-											<input type="radio" class="form-control" id="bid" name="checkBid" value=""
-												style="width: 3%;">&nbsp;
-											입찰가&nbsp;<input type="text" class="form-control" id="bid1"
-												style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<input type="radio" class="form-control" id="immediateBid" name="checkBid"
-												value="" style="width: 3%;">&nbsp;
-											즉시낙찰가&nbsp;<input type="text" class="form-control" id="immediateBid1"
-												style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth<br />
-										</div>
+										<c:if test="${vo.auctionBestPrice +1 ne vo.auctionImmediateBid}">
+											<div class="form-group form-inline">
+												<input type="radio" class="form-control" id="bid" name="checkBid"
+													value="" style="width: 3%;">&nbsp;
+												입찰가&nbsp;<input type="text" class="form-control" id="bid1"
+													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="radio" class="form-control" id="immediateBid"
+													name="checkBid" value="" style="width: 3%;">&nbsp;
+												즉시낙찰가&nbsp;<input type="text" class="form-control" id="immediateBid1"
+													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth<br />
+											</div>
+										</c:if>
+										<c:if test="${vo.auctionBestPrice +1 eq vo.auctionImmediateBid}">
+											<div class="form-group form-inline">
+												<input type="hidden" class="form-control" id="bid" name="checkBid"
+													value="" style="width: 3%;">
+												<input type="radio" class="form-control" id="immediateBid"
+													name="checkBid" value="" style="width: 3%;">&nbsp;
+												즉시낙찰가&nbsp;<input type="text" class="form-control" id="immediateBid1"
+													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth<br />
+											</div>
+										</c:if>
 									</div>
 									<div class="modal-footer">
 										<span class="rounded">
@@ -195,15 +207,14 @@
 	<br />
 </body>
 <script>
-
 	var memberId = $('#memberId').val();
 	console.log(memberId);
 
 	$('#joinBid').click(function () {
 		//로그인 체크
-		if(memberId == ''){
-			location.href="/etoile/site/loginForm";
-		}else{
+		if (memberId == '') {
+			location.href = "/etoile/site/loginForm";
+		} else {
 			$('#joinBid').attr('data-target', '#bidModal');
 		}
 
