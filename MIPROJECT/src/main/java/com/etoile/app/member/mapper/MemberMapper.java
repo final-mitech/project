@@ -3,10 +3,15 @@ package com.etoile.app.member.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.etoile.app.funding.FundingJoinVO;
+import com.etoile.app.funding.FundingVO;
 import com.etoile.app.member.common.RecordVO;
 import com.etoile.app.vo.CouponVO;
 import com.etoile.app.vo.GradeVO;
 import com.etoile.app.vo.MemberVO;
+import com.etoile.app.vo.RentalVO;
 
 
 public interface MemberMapper {
@@ -28,16 +33,23 @@ public interface MemberMapper {
 	public int memberCount(MemberVO vo);
 	
 	//등급별 조건 및 혜택 조회
-	public GradeVO gradeCoupon(String grade);	
+	public List<GradeVO> gradeCoupon(String grade);
+	//한달간 회원 대여이력 카운트
+	public int rentalCount(@Param("id") String id, @Param("date") String date);
 	//쿠폰 전체 조회
 	public List<CouponVO> couponList(CouponVO vo);
 	//쿠폰 등록
 	public int couponInsert(CouponVO vo);
 	//쿠폰 수정
 	public int couponUpdate(CouponVO vo);
-	//쿠폰 삭제
-	public int couponDelete(CouponVO vo);
+	//등급별 쿠폰 삭제
+	public int gradeCouponDelete(CouponVO vo);
 	
 	//고객별 대여이력 조회
 	public List<RecordVO> memberRentalList(String id);
+	
+	//성공한 펀딩 내역 받아오기
+	public List<FundingVO> sucessFunding();
+	//선공한 펀딩에 참여한 내역 받아오기
+	public List<FundingJoinVO> sucessFundingJoin(@Param("fundingId") String fundingId);
 }

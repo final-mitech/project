@@ -61,7 +61,7 @@
 		<!-- 펀딩 목록 -->
 		<div class="row">
 			<div><h3>Funding</h3></div>
-			<c:forEach items="${fundingList }" var="f" begin="0" end="3">
+			<c:forEach items="${fundingList }" var="f">
 				<div class="col-3 mb-3">
 					<div class="card-deck">
 						<div class="card">

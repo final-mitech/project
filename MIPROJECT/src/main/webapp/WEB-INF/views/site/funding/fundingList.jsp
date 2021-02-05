@@ -45,13 +45,16 @@
 	float: right;
 }
 
-.h6.mb-0.mr-3 {
+/* .h6.mb-0.mr-3 {
 	padding: 1em;
-}
-
+} */
 .clickSelect {
 	width: 310px;
-	height: 550px;
+	height: 510px;
+}
+
+.card-body {
+	height: 300px;
 }
 </style>
 
@@ -63,8 +66,8 @@
 		<!-- 		<div class="row"> -->
 
 		<div class="div sort">
-			<a href="fundingList?sort=registrationSort">등록순</a> 
-			<a href="fundingList?sort=popularitySort">인기순</a>
+			<a href="fundingList?sort=registrationSort">등록순</a> <a
+				href="fundingList?sort=popularitySort">인기순</a>
 		</div>
 		<form action="fundingList">
 			<div class="input-group div search">
@@ -93,60 +96,54 @@
 
 			<c:forEach items="${fundings }" var="f">
 
-				<div class="col-lg-3 col-md-6 mb-4" style="height: 600px">
+				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="card clickSelect" data-id="${f.fundingId }">
 						<img class="card-img-top" src="../images/${f.fundingImage }"
-							alt="Card image" style="width: 300px" height="200px"
+							alt="Card image" style="width: 305px" height="260px"
 							align="center">
 						<div class="card-body">
-							<h4 class="card-title" align="left" style="display: inline">
+							<h5 class="card-title" align="left" style="display: inline">
 								<b>${f.fundingTitle }</b>
-							</h4>
+							</h5>
+							<br/><br/>
+							
 							<!-- 라벨 색 -->
-							<c:choose>
-								<c:when test="${f.fundingCondition eq '펀딩오픈예정'}">
-									<span class="badge badge-pill badge-secondary"
-										style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-								</c:when>
-								<c:when test="${f.fundingCondition eq '펀딩중'}">
-									<span class="badge badge-pill badge-danger"
-										style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-								</c:when>
-								<c:when test="${f.fundingCondition eq '펀딩마감'}">
-									<span class="badge badge-pill badge-success"
-										style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
-								</c:when>
-							</c:choose>
+							<div>
+								<c:choose>
+									<c:when test="${f.fundingCondition eq '펀딩오픈예정'}">
+										<span class="badge badge-pill badge-secondary"
+											style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+									</c:when>
+									<c:when test="${f.fundingCondition eq '펀딩중'}">
+										<span class="badge badge-pill badge-danger"
+											style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+									</c:when>
+									<c:when test="${f.fundingCondition eq '펀딩마감'}">
+										<span class="badge badge-pill badge-success"
+											style="float: right; font-size: 1rem;">${f.fundingCondition }</span>
+									</c:when>
+								</c:choose>
+							</div>
 							<!-- 라벨 색 종료 -->
-							<p style="margin-bottom: 0;">
-							<h6 align="right" style="margin-right: 10px;">
-								<b>${f.fundingDday }</b>
-							</h6>
-							</p>
-							<p class="card-text">${f.fundingContent }</p>
+							<br />
+							<div>
 
+								<h6 align="right" style="margin-right: 10px;">
+									<b>${f.fundingDday }</b>
+								</h6>
+								<br />
+								
+							</div>
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
-									<!--  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div> -->
 									<div class="row no-gutters align-items-center">
 										<div class="col-auto">
-											<!--       <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div> -->
 											<div class="h6 mb-0 mr-3">
 												<b><fmt:formatNumber var="percent"
 														value="${f.fundingTotalprice / f.fundingGoal * 100}"
 														pattern="##" />${percent }%</b>
 											</div>
 										</div>
-
-										<!-- 										<div class="col">
-											<div class="progress progress-sm mr-2">
-												<div class="progress-bar bg-info" role="progressbar"
-													style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-													aria-valuemax="100"></div>
-											</div>
-										</div> -->
-
 										<!-- 상태바 -->
 										<fmt:parseNumber value="${percent}" var="parsePer" />
 
@@ -206,7 +203,7 @@
 
 							<div class="col-auto">
 								<h6 align="center">
-									<b>${f.fundingTotalprice }/${f.fundingGoal }</b>
+									<b>${f.fundingTotalprice } eth / ${f.fundingGoal } eth</b>
 								</h6>
 							</div>
 
