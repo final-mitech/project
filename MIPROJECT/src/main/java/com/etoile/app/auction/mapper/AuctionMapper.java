@@ -38,7 +38,7 @@ public interface AuctionMapper {
 
 	// 경매 즉시낙찰
 	public int updateImmediateBid(AuctionVO vo);
-	
+
 	// 경매 즉시낙찰 후 배송상태 등록
 	public int updateAuctionDelivery(AuctionJoinVO vo);
 
