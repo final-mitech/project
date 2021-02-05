@@ -44,8 +44,8 @@ public class MemberController {
 		vo.setAddress(address);
 		
 		//각 등급별 쿠폰정보 조회 및 쿠폰테이블에 입력
-		GradeVO grade = memberService.gradeCoupon(vo.getGrade());
-		String[] benefit = grade.getGradeBenefit().split("%");
+		List<GradeVO> grade = memberService.gradeCoupon(vo.getGrade());
+		String[] benefit = grade.get(0).getGradeBenefit().split("%");
 		for(String str : benefit) {
 			CouponVO coupon = new CouponVO();
 			coupon.setMemberId(vo.getMemberId());

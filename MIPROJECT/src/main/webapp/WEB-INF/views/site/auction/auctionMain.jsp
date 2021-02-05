@@ -65,7 +65,7 @@
 
     .card-text {
       padding-top: 20px;
-      height: 200px;
+      height: 170px;
       border-color: rgb(0, 0, 0);
       font-size: small;
     }
@@ -73,7 +73,7 @@
     .btnJoin {
       background-color: rgb(66, 64, 64);
       color: #FBFBF4;
-      border-color:  rgb(66, 64, 64);
+      border-color: rgb(66, 64, 64);
       font-size: medium;
       height: 40px;
       padding-top: 6px;
@@ -132,21 +132,49 @@
                 <c:if test="${vo.auctionCondition eq '1' }">
                   <span class="badge badge-pill badge-light" style="background-color: #ffc1bd;">경매중</span>
                 </c:if>
-                <c:if test="${vo.auctionCondition eq '3' || vo.auctionCondition eq '8'}">
+                <c:if test="${vo.auctionCondition eq '3'}">
+                  <span class="badge badge-pill badge-light" style="background-color: #C8CAC4;">경매마감</span>
+                </c:if>
+                <c:if test="${vo.auctionCondition eq '8'}">
                   <span class="badge badge-pill badge-light" style="background-color: #C8CAC4;">경매마감</span>
                 </c:if>
               </button>
-              <div class="card-body">
-                <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top"
-                    src="/etoile/images/${vo.auctionImage}" alt="Card image" width="100%" height="230px"></a>
-              </div>
-              <div class="card-text">
-                <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>
-                <p style="font-size: small; text-align: center;">입찰 수 &nbsp;${vo.auctionJoinCount} </p>
-                <p style="padding-left: 20px;">경매시작가: ${vo.auctionBestPrice} </p>
-                <p style="padding-left: 20px;">즉시입찰가: ${vo.auctionImmediateBid}</p>
-                <p style="padding-left: 20px;">경매기간: ${vo.auctionStart} ~ ${vo.auctionEnd}</p>
-              </div>
+              <c:if test="${vo.auctionCondition eq '2' }">
+                <div class="card-body">
+                  <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top"
+                      src="/etoile/images/${vo.auctionImage}" alt="Card image" width="100%" height="280px"></a>
+                </div>
+                <div class="card-text">
+                  <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>
+                  <p style="font-size: small; text-align: center;">오픈예정입니다 :)</p>
+                  <p style="text-align: center;">경매시작가: ${vo.auctionBestPrice} &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 즉시입찰가: ${vo.auctionImmediateBid}</p>
+                  <p style="text-align: center;">오픈일자: &nbsp;${vo.auctionStart}</p>
+                </div>
+              </c:if>
+              <c:if test="${vo.auctionCondition eq '1' }">
+                <div class="card-body">
+                  <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top"
+                      src="/etoile/images/${vo.auctionImage}" alt="Card image" width="100%" height="280px"></a>
+                </div>
+                <div class="card-text">
+                  <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>
+                  <p style="font-size: small; text-align: center;">입찰 수 &nbsp;${vo.auctionJoinCount} </p>
+                  <p style="text-align: center;">최고입찰액: ${vo.auctionBestPrice} &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 즉시입찰가: ${vo.auctionImmediateBid}</p>
+                  <p style="text-align: center;">경매 기간: &nbsp;${vo.auctionStart} ~ ${vo.auctionEnd}</p>
+                </div>
+              </c:if>
+              <c:if test="${vo.auctionCondition eq '3' }">
+                <div class="card-body">
+                  <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top"
+                      src="/etoile/images/${vo.auctionImage}" alt="Card image" width="100%" height="280px"></a>
+                </div>
+                <div class="card-text">
+                  <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>
+                  <p style="font-size: small; text-align: center;">총 입찰 수 &nbsp;${vo.auctionJoinCount} </p>
+                  <p style="text-align: center;">경매낙찰가: ${vo.auctionBestPrice} </p>
+                  <p style="text-align: center;">마감일자: &nbsp;${vo.auctionEnd}</p>
+                </div>
+              </c:if>
               <c:if test="${vo.auctionCondition eq '1' }">
                 <div class="card-footer">
                   <a href="auctionOne?id=${vo.auctionId}" class="btn btnJoin btn-block btn-sm">입찰하러가기</a>
@@ -157,9 +185,11 @@
         </div>
       </c:forEach>
     </div>
+    <br/>
     <div style="margin: auto;">
       <tag:historyPaging jsFunc="goList" />
     </div>
+    <br/>
   </div>
 </body>
 <script>
