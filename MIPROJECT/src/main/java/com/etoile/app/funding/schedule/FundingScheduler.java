@@ -20,16 +20,16 @@ public class FundingScheduler {
 	@Autowired
 	MemberService memberService;
 	
-//	@Scheduled(cron = "0 0 12 * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 //	@Scheduled(cron = "0 0 * * * *")
-	@Scheduled(cron = "5 * * * * *")
 	public void fundingScheduleUpdate() {
-		System.out.println("매시간 0분에 호출");
+		System.out.println("매일 오전 12시에 업뎃");
+		/*System.out.println("매시간 0분에 호출");*/
 		
 		FundingVO vo = new FundingVO();
 		
 		//펀딩 오픈 예정 -> 펀딩 중
-		//fundingService.fundingStartUpdate(vo);
+		fundingService.fundingStartUpdate(vo);
 		
 		//펀딩 중 -> 펀딩 마감 
 		fundingService.fundingEndUpdate(vo);
