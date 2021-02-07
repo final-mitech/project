@@ -78,13 +78,7 @@
 				</button>
 			</div>
 		</form>
-		<!-- 			<div>
-				<a href="/etoile/admin/fundingRequestList.a">요청 펀딩 목록 </a> <a
-					href="/etoile/admin/fundingRegisterList.a"> 등록 펀딩 목록</a> <a
-					href="/etoile/site/myFundingList.do">마이펀딩 </a> <a
-					href="/etoile/site/joinFundingList.do">조인펀딩 </a>
-			</div> -->
-		<!-- 		</div> -->
+
 		<div class="row">
 			<div class="div register" align="right">
 				<button type="button" class="btn btn-dark"
