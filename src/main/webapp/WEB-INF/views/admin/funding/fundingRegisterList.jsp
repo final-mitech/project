@@ -73,17 +73,21 @@
 										<option>펀딩마감</option>
 								</select></td>
 							</c:if>
-							<c:if test="${f.fundingCondition eq '펀딩마감' and f.fundingTotalprice < f.fundingGoal} ">
-								<td class="eventDel"><select
+							<c:if test="${f.fundingCondition eq '펀딩마감'}">
+								<td class="eventDel">
+								<select
 									id="conditionChange${f.fundingId }" class="form-control"
 									onchange="conditionChange(${f.fundingId })">
 										<option>펀딩마감</option>
 										<!-- <option>환불하기</option> -->
 								</select></td>
+							
+								<c:if test="${f.fundingTotalprice ge f.fundingGoal}">
 								<td>
 									<button class="eventDel" onclick="App.refundButtonEvents()">환불하기</button>
 								</td>
 							</c:if>
+								</c:if>
 
 						</tr>
 					</c:forEach>
