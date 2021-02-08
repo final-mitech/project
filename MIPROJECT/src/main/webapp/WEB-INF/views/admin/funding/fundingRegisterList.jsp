@@ -61,7 +61,7 @@
 <%-- 							<td>${f.fundingImage }</td> --%>
 							<td class="eventDel"><select
 								id="conditionChange${f.fundingId }" class="form-control"
-								onchange="conditionChange(${f.fundingId })">
+								onchange="conditionChange(${f.fundingId }, ${f.fundingGoal })">
 									<option
 										<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
 										펀딩오픈예정</option>
@@ -86,6 +86,10 @@
 		</div>
 
 	</div>
+	<!-- 블록체인 -->
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+	<script src="/etoile/resources/js/fundingAbi.js"></script>
+	<script src="/etoile/resources/js/fundingExample.js"></script>
 
 	<!-- clickSelect : 펀딩 상세보기 -->
 	<script>
@@ -102,9 +106,16 @@
 			e.stopPropagation();
 		})			
 		
-		function conditionChange(id) {
+		function conditionChange(id, goal) {
 			let fundingId = id;
 			let fundingCondition = $('#conditionChange'+id).val();
+			if(fundingCondition == "펀딩중"){
+				let fundingGoal = parseInt(goal);
+				let date = 7;
+				App.setting(""+fundingId,date,fundingGoal);
+			}else if(fundingCondition == "펀딩마감"){
+				App.fundingResult(""+fundingId);
+			}
 			
 			$.ajax({
 				url: 'conditionUpdate.a',
