@@ -32,7 +32,7 @@ App = {
 	initContract: function() { //abi 
 		//컨트랙트 생성
 		App.contract = new web3.eth.Contract(abi);
-		App.contract.options.address = "0xA055578632813e1ea79D24a6d464da512eb9911a";
+		App.contract.options.address = "0x550E2D5b0e4bA1F6F7e9fa35942BD34D4b59734a";
 
 		App.joinButtonEvents(); //펀딩 참여 버튼 누르는 이벤트
 
@@ -95,10 +95,11 @@ App = {
 		})
 	},
 
-	refundButtonEvents: function() {
+	refundButtonEvents: function(id) {
 
-		var fundingId = $('#fundingId').val();
-
+		var fundingId = id;
+		
+		console.log(id, fundingId);
 		web3.eth.getAccounts(function(error, accounts) {
 			console.log(accounts);
 			if (error) {

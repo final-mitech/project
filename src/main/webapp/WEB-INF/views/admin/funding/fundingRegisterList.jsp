@@ -50,7 +50,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="f" items="${fundings }">
-						<tr class="clickSelect" data-id="${f.fundingId }" id="fundingId" >
+						<tr class="clickSelect" data-id="${f.fundingId }" id="fundingId">
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
@@ -74,20 +74,19 @@
 								</select></td>
 							</c:if>
 							<c:if test="${f.fundingCondition eq '펀딩마감'}">
-								<td class="eventDel">
-								<select
+								<td class="eventDel"><select
 									id="conditionChange${f.fundingId }" class="form-control"
 									onchange="conditionChange(${f.fundingId })">
 										<option>펀딩마감</option>
 										<!-- <option>환불하기</option> -->
 								</select></td>
-							
-								<c:if test="${f.fundingTotalprice ge f.fundingGoal}">
-								<td>
-									<button class="eventDel" onclick="App.refundButtonEvents()">환불하기</button>
-								</td>
-							</c:if>
+
+								<c:if test="${f.fundingTotalprice le f.fundingGoal}">
+									<td>
+										<button class="eventDel" onclick="App.refundButtonEvents(${f.fundingId })">환불하기</button>
+									</td>
 								</c:if>
+							</c:if>
 
 						</tr>
 					</c:forEach>
@@ -103,12 +102,12 @@
 		</div>
 
 	</div>
-	
+
 	<!-- 블록체인 -->
 	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 	<script src="/etoile/resources/js/abi.js"></script>
 	<script src="/etoile/resources/js/index.js"></script>
-	
+
 	<!-- clickSelect : 펀딩 상세보기 -->
 	<script>
 		$('.clickSelect').on('click', clickSelectFunc);
