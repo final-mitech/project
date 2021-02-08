@@ -62,7 +62,7 @@
 							<c:if test="${f.fundingCondition ne '펀딩마감'}">
 								<td class="eventDel"><select
 									id="conditionChange${f.fundingId }" class="form-control"
-									onchange="conditionChange(${f.fundingId })">
+									onchange="conditionChange(${f.fundingId }, ${f.fundingGoal})">
 										<option
 											<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
 											펀딩오픈예정</option>
@@ -126,6 +126,7 @@
 			if(fundingCondition == "펀딩중"){
 				let fundingGoal = parseInt(goal);
 				let date = 7;
+				console.log(""+fundingId,date,fundingGoal);
 				App.setting(""+fundingId,date,fundingGoal);
 			}else if(fundingCondition == "펀딩마감"){
 				App.fundingResult(""+fundingId);
