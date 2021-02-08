@@ -49,7 +49,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="f" items="${fundings }">
-						<tr class="clickSelect" data-id="${f.fundingId }">
+						<tr class="clickSelect" data-id="${f.fundingId }" id="fundingId">
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
@@ -58,20 +58,34 @@
 <%-- 							<td>${f.fundingCategory }</td> --%>
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
-<%-- 							<td>${f.fundingImage }</td> --%>
-							<td class="eventDel"><select
-								id="conditionChange${f.fundingId }" class="form-control"
-								onchange="conditionChange(${f.fundingId }, ${f.fundingGoal })">
-									<option
-										<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
-										펀딩오픈예정</option>
-									<option
-										<c:if test="${f.fundingCondition eq '펀딩중'}"> selected </c:if>>
-										펀딩중</option>
-									<option
-										<c:if test="${f.fundingCondition eq '펀딩마감'}"> selected </c:if>>
-										펀딩마감</option>
-							</select></td>
+<%-- 						<%-- 							<td>${f.fundingImage }</td> --%>
+							<c:if test="${f.fundingCondition ne '펀딩마감'}">
+								<td class="eventDel"><select
+									id="conditionChange${f.fundingId }" class="form-control"
+									onchange="conditionChange(${f.fundingId })">
+										<option
+											<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
+											펀딩오픈예정</option>
+										<option
+											<c:if test="${f.fundingCondition eq '펀딩중'}"> selected </c:if>>
+											펀딩중</option>
+										<option>펀딩마감</option>
+								</select></td>
+							</c:if>
+							<c:if test="${f.fundingCondition eq '펀딩마감'}">
+								<td class="eventDel"><select
+									id="conditionChange${f.fundingId }" class="form-control"
+									onchange="conditionChange(${f.fundingId })">
+										<option>펀딩마감</option>
+										<!-- <option>환불하기</option> -->
+								</select></td>
+
+								<c:if test="${f.fundingTotalprice le f.fundingGoal}">
+									<td>
+										<button class="eventDel" onclick="App.refundButtonEvents(${f.fundingId })">환불하기</button>
+									</td>
+								</c:if>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>

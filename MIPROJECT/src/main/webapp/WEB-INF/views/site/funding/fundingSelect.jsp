@@ -524,6 +524,8 @@
 								<button value="등록" class="round-black-btn"
 								id="joinbutton">펀딩참여하기</button>
 									</c:if>
+									<button value="목록" class="round-black-btn"
+										onclick="location.href='fundingList' ">펀딩목록보기</button>
 								<!-- submit 지움 -->
 						</div>
 					</div>

@@ -64,15 +64,19 @@
 
 	<div class="container" style="max-width: 1400px;">
 		<!-- 		<div class="row"> -->
-
+		
 		<div class="div sort">
-			<a href="fundingList?sort=registrationSort">등록순</a> <a
-				href="fundingList?sort=popularitySort">인기순</a>
+		<!-- 	<a href="fundingList?sort=registrationSort">등록순</a> 
+			<a href="fundingList?sort=popularitySort">인기순</a> -->
+			<a onclick="sortFunc('registrationSort')"> 등록순 </a>
+			<a onclick="sortFunc('popularitySort')"> 인기순 </a>
 		</div>
-		<form action="fundingList">
+		<form action="fundingList" id="pageForm">
+		<input type="hidden" name="page" id="page" >
+		<input type="hidden" name="sort" id="sort" value="${vo.sort }">
 			<div class="input-group div search">
 				<input type="text" class="form-control" placeholder="검색어를 입력하세요"
-					name="fundingBrand">​​​​​​​
+					name="fundingBrand" value="${vo.fundingBrand }">​​​​​​​
 				<button type="submit">
 					<i class="fas fa-search"></i>
 				</button>
@@ -225,12 +229,14 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aira-hidden="ture">&times;</button>
 					<h4 class="modal-title" id="modalInsertLabel">펀딩 요청 등록</h4>
+					
 				</div>
 				<div class="modal-body">펀딩 요청 등록이 성공적으로 완료되었습니다. 마이페이지의 펀딩 내역을
 					확인해주세요.</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">이버튼은뭐지</button>
+				
 				</div>
 			</div>
 			<!-- modal-content 끝 -->
@@ -272,7 +278,15 @@
 
 		//페이징
 		function goList(page) {
-			location.href = 'fundingList?page=' + page;
+			/* location.href = 'fundingList?page=' + page; */
+			$("#page").val(page);
+			$("#pageForm").submit();		
+		}
+		
+		//정렬
+		function sortFunc(sortVal) {
+			$('#sort').val(sortVal);
+			$("#pageForm").submit();
 		}
 	</script>
 

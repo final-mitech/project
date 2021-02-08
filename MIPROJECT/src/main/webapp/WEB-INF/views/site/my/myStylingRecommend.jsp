@@ -23,10 +23,10 @@
 		<div class="row" style="background: #e5e5e5;">
 			<br>
 			<c:forEach var="list" items="${list }">
-				<div class="container" style="max-width: 1400px;">
+				<div class="container" onclick='location.href="reviewDetail?styleId=${list.styleId}"' style="max-width: 1400px;">
 					<div class="row no-gutters">
 						<div class="col-4 mb-3" style="background: #ffffff; overflow: hidden; height: 200px">
-							<img src="${list.styleImage }" class="card-img" style="height: 120%; width: 85%; overflow: hidden;">
+							<img src="/etoile/images/${list.styleImage }" class="card-img" style="height: 120%; width: 85%; overflow: hidden;">
 						</div>
 						<div class="col-8 mb-3" style="background: #ffffff; height: 200px">
 							<div class="card-body">
