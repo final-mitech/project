@@ -1,6 +1,5 @@
 package com.etoile.app.style.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.etoile.app.vo.ProductVO;
@@ -18,7 +17,7 @@ public interface StyleMapper {
 	List<ProductVO> productReviewList(ProductVO vo);			// 리뷰 등록폼 제품 리스트
 	int stylingInsert(StylingVO vo);							// 리뷰 등록
 	
-	HashMap<String, Object> stylingRecommend(RecommendVO vo);	// 리뷰 좋아요
+	int stylingRecommend(RecommendVO vo);	// 리뷰 좋아요
 	int stylingRecommendDelete(RecommendVO vo);					// 리뷰 좋아요 취소
 	int selectRecommend(StylingVO vo);							// 특정 회원 & 리뷰 좋아요 수 조회 (count)
 	int selectTotalRecommend(StylingVO vo);						// 특정 리뷰 좋아요 수 조회 (count)
