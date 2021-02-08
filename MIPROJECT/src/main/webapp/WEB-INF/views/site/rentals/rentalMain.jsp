@@ -64,7 +64,7 @@
 			<a href="productList">최신순</a> <a href="productList2">인기순</a>
 		</div>
 		<div style="float: right;">
-			<form id="frm" action="productSearch.do">
+			<form id="frm" action="productSearch">
 				<label>
 					<input type="text" name="productName" placeholder="검색할 상품명 입력" size="25px">
 				</label>

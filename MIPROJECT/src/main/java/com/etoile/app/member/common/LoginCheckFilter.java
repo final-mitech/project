@@ -29,10 +29,11 @@ public class LoginCheckFilter implements Filter {
 		String id = (String) req.getSession().getAttribute("id");
 		if(id == null) {
 			res.sendRedirect("/etoile/site/loginForm");
-		}
-		
-		chain.doFilter(request, response);
+		}else {
+			chain.doFilter(request, response);
 
+		}
+				
 	}
 
 	@Override
