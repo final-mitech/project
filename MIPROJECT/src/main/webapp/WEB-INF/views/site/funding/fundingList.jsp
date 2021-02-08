@@ -64,19 +64,15 @@
 
 	<div class="container" style="max-width: 1400px;">
 		<!-- 		<div class="row"> -->
-		
+
 		<div class="div sort">
-		<!-- 	<a href="fundingList?sort=registrationSort">등록순</a> 
-			<a href="fundingList?sort=popularitySort">인기순</a> -->
-			<a onclick="sortFunc('registrationSort')"> 등록순 </a>
-			<a onclick="sortFunc('popularitySort')"> 인기순 </a>
+			<a href="fundingList?sort=registrationSort">등록순</a> <a
+				href="fundingList?sort=popularitySort">인기순</a>
 		</div>
-		<form action="fundingList" id="pageForm">
-		<input type="hidden" name="page" id="page" >
-		<input type="hidden" name="sort" id="sort" value="${vo.sort }">
+		<form action="fundingList">
 			<div class="input-group div search">
 				<input type="text" class="form-control" placeholder="검색어를 입력하세요"
-					name="fundingBrand" value="${vo.fundingBrand }">​​​​​​​
+					name="fundingBrand">​​​​​​​
 				<button type="submit">
 					<i class="fas fa-search"></i>
 				</button>
@@ -276,15 +272,7 @@
 
 		//페이징
 		function goList(page) {
-			/* location.href = 'fundingList?page=' + page; */
-			$("#page").val(page);
-			$("#pageForm").submit();		
-		}
-		
-		//정렬
-		function sortFunc(sortVal) {
-			$('#sort').val(sortVal);
-			$("#pageForm").submit();
+			location.href = 'fundingList?page=' + page;
 		}
 	</script>
 
