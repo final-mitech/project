@@ -15,6 +15,4 @@ public class StylingVO {
 	//페이징관련 처리를 위한 필드
 	private int start;
 	private int end;
-	private String search;
-	private String searchType;
 }

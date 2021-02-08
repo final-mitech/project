@@ -70,7 +70,7 @@ public class RentalController {
 			
 			List<ProductVO> productList = rentalService.rentalProductList2(vo);
 			model.addAttribute("list", productList);
-			return "site/rentals/rentalMain";
+			return "site/rentals/rentalMain2";
 		}
 	
 
