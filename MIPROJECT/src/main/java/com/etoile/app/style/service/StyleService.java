@@ -10,6 +10,7 @@ import com.etoile.app.vo.StylingVO;
 public interface StyleService {
 	List<StylingVO> stylingList(StylingVO vo); 					// 리뷰 목록 조회
 	StylingVO stylingSelect(StylingVO vo);						// 리뷰 한건 조회 (상세)
+	ProductVO stylingSearchProduct(ProductVO vo);
 	
 	List<StylingVO> stylingSearch(StylingVO vo); 				// 리뷰 검색 리스트
 	int stylingCount(StylingVO vo);								// 총 리뷰 수 카운트
