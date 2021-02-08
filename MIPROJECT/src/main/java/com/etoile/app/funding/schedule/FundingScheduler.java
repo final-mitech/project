@@ -53,7 +53,7 @@ public class FundingScheduler {
 				CouponVO coupon = new CouponVO();
 				coupon.setMemberId(joinVO.getMemberId());
 				coupon.setCouponSort(product);
-				coupon.setFundingCoupon(gift);
+				coupon.setGradeCoupon(gift);
 				coupon.setCouponUsed(0);
 				memberService.couponInsert(coupon);
 			}

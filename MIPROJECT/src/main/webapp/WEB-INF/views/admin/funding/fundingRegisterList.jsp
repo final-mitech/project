@@ -38,40 +38,56 @@
 						<th scope="col">NO.</th>
 						<th scope="col">펀딩명</th>
 						<th scope="col">상품명</th>
-<!-- 						<th scope="col">브랜드</th> -->
-<!-- 						<th scope="col">모델번호</th> -->
-<!-- 						<th scope="col">카테고리</th> -->
+						<!-- 						<th scope="col">브랜드</th> -->
+						<!-- 						<th scope="col">모델번호</th> -->
+						<!-- 						<th scope="col">카테고리</th> -->
 						<th scope="col">목표금액</th>
 						<th scope="col">현재모금액</th>
-<!-- 						<th scope="col">이미지</th> -->
+						<!-- 						<th scope="col">이미지</th> -->
 						<th scope="col">펀딩상태</th>
+						<th scope="col">펀딩환불</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="f" items="${fundings }">
-						<tr class="clickSelect" data-id="${f.fundingId }">
+						<tr class="clickSelect" data-id="${f.fundingId }" id="fundingId">
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
-<%-- 							<td>${f.fundingBrand }</td> --%>
-<%-- 							<td>${f.fundingSerial }</td> --%>
-<%-- 							<td>${f.fundingCategory }</td> --%>
+							<%-- 							<td>${f.fundingBrand }</td> --%>
+							<%-- 							<td>${f.fundingSerial }</td> --%>
+							<%-- 							<td>${f.fundingCategory }</td> --%>
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
-<%-- 							<td>${f.fundingImage }</td> --%>
-							<td class="eventDel"><select
-								id="conditionChange${f.fundingId }" class="form-control"
-								onchange="conditionChange(${f.fundingId })">
-									<option
-										<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
-										펀딩오픈예정</option>
-									<option
-										<c:if test="${f.fundingCondition eq '펀딩중'}"> selected </c:if>>
-										펀딩중</option>
-									<option
-										<c:if test="${f.fundingCondition eq '펀딩마감'}"> selected </c:if>>
-										펀딩마감</option>
-							</select></td>
+							<%-- 							<td>${f.fundingImage }</td> --%>
+							<c:if test="${f.fundingCondition ne '펀딩마감'}">
+								<td class="eventDel"><select
+									id="conditionChange${f.fundingId }" class="form-control"
+									onchange="conditionChange(${f.fundingId })">
+										<option
+											<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
+											펀딩오픈예정</option>
+										<option
+											<c:if test="${f.fundingCondition eq '펀딩중'}"> selected </c:if>>
+											펀딩중</option>
+										<option>펀딩마감</option>
+								</select></td>
+							</c:if>
+							<c:if test="${f.fundingCondition eq '펀딩마감'}">
+								<td class="eventDel"><select
+									id="conditionChange${f.fundingId }" class="form-control"
+									onchange="conditionChange(${f.fundingId })">
+										<option>펀딩마감</option>
+										<!-- <option>환불하기</option> -->
+								</select></td>
+
+								<c:if test="${f.fundingTotalprice le f.fundingGoal}">
+									<td>
+										<button class="eventDel" onclick="App.refundButtonEvents(${f.fundingId })">환불하기</button>
+									</td>
+								</c:if>
+							</c:if>
+
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -86,6 +102,11 @@
 		</div>
 
 	</div>
+
+	<!-- 블록체인 -->
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+	<script src="/etoile/resources/js/abi.js"></script>
+	<script src="/etoile/resources/js/index.js"></script>
 
 	<!-- clickSelect : 펀딩 상세보기 -->
 	<script>
