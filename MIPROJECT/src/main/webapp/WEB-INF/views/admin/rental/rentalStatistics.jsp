@@ -13,35 +13,38 @@
 	src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="<c:url value="/resources/js/productHistory.js" />"></script>
-<script>
+<script type="text/javascript">
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
 
 function drawVisualization() {
+	var result = ${map};
 	
-	var data = google.visualization.arrayToDataTable(
-		//for (var i=0; i<=6; i++) {
-		[
-			['Month', '월별 대여횟수', '월별 대여 총금액'],
-			['2004/05',  10,      938],
-	    	['2005/06',  15,      1120],
-	    	['2006/07',  5,      1167],
-	    	['2007/08',  7,      1110],
-	    	['2008/09',  20,      691],
-	    	['2008/10',  20,      1500]
-		]
-		//}
-	);
+	var data = [];
+	var temp = [];
+	temp.push('Month');
+	temp.push('월별 대여횟수');
+	temp.push('월별 대여 총금액');
+	data.push(temp);
+	
+	for (var i=0; i<result.length; i++) {
+		var temp = [];
+		temp.push(result[i].date);
+		temp.push(parseInt(result[i].cnt));
+		temp.push(parseInt(result[i].rentalPay));
+		data.push(temp);
+	}
+	var data = google.visualization.arrayToDataTable(data);
 
 	var options = {
 		vAxes: {
 			0: { 
 				minValue : 0,
-				maxValue : 50	
+				maxValue : 30
 			},
 			1: {
-				minValue : 0,
-				maxValue : 2000	
+				minValue : 500000,
+				maxValue : 3000000
 			}
 		},
 		

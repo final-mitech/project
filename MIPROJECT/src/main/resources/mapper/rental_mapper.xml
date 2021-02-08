@@ -4,22 +4,24 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.etoile.app.rental.mapper.RentalMapper">
-	
+
 	<!-- 물품리스트 출력+페이징 -->
-	<select id="rentalProductList" resultType="productVO" parameterType="productVO">
-		SELECT b.* FROM (SELECT a.*, rownum rnum  
-						FROM ( SELECT * FROM PRODUCT ) a ) b
+	<select id="rentalProductList" resultType="productVO"
+		parameterType="productVO">
+		SELECT b.* FROM (SELECT a.*, rownum rnum
+		FROM ( SELECT * FROM PRODUCT ) a ) b
 		where rnum between #{start} and #{end}
 	</select>
 	<!-- 물품리스트 인기순(대여순)+페이징 -->
-	<select id="rentalProductList2" resultType="productVO" >
-		SELECT b.* FROM (SELECT a.*, rownum rnum  
-						FROM ( select NVL(r.CNT, 0) ren, p.*
-								from product p LEFT OUTER JOIN (select count(*) cnt, product_id 
-																from rental group by product_id) r
-																on p.product_id = r.product_id
-																order by ren desc) a 
-							) b
+	<select id="rentalProductList2" resultType="productVO">
+		SELECT
+		b.* FROM (SELECT a.*, rownum rnum
+		FROM ( select NVL(r.CNT, 0) ren, p.*
+		from product p LEFT OUTER JOIN (select count(*) cnt, product_id
+		from rental group by product_id) r
+		on p.product_id = r.product_id
+		order by ren desc) a
+		) b
 		where rnum between #{start} and #{end}
 	</select>
 	<!-- product테이블 총 데이터수량 조회 -->
@@ -31,133 +33,156 @@
 			</if>
 		</where>
 	</select>
-	
+
 	<!-- 물품상세조회 -->
 	<select id="rentalProductSelect" resultType="productVO">
-		SELECT * 
+		SELECT *
 		FROM product
 		WHERE product_id = #{productId}
 	</select>
 	<select id="rentalRentalSelect" resultType="RentalVO">
-		SELECT *
-		FROM rental
-		WHERE product_id = #{productId}
+		SELECT b.* FROM
+		(SELECT a.*, rownum rnum
+		FROM ( select *
+		from rental
+		where product_id = #{productId}
+		and rental_end is not null
+		order by rental_end DESC ) a
+		) b
+		where rnum = 1
 	</select>
-	
+
 	<!-- 물품리스트 검색 -->
 	<select id="searchList" resultType="productVO">
-		SELECT b.* FROM (SELECT a.*, rownum rnum  FROM (
-		SELECT * FROM PRODUCT WHERE product_name like UPPER('%' || #{productName} || '%' )) a ) b
-		where rnum between #{start} and #{end}
+		SELECT b.* FROM (SELECT a.*,
+		rownum rnum FROM (
+		SELECT * FROM PRODUCT WHERE product_name like
+		UPPER('%' || #{productName} || '%' )) a ) b
+		where rnum between #{start}
+		and #{end}
 	</select>
-	
-	<!-- Excel 다운 (rentalRequest)-->
+
+	<!-- Excel 다운 (rentalRequest) -->
 	<select id="rentalExcel" resultType="map">
 		SELECT a.RENTAL_ID,
-				a.PRODUCT_ID,
-				a.PRODUCT_NAME,
-				a.MEMBER_ID,
-				m.NAME,
-				m.PHONE,
-				a.RENTAL_ADDRESS,
-				to_char(a.RENTAL_START, 'yyyy-MM-dd'),
-				to_char(a.RENTAL_END, 'yyyy-MM-dd'),
-				a.RENTAL_PAY,
-				a.RENTAL_WAYBILL
+		a.PRODUCT_ID,
+		a.PRODUCT_NAME,
+		a.MEMBER_ID,
+		m.NAME,
+		m.PHONE,
+		a.RENTAL_ADDRESS,
+		to_char(a.RENTAL_START, 'yyyy-MM-dd'),
+		to_char(a.RENTAL_END, 'yyyy-MM-dd'),
+		a.RENTAL_PAY,
+		a.RENTAL_WAYBILL
 		FROM ( SELECT r.*, pr.product_name, pr.ppl
-						FROM product pr, rental r 
-						WHERE pr.product_id = r.product_id ) a, member m
-		WHERE a.member_id = m.member_id
+		FROM product pr, rental r
+		WHERE pr.product_id = r.product_id ) a, member m
+		WHERE a.member_id =
+		m.member_id
 		AND rental_waybill IS NULL
 		ORDER BY rental_id
 	</select>
-	<!-- Excel 다운 (rentalReList)-->
+	<!-- Excel 다운 (rentalReList) -->
 	<select id="rentalReExcel" resultType="map">
 		SELECT a.RENTAL_ID,
-				a.PRODUCT_ID,
-				a.PRODUCT_NAME,
-				a.MEMBER_ID,
-				m.NAME,
-				m.PHONE,
-				a.RENTAL_ADDRESS,
-				to_char(a.RENTAL_START, 'yyyy-MM-dd'),
-				to_char(a.RENTAL_END, 'yyyy-MM-dd'),
-				a.RENTAL_PAY,
-				a.RENTAL_WAYBILL
+		a.PRODUCT_ID,
+		a.PRODUCT_NAME,
+		a.MEMBER_ID,
+		m.NAME,
+		m.PHONE,
+		a.RENTAL_ADDRESS,
+		to_char(a.RENTAL_START, 'yyyy-MM-dd'),
+		to_char(a.RENTAL_END, 'yyyy-MM-dd'),
+		a.RENTAL_PAY,
+		a.RENTAL_WAYBILL
 		FROM ( SELECT r.*, pr.product_name, pr.ppl, pr.product_status
-						FROM product pr, rental r 
-						WHERE pr.product_id = r.product_id ) a, member m
-		WHERE a.member_id = m.member_id
+		FROM product pr, rental r
+		WHERE pr.product_id = r.product_id ) a, member m
+		WHERE a.member_id =
+		m.member_id
 		AND rental_waybill IS NOT NULL
 		AND product_status = 'rental'
 		ORDER BY rental_id
 	</select>
-	
+
 	<!-- 고객마이페이지 rental -->
 	<select id="rentalList" resultType="RentalVO">
-		select * from rental r, product p
+		select * from rental r,
+		product p
 		where p.product_id = r.product_id
-		and member_id like #{memberId}
+		and member_id like
+		#{memberId}
 		order by R.RENTAL_START desc
 	</select>
-	
+
 	<!-- 마이페이지 pick조회 -->
 	<select id="pickList" resultType="pickVO">
-		SELECT * from product pr, pick pi
+		SELECT * from product pr, pick
+		pi
 		where pr.product_id = pi.product_id
 		and member_id like #{memberId}
 		order by pi.pick_id desc
 	</select>
-		
+
 	<!-- 결제완료시 rental테이블 정보입력 -->
 	<insert id="RentalInsert">
-		insert into rental(rental_id, member_id, product_id, rental_start, rental_end, rental_address, rental_pay)
-		values (r_seq.nextval, #{memberId}, #{productId}, #{rentalStart}, #{rentalEnd}, #{rentalAddress}, #{rentalPay})
+		insert into rental(rental_id, member_id, product_id,
+		rental_start, rental_end, rental_address, rental_pay)
+		values
+		(r_seq.nextval, #{memberId}, #{productId}, #{rentalStart},
+		#{rentalEnd}, #{rentalAddress}, #{rentalPay})
 	</insert>
 	<!-- 대여하며 쿠폰사용 유무 체크 -->
 	<update id="usedCoupon">
 		UPDATE coupon
 		SET coupon_used = 1
-		WHERE coupon_id = #{couponId}
+		WHERE coupon_id =
+		#{couponId}
 	</update>
 	<!-- pick여부조회 -->
 	<select id="selectPick" resultType="int">
-		select count(*) from pick 
+		select count(*) from pick
 		where product_id like #{productId}
 		and member_id like #{memberId}
 	</select>
-	
+
 	<!-- pick등록 -->
 	<insert id="productPickInsert">
-		insert into pick (pick_id, product_id, member_id) values (pi_seq.nextval, #{productId}, #{memberId})
+		insert into pick (pick_id, product_id, member_id)
+		values (pi_seq.nextval, #{productId}, #{memberId})
 	</insert>
 	<!-- pick취소 -->
 	<delete id="pickDelete">
-		delete from pick 
+		delete from pick
 		where product_id like #{productId}
 		and member_id like #{memberId}
 	</delete>
-	
+
 	<!-- 관리자 rental -->
 	<select id="allRentalList" resultType="RentalVO">
-		select * from ( select r.*, pr.product_name, pr.ppl
-						from product pr, rental r 
-						where pr.product_id = r.product_id ) a, member m
-		where a.member_id = m.member_id
+		select * from ( select
+		r.*, pr.product_name, pr.ppl
+		from product pr, rental r
+		where pr.product_id = r.product_id ) a, member m
+		where a.member_id =
+		m.member_id
 		and rental_waybill is null
 		order by rental_id
 	</select>
 	<!-- 관리자페이지 회수조회 -->
 	<select id="rentalReList" resultType="RentalVO">
-		select * from ( select r.*, pr.product_name, pr.ppl, pr.product_status
-						from product pr, rental r 
-						where pr.product_id = r.product_id ) a, member m
-		where a.member_id = m.member_id
+		select * from ( select r.*,
+		pr.product_name, pr.ppl, pr.product_status
+		from product pr, rental r
+		where pr.product_id = r.product_id ) a, member m
+		where a.member_id =
+		m.member_id
 		and rental_waybill is not null
 		and product_status = 'rental'
 	</select>
-	
-	<!-- 송장등록시 정보업데이트  -->
+
+	<!-- 송장등록시 정보업데이트 -->
 	<update id="updateWaybill">
 		UPDATE rental
 		SET rental_waybill = #{rentalWaybill}
@@ -166,21 +191,26 @@
 	<update id="updateStatus">
 		UPDATE product
 		SET product_status = 'rental'
-		WHERE product_id = #{productId}
+		WHERE
+		product_id = #{productId}
 	</update>
-	
+
 	<!-- 상품회수완료변경 -->
 	<update id="rentalProductStatus">
-		UPDATE product 
-		SET   product_status = #{productStatus} 
-		where product_id = (SELECT product_id FROM  rental where rental_id = #{rentalId} ) 
+		UPDATE product
+		SET product_status = #{productStatus}
+		where product_id = (SELECT product_id FROM rental where rental_id =
+		#{rentalId} )
 	</update>
-	
+
 	<!-- 통계용 rental테이블 조회 -->
 	<select id="selectMonthRental" resultType="RentalVo">
-		SELECT TO_CHAR(rental_end,'YYYY-MM') AS "date", COUNT(*) AS cnt, SUM(rental_pay) AS rental_pay
+		SELECT TO_CHAR(rental_end,'YYYY-MM') AS "date", COUNT(*) AS cnt,
+		SUM(rental_pay) AS rental_pay
 		FROM rental
-		WHERE TO_CHAR(rental_end,'YYYY-MM-dd') <![CDATA[ <= ]]> #{date}
+		WHERE
+		TO_CHAR(rental_end,'YYYY-MM-dd') <![CDATA[ <= ]]>
+		#{date}
 		GROUP BY TO_CHAR(rental_end,'YYYY-MM')
 		ORDER BY TO_CHAR(rental_end,'YYYY-MM')
 	</select>

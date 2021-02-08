@@ -29,6 +29,8 @@ import com.etoile.app.vo.PickVO;
 import com.etoile.app.vo.ProductVO;
 import com.etoile.app.vo.RentalProductVO;
 import com.etoile.app.vo.RentalVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 
 @Controller
@@ -100,7 +102,9 @@ public class RentalController {
 		String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 		String viewPath = null;
 		String rentalAddress = ad.getAddress() + ", " +ad.getDetailAddress();
+		String rentalPay = vo.getRentalPay().replace(",", "");
 		vo.setMemberId(memberId);
+		vo.setRentalPay(rentalPay);
 		vo.setRentalAddress(rentalAddress);
 		int n = rentalService.RentalInsert(vo);
 		int m = rentalService.usedCoupon(cvo);
@@ -278,7 +282,7 @@ public class RentalController {
 	
 	//관리자 rental 통계차트
 	@RequestMapping("/admin/rentalStatistics.a")
-	public String rentalStatistics (RentalVO vo, Model model, HttpServletRequest httpServletRequest) {
+	public String rentalStatistics (RentalVO vo, Model model, HttpServletRequest httpServletRequest) throws JsonProcessingException {
 		SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 		Date today = new Date();
 		String date = simpleDate.format(today);
@@ -286,6 +290,9 @@ public class RentalController {
 		vo.setDate(date);
 		List<RentalVO> rental = rentalService.selectMonthRental(vo);
 		
+		ObjectMapper map = new ObjectMapper();
+		
+		model.addAttribute("map", map.writeValueAsString(rental));
 		model.addAttribute("rental", rental);
 		
 		return "admin/rental/rentalStatistics";
