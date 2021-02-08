@@ -48,7 +48,7 @@
                         </div>
                            <div class="row mb-5">
                               <div class="col-12 text-center">
-                                 <a href="#">#${list.styleTag }</a>
+                                 <a href='location.href="stylingSearchProduct?styleTag=${list.styleTag }'>#${list.styleTag }</a>
                                  <p class="text-muted mb-0" style="font-size:20px;">작성자 : ${list.memberId }</p>
                                  <!-- 좋아요 기능 -->
                  				 <form id="frm">

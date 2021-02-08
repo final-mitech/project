@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.etoile.app.comments.service.CommentsService;
 import com.etoile.app.history.common.Paging;
+import com.etoile.app.rental.service.RentalService;
 import com.etoile.app.style.service.StyleService;
 import com.etoile.app.vo.CommentsVO;
 import com.etoile.app.vo.ProductVO;
@@ -30,6 +31,8 @@ public class StyleController {
 	private StyleService styleService; 	//styleServiceImpl 객체 자동 주입
 	@Autowired
 	private CommentsService commentsService;
+	@Autowired
+	private RentalService rentalService;
 
 	// 전체 조회
 	@RequestMapping("/site/reviewList")
@@ -69,15 +72,15 @@ public class StyleController {
 
 	// 단건 조회 (상세 페이지로 이동) & 댓글 전체조회
 	@RequestMapping("/site/reviewDetail")
-	public String stylingSelect(StylingVO vo, Model model, HttpServletRequest request) {
-		// 단건 조회 (스타일)
-		//String memberId = (String) request.getSession().getAttribute("id");
-		//vo.setMemberId(memberId);
+	public String stylingSelect(StylingVO vo, ProductVO pvo, Model model, HttpServletRequest request) {
+		// 단건 조회
+		ProductVO product = new ProductVO();
 		vo = styleService.stylingSelect(vo);
+		pvo = rentalService.rentalProductSelect(pvo);
 		// 댓글 조회
-		CommentsVO co = new CommentsVO();
-		co.setStyleId(vo.getStyleId());
-		List<CommentsVO> commentsList = commentsService.commentsList(co);
+		CommentsVO cvo = new CommentsVO();
+		cvo.setStyleId(vo.getStyleId());
+		List<CommentsVO> commentsList = commentsService.commentsList(cvo);
 		
 		// 좋아요 여부 조회
 		String memberId = (String) request.getSession().getAttribute("id");
@@ -89,9 +92,16 @@ public class StyleController {
 		
 		model.addAttribute("list", vo);
 		model.addAttribute("comments", commentsList);
+		model.addAttribute("product", product);
 		return "site/review/reviewDetail";
 	}
 
+	// 
+	@RequestMapping("/site/styingSearchProduct")
+	public String stylingSearchProduct(StylingVO vo, Model model) {
+		return "redirect:productDetail?productId=";
+	}
+	
 	// 리뷰 등록폼 제품 리스트
 	@RequestMapping("/site/productReviewList.do")
 	public String productReviewList(ProductVO vo, Model model) {

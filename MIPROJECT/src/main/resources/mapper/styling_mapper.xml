@@ -30,6 +30,16 @@
 	 	WHERE STYLE_ID = #{styleId}
 	</select>	
 	
+	<!-- 해당 styleId에 해당하는 productName 찾아서 제품 가져오기 -->
+	<select id="stylingSearchProduct" resultType="productVO">
+		SELECT * FROM product A
+		WHERE A.product_name IN (SELECT B.style_tag
+                                 FROM STYLING B
+                                 WHERE B.style_tag = A.product_name
+                                 AND B.style_tag = #{styleTag}
+                                 );
+     </select>
+	
 	<!-- 리뷰 등록폼 제품 리스트 조회 -->
 	<select id="productReviewList" resultType="productVO" parameterType="productVO">
 		SELECT PRODUCT_NAME

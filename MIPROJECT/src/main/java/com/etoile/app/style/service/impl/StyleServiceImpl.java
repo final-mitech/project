@@ -109,4 +109,9 @@ public class StyleServiceImpl implements StyleService {
 		return dao.selectTotalRecommend(vo);
 	}
 
+	@Override
+	public ProductVO stylingSearchProduct(ProductVO vo) {
+		return dao.stylingSearchProduct(vo);
+	}
+
 }
