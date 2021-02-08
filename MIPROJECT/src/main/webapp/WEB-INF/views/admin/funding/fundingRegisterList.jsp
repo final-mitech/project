@@ -38,14 +38,13 @@
 						<th scope="col">NO.</th>
 						<th scope="col">펀딩명</th>
 						<th scope="col">상품명</th>
-						<!-- 						<th scope="col">브랜드</th> -->
-						<!-- 						<th scope="col">모델번호</th> -->
-						<!-- 						<th scope="col">카테고리</th> -->
+<!-- 						<th scope="col">브랜드</th> -->
+<!-- 						<th scope="col">모델번호</th> -->
+<!-- 						<th scope="col">카테고리</th> -->
 						<th scope="col">목표금액</th>
 						<th scope="col">현재모금액</th>
-						<!-- 						<th scope="col">이미지</th> -->
+<!-- 						<th scope="col">이미지</th> -->
 						<th scope="col">펀딩상태</th>
-						<th scope="col">펀딩환불</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,16 +53,16 @@
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
-							<%-- 							<td>${f.fundingBrand }</td> --%>
-							<%-- 							<td>${f.fundingSerial }</td> --%>
-							<%-- 							<td>${f.fundingCategory }</td> --%>
+<%-- 							<td>${f.fundingBrand }</td> --%>
+<%-- 							<td>${f.fundingSerial }</td> --%>
+<%-- 							<td>${f.fundingCategory }</td> --%>
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
-							<%-- 							<td>${f.fundingImage }</td> --%>
+<%-- 						<%-- 							<td>${f.fundingImage }</td> --%>
 							<c:if test="${f.fundingCondition ne '펀딩마감'}">
 								<td class="eventDel"><select
 									id="conditionChange${f.fundingId }" class="form-control"
-									onchange="conditionChange(${f.fundingId })">
+									onchange="conditionChange(${f.fundingId }, ${f.fundingGoal})">
 										<option
 											<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
 											펀딩오픈예정</option>
@@ -87,7 +86,6 @@
 									</td>
 								</c:if>
 							</c:if>
-
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -102,11 +100,10 @@
 		</div>
 
 	</div>
-
 	<!-- 블록체인 -->
 	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-	<script src="/etoile/resources/js/abi.js"></script>
-	<script src="/etoile/resources/js/index.js"></script>
+	<script src="/etoile/resources/js/fundingAbi.js"></script>
+	<script src="/etoile/resources/js/fundingExample.js"></script>
 
 	<!-- clickSelect : 펀딩 상세보기 -->
 	<script>
@@ -123,9 +120,17 @@
 			e.stopPropagation();
 		})			
 		
-		function conditionChange(id) {
+		function conditionChange(id, goal) {
 			let fundingId = id;
 			let fundingCondition = $('#conditionChange'+id).val();
+			if(fundingCondition == "펀딩중"){
+				let fundingGoal = parseInt(goal);
+				let date = 7;
+				console.log(""+fundingId,date,fundingGoal);
+				App.setting(""+fundingId,date,fundingGoal);
+			}else if(fundingCondition == "펀딩마감"){
+				App.fundingResult(""+fundingId);
+			}
 			
 			$.ajax({
 				url: 'conditionUpdate.a',

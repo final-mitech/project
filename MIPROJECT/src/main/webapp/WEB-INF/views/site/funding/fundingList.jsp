@@ -229,12 +229,14 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aira-hidden="ture">&times;</button>
 					<h4 class="modal-title" id="modalInsertLabel">펀딩 요청 등록</h4>
+					
 				</div>
 				<div class="modal-body">펀딩 요청 등록이 성공적으로 완료되었습니다. 마이페이지의 펀딩 내역을
 					확인해주세요.</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">이버튼은뭐지</button>
+				
 				</div>
 			</div>
 			<!-- modal-content 끝 -->
