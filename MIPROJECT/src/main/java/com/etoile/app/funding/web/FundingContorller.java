@@ -56,12 +56,15 @@ public class FundingContorller {
 
 		model.addAttribute("paging", paging);
 		//
-
-		vo.setPage("registerPage");
+		
+		if (vo.getSort() != null && vo.getSort().equals("popularitySort")) {
+			vo.setPage("magamXPage");
+		} else vo.setPage("registerPage");
 
 		List<FundingVO> fundings = fundingService.fundingList(vo);
 		// System.out.println(fundings.get(1).getFundingTitle());
 		model.addAttribute("fundings", fundings);
+		model.addAttribute("vo", vo); // 검색어담김
 
 		return "site/funding/fundingList";
 	}
@@ -142,9 +145,9 @@ public class FundingContorller {
 	// (관리자) 요청된 펀딩 수정 폼 (-> 파일 업로드 처리중!)
 	@RequestMapping("/admin/fundingRequestUpdateForm.a")
 	public String fundingRequestUpdateForm(Model model, FundingVO vo) {
-		
+
 		// 상태변경
-		vo.setFundingCondition("검수중"); 
+		vo.setFundingCondition("검수중");
 		fundingService.conditionUpdate(vo); // DB에 저장
 
 		// 단건조회
@@ -171,9 +174,10 @@ public class FundingContorller {
 	}
 
 	// 요청된 펀딩 수정
-	@PostMapping("admin/fundingRequestUpdate.a") 
+	@PostMapping("admin/fundingRequestUpdate.a")
 	public String fundingRequestUpdate(Model model, FundingVO vo, HttpServletRequest request,
-			@RequestParam(value="uploadImage", required = false) MultipartFile uploadImage) throws IllegalStateException, IOException {
+			@RequestParam(value = "uploadImage", required = false) MultipartFile uploadImage)
+			throws IllegalStateException, IOException {
 		// url을 통해 실제경로를 가져온다.
 		String path = request.getSession().getServletContext().getRealPath("/images");
 		System.out.println(uploadImage);
@@ -185,8 +189,7 @@ public class FundingContorller {
 			// 파일명을 VO에 담고
 			vo.setFundingImage(uploadImage.getOriginalFilename());
 		}
-		
-		
+
 		String viewPath = null;
 
 		vo.setFundingCondition("펀딩오픈예정");

@@ -40,6 +40,9 @@
 			<if test="page == 'registerPage'">
 				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
 			</if>
+			<if test="page == 'magamXPage'">
+				funding_condition IN ('펀딩오픈예정','펀딩중')
+			</if>
 			<if test="fundingBrand != null and fundingBrand != '' ">
 				AND (UPPER(FUNDING_BRAND) like '%' ||
 				UPPER(#{fundingBrand}) || '%'
