@@ -372,7 +372,7 @@
 					<div class="col-md-6">
 						<div id="slider" class="owl-carousel product-slider">
 							<div class="item">
-								<img src="/etoile/images/${selectVo.fundingImage}" />
+								<img src="/etoile/images/${selectVo.fundingImage}" style="width: 636px" height="600px"/>
 							</div>
 						</div>
 						<div id="thumb" class="owl-carousel product-thumb">

@@ -80,11 +80,11 @@
 										<!-- <option>환불하기</option> -->
 								</select></td>
 
-								<c:if test="${f.fundingTotalprice le f.fundingGoal}">
+								<%-- <c:if test="${f.fundingTotalprice le f.fundingGoal}">
 									<td>
-										<button class="eventDel" onclick="App.refundButtonEvents(${f.fundingId })">환불하기</button>
+										<button class="eventDel" onclick="App.fundingResult(${f.fundingId })">환불하기</button>
 									</td>
-								</c:if>
+								</c:if> --%>
 							</c:if>
 						</tr>
 					</c:forEach>
