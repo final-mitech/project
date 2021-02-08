@@ -205,13 +205,12 @@
 
 	<!-- 통계용 rental테이블 조회 -->
 	<select id="selectMonthRental" resultType="RentalVo">
-		SELECT TO_CHAR(rental_end,'YYYY-MM') AS "date", COUNT(*) AS cnt,
-		SUM(rental_pay) AS rental_pay
+		SELECT b.* FROM (SELECT a.*, rownum rnum  
+						FROM ( SELECT TO_CHAR(rental_end,'YYYY-MM') as "date", count(*) as cnt, sum(rental_pay) as rental_pay
 		FROM rental
-		WHERE
-		TO_CHAR(rental_end,'YYYY-MM-dd') <![CDATA[ <= ]]>
-		#{date}
+		WHERE TO_CHAR(rental_end,'YYYY-MM-dd') <![CDATA[ <= ]]> #{date}
 		GROUP BY TO_CHAR(rental_end,'YYYY-MM')
-		ORDER BY TO_CHAR(rental_end,'YYYY-MM')
+		ORDER BY TO_CHAR(rental_end,'YYYY-MM') ) a ) b
+		where rnum between 1 and 5
 	</select>
 </mapper>
