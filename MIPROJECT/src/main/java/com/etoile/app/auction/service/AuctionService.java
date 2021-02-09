@@ -1,6 +1,5 @@
 package com.etoile.app.auction.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.etoile.app.vo.AuctionJoinVO;

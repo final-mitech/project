@@ -193,7 +193,7 @@
     var rePage = location.href;
     $(".addrBtn").click(function () {
         $.ajax({
-            url: "/etoile/site/myAuctionAddr",
+            url: "/etoile/site/myAuctionAddr.do",
             type: 'POST',
             //dataType: 'json', //받아오는 타입
             data: $("#frm1").serialize(),

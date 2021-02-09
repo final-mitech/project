@@ -9,7 +9,7 @@
 	<select id="rentalProductList" resultType="productVO"
 		parameterType="productVO">
 		SELECT b.* FROM (SELECT a.*, rownum rnum
-		FROM ( SELECT * FROM PRODUCT ) a ) b
+		FROM ( SELECT * FROM PRODUCT WHERE product_status IN ('rental','waiting')) a ) b
 		where rnum between #{start} and #{end}
 	</select>
 	<!-- 물품리스트 인기순(대여순)+페이징 -->
@@ -108,18 +108,36 @@
 
 	<!-- 고객마이페이지 rental -->
 	<select id="rentalList" resultType="RentalVO">
-		select * from rental r,
-		product p
-		where p.product_id = r.product_id
-		and member_id like
-		#{memberId}
-		order by R.RENTAL_START desc
+		SELECT b.* FROM (SELECT a.*, rownum rnum
+		FROM ( SELECT r.*,  p.product_image, p.product_name, p.product_rental, p.product_status 
+				FROM rental r, product p
+				WHERE p.product_id = r.product_id
+				AND r.member_id like #{memberId}
+				ORDER BY r.RENTAL_START desc) a
+		) b
+		where rnum between #{start} and #{end}
 	</select>
-
+	
+	<!-- 마이페이지 취소요청 -->
+	<update id="updateStatus2">
+		UPDATE product
+		<set>
+			<if test="productStatus == 'waiting'">product_status = 'cancel'</if>
+			<if test="productStatus == 'cancel'">product_status = 'waiting'</if>
+		</set>
+		WHERE product_id = #{productId}
+	</update>
+	
+	<select id="rentalCnt" resultType="int">
+		SELECT count(*) from rental
+		<where>
+			member_id like '%' || #{memberId} || '%'
+		</where>
+	</select>
+	
 	<!-- 마이페이지 pick조회 -->
 	<select id="pickList" resultType="pickVO">
-		SELECT * from product pr, pick
-		pi
+		SELECT * from product pr, pick pi
 		where pr.product_id = pi.product_id
 		and member_id like #{memberId}
 		order by pi.pick_id desc
@@ -128,10 +146,10 @@
 	<!-- 결제완료시 rental테이블 정보입력 -->
 	<insert id="RentalInsert">
 		insert into rental(rental_id, member_id, product_id,
-		rental_start, rental_end, rental_address, rental_pay)
+		rental_start, rental_end, rental_address, rental_pay, rental_order)
 		values
 		(r_seq.nextval, #{memberId}, #{productId}, #{rentalStart},
-		#{rentalEnd}, #{rentalAddress}, #{rentalPay})
+		#{rentalEnd}, #{rentalAddress}, #{rentalPay}, #{rentalOrder})
 	</insert>
 	<!-- 대여하며 쿠폰사용 유무 체크 -->
 	<update id="usedCoupon">
@@ -165,11 +183,31 @@
 		r.*, pr.product_name, pr.ppl
 		from product pr, rental r
 		where pr.product_id = r.product_id ) a, member m
-		where a.member_id =
-		m.member_id
+		where a.member_id = m.member_id
 		and rental_waybill is null
 		order by rental_id
 	</select>
+	
+	<!-- 관리자 rental취소요청건 -->
+	<select id="rentalcancelList" resultType="RentalVO">
+		SELECT * 
+		FROM rental r, product p
+		WHERE r.product_id = p.product_id
+		AND p.product_status = 'cancel'
+	</select>
+	
+	<!-- 관리자페이지 회원 검색 -->
+	<select id="searchMember" resultType="rentalVO">
+		SELECT * FROM ( SELECT r.*, pr.product_name, pr.ppl
+						FROM product pr, rental r
+						WHERE pr.product_id = r.product_id ) a, member m
+		WHERE a.member_id = m.member_id
+		AND rental_waybill IS NULL
+    	AND m.member_id LIKE LOWER('%' || #{memberId} || '%' )
+		ORDER BY rental_id
+	</select>
+	
+	
 	<!-- 관리자페이지 회수조회 -->
 	<select id="rentalReList" resultType="RentalVO">
 		select * from ( select r.*,

@@ -44,6 +44,12 @@ public interface RentalMapper {
 	//rental 통계
 	List<RentalVO> selectMonthRental(RentalVO vo);
 	
+	//관리자rental페이지 회원검색
+	List<RentalVO> searchMember(RentalVO vo);
+	
+	//관리자 rental 취소요청 리스트
+	List<RentalVO> rentalcancelList(RentalVO vo);
+	
 	//고객이 해당상품 찜했는지 확인
 	int selectPick(PickVO vo);
 	
@@ -54,6 +60,9 @@ public interface RentalMapper {
 	
 	//물품 갯수확인
 	int productCnt(ProductVO vo);
+	
+	//물품 갯수확인
+	int rentalCnt(RentalVO vo);
 	
 	//찜하기
 	int productPickInsert(PickVO vo);
@@ -68,5 +77,7 @@ public interface RentalMapper {
 	//회수완료로 물품상태변경
 	int rentalProductStatus (RentalProductVO vo);
 	
+	//고객 대여취소요청
+	int updateStatus2 (ProductVO vo);
 	
 }

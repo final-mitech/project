@@ -42,22 +42,37 @@
 			</if>
 			<if test="page == 'magamXPage'">
 				funding_condition IN ('펀딩오픈예정','펀딩중')
+			</if>			
+			<if test="page == 'comingSoonPage'">
+				funding_condition IN ('펀딩오픈예정')
+			</if>
+			<if test="page == 'openPage'">
+				funding_condition IN ('펀딩중')
+			</if>
+			<if test="page == 'closePage'">
+				funding_condition IN ('펀딩마감')
 			</if>
 			<if test="fundingBrand != null and fundingBrand != '' ">
-				AND (UPPER(FUNDING_BRAND) like '%' ||
-				UPPER(#{fundingBrand}) || '%'
-				OR
-				FUNDING_CONDITION like '%' ||
-				#{fundingBrand} || '%')
+				AND (UPPER(FUNDING_BRAND) like '%' ||	UPPER(#{fundingBrand}) || '%'
+				OR UPPER(FUNDING_TITLE) like '%' ||	UPPER(#{fundingBrand}) || '%')
+			</if>
+			<if test="fundingCategory != null and fundingCategory != '' ">
+				AND FUNDING_CATEGORY like '%' ||	#{fundingCategory} || '%')
 			</if>
 		</where>
+		
+		
+		<if test="sort == 'openPage'">
+			order by funding_condition desc, funding_end
+		</if>
+	
 		<if test="sort == 'registrationSort'">
 			order by funding_condition desc, funding_start
 		</if>
 		<if test="sort == 'popularitySort'">
 			order by funding_condition desc, funding_totalprice desc
 		</if>
-		<if test="sort != 'registrationSort' and sort != 'popularitySort'">
+		<if test="sort != 'registrationSort' and sort != 'popularitySort' and sort != 'openPage'">
 			order by funding_condition desc, funding_start
 		</if>
 
@@ -78,6 +93,16 @@
 			<if test="page == 'magamXPage'">
 				funding_condition IN ('펀딩오픈예정','펀딩중')
 			</if>
+			
+			<if test="page == 'comingSoonPage'">
+				funding_condition IN ('펀딩오픈예정')
+			</if>
+			<if test="page == 'openPage'">
+				funding_condition IN ('펀딩중')
+			</if>
+			<if test="page == 'closePage'">
+				funding_condition IN ('펀딩마감')
+			</if>
 			<if test="fundingBrand != null and fundingBrand != '' ">
 				AND (UPPER(FUNDING_BRAND) like '%' ||
 				UPPER(#{fundingBrand}) || '%'
@@ -86,15 +111,6 @@
 				#{fundingBrand} || '%')
 			</if>
 		</where>
-		<if test="sort == 'registrationSort'">
-			order by funding_condition desc, funding_start
-		</if>
-		<if test="sort == 'popularitySort'">
-			order by funding_condition desc, funding_totalprice desc
-		</if>
-		<if test="sort != 'registrationSort' and sort != 'popularitySort'">
-			order by funding_condition desc, funding_start
-		</if>
 	</select>
 
 

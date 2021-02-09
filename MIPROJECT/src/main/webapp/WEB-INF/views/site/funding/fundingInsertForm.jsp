@@ -81,14 +81,14 @@ body {
 					<label for="fundingName" class="col-sm-3 control-label">제품명</label>
 					<div class="col-sm-9">
 						<input type="text" name="fundingName" id="fundingName"
-							placeholder="제품명" class="form-control" autofocus>
+							placeholder="제품명" class="form-control" autofocus required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="fundingBrand" class="col-sm-3 control-label">브랜드명</label>
 					<div class="col-sm-9">
 						<select name="fundingBrand" id="fundingBrand" class="form-control">
-							<option value="none" selected="selected">브랜드 선택안함</option>
+							<option value="none" selected="selected" >브랜드 선택안함</option>
 							<c:forEach items="${branList }" var="b">
 								<option>${b.codeDetail}</option>
 							</c:forEach>
@@ -100,7 +100,7 @@ body {
 					</label>
 					<div class="col-sm-9">
 						<input type="text" name="fundingSerial" id="fundingSerial"
-							placeholder="모델번호" class="form-control">
+							placeholder="모델번호" class="form-control" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -141,7 +141,7 @@ body {
 				<!-- /.form-group -->
 				<div class="form-group">
 					<div class="col-sm-9 col-sm-offset-3">
-						<span class="help-block">*필수항목</span>
+						<span class="help-block">* 정확한 모델번호를 기입해주셔야 요청이 승인됩니다.</span>
 					</div>
 				</div>
 				<div align="center">

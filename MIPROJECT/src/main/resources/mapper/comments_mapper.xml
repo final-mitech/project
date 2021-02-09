@@ -7,21 +7,20 @@
 
 	<!-- 특정 게시글의 댓글 조회 -->
 	<select id="commentsList" resultType="commentsVO" parameterType="commentsVO">
-		SELECT * FROM comments
-		WHERE style_id = #{styleId}
-		ORDER BY comment_date DESC
+		SELECT * FROM COMMENTS
+		WHERE STYLE_ID = #{styleId}
 	</select>
 	
 	<!-- 댓글 등록 -->
 	<insert id="commentsInsert" parameterType="commentsVO">
-		INSERT INTO comments
+		INSERT INTO COMMENTS
 		VALUES ( COMMENTS_SEQ.NEXTVAL, #{styleId}, #{memberId}, #{commentContent}, SYSDATE )
 	</insert>
 
 
 	<!-- 댓글 삭제 -->
 	<delete id="commentsDelete" parameterType="commentsVO">
-		DELETE FROM comments
+		DELETE FROM COMMENTS
 		WHERE COMMENT_ID = #{commentId}
 	</delete>
 	

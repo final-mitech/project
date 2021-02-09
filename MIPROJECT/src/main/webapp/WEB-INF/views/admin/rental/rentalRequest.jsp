@@ -31,6 +31,10 @@
 	      App.setStatus(productId, status, date, $(tag).attr('name'));
 	      
 	   }
+	   
+		function sSubmit() {
+			document.getElementById("frm").submit();
+		}
 </script>
 <style>
 tr {
@@ -58,7 +62,7 @@ input:focus {
 #insertWay {
 	border: 1 #dddddd;
 	background-color: #cccccc;
-	padding: 6px 13px;
+	padding: 6px 8px;
 	border-radius:10px;
 }
 
@@ -82,6 +86,9 @@ input:focus {
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="/etoile/admin/rentalList.a">대여 요청</a></li>
 			<li class="nav-item"><a class="nav-link active"
+				aria-current="page" href="/etoile/admin/rentalcancelList.a"
+				style="background: #e5e5e5;">취소 요청</a></li>
+			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="/etoile/admin/rentalReList.a"
 				style="background: #e5e5e5;">회수 관리</a></li>
 			<li class="nav-item"><a class="nav-link active"
@@ -90,19 +97,28 @@ input:focus {
 		</ul>
 	</div>
 	<br>
+	<form id="frm" action="searchMember.a">
+		<div class="row">
+				<input type="text" name="memberId" style="BORDER-BOTTOM: 1px solid;" placeholder="검색할 유저ID 입력" >&nbsp;&nbsp;
+				<input type="button" style="float:right;" value="검색" onclick="sSubmit();">
+		</div>
+	</form>
+		<br />
 	<div class="row">
 		<table class="table" align="center">
 			<thead class="thead-dark">
 			<tr>
+				<th width="300">주문번호</th>
 				<th width="400">상품명</th>
-				<th width="100">협찬유무</th>
+				<th width="80">협찬</th>
 				<th width="300">대여기간</th>
-				<th width="100">배송정보</th>
+				<th width="80">배송</th>
 			</tr>
 			</thead>
 			<tbody>
 			<c:forEach var="list" items="${list }">
-				<tr>
+				<tr style="text-align:center">
+					<td width="300">${list.rentalOrder }</td>
 					<td width="400">${list.productName }</td>
 					<td width="80" style="text-align: center">${list.ppl }</td>
 					<td width="300" style="text-align: center">

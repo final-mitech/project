@@ -87,7 +87,7 @@ public class MemberController {
 		request.getSession().setAttribute("id", vo.getMemberId());        
         //return "redirect:/";
 		String uri = redirectUrl.replace("http://localhost/etoile", "");
-		if(uri == null || uri.contains("memberInsert")) {
+		if(uri == null) {
 			uri = "/";
 		}
 		return "redirect:"+ uri;

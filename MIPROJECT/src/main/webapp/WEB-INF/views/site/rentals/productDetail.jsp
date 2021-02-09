@@ -130,7 +130,7 @@ $(document).ready( function() {
 								<c:if test="${rental.rentalEnd eq null}">
 									<input type="date" id="rentalStart" name="rentalStart" min="<%=strdate %>" required>
 								</c:if>
-								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd > nowDate }">
+								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd >= nowDate }">
 									<input type="date" id="rentalStart" name="rentalStart" min="${rental.rentalEnd }" required>
 								</c:if>
 								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd < nowDate }">
@@ -140,7 +140,7 @@ $(document).ready( function() {
 								<c:if test="${rental.rentalEnd eq null}">
 									<input type="date" id="rentalEnd" name="rentalEnd" min="<%=strdate %>" required>
 								</c:if>
-								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd > nowDate }">
+								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd >= nowDate }">
 									<input type="date" id="rentalEnd" name="rentalEnd" min="${rental.rentalEnd }" required>
 								</c:if>
 								<c:if test="${rental.rentalEnd ne null && rental.rentalEnd < nowDate }">
