@@ -18,7 +18,7 @@
 	<select id="stylingSearch" resultType="stylingVO">
 		SELECT a.* FROM
 			( SELECT b.*, rownum rn FROM (
-			SELECT * FROM styling WHERE UPPER(style_tag) like '%' || UPPER(#{styleTag}) || '%'
+			SELECT * FROM styling WHERE style_tag like '%' || #{styleTag} || '%'
 			) b ) a
 			WHERE rn BETWEEN #{start} AND #{end}
 	</select>
@@ -52,7 +52,6 @@
 		</where>
 	</select>
 	
-	
 	<!-- 리뷰 추천 등록 (좋아요) -->
 	<insert id="stylingRecommend" parameterType="RecommendVO">
 		INSERT INTO RECOMMEND VALUES ( #{memberId}, #{styleId} )
@@ -61,37 +60,16 @@
 	<!-- 리뷰 추천 취소 (좋아요 취소) -->
     <delete id="stylingRecommendDelete" parameterType="RecommendVO">
         DELETE FROM RECOMMEND
-		WHERE style_id = #{styleId}
-		AND member_id = #{memberId}
+		WHERE style_id like #{styleId}
+		AND member_id like #{memberId}
     </delete>
 
 	<!-- 리뷰 추천 (좋아요) 여부 조회 -->
 	<select id="selectRecommend" resultType="int">
 		SELECT count(*) FROM RECOMMEND
-		WHERE style_id = #{styleId}
-		AND member_id = #{memberId}
+		WHERE style_id like #{styleId}
+		AND member_id like #{memberId}
 	</select>
-	
- 	<!--  리뷰 좋아요 총 카운트 조회 -->
-	<select id="selectTotalRecommend" resultType="int">
-		SELECT style_recommend FROM STYLING
-		WHERE style_id = #{styleId}
-	</select> 
-		
-	 <!--  좋아요 클릭시 +1 -->
-	 <update id="likeCheck">
-   		UPDATE STYLING
-  	    SET style_recommend = style_recommend + 1 
-   	    WHERE style_id = #{styleId}
- 	 </update>
-  
-  	<!-- 좋아요 취소시 0 -->
-  	<update id="likeCheckCancel">
-   		UPDATE STYLING
-   	 	SET style_recommend = style_recommend -1
-    	WHERE style_id = #{styleId}
-  	</update>
-
 
 	<!-- 마이페이지: 해당회원 리뷰 리스트 -->
 	<select id="myPageStyling" resultType="stylingVO" parameterType="stylingVO">

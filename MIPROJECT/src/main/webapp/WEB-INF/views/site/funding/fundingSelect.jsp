@@ -588,7 +588,7 @@
 	<!-- 블록체인 -->
 	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 	<script src="/etoile/resources/js/abi.js"></script>
-	<script src="/etoile/resources/js/index.js?aa=a" ></script>
+	<script src="/etoile/resources/js/index.js"></script>
 	
 	<script>
 		var memberid = '${sessionScope.id}';

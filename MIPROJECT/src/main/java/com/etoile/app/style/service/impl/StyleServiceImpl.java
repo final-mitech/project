@@ -1,6 +1,5 @@
 package com.etoile.app.style.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,29 +48,18 @@ public class StyleServiceImpl implements StyleService {
 	}
 
 	@Override
-	public HashMap<String, Object> stylingRecommend(RecommendVO vo) {
-		StylingVO stylingVO = new StylingVO();
-		stylingVO.setStyleId(vo.getStyleId());
-		stylingVO.setMemberId(vo.getMemberId());
-	
-		// 좋아요 등록 / 삭제
-		int n = dao.selectRecommend(stylingVO);
-		if (n !=1) {
-			dao.stylingRecommend(vo);
-			dao.likeCheck(stylingVO);
-		} else {
-			dao.stylingRecommendDelete(vo);
-			dao.likeCheckCancel(stylingVO);
-		}	
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("totalCount",dao.selectTotalRecommend(stylingVO) );
-		map.put("count", dao.selectRecommend(stylingVO));
-		return map;
+	public int stylingRecommend(RecommendVO vo) {
+		return dao.stylingRecommend(vo);
 	}
 
 	@Override
 	public int stylingRecommendDelete(RecommendVO vo) {
 		return dao.stylingRecommendDelete(vo);
+	}
+
+	@Override
+	public int selectRecommend(RecommendVO vo) {
+		return dao.selectRecommend(vo);
 	}
 
 	@Override
@@ -87,26 +75,6 @@ public class StyleServiceImpl implements StyleService {
 	@Override
 	public List<StylingVO> myPageStylingRecommend(StylingVO vo) {
 		return dao.myPageStylingRecommend(vo);
-	}
-
-	@Override
-	public int likeCheck(StylingVO vo) {
-		return dao.likeCheck(vo);
-	}
-
-	@Override
-	public int likeCheckCancel(StylingVO vo) {
-		return dao.likeCheckCancel(vo);
-	}
-
-	@Override
-	public int selectRecommend(StylingVO vo) {
-		return dao.selectRecommend(vo);
-	}
-
-	@Override
-	public int selectTotalRecommend(StylingVO vo) {
-		return dao.selectTotalRecommend(vo);
 	}
 
 }

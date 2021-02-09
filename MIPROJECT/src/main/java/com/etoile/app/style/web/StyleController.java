@@ -2,17 +2,13 @@ package com.etoile.app.style.web;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.etoile.app.comments.service.CommentsService;
@@ -38,7 +34,7 @@ public class StyleController {
 		if (paging == null) {
 			paging.setPage(1);
 		}
-		paging.setPageUnit(3); // 3개
+		paging.setPageUnit(5); // 5개
 		paging.setTotalRecord(styleService.stylingCount(vo));
 		vo.setStart(paging.getFirst());
 		vo.setEnd(paging.getLast());
@@ -56,7 +52,7 @@ public class StyleController {
 		if (paging == null) {
 			paging.setPage(1);
 		}
-		paging.setPageUnit(3);
+		paging.setPageUnit(5);
 		paging.setTotalRecord(styleService.stylingCount(vo));
 		vo.setStart(paging.getFirst());
 		vo.setEnd(paging.getLast());
@@ -69,26 +65,13 @@ public class StyleController {
 
 	// 단건 조회 (상세 페이지로 이동) & 댓글 전체조회
 	@RequestMapping("/site/reviewDetail")
-	public String stylingSelect(StylingVO vo, Model model, HttpServletRequest request) {
-		// 단건 조회 (스타일)
-		//String memberId = (String) request.getSession().getAttribute("id");
-		//vo.setMemberId(memberId);
+	public String stylingSelect(StylingVO vo, Model model) {
 		vo = styleService.stylingSelect(vo);
-		// 댓글 조회
 		CommentsVO co = new CommentsVO();
 		co.setStyleId(vo.getStyleId());
 		List<CommentsVO> commentsList = commentsService.commentsList(co);
-		
-		// 좋아요 여부 조회
-		String memberId = (String) request.getSession().getAttribute("id");
-		if (memberId != null) {
-			vo.setMemberId(memberId);
-			int n = styleService.selectRecommend(vo);
-			model.addAttribute("like", n);
-		}
-		
-		model.addAttribute("list", vo);
 		model.addAttribute("comments", commentsList);
+		model.addAttribute("list", vo);
 		return "site/review/reviewDetail";
 	}
 
@@ -116,26 +99,35 @@ public class StyleController {
 		// DB에 저장
 		String memberId = (String) request.getSession().getAttribute("id");
 		vo.setMemberId(memberId);
+//		vo.setMemberId("user");
 		styleService.stylingInsert(vo);
 		return "redirect:/site/MypageRental.do";
 	}
 
-	// 리뷰 좋아요 등록 & 취소(삭제)
+	// 리뷰 추천(좋아요) 등록 & 취소(삭제)
 	@RequestMapping("/site/reviewRecommend.do")
-	@ResponseBody
-	public HashMap<String, Object> stylingRecommend(RecommendVO vo, StylingVO Vo, HttpServletRequest httpServletRequest, Model model) {
+	public String stylingRecommend(RecommendVO vo, HttpServletRequest httpServletRequest, Model model) {
 		int Recommend;
+		
 		String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 		vo.setMemberId(memberId);
-		return styleService.stylingRecommend(vo);
+//		vo.setMemberId("user");
+		int n = styleService.selectRecommend(vo);
+		if (n != 1) {
+			Recommend = styleService.stylingRecommend(vo);
+		} else {
+			Recommend = styleService.stylingRecommendDelete(vo);
+		}
+		// return "site/review/reviewDetail";
+		return null;
 	}
-
 
 	// 마이페이지 - 리뷰리스트
 	@RequestMapping("/site/myPageStyling.do")
 	public String myPageStyling(StylingVO vo, HttpServletRequest httpServletRequest, Model model) {
 			String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 			vo.setMemberId(memberId);
+//		vo.setMemberId("user");
 		List<StylingVO> stylingList = styleService.myPageStyling(vo);
 		model.addAttribute("list", stylingList);
 		return "site/my/myStylingList";
@@ -146,6 +138,7 @@ public class StyleController {
 	public String myPageStylingDetail(StylingVO vo, HttpServletRequest httpServletRequest, Model model) {
 		String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 		vo.setMemberId(memberId);
+//		vo.setMemberId("user");
 		vo = styleService.myPageStylingDetail(vo);
 		model.addAttribute("list", vo);
 		return "site/my/myStylingDetail";
@@ -156,6 +149,7 @@ public class StyleController {
 	public String myPageStylingRecommend(StylingVO vo, HttpServletRequest httpServletRequest, Model model) {
 		String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 		vo.setMemberId(memberId);
+//		vo.setMemberId("user");
 		List<StylingVO> recommendList = styleService.myPageStylingRecommend(vo);
 		model.addAttribute("list", recommendList);
 		return "site/my/myStylingRecommend";

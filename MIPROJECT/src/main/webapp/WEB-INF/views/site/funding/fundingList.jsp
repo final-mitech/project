@@ -64,25 +64,27 @@
 
 	<div class="container" style="max-width: 1400px;">
 		<!-- 		<div class="row"> -->
-		
+
 		<div class="div sort">
-		<!-- 	<a href="fundingList?sort=registrationSort">등록순</a> 
-			<a href="fundingList?sort=popularitySort">인기순</a> -->
-			<a onclick="sortFunc('registrationSort')"> 등록순 </a>
-			<a onclick="sortFunc('popularitySort')"> 인기순 </a>
+			<a href="fundingList?sort=registrationSort">등록순</a> <a
+				href="fundingList?sort=popularitySort">인기순</a>
 		</div>
-		<form action="fundingList" id="pageForm">
-		<input type="hidden" name="page" id="page" >
-		<input type="hidden" name="sort" id="sort" value="${vo.sort }">
+		<form action="fundingList">
 			<div class="input-group div search">
 				<input type="text" class="form-control" placeholder="검색어를 입력하세요"
-					name="fundingBrand" value="${vo.fundingBrand }">​​​​​​​
+					name="fundingBrand">​​​​​​​
 				<button type="submit">
 					<i class="fas fa-search"></i>
 				</button>
 			</div>
 		</form>
-
+		<!-- 			<div>
+				<a href="/etoile/admin/fundingRequestList.a">요청 펀딩 목록 </a> <a
+					href="/etoile/admin/fundingRegisterList.a"> 등록 펀딩 목록</a> <a
+					href="/etoile/site/myFundingList.do">마이펀딩 </a> <a
+					href="/etoile/site/joinFundingList.do">조인펀딩 </a>
+			</div> -->
+		<!-- 		</div> -->
 		<div class="row">
 			<div class="div register" align="right">
 				<button type="button" class="btn btn-dark"
@@ -103,10 +105,8 @@
 							<h5 class="card-title" align="left" style="display: inline">
 								<b>${f.fundingTitle }</b>
 							</h5>
-							<br />
-
-						</div>
-						<div class="card-footer" style="background-color:white; border: 0;" >
+							<br/><br/>
+							
 							<!-- 라벨 색 -->
 							<div>
 								<c:choose>
@@ -132,9 +132,8 @@
 									<b>${f.fundingDday }</b>
 								</h6>
 								<br />
-
+								
 							</div>
-
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
 									<div class="row no-gutters align-items-center">
@@ -276,15 +275,7 @@
 
 		//페이징
 		function goList(page) {
-			/* location.href = 'fundingList?page=' + page; */
-			$("#page").val(page);
-			$("#pageForm").submit();		
-		}
-		
-		//정렬
-		function sortFunc(sortVal) {
-			$('#sort').val(sortVal);
-			$("#pageForm").submit();
+			location.href = 'fundingList?page=' + page;
 		}
 	</script>
 

@@ -359,20 +359,32 @@
 	selectGift();  */
 
 	function submitCheckFunc() {
-
+		
+		 if(frm.fundingTitle.value == "") {
+				alert("펀딩명을 지정해 주세요.");
+				
+				return false;
+			} 
+		 
 		if (frm.fundingGoal.value == "0" || frm.fundingGoal.value == "") {
-			alert("목표금액을 설정해 주세요");
+			alert("목표금액을 설정해 주세요.");
 
 			frm.fundingGoal.focus();
 
 			return false;
 		}
 		
-		/* if(frm.optionPlz.value == "" ) {
+		/*  if(frm.optionPlz.value == "" ) {
 			alert("펀딩 기프트 가격을 설정해 주세요");
 			
 			return false;
 		} */
+		 
+		 if(frm.fundingStart.value == "" || frm.fundingEnd.value == "" ) {
+				alert("펀딩 날짜를 지정해 주세요.");
+				
+				return false;
+			} 
 		
 		if (!confirm('새 펀딩을 등록하시겠습니까? 펀딩오픈예정으로 상태가 변경됩니다.')) {
 			return false;
@@ -585,7 +597,7 @@
 									<div class="product-serial col-md-6">
 										<span>모델번호 : </span> <input class="form-control"
 											name="fundingSerial"
-											value='<c:out value="${selectVo.fundingSerial}" />'>
+											value='<c:out value="${selectVo.fundingSerial}" />' required>
 									</div>
 								</div>
 								<!-- <div class="product-price-discount">
@@ -671,7 +683,7 @@
 											<option>3일권</option>
 											<option>4일권</option>
 											<option>5일권</option>
-										</select> <input style="width: 100px;" id="optionPlz" name="optionPlz"> eth
+										</select> <input style="width: 100px;" id="optionPlz" name="optionPlz"  required> eth
 									</div>
 								</div>
 							</div>

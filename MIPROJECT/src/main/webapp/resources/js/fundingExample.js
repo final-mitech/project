@@ -31,7 +31,7 @@ App = {
 	initContract: function () { //abi 
 		//컨트랙트 생성
 		App.contract = new web3.eth.Contract(abi);
-		App.contract.options.address = "0x3082A2F192Bb007f72547232AB49c89a4624B173"; 
+		App.contract.options.address = "0x4f39B6a64dFC94F88b57d13C0959177414c87fD3"; 
 
 		App.joinButtonEvents(); //펀딩 참여 버튼 누르는 이벤트
 
@@ -41,7 +41,18 @@ App = {
 	joinButtonEvents: function () { //펀딩 참여 버튼 누르는 이벤트
 		$("#joinbutton").on('click', App.setFund);
 	},
-
+	setting:function(fundingId, fundingDate, fundingGoal){
+		web3.eth.getAccounts(function(error, accounts){
+			let account = accounts[0];
+			App.contract.methods.setting(fundingId, fundingDate, fundingGoal)
+								.send({ from: account, value: 0 })
+								.then(function(result){
+								})
+			
+		})
+		
+		
+	},
 	setFund: function () {
 	//login체크
 	if(memberid == '') {
@@ -49,7 +60,6 @@ App = {
 		return ;
 	}
 	
-		console.log('setFund');
 
 		var price = $('#blockPrice').val();
 		
@@ -60,7 +70,7 @@ App = {
 		var fundingTotalprice = parseInt($('#fundingTotalprice').html()) + parseInt(price); //fundingSelect의 name값 속성
 
 		web3.eth.getAccounts(function (error, accounts) {
-		console.log(accounts);
+			
 			if (error) {
 				consolt.log(error);
 				return;
@@ -68,7 +78,7 @@ App = {
 			var account = accounts[0]; //메타마스크 첫번째 계정 계좌 찾아옴
 			
 			App.contract.methods
-				.fund()
+				.fund(fundingId)
 				.send({
 					from: account,
 					value: web3.utils.toWei(price, "ether")
@@ -93,6 +103,17 @@ App = {
 				})
 
 		})
+	},
+	fundingResult:function(fundingId){
+		web3.eth.getAccounts(function(error, accounts){
+			let account = accounts[0];
+			App.contract.methods.checkGoalReached(fundingId)
+								.send({from:account, value: 0})
+								.then(function(result){
+									console.log(fundingId);
+									console.log(result);
+								})
+		})	
 	}
 }
 
