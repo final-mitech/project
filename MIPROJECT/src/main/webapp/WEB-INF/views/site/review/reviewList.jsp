@@ -30,25 +30,27 @@ function goList(page) {
 						<p class="text-muted"></p><h4 class="d-inline">MY STYLING LIST</h4><p class="text-muted"></p>
 						<!-- 검색 기능 -->
 						<div class="row">
-							<div class="col-lg-12">
+							<div class="col-lg-12" align="right">
+								<div align="left">
+									<br/><a href="reviewList">최신순</a> / <a href="reviewList2">추천순</a>
+								</div>
 								<form id="searchForm" action="reviewSearch">
 									<input type="text" name="styleTag" placeholder="상품명을 입력하세요" size="25px">
 							   		<button class="btn btn-outline-dar type="submit">검색</button>
-								</form>
+								</form><br/>
 							</div>
 						</div>
-	 			 <!-- <a href="#">최신순</a> / <a href="#">추천순</a> -->
 						<div class="row" align="center">
 							<c:forEach var="vo" items="${list }">
-							<div class="col-md-6 col-lg-3">
+							<div class="col-4" align="center">
 								<div class="card" onclick='location.href="reviewDetail?styleId=${vo.styleId}"'>
-								<img class="img-fluid" src="${vo.styleImage }">
+								<img class="img-fluid" style="width:100%" src="/etoile/images/${vo.styleImage }">
 									<div class="card-body">
 										<h5 class="card-title">${vo.memberId }</h5>
-										<p class="card-text">${vo.styleContent }</p>
+										<p class="card-text">${vo.styleContent }</p>				
 										<p class="card-text">
+											<a href="stylingSearchProduct?styleTag=${vo.styleTag }" class="card-link float-right"><small>#${vo.styleTag }</small></a>								
 											<small class="text-muted">${vo.styleDate }</small>
-											<a href="#" class="card-link float-right"><small>#${vo.styleTag }</small></a>
 										</p>
 									</div>
 								</div>

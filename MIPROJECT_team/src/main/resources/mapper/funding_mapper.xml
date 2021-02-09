@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoile.app.funding.mapper.FundingMapper">
+
+	<!-- 펀딩 목록 조회 --> <!-- 페이징 추가 - 최신순(펀딩중->펀딩오픈예정->펀딩마감) -->
+	<select id="fundingList"
+		resultType="com.etoile.app.funding.FundingVO">
+		SELECT b.* FROM (SELECT a.*, rownum rnum FROM (
+		SELECT funding_id,
+		funding_title,
+		funding_name,
+		funding_serial,
+		funding_brand,
+		funding_category,
+		funding_content,
+		funding_image,
+		funding_start,
+		funding_end,
+		funding_goal,
+		funding_totalprice,
+		funding_condition,
+		funding_gift,
+		member_id,
+		(CASE WHEN funding_condition='펀딩오픈예정' THEN 'D -
+		' ||
+		TO_CHAR(funding_start
+		- TRUNC(sysdate))
+		WHEN funding_start =
+		TRUNC(sysdate) THEN 'D - DAY '
+		WHEN funding_condition='펀딩중' THEN 'D + '
+		|| TO_CHAR(TRUNC(sysdate) -
+		funding_start)
+		END) AS funding_dday
+		FROM
+		funding
+		<where>
+			<if test="page == 'requestPage'">
+				funding_condition IN ('접수완료','검수중')
+			</if>
+			<if test="page == 'registerPage'">
+				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
+			</if>
+			<if test="fundingBrand != null and fundingBrand != '' ">
+				AND (UPPER(FUNDING_BRAND) like '%' ||
+				UPPER(#{fundingBrand}) || '%'
+				OR
+				FUNDING_CONDITION like '%' ||
+				#{fundingBrand} || '%')
+			</if>
+		</where>
+		<if test="sort == 'registrationSort'">
+			order by funding_condition desc, funding_start
+		</if>
+		<if test="sort == 'popularitySort'">
+			order by funding_totalprice desc
+		</if>
+		) a ) b where rnum between #{start} and #{end}
+	</select>
+
+	<!-- 펀딩 등록 -->
+	<insert id="fundingInsert">
+		INSERT INTO FUNDING (
+		<if test="fundingTitle != null">funding_title, </if>
+		<if test="fundingName != null">funding_name, </if>
+		<if test="fundingSerial != null">funding_serial, </if>
+		<if test="fundingBrand != null">funding_brand, </if>
+		<if test="fundingCategory != null">funding_category, </if>
+		<if test="fundingContent != null">funding_content, </if>
+		<if test="fundingImage != null">funding_image, </if>
+		<if test="fundingStart != null">funding_start, </if>
+		<if test="fundingEnd != null">funding_end, </if>
+		<if test="fundingGoal != null">funding_goal, </if>
+		<if test="fundingTotalprice != null">funding_totalprice, </if>
+		<if test="fundingCondition != null">funding_condition, </if>
+		<if test="fundingGift != null">funding_gift, </if>
+		<if test="memberId != null">member_id, </if>
+		funding_id )
+		VALUES (
+		<if test="fundingTitle != null">#{fundingTitle}, </if>
+		<if test="fundingName != null">#{fundingName}, </if>
+		<if test="fundingSerial != null">#{fundingSerial}, </if>
+		<if test="fundingBrand != null">#{fundingBrand}, </if>
+		<if test="fundingCategory != null">#{fundingCategory}, </if>
+		<if test="fundingContent != null">#{fundingContent}, </if>
+		<if test="fundingImage != null">#{fundingImage}, </if>
+		<if test="fundingStart != null">#{fundingStart}, </if>
+		<if test="fundingEnd != null">#{fundingEnd}, </if>
+		<if test="fundingGoal != null">#{fundingGoal}, </if>
+		<if test="fundingTotalprice != null">#{fundingTotalprice}, </if>
+		<if test="fundingCondition != null">#{fundingCondition}, </if>
+		<if test="fundingGift != null">#{fundingGift}, </if>
+		<if test="memberId != null">#{memberId},</if>
+		f_seq.nextval )
+	</insert>
+
+	<!-- 펀딩 한건 조회 -->
+	<select id="fundingSelect"
+		resultType="com.etoile.app.funding.FundingVO">
+		SELECT funding_id,
+		funding_title,
+		funding_name,
+		funding_serial,
+		funding_brand,
+		funding_category,
+		funding_content,
+		funding_image,
+		funding_start,
+		funding_end,
+		funding_goal,
+		funding_totalprice,
+		funding_condition,
+		funding_gift,
+		(CASE WHEN
+		funding_condition='펀딩오픈예정' THEN 'D - ' || TO_CHAR(funding_start
+		-
+		TRUNC(sysdate))
+		WHEN funding_start = TRUNC(sysdate) THEN 'D - DAY '
+		WHEN funding_condition='펀딩중' THEN 'D + ' || TO_CHAR(TRUNC(sysdate) -
+		funding_start)
+		END) AS funding_dday
+		FROM funding
+		WHERE funding_id =
+		#{fundingId}
+	</select>
+
+	<!-- 펀딩 삭제 -->
+	<delete id="fundingDelete">
+		DELETE FROM funding
+		WHERE funding_id = #{fundingId}
+	</delete>
+
+	<!-- 펀딩 수정 -->
+	<update id="fundingUpdate">
+		UPDATE funding
+		SET
+		<if test="fundingTitle != null"> funding_title = #{fundingTitle},</if>
+		<if test="fundingName != null"> funding_name = #{fundingName},</if>
+		<if test="fundingSerial != null"> funding_serial = #{fundingSerial},</if>
+		<if test="fundingBrand != null"> funding_brand = #{fundingBrand},</if>
+		<if test="fundingCategory != null"> funding_category = #{fundingCategory},</if>
+		<if test="fundingContent != null"> funding_content = #{fundingContent},</if>
+		<if test="fundingImage != null"> funding_image = #{fundingImage}, </if>
+		<if test="fundingStart != null"> funding_start = #{fundingStart},</if>
+		<if test="fundingEnd != null"> funding_end = #{fundingEnd},</if>
+		<if test="fundingGoal != null"> funding_goal = #{fundingGoal},</if>
+		<if test="fundingTotalprice != null"> funding_totalprice = #{fundingTotalprice},</if>
+		<if test="fundingCondition != null"> funding_condition = #{fundingCondition},</if>
+		<if test="fundingGift != null"> funding_gift = #{fundingGift}</if>
+		WHERE funding_id = #{fundingId}
+	</update>
+
+	<!--### 펀딩 조인 ### -->
+
+	<!-- 펀딩 참여 등록 -->
+	<insert id="fundingJoinInsert">
+		INSERT INTO FUNDING_JOIN ( funding_join_id,
+		member_id,
+		funding_id,
+		funding_price,
+		funding_gift )
+		VALUES (
+		j_seq.nextval,
+		#{memberId},
+		#{fundingId},
+		#{fundingPrice},
+		#{fundingGift}
+		)
+	</insert>
+
+
+	<!-- 펀딩 가격 수정 -->
+	<update id="fundingJoinUpdate">
+		UPDATE funding
+		SET funding_totalprice =
+		#{fundingTotalprice}
+		WHERE funding_id = #{fundingId}
+	</update>
+
+	<!-- 펀딩 상태 수정 -->
+	<update id="conditionUpdate">
+		UPDATE funding
+		SET funding_condition =
+		#{fundingCondition}
+		WHERE funding_id = #{fundingId}
+	</update>
+
+
+	<!-- 마이 페이지 - 마이 펀딩 조회 -->
+	<select id="myFundingList"
+		resultType="com.etoile.app.funding.FundingVO">
+		SELECT funding_id, funding_name, funding_brand,
+		funding_image, funding_category, funding_condition, funding_content,
+		funding_totalprice, funding_gift
+		FROM funding
+		WHERE member_id =
+		#{memberId}
+	</select>
+
+	<!-- 마이 페이지 - 조인 펀딩 조회 -->
+	<select id="joinFundingList"
+		resultType="com.etoile.app.funding.FundingVO">
+		SELECT f.funding_id, f.funding_name, f.funding_image,
+		f.funding_brand, f.funding_category, f.funding_condition,
+		f.funding_content, f.funding_totalprice, j.funding_price,
+		j.funding_gift
+		FROM funding f , funding_join j
+		WHERE f.funding_id =
+		j.funding_id
+		AND j.member_id = #{memberId}
+	</select>
+
+	<!-- 페이징 : total count -->
+	<select id="getFundingCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM funding
+		<where>
+			<if test="page == 'requestPage'">
+				funding_condition IN ('접수완료','검수중')
+			</if>
+			<if test="page == 'registerPage'">
+				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
+			</if>
+			<if test="fundingBrand != null and fundingBrand != '' ">
+				AND (UPPER(FUNDING_BRAND) like '%' ||
+				UPPER(#{fundingBrand}) || '%'
+				OR FUNDING_CONDITION like '%' ||
+				#{fundingBrand} || '%')
+			</if>
+		</where>
+	</select>
+
+	<!-- 스케쥴러 -->
+	<!-- 펀딩오픈예정 -> 펀딩중 -->
+	<update id="fundingStartUpdate">
+		UPDATE FUNDING
+		SET FUNDING_CONDITION='펀딩중'
+		WHERE TRUNC(FUNDING_START) = TRUNC(SYSDATE)
+	</update>
+
+	<!-- 펀딩중 -> 펀딩마감 -->
+	<update id="fundingEndUpdate">
+		UPDATE FUNDING
+		SET FUNDING_CONDITION='펀딩마감'
+		WHERE TRUNC(FUNDING_END) > TRUNC(SYSDATE)
+	</update>
+</mapper>

@@ -13,33 +13,47 @@
 	src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="<c:url value="/resources/js/productHistory.js" />"></script>
-<script>
-	var myModal = document.getElementById('myModal')
-	var myInput = document.getElementById('myInput')
-	myModal.addEventListener('shown.bs.modal', function() {
-		myInput.focus()
-	})
-</script>
-<script>
+<script type="text/javascript">
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
 
 function drawVisualization() {
-	// Some raw data (not necessarily accurate)
-	var data = google.visualization.arrayToDataTable([
-		['Month', 'RentalCount', 'totalPay'],
-		['2004/05',  165,      938],
-    	['2005/06',  135,      1120],
-    	['2006/07',  157,      1167],
-    	['2007/08',  139,      1110],
-    	['2008/09',  136,      691]
-	]);
+	var result = ${map};
+	
+	var data = [];
+	var temp = [];
+	temp.push('Month');
+	temp.push('월별 대여횟수');
+	temp.push('월별 대여 총금액');
+	data.push(temp);
+	
+	for (var i=0; i<result.length; i++) {
+		var temp = [];
+		temp.push(result[i].date);
+		temp.push(parseInt(result[i].cnt));
+		temp.push(parseInt(result[i].rentalPay));
+		data.push(temp);
+	}
+	var data = google.visualization.arrayToDataTable(data);
 
 	var options = {
-		title : '월별 대여 금액 & 횟수',
-    	seriesType: 'bars',
-    	series: {1: {type: 'line'}}
-	};
+		vAxes: {
+			0: { 
+				minValue : 0,
+				maxValue : 30
+			},
+			1: {
+				minValue : 500000,
+				maxValue : 3000000
+			}
+		},
+		
+    	series: {
+    		0: {targetAxisIndex: 0, type:"bars", lineWidth: 1, color: '#002699'},
+    		1: {targetAxisIndex: 1, type:'line', lineWidth: 2, color: '#b30000'}
+    	}
+        };
+	
 
 	var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 	chart.draw(data, options);

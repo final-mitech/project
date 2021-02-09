@@ -35,6 +35,7 @@ public interface FundingService {
 	
 	public int fundingStartUpdate(FundingVO vo); //스케쥴러 (펀딩오픈예정 -> 펀딩중)
 	public int fundingEndUpdate(FundingVO vo); //스케쥴러 (펀딩중 -> 펀딩마감)
+	public int fundingOpenUpdate(FundingVO vo);
 	
 	
 }

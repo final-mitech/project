@@ -372,7 +372,7 @@
 					<div class="col-md-6">
 						<div id="slider" class="owl-carousel product-slider">
 							<div class="item">
-								<img src="/etoile/images/${selectVo.fundingImage}" />
+								<img src="/etoile/images/${selectVo.fundingImage}" style="width: 636px" height="600px"/>
 							</div>
 						</div>
 						<div id="thumb" class="owl-carousel product-thumb">
@@ -524,6 +524,8 @@
 								<button value="등록" class="round-black-btn"
 								id="joinbutton">펀딩참여하기</button>
 									</c:if>
+									<button value="목록" class="round-black-btn"
+										onclick="location.href='fundingList' ">펀딩목록보기</button>
 								<!-- submit 지움 -->
 						</div>
 					</div>
@@ -587,8 +589,8 @@
 
 	<!-- 블록체인 -->
 	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-	<script src="/etoile/resources/js/abi.js"></script>
-	<script src="/etoile/resources/js/index.js"></script>
+	<script src="/etoile/resources/js/fundingAbi.js"></script>
+	<script src="/etoile/resources/js/fundingExample.js"></script>
 	
 	<script>
 		var memberid = '${sessionScope.id}';
