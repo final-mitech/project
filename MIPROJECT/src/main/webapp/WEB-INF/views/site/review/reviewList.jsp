@@ -40,15 +40,15 @@ function goList(page) {
 	 			 <!-- <a href="#">최신순</a> / <a href="#">추천순</a> -->
 						<div class="row" align="center">
 							<c:forEach var="vo" items="${list }">
-							<div class="col-4" align="center">
+							<div class="col-md-6 col-lg-3">
 								<div class="card" onclick='location.href="reviewDetail?styleId=${vo.styleId}"'>
-								<img class="img-fluid" style="width:100%" src="/etoile/images/${vo.styleImage }">
+								<img class="img-fluid" src="${vo.styleImage }">
 									<div class="card-body">
 										<h5 class="card-title">${vo.memberId }</h5>
-										<p class="card-text">${vo.styleContent }</p>				
+										<p class="card-text">${vo.styleContent }</p>
 										<p class="card-text">
-											<a href="#" class="card-link float-right"><small>#${vo.styleTag }</small></a>
 											<small class="text-muted">${vo.styleDate }</small>
+											<a href="#" class="card-link float-right"><small>#${vo.styleTag }</small></a>
 										</p>
 									</div>
 								</div>

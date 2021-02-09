@@ -1,10 +1,8 @@
 package com.etoile.app.rental.web;
 
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +26,6 @@ import com.etoile.app.vo.PickVO;
 import com.etoile.app.vo.ProductVO;
 import com.etoile.app.vo.RentalProductVO;
 import com.etoile.app.vo.RentalVO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 @Controller
 public class RentalController {
@@ -70,7 +64,7 @@ public class RentalController {
 			
 			List<ProductVO> productList = rentalService.rentalProductList2(vo);
 			model.addAttribute("list", productList);
-			return "site/rentals/rentalMain2";
+			return "site/rentals/rentalMain";
 		}
 	
 
@@ -102,9 +96,7 @@ public class RentalController {
 		String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 		String viewPath = null;
 		String rentalAddress = ad.getAddress() + ", " +ad.getDetailAddress();
-		String rentalPay = vo.getRentalPay().replace(",", "");
 		vo.setMemberId(memberId);
-		vo.setRentalPay(rentalPay);
 		vo.setRentalAddress(rentalAddress);
 		int n = rentalService.RentalInsert(vo);
 		int m = rentalService.usedCoupon(cvo);
@@ -184,13 +176,10 @@ public class RentalController {
 
 	// rental 물품리스트에서 하나 선택시 이동되는 물품상세페이지
 	@RequestMapping("/site/productDetail")
-	public String productDetail(ProductVO pvo, RentalVO rvo, Model model) {
+	public String productDetail(ProductVO vo, Model model) {
 		ProductVO product = new ProductVO();
-		RentalVO rental = new RentalVO();
-		product = rentalService.rentalProductSelect(pvo);
-		rental = rentalService.rentalRentalSelect(rvo);
+		product = rentalService.rentalProductSelect(vo);
 		model.addAttribute("product", product);
-		model.addAttribute("rental",rental);
 		return "site/rentals/productDetail";
 	}
 
@@ -282,18 +271,7 @@ public class RentalController {
 	
 	//관리자 rental 통계차트
 	@RequestMapping("/admin/rentalStatistics.a")
-	public String rentalStatistics (RentalVO vo, Model model, HttpServletRequest httpServletRequest) throws JsonProcessingException {
-		SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
-		Date today = new Date();
-		String date = simpleDate.format(today);
-		System.out.println(date);
-		vo.setDate(date);
-		List<RentalVO> rental = rentalService.selectMonthRental(vo);
-		
-		ObjectMapper map = new ObjectMapper();
-		
-		model.addAttribute("map", map.writeValueAsString(rental));
-		model.addAttribute("rental", rental);
+	public String rentalStatistics (RentalVO vo, Model model) {
 		
 		return "admin/rental/rentalStatistics";
 	}

@@ -58,10 +58,7 @@
 		<filter-name>loginCheckFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginCheckFilter</filter-name>
-		<url-pattern>/site/commentsInsert.do</url-pattern>
-	</filter-mapping>
+
 	<!-- 서비스 전 관리자 여부 체크 -->
 	<filter>
 		<filter-name>adminCheckFilter</filter-name>

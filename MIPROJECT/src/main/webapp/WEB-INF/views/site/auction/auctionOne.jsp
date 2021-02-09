@@ -89,7 +89,7 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<form style="display: none;" id="join" name="join" method="post">
+				<form style="display: ;" id="join" name="join" method="post">
 					아이디: <input class="form-control" id="memberId" name="memberId" value="${loginId }"><br>
 					경매 가: <input class="form-control" id="auctionPay" name="auctionPay" value=""><br>
 					경매번호: <input class="form-control" id="auctionId" name="auctionId" value="${vo.auctionId}"><br>
@@ -132,14 +132,16 @@
 								readonly>&nbsp;eth
 							&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
 							<label for="">즉시낙찰가</label>&nbsp;<input type="text" class="form-control info"
-								id="ImmediateBid" value="${vo.auctionImmediateBid}" name="ImmediateBid"
+								id="auctionImmediateBid" value="${vo.auctionImmediateBid}" name="auctionImmediateBid"
 								style="width: 15%; text-align:center;" readonly>&nbsp;eth
 						</div>
 						<br />
 						<br />
-						<button type="button" class="btn btn-success btn-lg" align="center" data-toggle="modal"
-							data-target="" id="joinBid" style="margin-left: 120px;">경매 참여</button>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<c:if test="${vo.auctionCondition eq '1'}">
+							<button type="button" class="btn btn-success btn-lg" align="center" data-toggle="modal"
+								data-target="" id="joinBid" style="margin-left: 120px;">경매 참여</button>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</c:if>
 						<button type="button" class="btn btn-outline-secondary" align="center"
 							onclick="location.href='auctionMain'">목록</button>
 						<br />
@@ -154,11 +156,12 @@
 									<div class="modal-body">
 										<div class="form-group">
 											<label for="">아이디</label>
-											<input type="text" class="form-control" id="name" value="${loginId }"
+											<input type="text" class="form-control" id="" value="${loginId }"
 												name="" style="width: 40%" readonly><br />
 										</div>
 										<div class="form-group">
 											<label for="">상품명</label>
+											<input type="hidden" id="id" name="id" value="${vo.auctionId}">
 											<input type="text" class="form-control" id="title" value="${vo.auctionName}"
 												name="" style="width: 60%" readonly>
 										</div>
@@ -227,13 +230,21 @@
 
 		$('#bid').attr('value', sum);
 		$('#bid1').attr('value', sum);
-		$('#auctionPay').attr('value', sum);
 
-		var ImmediateBid = $('#ImmediateBid').val();
-		console.log(ImmediateBid);
-		$('#immediateBid').attr('value', ImmediateBid);
-		$('#immediateBid1').attr('value', ImmediateBid);
+		var auctionImmediateBid = $('#auctionImmediateBid').val();
+		console.log(auctionImmediateBid);
+		$('#immediateBid').attr('value', auctionImmediateBid);
+		$('#immediateBid1').attr('value', auctionImmediateBid);
+
 	});
+
+	$('#bid').click(function(){
+		$('#auctionPay').attr('value', $('#bid1').val());
+	})
+
+	$('#immediateBid').click(function(){
+		$('#auctionPay').attr('value', $('#immediateBid1').val());
+	})
 </script>
 
 </html>

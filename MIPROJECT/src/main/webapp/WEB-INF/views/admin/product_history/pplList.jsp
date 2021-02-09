@@ -52,10 +52,10 @@
 				+ today.getDate();
 		
 		//블록체인에 내역 저장
-		App.setStatus(productId, selected, date,'');
+		App.setStatus(productId, selected, date);
 		//물품DB에 상태 업데이트
 		$.ajax({
-			url : "historyUpdate.a", 
+			url : "historyUpdate", 
 			data : {
 				productId : productId,
 				productStatus : selected
