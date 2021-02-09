@@ -65,9 +65,33 @@ function drawVisualization() {
 	<div class="container-fluid">
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active" aria-current="page" href="/etoile/admin/rentalList.a" style="background: #e5e5e5;">대여 요청</a></li>
+			<li class="nav-item"><a class="nav-link active" aria-current="page" href="/etoile/admin/rentalcancelList.a" style="background: #e5e5e5;">취소 요청</a></li>
 			<li class="nav-item"><a class="nav-link active" aria-current="page" href="/etoile/admin/rentalReList.a" style="background: #e5e5e5;">회수 관리</a></li>
 			<li class="nav-item"><a class="nav-link active" aria-current="page" href="/etoile/admin/rentalStatistics.a">대여 통계</a></li>
 		</ul>
+	</div>
+	<br />
+	<div class="row">
+		<table class="table" style="align:'center'">
+			<tr>
+				<th>DATE</th>
+				<c:forEach var="rental" items="${rental }">
+				<th><c:out value="${rental.date }" /> </th>
+				</c:forEach>
+			</tr>
+			<tr>
+				<th>월별 대여횟수</th>
+				<c:forEach var="rental" items="${rental }">
+				<th><c:out value="${rental.cnt }" /> </th>
+				</c:forEach>
+			</tr>
+			<tr>
+				<th>월별 대여총액</th>
+				<c:forEach var="rental" items="${rental }">
+				<th><c:out value="${rental.rentalPay }" /> </th>
+				</c:forEach>
+			</tr>
+		</table>
 	</div>
 	<div class="row">
 		<div id="chart_div" style="width: 1500px; height: 600px;"></div>

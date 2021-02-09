@@ -105,5 +105,21 @@ public class RentalServiceImpl implements RentalService {
 	public RentalVO rentalRentalSelect(RentalVO vo) {
 		return dao.rentalRentalSelect(vo);
 	}
+	@Override
+	public List<RentalVO> searchMember(RentalVO vo) {
+		return dao.searchMember(vo);
+	}
+	@Override
+	public int rentalCnt(RentalVO vo) {
+		return dao.rentalCnt(vo);
+	}
+	@Override
+	public int updateStatus2(ProductVO vo) {
+		return dao.updateStatus2(vo);
+	}
+	@Override
+	public List<RentalVO> rentalcancelList(RentalVO vo) {
+		return dao.rentalcancelList(vo);
+	}
 	
 }
