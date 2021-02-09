@@ -45,6 +45,7 @@ public class StyleController {
 		vo.setStart(paging.getFirst());
 		vo.setEnd(paging.getLast());
 		model.addAttribute("paging", paging);
+		System.out.println("hi");
 
 		// 최신순 조회
 		List<StylingVO> stylingList = styleService.stylingList(vo);
