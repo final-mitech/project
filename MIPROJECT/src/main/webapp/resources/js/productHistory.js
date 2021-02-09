@@ -86,6 +86,7 @@ App = {
 		]);
 		App.contract.options.address = "0xc8A67962b14c8f00D3dc2240198CeD80354ef41B";
 		getHistory();
+
 	},
 	setStatus: function(productId, status, date, form) {
       web3.eth.getAccounts(function(error, accounts) {
@@ -125,6 +126,7 @@ App = {
 
 					$('tbody').append(trTag);
 				}
+				$('#data').DataTable();
 
 			});
 
