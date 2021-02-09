@@ -89,7 +89,7 @@
 		<div class="row">
 			<br />
 		</div>
-		<div class="row overflow-auto">
+
 			<table id="data" class="table table-striped table-bordered" style="width:100%">
 				<thead class="thead-light">
 					<tr>
@@ -101,7 +101,7 @@
 					<!-- 이력내역  -->
 				</tbody>
 			</table>
-		</div>
+
 	</div>
 
 
