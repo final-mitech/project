@@ -5,12 +5,21 @@
 	
 <mapper namespace="com.etoile.app.style.mapper.StyleMapper">
 
-
-	<!-- 리뷰 전체 리스트 조회 -->
+	<!-- 리뷰 전체 리스트 조회 & 페이징 & 최신순 정렬 -->
 	<select id="stylingList" resultType="stylingVO" parameterType="stylingVO">
 		SELECT a.* FROM
-			( SELECT b.*, rownum rn from (
-			SELECT * FROM STYLING ) b ) a
+			( SELECT b.*, rownum rn FROM (
+			SELECT * FROM STYLING 
+			ORDER BY style_id DESC ) b ) a
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>	
+	
+	<!-- 리뷰 전체 리스트 추천순 정렬 & 페이징 -->
+	<select id="stylingList2" resultType="StylingVO" parameterType="stylingVO">
+			SELECT a.* FROM
+			( SELECT b.*, rownum rn FROM (
+			SELECT * FROM STYLING 
+			ORDER BY style_recommend DESC, style_date DESC ) b ) a
 		WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	
@@ -32,12 +41,12 @@
 	
 	<!-- 해당 styleId에 해당하는 productName 찾아서 제품 가져오기 -->
 	<select id="stylingSearchProduct" resultType="productVO">
-		SELECT * FROM product A
+		SELECT A.* FROM product A
 		WHERE A.product_name IN (SELECT B.style_tag
-                                 FROM STYLING B
+                                 FROM styling B
                                  WHERE B.style_tag = A.product_name
                                  AND B.style_tag = #{styleTag}
-                                 );
+                                 )
      </select>
 	
 	<!-- 리뷰 등록폼 제품 리스트 조회 -->
@@ -61,7 +70,6 @@
 			</if>
 		</where>
 	</select>
-	
 	
 	<!-- 리뷰 추천 등록 (좋아요) -->
 	<insert id="stylingRecommend" parameterType="RecommendVO">
@@ -102,7 +110,6 @@
     	WHERE style_id = #{styleId}
   	</update>
 
-
 	<!-- 마이페이지: 해당회원 리뷰 리스트 -->
 	<select id="myPageStyling" resultType="stylingVO" parameterType="stylingVO">
 		SELECT * FROM STYLING
@@ -120,7 +127,7 @@
 	
 	<!-- 마이페이지: 해당회원 추천 리스트 -->
 	<select id="myPageStylingRecommend" resultType="stylingVO" parameterType="stylingVO">
-		SELECT a.style_tag, a.style_content, b.style_id
+		SELECT a.style_tag, a.style_date, a.style_content, a.style_image, b.style_id
 		FROM STYLING a, ( SELECT *
 					  	FROM RECOMMEND
 					  	WHERE member_id = #{memberId}
