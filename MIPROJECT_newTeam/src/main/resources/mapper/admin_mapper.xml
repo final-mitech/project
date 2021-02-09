@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.etoile.app.admin.mapper.AdminInfoMapper">
-	<select id="adminLogin" resultType="Integer">
-		SELECT count(*)
-		  FROM adminInfo
-		 WHERE id = #{id} AND password = #{password}
-	</select>
-</mapper>
