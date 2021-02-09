@@ -41,14 +41,13 @@
             <div class="row">
                <div class="col-lg-5 col-xl-4">
                   <div class="card">
-                  
                      <div class="card-body">
                         <div class="media align-items-center mb-4">
                         <img class="img-fluid" style="width:100%" src="/etoile/images/${list.styleImage }">
                         </div>
                            <div class="row mb-5">
                               <div class="col-12 text-center">
-                                 <a href='location.href="stylingSearchProduct?styleTag=${list.styleTag }'>#${list.styleTag }</a>
+                                 <a href="stylingSearchProduct?styleTag=${list.styleTag }">#${list.styleTag }</a>
                                  <p class="text-muted mb-0" style="font-size:20px;">작성자 : ${list.memberId }</p>
                                  <!-- 좋아요 기능 -->
                  				 <form id="frm">
@@ -65,14 +64,12 @@
 			                 	 </form>
 			                  </div>
                            </div> 
-                        <p class="text-muted">${list.styleContent }</p>
+                        <p class="text-muted">${list.styleContent }<br/></p>
                      </div>
                   
                   </div>
                </div>
-
                <!--  댓글창 -->
-               <!--<form action="site/review/reviewDetail" class="form-profile">-->
                   <div class="col-lg-7 col-xl-8">
                      <div class="card">                  
                         <div class="card-body">
@@ -89,7 +86,6 @@
                         </div>
                      </div>
                      <br />
-                     
                      <div class="card">
                         <c:forEach var="vo" items="${comments }">
                            <div class="card-body">
@@ -116,11 +112,9 @@
                            </div>
                         </c:forEach>
                      </div>
-                     
                   </div>
                <!--</form>-->
                <!-- 댓글창 끝 -->
-               
             </div>
          </div>
       </div>

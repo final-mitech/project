@@ -110,8 +110,13 @@ public class StyleServiceImpl implements StyleService {
 	}
 
 	@Override
-	public ProductVO stylingSearchProduct(ProductVO vo) {
+	public ProductVO stylingSearchProduct(StylingVO vo) {
 		return dao.stylingSearchProduct(vo);
+	}
+
+	@Override
+	public List<StylingVO> stylingList2(StylingVO vo) {
+		return dao.stylingList2(vo);
 	}
 
 }

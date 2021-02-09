@@ -17,7 +17,7 @@
 
 	// 페이징 실행
 function goList(page) {
-	location.href = '/etoile/site/reviewList?page=' + page;
+	location.href = '/etoile/site/reviewList2?page=' + page;
 }
 	
 </script>
