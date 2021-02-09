@@ -37,13 +37,13 @@ $(function() {
 										<!--  제품명 불러오기 -->
 										<div class="btn-group m-b-20" id="myDropdown">
 											<button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-													<span id="pname">${list.styleTag }</span>
+													<span id="pname">제품명</span>
 											</button>
 											<div class="dropdown-menu">
 												<c:forEach var="p" items="${p }">
 													<a class="dropdown-item" onclick="insertTag(this)">${p.productName }</a>
 												</c:forEach>
-												<input type="hidden" id="styleTag" name="styleTag" value="${list.styleTag }">
+												<input type="hidden" id="styleTag" name="styleTag">
 											</div>
 										</div>
 									</div>

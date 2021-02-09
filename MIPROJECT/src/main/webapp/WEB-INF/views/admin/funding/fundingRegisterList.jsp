@@ -49,7 +49,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="f" items="${fundings }">
-						<tr class="clickSelect" data-id="${f.fundingId }" id="fundingId">
+						<tr class="clickSelect" data-id="${f.fundingId }">
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
@@ -58,34 +58,20 @@
 <%-- 							<td>${f.fundingCategory }</td> --%>
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
-<%-- 						<%-- 							<td>${f.fundingImage }</td> --%>
-							<c:if test="${f.fundingCondition ne '펀딩마감'}">
-								<td class="eventDel"><select
-									id="conditionChange${f.fundingId }" class="form-control"
-									onchange="conditionChange(${f.fundingId }, ${f.fundingGoal})">
-										<option
-											<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
-											펀딩오픈예정</option>
-										<option
-											<c:if test="${f.fundingCondition eq '펀딩중'}"> selected </c:if>>
-											펀딩중</option>
-										<option>펀딩마감</option>
-								</select></td>
-							</c:if>
-							<c:if test="${f.fundingCondition eq '펀딩마감'}">
-								<td class="eventDel"><select
-									id="conditionChange${f.fundingId }" class="form-control"
-									onchange="conditionChange(${f.fundingId })">
-										<option>펀딩마감</option>
-										<!-- <option>환불하기</option> -->
-								</select></td>
-
-								<%-- <c:if test="${f.fundingTotalprice le f.fundingGoal}">
-									<td>
-										<button class="eventDel" onclick="App.fundingResult(${f.fundingId })">환불하기</button>
-									</td>
-								</c:if> --%>
-							</c:if>
+<%-- 							<td>${f.fundingImage }</td> --%>
+							<td class="eventDel"><select
+								id="conditionChange${f.fundingId }" class="form-control"
+								onchange="conditionChange(${f.fundingId })">
+									<option
+										<c:if test="${f.fundingCondition eq '펀딩오픈예정'}"> selected </c:if>>
+										펀딩오픈예정</option>
+									<option
+										<c:if test="${f.fundingCondition eq '펀딩중'}"> selected </c:if>>
+										펀딩중</option>
+									<option
+										<c:if test="${f.fundingCondition eq '펀딩마감'}"> selected </c:if>>
+										펀딩마감</option>
+							</select></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -100,10 +86,6 @@
 		</div>
 
 	</div>
-	<!-- 블록체인 -->
-	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-	<script src="/etoile/resources/js/fundingAbi.js"></script>
-	<script src="/etoile/resources/js/fundingExample.js"></script>
 
 	<!-- clickSelect : 펀딩 상세보기 -->
 	<script>
@@ -120,17 +102,9 @@
 			e.stopPropagation();
 		})			
 		
-		function conditionChange(id, goal) {
+		function conditionChange(id) {
 			let fundingId = id;
 			let fundingCondition = $('#conditionChange'+id).val();
-			if(fundingCondition == "펀딩중"){
-				let fundingGoal = parseInt(goal);
-				let date = 7;
-				console.log(""+fundingId,date,fundingGoal);
-				App.setting(""+fundingId,date,fundingGoal);
-			}else if(fundingCondition == "펀딩마감"){
-				App.fundingResult(""+fundingId);
-			}
 			
 			$.ajax({
 				url: 'conditionUpdate.a',

@@ -29,7 +29,7 @@
 								<div class="card" align="center">
 									<div class="card-body">
 										<div class="media align-items-center mb-4">
-											<img class="mr-3" src="/etoile/images/${list.styleImage }">
+											<img class="mr-3" src="${list.styleImage }">
 										</div>
 										<div class="row mb-5">
 											<div class="col-12 text-center">

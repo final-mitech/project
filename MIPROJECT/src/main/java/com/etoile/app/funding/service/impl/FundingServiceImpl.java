@@ -125,10 +125,4 @@ public class FundingServiceImpl implements FundingService {
 		return dao.fundingEndUpdate(vo);
 	}
 
-	@Override
-	public int fundingOpenUpdate(FundingVO vo) {
-		
-		return dao.fundingOpenUpdate(vo);
-	}
-
 }

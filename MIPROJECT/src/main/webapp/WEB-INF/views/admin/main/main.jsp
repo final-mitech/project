@@ -35,7 +35,7 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">펀딩번호</th>
-								<th scope="col" style="width:150px;">제품명</th>
+								<th scope="col">제품명</th>
 								<th scope="col">제품유형</th>
 								<th scope="col">펀딩상태</th>
 							</tr>
@@ -68,7 +68,7 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">경매번호</th>
-								<th scope="col" style="width:150px;">제품명</th>
+								<th scope="col">제품명</th>
 								<th scope="col">제품유형</th>
 								<th scope="col">경매상태</th>
 							</tr>

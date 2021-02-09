@@ -53,16 +53,6 @@
 			</table>
 		</div>
 		<div class="row">
-			<c:if test="${info.grade ne 'BUSINESS' }">
-				<button type="button" class="btn btn-light btn-lg btn-block"
-					onclick="location.href='/etoile/admin/memberList.a'">목록보기</button>
-			</c:if>
-			<c:if test="${info.grade eq 'BUSINESS' }">
-				<button type="button" class="btn btn-light btn-lg btn-block"
-					onclick="location.href='/etoile/admin/businessList.a'">목록보기</button>
-			</c:if>
-		</div>
-		<div class="row">
 			<table class="table">
 				<thead>
 					<tr>

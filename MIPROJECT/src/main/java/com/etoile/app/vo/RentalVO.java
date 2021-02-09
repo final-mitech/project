@@ -20,6 +20,4 @@ public class RentalVO {
 	private String ppl;
 	private String name;
 	private String rentalWaybill;
-	private String date;
-	private String cnt;
 }

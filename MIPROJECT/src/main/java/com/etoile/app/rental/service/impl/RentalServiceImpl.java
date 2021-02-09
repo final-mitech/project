@@ -97,13 +97,5 @@ public class RentalServiceImpl implements RentalService {
 	public List<Map<String, Object>> rentalReExcel(RentalVO vo) {
 		return dao.rentalReExcel(vo);
 	}
-	@Override
-	public List<RentalVO> selectMonthRental(RentalVO vo) {
-		return dao.selectMonthRental(vo);
-	}
-	@Override
-	public RentalVO rentalRentalSelect(RentalVO vo) {
-		return dao.rentalRentalSelect(vo);
-	}
 	
 }
