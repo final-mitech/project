@@ -15,7 +15,7 @@ App = {
 		} else if (window.web3) {
 			App.web3Provider = window.web3.currentProvider;
 		} else {
-			App.web3Provider = new Web3.providers.HttpProvider("http://127.0.0.1:7545");
+			App.web3Provider = new Web3.providers.HttpProvider("http://127.0.0.1:9545");
 		}
 		web3 = new Web3(App.web3Provider);
 
@@ -36,43 +36,30 @@ App = {
 		var name = encodeURIComponent($('#name').val()); //데이터를 보내는 곳에서 인코딩
 		var title = encodeURIComponent($('#title').val());
 		var bidEth = parseInt($('#bid').val());
+		var auctionPay = parseInt($('#auctionPay').val());
+		var auctionImmediateBid = parseInt($('#auctionImmediateBid').val());
+		
 		bid = bidEth * (1000000000000000000);
 		imBid = immediateBid * (1000000000000000000);
+		pay = auctionPay * (1000000000000000000);
+		immediatePay = auctionImmediateBid * (1000000000000000000);
 
 		web3.eth.getAccounts(function(error, accounts) {
 			if (error) {
 				console.log("계정을 가져오지 못했습니다.");
 				return;
 			}
-			
+
 			var account = accounts[0]; //첫번쨰 계정을 가져옴
 
-			return App.contract.methods.bidding(title, name)
-				.send({
-					from: account,
-					value: bid,
-					gasLimit: web3.utils.toHex(3000000)
-				}) //end of send
-				.then(function(result) {
-					if (imBid == bid) {
-						$.ajax({
-							url: "/etoile/site/auctionImmediateBid.do",
-							type: 'POST',
-							//dataType: 'json', //받아오는 타입
-							data: $("#join").serialize(),
-							success: function(data) {
-								if (data == "1") {
-									alert("즉시낙찰 성공 :) 마이페이지에서 확인가능합니다.");
-									location.href = "auctionMain";
-								} else {
-									alert("즉시낙찰되지 않았습니다 :(")
-								}
-							},
-							error: function(e) {
-								alert("즉시낙찰되지 않았습니다!");
-							}
-						}); //end of ajax
-					} else {
+			if(pay != immediatePay){
+				return App.contract.methods.bidding(title, name)
+					.send({
+						from: account,
+						value: pay,
+						gasLimit: web3.utils.toHex(3000000)
+					}) //end of send
+					.then(function(result) {
 						$.ajax({
 							url: "/etoile/site/auctionBidJoin.do",
 							type: 'POST',
@@ -83,18 +70,44 @@ App = {
 									alert("입찰 성공 :) 마이페이지에서 확인가능합니다.");
 									location.href = "auctionMain";
 								} else {
-									alert("입찰되지 않았습니다 :(")
+									alert("입찰되지 않았습니다 :(");
 								}
 							},
 							error: function(e) {
 								alert("입찰되지 않았습니다!");
 							}
 						}); //end of ajax
-					}//end of else		
-				}); //end of then				
+					}); //end of then 
+			} else {
+				return App.contract.methods.bidding(title, name)
+					.send({
+						from: account,
+						value: pay,
+						gasLimit: web3.utils.toHex(3000000)
+					}) //end of send
+					.then(function(result) {
+						$.ajax({
+							url: "/etoile/site/auctionImmediateBid.do",
+							type: 'POST',
+							//dataType: 'json', //받아오는 타입
+							data: $("#join").serialize(),
+							success: function(data) {
+								if (data == "1") {
+									alert("즉시낙찰 성공 :) 마이페이지에서 확인가능합니다.");
+									location.href = "auctionMain";
+								} else {
+									alert("즉시낙찰되지 않았습니다 :(");
+								}
+							},
+							error: function(e) {
+								alert("즉시낙찰되지 않았습니다!");
+							}
+						}); //end of ajax
+					}); //end of then
+			} //end of else
 		}); //end of web3
-		
-		 App.contract.methods.checkSelfReached().then(
+
+		App.contract.methods.checkSelfReached().then(
 			function() {
 				$.ajax({
 					url: "/etoile/site/auctionBidRevert.do",

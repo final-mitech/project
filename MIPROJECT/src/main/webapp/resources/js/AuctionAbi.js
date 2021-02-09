@@ -1,63 +1,28 @@
 const abi =[
 	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
 				"internalType": "string",
-				"name": "rtitle",
+				"name": "_id",
 				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "rName",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "rAmount",
-				"type": "uint256"
 			}
 		],
-		"name": "recentVoter",
-		"type": "event"
-	},
-	{
-		"inputs": [],
-		"name": "Bidders",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
+		"name": "addAuction",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "auctionId",
+		"outputs": [
 			{
 				"internalType": "string",
-				"name": "_title",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_name",
+				"name": "",
 				"type": "string"
 			}
 		],
-		"name": "bid1",
-		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -71,24 +36,22 @@ const abi =[
 		"name": "bidList",
 		"outputs": [
 			{
+				"internalType": "string",
+				"name": "auctionId",
+				"type": "string"
+			},
+			{
 				"internalType": "address payable",
-				"name": "addr",
+				"name": "highestBidder",
 				"type": "address"
 			},
 			{
 				"internalType": "uint256",
-				"name": "bid",
+				"name": "highestBid",
 				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "checkSelfReached",
-		"outputs": [],
-		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -99,6 +62,19 @@ const abi =[
 				"internalType": "address payable",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "NumBidList",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
