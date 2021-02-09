@@ -56,10 +56,11 @@ public class FundingContorller {
 
 		model.addAttribute("paging", paging);
 		//
-		
+
 		if (vo.getSort() != null && vo.getSort().equals("popularitySort")) {
 			vo.setPage("magamXPage");
-		} else vo.setPage("registerPage");
+		} else
+			vo.setPage("registerPage");
 
 		List<FundingVO> fundings = fundingService.fundingList(vo);
 		// System.out.println(fundings.get(1).getFundingTitle());
@@ -268,6 +269,41 @@ public class FundingContorller {
 		model.addAttribute("fundings", fundings);
 
 		return "site/my/joinFundingList";
+	}
+
+	// 관리자
+	// (관리자) 등록페이지
+	@RequestMapping("/admin/fundingComingSoonList.a")
+	public String fundingComingSoonList(Model model, FundingVO vo) {
+		vo.setPage("comingSoonPage");
+		vo.setEnd(1000);
+		List<FundingVO> fundings = fundingService.fundingComingSoonList(vo);
+		model.addAttribute("fundings", fundings);
+
+		return "admin/funding/fundingComingSoonList";
+	}
+
+	// (관리자) 등록페이지
+	@RequestMapping("/admin/fundingOpenList.a")
+	public String fundingOpenList(Model model, FundingVO vo) {
+		vo.setSort("openPage");
+		vo.setPage("openPage");
+		vo.setEnd(1000);
+		List<FundingVO> fundings = fundingService.fundingOpenList(vo);
+		model.addAttribute("fundings", fundings);
+
+		return "admin/funding/fundingOpenList";
+	}
+
+	// (관리자) 등록페이지
+	@RequestMapping("/admin/fundingCloseList.a")
+	public String fundingCloseList(Model model, FundingVO vo) {
+		vo.setPage("closePage");
+		vo.setEnd(1000);
+		List<FundingVO> fundings = fundingService.fundingCloseList(vo);
+		model.addAttribute("fundings", fundings);
+
+		return "admin/funding/fundingCloseList";
 	}
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,9 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <style>
+.tdColor b {
+	background-color: yellow;
+}
 </style>
 
 </head>
@@ -27,33 +31,36 @@
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					onclick="location.href='/etoile/admin/fundingRequestList.a'">펀딩
 						요청 리스트</a></li>
+				<li class="nav-item"><a class="nav-link " data-toggle="tab"
+					onclick="location.href='/etoile/admin/fundingRegisterList.a'">펀딩
+						리스트</a></li>
 				<li class="nav-item"><a class="nav-link active"
 					data-toggle="tab"
-					onclick="location.href='/etoile/admin/fundingRegisterList.a'">펀딩 리스트</a></li>
-						<li class="nav-item"><a class="nav-link "
-					data-toggle="tab"
-					onclick="location.href='/etoile/admin/fundingComingSoonList.a'">펀딩 오픈 예정</a></li>
-						<li class="nav-item">
-						<li class="nav-item"><a class="nav-link "
-					data-toggle="tab"
+					onclick="location.href='/etoile/admin/fundingComingSoonList.a'">펀딩
+						오픈 예정</a></li>
+				<li class="nav-item">
+				<li class="nav-item"><a class="nav-link " data-toggle="tab"
 					onclick="location.href='/etoile/admin/fundingOpenList.a'">펀딩 중</a></li>
-						<li class="nav-item"><a class="nav-link "
-					data-toggle="tab"
-					onclick="location.href='/etoile/admin/fundingCloseList.a'">펀딩 마감</a></li>
+				<li class="nav-item"><a class="nav-link " data-toggle="tab"
+					onclick="location.href='/etoile/admin/fundingCloseList.a'">펀딩
+						마감</a></li>
 			</ul>
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">NO.</th>
-						<th scope="col" style="word-break: break-all; width: 400px">펀딩명</th>
-						<th scope="col" style="word-break: break-all; width: 300px">상품명</th>
-<!-- 						<th scope="col">브랜드</th> -->
-<!-- 						<th scope="col">모델번호</th> -->
-<!-- 						<th scope="col">카테고리</th> -->
-						<th scope="col">목표금액</th>
-						<th scope="col">현재모금액</th>
-<!-- 						<th scope="col">이미지</th> -->
+						<th scope="col" style="word-break: break-all; width: 300px">펀딩명</th>
+						<th scope="col" style="word-break: break-all; width: 250px">상품명</th>
+						<!-- 						<th scope="col">브랜드</th> -->
+						<!-- 						<th scope="col">모델번호</th> -->
+						<!-- 						<th scope="col">카테고리</th> -->
+						<th scope="col" style="word-break: break-all; width: 30px">목표금액</th>
+						<th scope="col" style="word-break: break-all; width: 30px">현재모금액</th>
+						<!-- 						<th scope="col">이미지</th> -->
+						<th scope="col">시작일</th>
+						<th scope="col">마감일</th>
 						<th scope="col">펀딩상태</th>
+						<th scope="col">환불상태</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,12 +69,25 @@
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
-<%-- 							<td>${f.fundingBrand }</td> --%>
-<%-- 							<td>${f.fundingSerial }</td> --%>
-<%-- 							<td>${f.fundingCategory }</td> --%>
+							<%-- 							<td>${f.fundingBrand }</td> --%>
+							<%-- 							<td>${f.fundingSerial }</td> --%>
+							<%-- 							<td>${f.fundingCategory }</td> --%>
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
-<%-- 						<%-- 							<td>${f.fundingImage }</td> --%>
+							<%-- <td>${f.fundingImage }</td> --%>
+
+							<!-- 날짜 비교해서 시작일 이면 효과주기 -->
+							<jsp:useBean id="now" class="java.util.Date" />
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
+
+							<c:if test="${f.fundingStart ne nowDate}">
+								<td><b>${f.fundingStart }</b></td>
+							</c:if>
+							<c:if test="${f.fundingStart eq nowDate}">
+								<td class="tdColor"><b>${f.fundingStart }</b></td>
+							</c:if>
+
+							<td>${f.fundingEnd }</td>
 							<c:if test="${f.fundingCondition ne '펀딩마감'}">
 								<td class="eventDel"><select
 									id="conditionChange${f.fundingId }" class="form-control"
@@ -89,12 +109,15 @@
 										<!-- <option>환불하기</option> -->
 								</select></td>
 
-								<%-- <c:if test="${f.fundingTotalprice le f.fundingGoal}">
-									<td>
-										<button class="eventDel" onclick="App.fundingResult(${f.fundingId })">환불하기</button>
-									</td>
-								</c:if> --%>
 							</c:if>
+							
+							<c:if test="${f.fundingStart eq nowDate }">
+								<td class="eventDel">
+									<button class="eventDel"
+										onclick="App.setting(${f.fundingId },${f.fundingEnd}, ${f.fundingGoal})">펀딩시작</button>
+								</td>
+							</c:if>
+							
 						</tr>
 					</c:forEach>
 				</tbody>
