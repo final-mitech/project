@@ -57,11 +57,15 @@ public class FundingContorller {
 		model.addAttribute("paging", paging);
 		//
 
-		vo.setPage("registerPage");
+		if (vo.getSort() != null && vo.getSort().equals("popularitySort")) {
+			vo.setPage("magamXPage");
+		} else
+			vo.setPage("registerPage");
 
 		List<FundingVO> fundings = fundingService.fundingList(vo);
 		// System.out.println(fundings.get(1).getFundingTitle());
 		model.addAttribute("fundings", fundings);
+		model.addAttribute("vo", vo); // 검색어담김
 
 		return "site/funding/fundingList";
 	}
@@ -142,9 +146,9 @@ public class FundingContorller {
 	// (관리자) 요청된 펀딩 수정 폼 (-> 파일 업로드 처리중!)
 	@RequestMapping("/admin/fundingRequestUpdateForm.a")
 	public String fundingRequestUpdateForm(Model model, FundingVO vo) {
-		
+
 		// 상태변경
-		vo.setFundingCondition("검수중"); 
+		vo.setFundingCondition("검수중");
 		fundingService.conditionUpdate(vo); // DB에 저장
 
 		// 단건조회
@@ -171,9 +175,10 @@ public class FundingContorller {
 	}
 
 	// 요청된 펀딩 수정
-	@PostMapping("admin/fundingRequestUpdate.a") 
+	@PostMapping("admin/fundingRequestUpdate.a")
 	public String fundingRequestUpdate(Model model, FundingVO vo, HttpServletRequest request,
-			@RequestParam(value="uploadImage", required = false) MultipartFile uploadImage) throws IllegalStateException, IOException {
+			@RequestParam(value = "uploadImage", required = false) MultipartFile uploadImage)
+			throws IllegalStateException, IOException {
 		// url을 통해 실제경로를 가져온다.
 		String path = request.getSession().getServletContext().getRealPath("/images");
 		System.out.println(uploadImage);
@@ -185,8 +190,7 @@ public class FundingContorller {
 			// 파일명을 VO에 담고
 			vo.setFundingImage(uploadImage.getOriginalFilename());
 		}
-		
-		
+
 		String viewPath = null;
 
 		vo.setFundingCondition("펀딩오픈예정");
@@ -215,7 +219,7 @@ public class FundingContorller {
 	}
 
 	// 펀딩 상태 수정
-	@PostMapping("admin/conditionUpdate.a")
+	@GetMapping("admin/conditionUpdate.a")
 	@ResponseBody
 	public String conditionUpdate(FundingVO vo) {
 
@@ -265,6 +269,41 @@ public class FundingContorller {
 		model.addAttribute("fundings", fundings);
 
 		return "site/my/joinFundingList";
+	}
+
+	// 관리자
+	// (관리자) 등록페이지
+	@RequestMapping("/admin/fundingComingSoonList.a")
+	public String fundingComingSoonList(Model model, FundingVO vo) {
+		vo.setPage("comingSoonPage");
+		vo.setEnd(1000);
+		List<FundingVO> fundings = fundingService.fundingComingSoonList(vo);
+		model.addAttribute("fundings", fundings);
+
+		return "admin/funding/fundingComingSoonList";
+	}
+
+	// (관리자) 등록페이지
+	@RequestMapping("/admin/fundingOpenList.a")
+	public String fundingOpenList(Model model, FundingVO vo) {
+		vo.setSort("openPage");
+		vo.setPage("openPage");
+		vo.setEnd(1000);
+		List<FundingVO> fundings = fundingService.fundingOpenList(vo);
+		model.addAttribute("fundings", fundings);
+
+		return "admin/funding/fundingOpenList";
+	}
+
+	// (관리자) 등록페이지
+	@RequestMapping("/admin/fundingCloseList.a")
+	public String fundingCloseList(Model model, FundingVO vo) {
+		vo.setPage("closePage");
+		vo.setEnd(1000);
+		List<FundingVO> fundings = fundingService.fundingCloseList(vo);
+		model.addAttribute("fundings", fundings);
+
+		return "admin/funding/fundingCloseList";
 	}
 
 }

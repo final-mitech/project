@@ -17,7 +17,7 @@ tr {
 }
 
 th {
-	font-size: 10px;
+	font-size: 17px;
 }
 
 input {
@@ -147,11 +147,13 @@ $(function() {
 			var renTalAddress = document.getElementById('address').value;
 			var renTalPostcode = document.getElementById('postcode').value;
 			var ProductName = document.getElementById('productName').value;
+			var rentalOrder = 'ren_' + new Date().getTime();
+			document.getElementById('rentalOrder').value = rentalOrder;
 			IMP.init('imp74103314');
 			IMP.request_pay({
 				pg : 'inicis',
 				pay_method : 'card',
-				merchant_uid : 'merchant_' + new Date().getTime(),
+				merchant_uid : 'ren_' + new Date().getTime(),
 				name : ProductName,
 				//결제창에서 보여질 이름
 				amount : rentalPay,
@@ -249,6 +251,7 @@ $(function() {
 			<div class="row">
 				<input type="hidden" id="couponId" name="couponId">
 				<input type="hidden" name="productId" value="${product.productId }">
+				<input type="hidden" id="rentalOrder" name="rentalOrder">
 				<input type="hidden" id="productName" name="productName"
 					value="${product.productName }">
 				<div class="col-9">

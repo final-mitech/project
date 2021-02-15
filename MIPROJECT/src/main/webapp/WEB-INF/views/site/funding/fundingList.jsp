@@ -31,18 +31,19 @@
 }
 
 .search {
-	width: 250px;
+	width: 300px;
 	height: 30px;
+	/* display: inline-block; */
+	/* 	float: right; */
 }
 
 .sort {
-	width: 140px;
+	width: 1220px;
 	float: left;
 }
 
-.serach {
+.cate {
 	display: inline-block;
-	float: right;
 }
 
 /* .h6.mb-0.mr-3 {
@@ -56,6 +57,14 @@
 .card-body {
 	height: 300px;
 }
+/* 
+.mb-4 {
+	margin: 0px 0px 0px 0px;
+} */
+.card-footer {
+	background-color: white;
+	border-color: white;
+}
 </style>
 
 </head>
@@ -63,33 +72,46 @@
 <body>
 
 	<div class="container" style="max-width: 1400px;">
-		<!-- 		<div class="row"> -->
-
-		<div class="div sort">
-			<a href="fundingList?sort=registrationSort">등록순</a> <a
-				href="fundingList?sort=popularitySort">인기순</a>
-		</div>
-		<form action="fundingList">
-			<div class="input-group div search">
-				<input type="text" class="form-control" placeholder="검색어를 입력하세요"
-					name="fundingBrand">​​​​​​​
-				<button type="submit">
-					<i class="fas fa-search"></i>
-				</button>
-			</div>
-		</form>
-		<!-- 			<div>
-				<a href="/etoile/admin/fundingRequestList.a">요청 펀딩 목록 </a> <a
-					href="/etoile/admin/fundingRegisterList.a"> 등록 펀딩 목록</a> <a
-					href="/etoile/site/myFundingList.do">마이펀딩 </a> <a
-					href="/etoile/site/joinFundingList.do">조인펀딩 </a>
-			</div> -->
-		<!-- 		</div> -->
 		<div class="row">
-			<div class="div register" align="right">
-				<button type="button" class="btn btn-dark"
-					onclick="location.href='fundingInsertForm.do' ">펀딩 요청하기</button>
-			</div>
+			<form action="fundingList" id="pageForm">
+			
+				<div class="div sort">&nbsp;&nbsp;
+					<a class="badge badge-light" onclick="sortFunc('registrationSort')">
+						등록순 </a> <a class="badge badge-light"
+						onclick="sortFunc('popularitySort')"> 인기순 </a>
+
+					<div class="div cate">
+						<a class="badge badge-pill badge-dark" onclick="cateFunc('BAG')">BAG</a>
+						<a class="badge badge-pill badge-dark"
+							onclick="cateFunc('CLOTHES')">CLOTHES</a> <a
+							class="badge badge-pill badge-dark" onclick="cateFunc('ACC')">ACC</a>
+					</div>
+				</div>
+				<input type="hidden" name="page" id="page"> <input
+					type="hidden" name="sort" id="sort" value="${vo.sort }"> <input
+					type="hidden" name="fundingCategory" id="cate"
+					value="${vo.fundingCategory }"> 
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					
+					<a class="badge badge-dark"
+					onclick="location.href='fundingInsertForm.do' ">펀딩 요청하기</a>
+					
+				<div class="input-group div search"> &nbsp;&nbsp;
+					<input type="text" class="form-control" placeholder="검색어를 입력하세요"
+						name="fundingBrand" value="${vo.fundingBrand }">​​​​​​​
+					<button type="submit">
+						<i class="fas fa-search"></i>
+					</button>
+					
+					<!-- 	<button type="button" class="btn btn-dark btn-sm" align="right"
+						onclick="location.href='fundingInsertForm.do' ">펀딩 요청하기</button> -->
+
+				</div>
+
+			</form>
+			</br>
+
+
 		</div>
 
 		<div class="row text-center">
@@ -105,8 +127,8 @@
 							<h5 class="card-title" align="left" style="display: inline">
 								<b>${f.fundingTitle }</b>
 							</h5>
-							<br/><br/>
-							
+						</div>
+						<div class="card-footer">
 							<!-- 라벨 색 -->
 							<div>
 								<c:choose>
@@ -132,13 +154,14 @@
 									<b>${f.fundingDday }</b>
 								</h6>
 								<br />
-								
+
 							</div>
+
 							<div class="row no-gutters align-items-center">
 								<div class="col mr-2">
 									<div class="row no-gutters align-items-center">
 										<div class="col-auto">
-											<div class="h6 mb-0 mr-3">
+											<div class="h6 mb-0 mr-3 ">
 												<b><fmt:formatNumber var="percent"
 														value="${f.fundingTotalprice / f.fundingGoal * 100}"
 														pattern="##" />${percent }%</b>
@@ -203,81 +226,72 @@
 
 							<div class="col-auto">
 								<h6 align="center">
-									<b>${f.fundingTotalprice } eth / ${f.fundingGoal } eth</b>
+									<b>${f.fundingTotalprice } wei / ${f.fundingGoal } wei</b>
 								</h6>
 							</div>
 
 						</div>
 					</div>
-				</div>
 
+				</div>
 			</c:forEach>
-
 		</div>
-		<div style="float: center;">
-			<tag:historyPaging jsFunc="goList" />
-		</div>
-
 	</div>
-	<!-- 모달 창 보여주기 -->
-	<div class="modal fade" id="modalInsert" tabindex="-1" role="dialog"
-		aria-labelledby="modalInsertLabel" aria-hidden="ture">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aira-hidden="ture">&times;</button>
-					<h4 class="modal-title" id="modalInsertLabel">펀딩 요청 등록</h4>
-				</div>
-				<div class="modal-body">펀딩 요청 등록이 성공적으로 완료되었습니다. 마이페이지의 펀딩 내역을
-					확인해주세요.</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">이버튼은뭐지</button>
-				</div>
-			</div>
-			<!-- modal-content 끝 -->
-		</div>
-		<!-- modal-dialog 끝 -->
+	<div style="float: center;">
+		<tag:historyPaging jsFunc="goList" />
 	</div>
 
 
 	<!-- ****************************script**************************** -->
 	<script type="text/javascript">
-	<!-- 모달 창 제이쿼리 -->
-		var result = '<c:out value="${result}"/>';
+		<!-- 모달 창 제이쿼리 -->
+			var result = '<c:out value="${result}"/>';
 
-		checkModal(result);
+			checkModal(result);
 
-		function checkModal(result) {
-			if (result === '') {
-				return;
+			function checkModal(result) {
+				if (result === '') {
+					return;
+				}
+				if (parseInt(result) > 0) {
+					$(".modal-body").html(
+							"상품 " + parseInt(result) + " 번이 등록되었습니다.");
+				}
+
+				$("#modalInsert").modal("show");
 			}
-			if (parseInt(result) > 0) {
-				$(".modal-body")
-						.html("상품 " + parseInt(result) + " 번이 등록되었습니다.");
-			}
-
-			$("#modalInsert").modal("show");
-		}
-	</script>
+		</script>
 
 	<!-- clickSelect : 펀딩 상세보기 -->
 	<script>
-		$('.clickSelect').on('click', clickSelectFunc);
+			$('.clickSelect').on('click', clickSelectFunc);
 
-		function clickSelectFunc() {
-			console.log($(this));
-			let id = $(this).data('id');
+			function clickSelectFunc() {
+				console.log($(this));
+				let id = $(this).data('id');
 
-			location.href = 'fundingSelect?fundingId=' + id;
-		}
+				location.href = 'fundingSelect?fundingId=' + id;
+			}
 
-		//페이징
-		function goList(page) {
-			location.href = 'fundingList?page=' + page;
-		}
-	</script>
+			//페이징
+			function goList(page) {
+				/* location.href = 'fundingList?page=' + page; */
+				$("#page").val(page);
+				$("#pageForm").submit();
+			}
+
+			//정렬
+			function sortFunc(sortVal) {
+				$('#sort').val(sortVal);
+				$("#pageForm").submit();
+			}
+
+			//카테고리
+			function cateFunc(cateVal) {
+				$('#cate').val(cateVal);
+				$("#pageForm").submit();
+			}
+		</script>
 
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -287,7 +301,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
 		crossorigin="anonymous"></script>
-
 </body>
 
 </html>

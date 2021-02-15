@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>myStylingList.jsp</title>
 </head>
+<script>
+	// 페이징 실행
+function goList(page) {
+	location.href = '/etoile/site/myPageStyling.do?page=' + page;
+}
+</script>
 <body>
 <div class="container" style="max-width: 1400px;">
 		<div class="row">
@@ -23,10 +30,10 @@
 		<div class="row" style="background: #e5e5e5;">
 			<br>
 			<c:forEach var="list" items="${list }">
-				<div class="container" onclick='location.href="myPageStylingDetail.do?styleId=${list.styleId }"'>
+				<div class="container" onclick='location.href="reviewDetail?styleId=${list.styleId}"' >
 					<div class="row no-gutters">
 						<div class="col-4 mb-3" style="background: #ffffff; overflow: hidden; height: 200px">
-							<img src="${list.styleImage }" class="card-img" style="height: 120%; width: 85%; overflow: hidden;">
+							<img src="/etoile/images/${list.styleImage }" class="card-img" style="height: 120%; width: 85%; overflow: hidden;">
 						</div>
 						<div class="col-8 mb-3" style="background: #ffffff; height: 200px">
 							<div class="card-body">
@@ -40,7 +47,8 @@
 					</div>
 				</div>
 			</c:forEach>
-		</div>
+		</div><br/>
+		<tag:historyPaging jsFunc="goList" />
 	</div>
 </body>
 </html>

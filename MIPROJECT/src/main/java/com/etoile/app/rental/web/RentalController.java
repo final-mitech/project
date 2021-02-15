@@ -1,8 +1,10 @@
 package com.etoile.app.rental.web;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,9 @@ import com.etoile.app.vo.PickVO;
 import com.etoile.app.vo.ProductVO;
 import com.etoile.app.vo.RentalProductVO;
 import com.etoile.app.vo.RentalVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 @Controller
 public class RentalController {
@@ -64,7 +70,7 @@ public class RentalController {
 			
 			List<ProductVO> productList = rentalService.rentalProductList2(vo);
 			model.addAttribute("list", productList);
-			return "site/rentals/rentalMain";
+			return "site/rentals/rentalMain2";
 		}
 	
 
@@ -96,7 +102,9 @@ public class RentalController {
 		String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 		String viewPath = null;
 		String rentalAddress = ad.getAddress() + ", " +ad.getDetailAddress();
+		String rentalPay = vo.getRentalPay().replace(",", "");
 		vo.setMemberId(memberId);
+		vo.setRentalPay(rentalPay);
 		vo.setRentalAddress(rentalAddress);
 		int n = rentalService.RentalInsert(vo);
 		int m = rentalService.usedCoupon(cvo);
@@ -129,9 +137,20 @@ public class RentalController {
 
 	// 마이페이지-rental 메인 (결제완료시 자동이동)
 	@RequestMapping("/site/rentalList.do")
-	public String rentalList(RentalVO vo1, Model model, HttpServletRequest httpServletRequest) {
+	public String rentalList(RentalVO vo1, Paging paging, Model model, HttpServletRequest httpServletRequest) {
 		String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 		vo1.setMemberId(memberId);
+		
+		if (paging == null) {
+			paging.setPage(1);
+		}
+		paging.setPageUnit(8);
+		paging.setTotalRecord(rentalService.rentalCnt(vo1));
+		
+		vo1.setStart(paging.getFirst());
+		vo1.setEnd(paging.getLast());
+		model.addAttribute("paging", paging);
+		
 		String rentalEnd = httpServletRequest.getParameter("rentalEnd");
 		String rentalStart = httpServletRequest.getParameter("rentalStart");
 		String rentalPay = httpServletRequest.getParameter("totalPay");
@@ -146,13 +165,34 @@ public class RentalController {
 	
 	//마이페이지-rental (마이페이지에서 rental버튼 클릭시)
 	@RequestMapping("/site/MypageRental.do")
-	public String MypageRental(RentalVO vo, Model model, HttpServletRequest httpServletRequest) {
+	public String MypageRental(RentalVO vo, Paging paging, Model model, HttpServletRequest httpServletRequest) {
 		String memberId = (String) httpServletRequest.getSession().getAttribute("id");
 		vo.setMemberId(memberId);
+		
+		if (paging == null) {
+			paging.setPage(1);
+		}
+		paging.setPageUnit(8);
+		paging.setTotalRecord(rentalService.rentalCnt(vo));
+		
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast());
+		model.addAttribute("paging", paging);
+		
 		List<RentalVO> rentalList = rentalService.rentalList(vo);
 		model.addAttribute("list",rentalList);
 		return "site/my/MypageRental";
 	}
+	
+	//마이페이지 대여배송전 취소
+	@RequestMapping("/site/updateStatus")
+	public String updateStatus (ProductVO pvo, RentalVO rvo, Model model,HttpServletRequest httpServletRequest) {
+		int updateStatus2 = rentalService.updateStatus2(pvo);
+		int updateRStatus = rentalService.updateRStatus(rvo);
+		
+		return "redirect:MypageRental.do";
+	}
+	
 	
 	//마이페이지-pick (마이페이지에서 pick버튼 클릭)
 	@RequestMapping("/site/pickList.do")
@@ -176,10 +216,13 @@ public class RentalController {
 
 	// rental 물품리스트에서 하나 선택시 이동되는 물품상세페이지
 	@RequestMapping("/site/productDetail")
-	public String productDetail(ProductVO vo, Model model) {
+	public String productDetail(ProductVO pvo, RentalVO rvo, Model model) {
 		ProductVO product = new ProductVO();
-		product = rentalService.rentalProductSelect(vo);
+		RentalVO rental = new RentalVO();
+		product = rentalService.rentalProductSelect(pvo);
+		rental = rentalService.rentalRentalSelect(rvo);
 		model.addAttribute("product", product);
+		model.addAttribute("rental",rental);
 		return "site/rentals/productDetail";
 	}
 
@@ -200,11 +243,36 @@ public class RentalController {
 		return "site/rentals/rentalMain";
 	}
 	
+	//관리자사이트 rental 취소요청건 리스트
+	@RequestMapping("/admin/rentalcancelList.a")
+	public String rentalcancelList (RentalVO rvo, ProductVO pvo, Model model) {
+		List<RentalVO> rentalcancelList = rentalService.rentalcancelList(rvo);
+		
+		model.addAttribute("list", rentalcancelList);
+		return "admin/rental/rentalCancelList";
+	}
+	
+	//마이페이지 대여배송전 취소
+	@RequestMapping("/admin/updateStatus2")
+	public String updateStatus2 (ProductVO vo2,Model model,HttpServletRequest httpServletRequest) {
+		int updateStatus2 = rentalService.updateStatus2(vo2);
+		
+		return "redirect:rentalcancelList.a";
+	}
+	
 	// 관리자 사이트에서 rental 요청건 리스트출력
 	@RequestMapping("/admin/rentalList.a")
 	public String allRentalList (RentalVO vo, Model model) {
 		List<RentalVO> allRentalList = rentalService.allRentalList(vo);
 		model.addAttribute("list", allRentalList);
+		return "admin/rental/rentalRequest";
+	}
+	
+	// 관리자 rental요청건중 회원검색
+	@RequestMapping("/admin/searchMember.a")
+	public String searchMember(RentalVO vo, MemberVO mvo, Model model) {
+		List<RentalVO> memList = rentalService.searchMember(vo);
+		model.addAttribute("list", memList);
 		return "admin/rental/rentalRequest";
 	}
 	
@@ -271,7 +339,19 @@ public class RentalController {
 	
 	//관리자 rental 통계차트
 	@RequestMapping("/admin/rentalStatistics.a")
-	public String rentalStatistics (RentalVO vo, Model model) {
+	public String rentalStatistics (RentalVO vo, Model model, HttpServletRequest httpServletRequest) throws JsonProcessingException {
+		SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = new Date();
+		String date = simpleDate.format(today);
+		vo.setDate(date);
+		List<RentalVO> rental = rentalService.selectMonthRental(vo);
+		
+		ObjectMapper map = new ObjectMapper();
+		
+		model.addAttribute("map", map.writeValueAsString(rental));
+		model.addAttribute("rental", rental);
+		
+		
 		
 		return "admin/rental/rentalStatistics";
 	}

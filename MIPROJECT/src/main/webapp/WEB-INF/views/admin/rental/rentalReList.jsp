@@ -79,6 +79,9 @@ select {
 				aria-current="page" href="/etoile/admin/rentalList.a"
 				style="background: #e5e5e5;">대여 요청</a></li>
 			<li class="nav-item"><a class="nav-link active"
+				aria-current="page" href="/etoile/admin/rentalcancelList.a"
+				style="background: #e5e5e5;">취소 요청</a></li>
+			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="/etoile/admin/rentalReList.a">회수 관리</a></li>
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="/etoile/admin/rentalStatistics.a"
@@ -110,13 +113,13 @@ select {
 									test="${list.productStatus eq 'rental'}">
 									<select name="Status" id="Status${list.rentalId }"
 										onchange="selStatus(this)">
-										<option value="rental" selected>배송중</option>
+										<option value="rental" selected>대여중</option>
 										<option value="waiting">회수완료</option>
 									</select>
 								</c:if> <c:if test="${list.productStatus eq 'waiting'}">
 									<select name="Status" id="Status${list.rentalId }"
 										onchange="selStatus(this)">
-										<option value="rental">배송중</option>
+										<option value="rental">대여중</option>
 										<option value="waiting" selected>회수완료</option>
 									</select>
 	

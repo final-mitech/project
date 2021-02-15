@@ -20,4 +20,12 @@ public class RentalVO {
 	private String ppl;
 	private String name;
 	private String rentalWaybill;
+	private String date;
+	private String cnt;
+	private String productRental;
+	private String rentalOrder;
+	
+	//페이징관련 처리를 위한 필드
+	private int start;
+	private int end;
 }

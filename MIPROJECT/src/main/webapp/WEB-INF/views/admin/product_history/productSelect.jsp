@@ -20,10 +20,17 @@
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"/>
 <script
 	src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
 <script src="<c:url value="/resources/js/productHistory.js" />"></script>
+
 </head>
 <body>
 	<div class="containter-fluid">
@@ -82,8 +89,7 @@
 		<div class="row">
 			<br />
 		</div>
-		<div class="row overflow-auto">
-			<table class="table">
+			<table id="data" class="table table-striped table-bordered" style="width:100%">
 				<thead class="thead-light">
 					<tr>
 						<th scope="col">이력내역</th>
@@ -95,8 +101,6 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
-
 
 </body>
 </html>

@@ -359,20 +359,32 @@
 	selectGift();  */
 
 	function submitCheckFunc() {
-
+		
+		 if(frm.fundingTitle.value == "") {
+				alert("펀딩명을 지정해 주세요.");
+				
+				return false;
+			} 
+		 
 		if (frm.fundingGoal.value == "0" || frm.fundingGoal.value == "") {
-			alert("목표금액을 설정해 주세요");
+			alert("목표금액을 설정해 주세요.");
 
 			frm.fundingGoal.focus();
 
 			return false;
 		}
 		
-		/* if(frm.optionPlz.value == "" ) {
+		/*  if(frm.optionPlz.value == "" ) {
 			alert("펀딩 기프트 가격을 설정해 주세요");
 			
 			return false;
 		} */
+		 
+		 if(frm.fundingStart.value == "" || frm.fundingEnd.value == "" ) {
+				alert("펀딩 날짜를 지정해 주세요.");
+				
+				return false;
+			} 
 		
 		if (!confirm('새 펀딩을 등록하시겠습니까? 펀딩오픈예정으로 상태가 변경됩니다.')) {
 			return false;
@@ -384,13 +396,13 @@
 			if (index % 2 == 0) {
 				result += $(el).find('select').val() + ":";
 			} else {
-				result += $(el).find('input').val() + 'eth,';
+				result += $(el).find('input').val() + 'wei,';
 			}
 			//result+=$(el).find('select').val() +":" + $(el).find('input').val() + 'eth,';
 		});
 		$.each($(".plus"), function(index, el) {
 			result += $(el).find('select').val() + ":"
-					+ $(el).find('input').val() + 'eth,';
+					+ $(el).find('input').val() + 'wei,';
 		});
 		$('[name="fundingGift"]').val(result);
 		//	return true;
@@ -585,7 +597,7 @@
 									<div class="product-serial col-md-6">
 										<span>모델번호 : </span> <input class="form-control"
 											name="fundingSerial"
-											value='<c:out value="${selectVo.fundingSerial}" />'>
+											value='<c:out value="${selectVo.fundingSerial}" />' required>
 									</div>
 								</div>
 								<!-- <div class="product-price-discount">
@@ -656,8 +668,8 @@
 													</c:if>
 													<c:if
 														test="${token2 ne '1일권' and token2 ne '2일권' and token2 ne '3일권' and token2 ne '4일권' and token2 ne '5일권'  }">
-														<c:forTokens items="${token2}" delims="eth" var="token3">
-															<input style="width: 100px;" value="${token3}"> eth
+														<c:forTokens items="${token2}" delims="wei" var="token3">
+															<input style="width: 100px;" value="${token3}"> wei
 													</c:forTokens>
 													</c:if>
 												</div>
@@ -671,7 +683,7 @@
 											<option>3일권</option>
 											<option>4일권</option>
 											<option>5일권</option>
-										</select> <input style="width: 100px;" id="optionPlz" name="optionPlz"> eth
+										</select> <input style="width: 100px;" id="optionPlz" name="optionPlz"  required> wei
 									</div>
 								</div>
 							</div>
