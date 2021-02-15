@@ -79,8 +79,8 @@
 	<div class="container" style="max-width: 1400px;">
 		<div class="row">
 			<c:forEach var="list" items="${list }">
-				<div class="col-3" style="height: 450px;">
-					<div class="card" id="product-card" style="position: relative;" onclick="location.href='productDetail?productId=${list.productId }'">
+				<div class="col-3" style="height: 450px; cursor:pointer">
+					<div class="card" id="product-card" style="position: relative; cursor:pointer;" onclick="location.href='productDetail?productId=${list.productId }'">
 						<div class="card-header" style="height: 280px; border: 0px; background-color: white; overflow: hidden;">
 							<img src="${list.productImage }" class="card-img-top" style="height: 150%; width: 100%; overflow: hidden; padding-bottom:100px;">
 						</div>
