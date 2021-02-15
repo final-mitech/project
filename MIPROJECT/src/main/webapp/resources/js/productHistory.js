@@ -125,7 +125,7 @@ App = {
 
 					$('tbody').append(trTag);
 				}
-
+					$('#data').DataTable();
 			});
 
 

@@ -81,7 +81,8 @@ App = {
 				.fund(fundingId)
 				.send({
 					from: account,
-					value: web3.utils.toWei(price, "ether")
+					//value: web3.utils.toWei(price, "ether")
+					value: price
 				}) //send로 호출할때는 account
 				.then(function (result) {
 					alert('펀딩에 참여되었습니다');
