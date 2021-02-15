@@ -12,9 +12,8 @@ public class StylingVO {
 	private int styleRecommend;
 	private String styleContent;
 	private String styleImage;
+	
 	//페이징관련 처리를 위한 필드
 	private int start;
 	private int end;
-	private String search;
-	private String searchType;
 }
