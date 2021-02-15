@@ -50,6 +50,8 @@ public interface RentalMapper {
 	//관리자 rental 취소요청 리스트
 	List<RentalVO> rentalcancelList(RentalVO vo);
 	
+	int updateRStatus(RentalVO vo);
+	
 	//고객이 해당상품 찜했는지 확인
 	int selectPick(PickVO vo);
 	

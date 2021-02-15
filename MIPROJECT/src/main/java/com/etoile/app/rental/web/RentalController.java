@@ -186,8 +186,9 @@ public class RentalController {
 	
 	//마이페이지 대여배송전 취소
 	@RequestMapping("/site/updateStatus")
-	public String updateStatus (ProductVO vo2,Model model,HttpServletRequest httpServletRequest) {
-		int updateStatus2 = rentalService.updateStatus2(vo2);
+	public String updateStatus (ProductVO pvo, RentalVO rvo, Model model,HttpServletRequest httpServletRequest) {
+		int updateStatus2 = rentalService.updateStatus2(pvo);
+		int updateRStatus = rentalService.updateRStatus(rvo);
 		
 		return "redirect:MypageRental.do";
 	}

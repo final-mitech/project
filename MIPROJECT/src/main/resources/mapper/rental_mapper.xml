@@ -122,11 +122,18 @@
 	<update id="updateStatus2">
 		UPDATE product
 		<set>
-			<if test="productStatus == 'waiting'">product_status = 'cancel'</if>
+			<if test="productStatus == 'waiting'">product_status = 'cancel' </if>
 			<if test="productStatus == 'cancel'">product_status = 'waiting'</if>
 		</set>
-		WHERE product_id = #{productId}
+		where product_id = #{productId}
 	</update>
+	<update id="updateRStatus">
+		update rental
+		set rental_waybill = 0
+		where rental_id = #{rentalId}
+	</update>
+	
+	
 	
 	<select id="rentalCnt" resultType="int">
 		SELECT count(*) from rental
@@ -193,6 +200,7 @@
 		SELECT * 
 		FROM rental r, product p
 		WHERE r.product_id = p.product_id
+		AND r.rental_waybill = 0
 		AND p.product_status = 'cancel'
 	</select>
 	
