@@ -42,11 +42,29 @@ App = {
 		$("#joinbutton").on('click', App.setFund);
 	},
 	setting: function(fundingId, fundingDate, fundingGoal) {
+		
 		web3.eth.getAccounts(function(error, accounts) {
 			let account = accounts[0];
 			App.contract.methods.setting(fundingId, fundingDate, fundingGoal)
 				.send({ from: account, value: 0 })
 				.then(function(result) {
+					$.ajax({
+						url: "conditionUpdate.a",
+						data: { //파라미터 이름: 실제값
+							fundingId: fundingId,
+							fundingCondition: '펀딩중'
+						},
+						success: function(result) { //성공하면 실행할 콜백 함수 
+							if (result == "SUCCESS") {
+								alert("펀딩이 시작 되었습니다. 펀딩 중으로 상태가 변경되었습니다.");
+							} else {
+								alert("처리 실패!");
+							}
+
+							location.href = "/etoile/admin/fundingComingSoonList.a";
+						}
+					});
+					
 				})
 
 		})
