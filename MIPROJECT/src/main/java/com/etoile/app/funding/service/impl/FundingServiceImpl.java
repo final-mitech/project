@@ -125,4 +125,25 @@ public class FundingServiceImpl implements FundingService {
 		return dao.fundingEndUpdate(vo);
 	}
 
+	@Override
+	public int fundingOpenUpdate(FundingVO vo) {
+		
+		return dao.fundingOpenUpdate(vo);
+	}
+
+	@Override
+	public List<FundingVO> fundingComingSoonList(FundingVO vo) {
+		return dao.fundingList(vo);
+	}
+
+	@Override
+	public List<FundingVO> fundingOpenList(FundingVO vo) {
+		return dao.fundingList(vo);
+	}
+
+	@Override
+	public List<FundingVO> fundingCloseList(FundingVO vo) {
+		return dao.fundingList(vo);
+	}
+
 }

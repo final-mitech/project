@@ -40,6 +40,69 @@
 			<if test="page == 'registerPage'">
 				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
 			</if>
+			<if test="page == 'magamXPage'">
+				funding_condition IN ('펀딩오픈예정','펀딩중')
+			</if>			
+			<if test="page == 'comingSoonPage'">
+				funding_condition IN ('펀딩오픈예정')
+			</if>
+			<if test="page == 'openPage'">
+				funding_condition IN ('펀딩중')
+			</if>
+			<if test="page == 'closePage'">
+				funding_condition IN ('펀딩마감')
+			</if>
+			<if test="fundingBrand != null and fundingBrand != '' ">
+				AND (UPPER(FUNDING_BRAND) like '%' ||	UPPER(#{fundingBrand}) || '%'
+				OR UPPER(FUNDING_TITLE) like '%' ||	UPPER(#{fundingBrand}) || '%')
+			</if>
+			<if test="fundingCategory != null and fundingCategory != '' ">
+				AND FUNDING_CATEGORY like '%' ||	#{fundingCategory} || '%')
+			</if>
+		</where>
+		
+		
+		<if test="sort == 'openPage'">
+			order by funding_condition desc, funding_end
+		</if>
+	
+		<if test="sort == 'registrationSort'">
+			order by funding_condition desc, funding_start
+		</if>
+		<if test="sort == 'popularitySort'">
+			order by funding_condition desc, funding_totalprice desc
+		</if>
+		<if test="sort != 'registrationSort' and sort != 'popularitySort' and sort != 'openPage'">
+			order by funding_condition desc, funding_start
+		</if>
+
+		) a ) b where rnum between #{start} and #{end}
+	</select>
+
+	<!-- 페이징 : total count -->
+	<select id="getFundingCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM funding
+		<where>
+			<if test="page == 'requestPage'">
+				funding_condition IN ('접수완료','검수중')
+			</if>
+			<if test="page == 'registerPage'">
+				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
+			</if>
+			<if test="page == 'magamXPage'">
+				funding_condition IN ('펀딩오픈예정','펀딩중')
+			</if>
+			
+			<if test="page == 'comingSoonPage'">
+				funding_condition IN ('펀딩오픈예정')
+			</if>
+			<if test="page == 'openPage'">
+				funding_condition IN ('펀딩중')
+			</if>
+			<if test="page == 'closePage'">
+				funding_condition IN ('펀딩마감')
+			</if>
 			<if test="fundingBrand != null and fundingBrand != '' ">
 				AND (UPPER(FUNDING_BRAND) like '%' ||
 				UPPER(#{fundingBrand}) || '%'
@@ -48,14 +111,8 @@
 				#{fundingBrand} || '%')
 			</if>
 		</where>
-		<if test="sort == 'registrationSort'">
-			order by funding_condition desc, funding_start
-		</if>
-		<if test="sort == 'popularitySort'">
-			order by funding_totalprice desc
-		</if>
-		) a ) b where rnum between #{start} and #{end}
 	</select>
+
 
 	<!-- 펀딩 등록 -->
 	<insert id="fundingInsert">
@@ -209,38 +266,30 @@
 		AND j.member_id = #{memberId}
 	</select>
 
-	<!-- 페이징 : total count -->
-	<select id="getFundingCnt" resultType="int">
-		SELECT COUNT(*)
-		FROM funding
-		<where>
-			<if test="page == 'requestPage'">
-				funding_condition IN ('접수완료','검수중')
-			</if>
-			<if test="page == 'registerPage'">
-				funding_condition IN ('펀딩오픈예정','펀딩중','펀딩마감')
-			</if>
-			<if test="fundingBrand != null and fundingBrand != '' ">
-				AND (UPPER(FUNDING_BRAND) like '%' ||
-				UPPER(#{fundingBrand}) || '%'
-				OR FUNDING_CONDITION like '%' ||
-				#{fundingBrand} || '%')
-			</if>
-		</where>
-	</select>
+
 
 	<!-- 스케쥴러 -->
 	<!-- 펀딩오픈예정 -> 펀딩중 -->
 	<update id="fundingStartUpdate">
 		UPDATE FUNDING
 		SET FUNDING_CONDITION='펀딩중'
-		WHERE TRUNC(FUNDING_START) = TRUNC(SYSDATE)
+		WHERE TRUNC(FUNDING_START) <![CDATA[ = ]]>
+		TRUNC(SYSDATE)
 	</update>
 
 	<!-- 펀딩중 -> 펀딩마감 -->
 	<update id="fundingEndUpdate">
 		UPDATE FUNDING
 		SET FUNDING_CONDITION='펀딩마감'
-		WHERE TRUNC(FUNDING_END) > TRUNC(SYSDATE)
+		WHERE TRUNC(FUNDING_END) <![CDATA[ < ]]>
+		TRUNC(SYSDATE)
+	</update>
+
+	<!-- 펀딩 오픈 예정 -->
+	<update id="fundingOpenUpdate">
+		UPDATE FUNDING
+		SET FUNDING_CONDITION='펀딩오픈예정'
+		WHERE TRUNC(FUNDING_START) <![CDATA[ > ]]>
+		TRUNC(SYSDATE)
 	</update>
 </mapper>

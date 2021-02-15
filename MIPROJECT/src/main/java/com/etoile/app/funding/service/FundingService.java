@@ -37,4 +37,7 @@ public interface FundingService {
 	public int fundingEndUpdate(FundingVO vo); //스케쥴러 (펀딩중 -> 펀딩마감)
 	
 	
+	public List<FundingVO> fundingComingSoonList(FundingVO vo); //(관리자) 등록페이지
+	public List<FundingVO> fundingOpenList(FundingVO vo); //(관리자) 등록페이지
+	public List<FundingVO> fundingCloseList(FundingVO vo); //(관리자) 등록페이지
 }
