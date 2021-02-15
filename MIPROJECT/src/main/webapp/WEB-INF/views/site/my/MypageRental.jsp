@@ -102,7 +102,7 @@ p {
 							<div class="card-body-footer" style="float: right; margin-right: 20px; height:100px">
 								<c:if test="${list.rentalWaybill ne null}">
 									<c:if test="${list.rentalWaybill != 0}">
-									<a href="/etoile/site/productReviewList.do">마이스타일링</a>
+									<a href="/etoile/site/productReviewList.do?styleTag=${list.productName }">마이스타일링</a>	
 									</c:if>
 									<c:if test="${list.rentalWaybill == 0}">
 										<a href="#" style="pointer-events: none;">대여취소</a>
