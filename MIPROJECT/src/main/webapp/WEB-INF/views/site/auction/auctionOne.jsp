@@ -85,11 +85,11 @@
 					<c:forEach var="jo" items="${list }">
 						<tr align="center">
 							<td>${jo.memberId}</td>
-							<td>${jo.auctionPay}eth</td>
+							<td>${jo.auctionPay}&nbsp;Milli</td>
 						</tr>
 					</c:forEach>
 				</table>
-				<form style="display: ;" id="join" name="join" method="post">
+				<form style="display: none;" id="join" name="join" method="post">
 					아이디: <input class="form-control" id="memberId" name="memberId" value="${loginId }"><br>
 					경매 가: <input class="form-control" id="auctionPay" name="auctionPay" value=""><br>
 					경매번호: <input class="form-control" id="auctionId" name="auctionId" value="${vo.auctionId}"><br>
@@ -126,14 +126,25 @@
 								readonly></textarea>
 						</div>
 						<br />
+						<input type="hidden" id="won" name="won" value="${won}">
 						<div class="form-inline">
 							<label for="">현재입찰가</label>&nbsp;<input type="text" class="form-control info" id="bestPrice"
 								value="${vo.auctionBestPrice}" name="bestPrice" style="width: 15%; text-align:center;"
-								readonly>&nbsp;eth
-							&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+								readonly>&nbsp;Milli
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="text" class="form-control info"
+								id="auctionBestPriceWon" value="" name="auctionBestPriceWon"
+								style="width: 20%; text-align:center;" readonly>&nbsp;원
+						</div>
+						<br />
+						<div class="form-inline">
 							<label for="">즉시낙찰가</label>&nbsp;<input type="text" class="form-control info"
 								id="auctionImmediateBid" value="${vo.auctionImmediateBid}" name="auctionImmediateBid"
-								style="width: 15%; text-align:center;" readonly>&nbsp;eth
+								style="width: 15%; text-align:center;" readonly>&nbsp;Milli
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="text" class="form-control info"
+								id="auctionImmediateBidWon" value="" name="auctionImmediateBidWon"
+								style="width: 20%; text-align:center;" readonly>&nbsp;원
 						</div>
 						<br />
 						<br />
@@ -156,8 +167,8 @@
 									<div class="modal-body">
 										<div class="form-group">
 											<label for="">아이디</label>
-											<input type="text" class="form-control" id="" value="${loginId }"
-												name="" style="width: 40%" readonly><br />
+											<input type="text" class="form-control" id="" value="${loginId }" name=""
+												style="width: 40%" readonly><br />
 										</div>
 										<div class="form-group">
 											<label for="">상품명</label>
@@ -171,12 +182,12 @@
 												<input type="radio" class="form-control" id="bid" name="checkBid"
 													value="" style="width: 3%;">&nbsp;
 												입찰가&nbsp;<input type="text" class="form-control" id="bid1"
-													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth
+													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;Milli
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<input type="radio" class="form-control" id="immediateBid"
 													name="checkBid" value="" style="width: 3%;">&nbsp;
 												즉시낙찰가&nbsp;<input type="text" class="form-control" id="immediateBid1"
-													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth<br />
+													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;Milli<br />
 											</div>
 										</c:if>
 										<c:if test="${vo.auctionBestPrice +1 eq vo.auctionImmediateBid}">
@@ -186,13 +197,13 @@
 												<input type="radio" class="form-control" id="immediateBid"
 													name="checkBid" value="" style="width: 3%;">&nbsp;
 												즉시낙찰가&nbsp;<input type="text" class="form-control" id="immediateBid1"
-													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;eth<br />
+													style="width: 15%; height:30px; text-align: center; font-size: medium; font-weight: bold;">&nbsp;Milli<br />
 											</div>
 										</c:if>
 									</div>
 									<div class="modal-footer">
 										<span class="rounded">
-											<p>낙찰하기 버튼을 누르면 현재 최고가에서 1eth 증가한 경매가로 참여합니다.</p>
+											<p>낙찰하기 버튼을 누르면 현재 최고가에서 1Milli 증가한 경매가로 참여합니다.</p>
 											<p>다음참여자가 낙찰하면 계좌로 환불해 드리며, 마이페이지에서 확인 가능 합니다.</p>
 										</span>
 										<button type="button" class="btn btn-warning btn-block btn-lg" id="bidBtn"
@@ -213,6 +224,30 @@
 	var memberId = $('#memberId').val();
 	console.log(memberId);
 
+	var bestPrice = $('#bestPrice').val();
+	var auctionImmediateBid = $('#auctionImmediateBid').val();	
+
+	//전자화폐 원화 환율 (1eth = 1000*mili)
+	var won = $('#won').val();
+	miliWon = parseInt(won) / parseInt(1000); 
+
+	if( won != ""){
+		var bestWon = miliWon * parseInt(bestPrice);
+		bestWon = String(bestWon);
+		bestWon = bestWon.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		$('#auctionBestPriceWon').attr('value', bestWon);
+
+		var immediateWon = miliWon * parseInt(auctionImmediateBid);
+		immediateWon = String(immediateWon);
+		immediateWon = immediateWon.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		$('#auctionImmediateBidWon').attr('value', immediateWon);
+
+	}else{
+		$('#auctionBestPriceWon').attr('value', "");
+		$('#auctionImmediateBidWon').attr('value', "");
+	}
+
+
 	$('#joinBid').click(function () {
 		//로그인 체크
 		if (memberId == '') {
@@ -222,27 +257,21 @@
 		}
 
 		//경매 가 세팅
-		var bestPrice = $('#bestPrice').val();
-		console.log(bestPrice);
-
 		var sum = parseInt(bestPrice) + parseInt(1);
-		console.log(sum);
 
 		$('#bid').attr('value', sum);
 		$('#bid1').attr('value', sum);
 
-		var auctionImmediateBid = $('#auctionImmediateBid').val();
-		console.log(auctionImmediateBid);
 		$('#immediateBid').attr('value', auctionImmediateBid);
 		$('#immediateBid1').attr('value', auctionImmediateBid);
 
 	});
 
-	$('#bid').click(function(){
+	$('#bid').click(function () {
 		$('#auctionPay').attr('value', $('#bid1').val());
 	})
 
-	$('#immediateBid').click(function(){
+	$('#immediateBid').click(function () {
 		$('#auctionPay').attr('value', $('#immediateBid1').val());
 	})
 </script>
