@@ -16,6 +16,7 @@ public class ProductVO {
 	private String ppl;
 	private int productRental;
 	private String name;
+	private String rentalId;
 	
 	//페이징관련 처리를 위한 필드
 	private int start;

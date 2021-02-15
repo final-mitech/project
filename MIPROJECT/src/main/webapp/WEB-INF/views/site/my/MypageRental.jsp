@@ -96,18 +96,22 @@ p {
 								<p>${list.rentalStart }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.rentalEnd }</p>
 								<p><fmt:formatNumber type="currency" maxFractionDigits="3" value="${list.rentalPay }" /></p>
 								<input type="hidden" name="productId" value="${list.productId }">
+								<input type="hidden" name="rentalId" value="${list.rentalId }">
+								<input type="hidden" name="productStatus" value="${list.productStatus }">
 							</div>
 							<div class="card-body-footer" style="float: right; margin-right: 20px; height:100px">
 								<c:if test="${list.rentalWaybill ne null}">
+									<c:if test="${list.rentalWaybill != 0}">
 									<a href="/etoile/site/productReviewList.do">마이스타일링</a>
+									</c:if>
+									<c:if test="${list.rentalWaybill == 0}">
+										<a href="#" style="pointer-events: none;">대여취소</a>
+									</c:if>
 								</c:if>
 								<c:if test="${list.rentalWaybill eq null}">
 									<c:if test="${list.productStatus == 'waiting'}">
 										<button type="button" id="cancel" onclick="cancelRental(this.form)">대여취소</button>
 										<a href="#" style="pointer-events: none;">배송준비중</a>
-									</c:if>
-									<c:if test="${list.productStatus == 'cancel'}">
-										<a href="#" style="pointer-events: none;">대여취소</a>
 									</c:if>
 								</c:if>
 							</div>

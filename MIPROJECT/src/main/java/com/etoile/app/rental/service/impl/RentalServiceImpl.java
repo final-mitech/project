@@ -121,5 +121,9 @@ public class RentalServiceImpl implements RentalService {
 	public List<RentalVO> rentalcancelList(RentalVO vo) {
 		return dao.rentalcancelList(vo);
 	}
+	@Override
+	public int updateRStatus(RentalVO vo) {
+		return dao.updateRStatus(vo);
+	}
 	
 }
