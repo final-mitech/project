@@ -49,8 +49,8 @@
 						<!-- 						<th scope="col">브랜드</th> -->
 						<!-- 						<th scope="col">모델번호</th> -->
 						<!-- 						<th scope="col">카테고리</th> -->
-						<th scope="col" style="word-break: break-all; width: 30px">목표금액</th>
-						<th scope="col" style="word-break: break-all; width: 30px">현재모금액</th>
+						<th scope="col" style="word-break: break-all; width: 70px">목표금액</th>
+						<th scope="col" style="word-break: break-all; width: 70px">현모금액</th>
 						<!-- 						<th scope="col">이미지</th> -->
 						<th scope="col">시작일</th>
 						<th scope="col">마감일</th>
@@ -59,7 +59,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="f" items="${fundings }">
-						<tr class="clickSelect" data-id="${f.fundingId }" id="fundingId">
+						<tr data-id="${f.fundingId }" id="fundingId">
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
@@ -104,12 +104,12 @@
 			</table>
 		</div>
 
-		<div class="row">
+<!-- 		<div class="row">
 			<div class="div delete" align="right">
 				<button type="button" class="btn btn-dark"
 					onclick="location.href='fundingDelete.a' ">펀딩 삭제</button>
 			</div>
-		</div>
+		</div> -->
 
 	</div>
 	<!-- 블록체인 -->

@@ -16,12 +16,6 @@
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-<style>
-.tdColor b {
-	background-color: yellow;
-}
-</style>
-
 </head>
 
 <body>
@@ -49,23 +43,23 @@
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">NO.</th>
-						<th scope="col" style="word-break: break-all; width: 300px">펀딩명</th>
+						<th scope="col" style="word-break: break-all; width: 250px">펀딩명</th>
 						<th scope="col" style="word-break: break-all; width: 250px">상품명</th>
 						<!-- 						<th scope="col">브랜드</th> -->
 						<!-- 						<th scope="col">모델번호</th> -->
 						<!-- 						<th scope="col">카테고리</th> -->
-						<th scope="col" style="word-break: break-all; width: 30px">목표금액</th>
-						<th scope="col" style="word-break: break-all; width: 30px">현재모금액</th>
+						<th scope="col" style="width: 40px; font-size: 0.8em;">목표금액</th>
+						<th scope="col" style="width: 50px; font-size: 0.8em;">현모금액</th>
 						<!-- 						<th scope="col">이미지</th> -->
-						<th scope="col">시작일</th>
-						<th scope="col">마감일</th>
+						<th scope="col" style="word-break: break-all; width: 60px">시작일</th>
+						<th scope="col" style="word-break: break-all; width: 60px">마감일</th>
 						<th scope="col">펀딩상태</th>
 						<th scope="col">환불상태</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="f" items="${fundings }">
-						<tr class="clickSelect" data-id="${f.fundingId }" id="fundingId">
+						<tr data-id="${f.fundingId }" id="fundingId">
 							<th scope="row">${f.fundingId }</th>
 							<td>${f.fundingTitle }</td>
 							<td>${f.fundingName }</td>
@@ -113,7 +107,7 @@
 							
 							<c:if test="${f.fundingStart eq nowDate }">
 								<td class="eventDel">
-									<button class="eventDel"
+									<button class="eventDel btn btn-dark" type="button"
 										onclick="App.setting(${f.fundingId },${f.fundingEnd}, ${f.fundingGoal})">펀딩시작</button>
 								</td>
 							</c:if>
@@ -124,12 +118,12 @@
 			</table>
 		</div>
 
-		<div class="row">
+		<!-- <div class="row">
 			<div class="div delete" align="right">
 				<button type="button" class="btn btn-dark"
 					onclick="location.href='fundingDelete.a' ">펀딩 삭제</button>
 			</div>
-		</div>
+		</div> -->
 
 	</div>
 	<!-- 블록체인 -->
@@ -185,6 +179,9 @@
 				
 			}); 
 		}
+		
+		$('.tdColor').parent().css('background-color', '#87CEFA' ).css('opacity', '0.9');
+		
 	</script>
 </body>
 

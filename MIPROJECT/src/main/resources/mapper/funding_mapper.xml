@@ -57,10 +57,9 @@
 				OR UPPER(FUNDING_TITLE) like '%' ||	UPPER(#{fundingBrand}) || '%')
 			</if>
 			<if test="fundingCategory != null and fundingCategory != '' ">
-				AND FUNDING_CATEGORY like '%' ||	#{fundingCategory} || '%')
+				AND FUNDING_CATEGORY = #{fundingCategory}
 			</if>
 		</where>
-		
 		
 		<if test="sort == 'openPage'">
 			order by funding_condition desc, funding_end
@@ -92,8 +91,7 @@
 			</if>
 			<if test="page == 'magamXPage'">
 				funding_condition IN ('펀딩오픈예정','펀딩중')
-			</if>
-			
+			</if>			
 			<if test="page == 'comingSoonPage'">
 				funding_condition IN ('펀딩오픈예정')
 			</if>
@@ -104,11 +102,11 @@
 				funding_condition IN ('펀딩마감')
 			</if>
 			<if test="fundingBrand != null and fundingBrand != '' ">
-				AND (UPPER(FUNDING_BRAND) like '%' ||
-				UPPER(#{fundingBrand}) || '%'
-				OR
-				FUNDING_CONDITION like '%' ||
-				#{fundingBrand} || '%')
+				AND (UPPER(FUNDING_BRAND) like '%' ||	UPPER(#{fundingBrand}) || '%'
+				OR UPPER(FUNDING_TITLE) like '%' ||	UPPER(#{fundingBrand}) || '%')
+			</if>
+			<if test="fundingCategory != null and fundingCategory != '' ">
+				AND FUNDING_CATEGORY = #{fundingCategory}
 			</if>
 		</where>
 	</select>
@@ -273,23 +271,20 @@
 	<update id="fundingStartUpdate">
 		UPDATE FUNDING
 		SET FUNDING_CONDITION='펀딩중'
-		WHERE TRUNC(FUNDING_START) <![CDATA[ = ]]>
-		TRUNC(SYSDATE)
+		WHERE TRUNC(FUNDING_START) <![CDATA[ < ]]> TRUNC(SYSDATE) OR TRUNC(FUNDING_END) <![CDATA[ = ]]>	TRUNC(SYSDATE)
 	</update>
 
 	<!-- 펀딩중 -> 펀딩마감 -->
 	<update id="fundingEndUpdate">
 		UPDATE FUNDING
 		SET FUNDING_CONDITION='펀딩마감'
-		WHERE TRUNC(FUNDING_END) <![CDATA[ < ]]>
-		TRUNC(SYSDATE)
-	</update>
+		WHERE TRUNC(FUNDING_END) <![CDATA[ < ]]>	TRUNC(SYSDATE)
+	</update> 
 
 	<!-- 펀딩 오픈 예정 -->
 	<update id="fundingOpenUpdate">
 		UPDATE FUNDING
 		SET FUNDING_CONDITION='펀딩오픈예정'
-		WHERE TRUNC(FUNDING_START) <![CDATA[ > ]]>
-		TRUNC(SYSDATE)
+		WHERE TRUNC(FUNDING_START) <![CDATA[ > ]]> TRUNC(SYSDATE) OR TRUNC(FUNDING_START) <![CDATA[ = ]]> TRUNC(SYSDATE) 
 	</update>
 </mapper>

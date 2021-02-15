@@ -45,14 +45,16 @@
 				<thead class="thead-dark">
 					<tr>
 						<th scope="col">NO.</th>
-						<th scope="col" style="word-break: break-all; width: 400px">펀딩명</th>
-						<th scope="col" style="word-break: break-all; width: 300px">상품명</th>
+						<th scope="col" style="word-break: break-all; width: 300px">펀딩명</th>
+						<th scope="col" style="word-break: break-all; width: 250px">상품명</th>
 <!-- 						<th scope="col">브랜드</th> -->
 <!-- 						<th scope="col">모델번호</th> -->
 <!-- 						<th scope="col">카테고리</th> -->
-						<th scope="col">목표금액</th>
-						<th scope="col">현재모금액</th>
+						<th scope="col"  style="word-break: break-all; width: 70px">목표금액</th>
+						<th scope="col"  style="word-break: break-all; width: 70px">현모금액</th>
 <!-- 						<th scope="col">이미지</th> -->
+						<th scope="col">시작일</th>
+						<th scope="col">마감일</th>
 						<th scope="col">펀딩상태</th>
 					</tr>
 				</thead>
@@ -67,6 +69,8 @@
 <%-- 							<td>${f.fundingCategory }</td> --%>
 							<td>${f.fundingGoal }</td>
 							<td>${f.fundingTotalprice }</td>
+							<td>${f.fundingStart }</td>
+							<td>${f.fundingEnd }</td>
 <%-- 							<td>${f.fundingImage }</td> --%>
 							<td class="eventDel"><select
 								id="conditionChange${f.fundingId }" class="form-control"
