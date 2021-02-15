@@ -19,7 +19,7 @@
 <body>
 	<div class="container" style="max-width: 1400px;">
 		<div class="row">
-		<button type="button" class="btn btn-light" onclick="location.href='/etoile/site/memberInfo.do'">My Detail Info</button>
+		<button type="button" class="btn btn-secondary" onclick="location.href='/etoile/site/memberInfo.do'">My Detail Info</button>
 		<button type="button" class="btn btn-light" onclick="location.href='/etoile/site/couponInfo.do'">My Coupon</button>
 		</div>
 		<div class="row mt-3">

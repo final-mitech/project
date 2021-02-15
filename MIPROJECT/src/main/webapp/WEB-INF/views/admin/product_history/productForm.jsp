@@ -177,14 +177,15 @@ function update(){
 					style="background: #e5e5e5;">협찬리스트</a></li>
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="/etoile/admin/productInsertForm.a">등록하기</a></li>
-				</ul>
-			</div>
-		<div class="page-header mt-3">
-			<h3>상품 등록</h3>
+			</ul>
 		</div>
 		<form:form id="frm" action="#"
 			modelAttribute="productVO" method="post"
 			encType="multipart/form-data">
+			<div class="page-header mt-3">
+				<c:if test="${productVO.productId eq null or  productVO.productId eq ''}"><h3>상품 등록</h3></c:if>
+				<c:if test="${productVO.productId ne null and  productVO.productId ne ''}"><h3>상품 수정</h3></c:if>
+			</div>
 			<form:input path="productId" type="hidden" />
 			<div class="form-group">
 				<label for="productName">상품명</label>
@@ -222,7 +223,7 @@ function update(){
 			</div>
 			<div class="form-group">
 				<label for="productContent">상세내용</label>
-				<form:input path="productContent" class="form-control" />
+				<form:textarea path="productContent" class="form-control" />
 			</div>
 			<div class="filebox preview-image">
 				<input class="upload-name" value="이미지 선택" disabled="disabled">
