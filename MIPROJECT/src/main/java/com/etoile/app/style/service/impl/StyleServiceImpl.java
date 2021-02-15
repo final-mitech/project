@@ -119,4 +119,14 @@ public class StyleServiceImpl implements StyleService {
 		return dao.stylingList2(vo);
 	}
 
+	@Override
+	public int myPageStylingCount(StylingVO vo) {
+		return dao.myPageStylingCount(vo);
+	}
+
+	@Override
+	public int myPageRecommendCount(StylingVO vo) {
+		return dao.myPageRecommendCount(vo);
+	}
+
 }

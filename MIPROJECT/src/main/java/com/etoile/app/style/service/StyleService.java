@@ -29,4 +29,6 @@ public interface StyleService {
 	List<StylingVO> myPageStyling(StylingVO vo);				// 마이페이지 리뷰 목록 조회
 	List<StylingVO> myPageStylingRecommend(StylingVO vo);		// 마이페이지 좋아요 목록 조회
 	StylingVO myPageStylingDetail(StylingVO vo);				// 마이페이지 리뷰 한건 조회
+	int myPageStylingCount(StylingVO vo);						// 마이페이지 리뷰 카운트
+	int myPageRecommendCount(StylingVO vo);						// 마이페이지 추천 카운트
 }

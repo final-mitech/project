@@ -126,12 +126,6 @@ public class FundingServiceImpl implements FundingService {
 	}
 
 	@Override
-	public int fundingOpenUpdate(FundingVO vo) {
-		
-		return dao.fundingOpenUpdate(vo);
-	}
-
-	@Override
 	public List<FundingVO> fundingComingSoonList(FundingVO vo) {
 		return dao.fundingList(vo);
 	}
@@ -144,6 +138,11 @@ public class FundingServiceImpl implements FundingService {
 	@Override
 	public List<FundingVO> fundingCloseList(FundingVO vo) {
 		return dao.fundingList(vo);
+	}
+
+	@Override
+	public int fundingOpenUpdate(FundingVO vo) {
+		return dao.fundingOpenUpdate(vo);
 	}
 
 }

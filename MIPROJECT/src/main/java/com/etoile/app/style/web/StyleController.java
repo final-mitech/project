@@ -81,8 +81,8 @@ public class StyleController {
 		paging.setTotalRecord(styleService.stylingCount(vo));
 		vo.setStart(paging.getFirst());
 		vo.setEnd(paging.getLast());
-
 		model.addAttribute("paging", paging);
+		
 		List<StylingVO> stylingSearch = styleService.stylingSearch(vo);
 		model.addAttribute("list", stylingSearch);
 		return "site/review/reviewList";
@@ -165,16 +165,6 @@ public class StyleController {
 		return styleService.stylingRecommend(vo);
 	}
 
-	// 마이페이지 - 리뷰리스트
-	@RequestMapping("/site/myPageStyling.do")
-	public String myPageStyling(StylingVO vo, HttpServletRequest request, Model model) {
-		String memberId = (String) request.getSession().getAttribute("id");
-		vo.setMemberId(memberId);
-		List<StylingVO> stylingList = styleService.myPageStyling(vo);
-		model.addAttribute("list", stylingList);
-		return "site/my/myStylingList";
-	}
-
 	// 마이페이지 - 리뷰 한건 조회
 	@RequestMapping("/site/myPageStylingDetail.do")
 	public String myPageStylingDetail(StylingVO vo, HttpServletRequest request, Model model) {
@@ -184,12 +174,46 @@ public class StyleController {
 		model.addAttribute("list", vo);
 		return "site/my/myStylingDetail";
 	}
+	
+	// 마이페이지 - 리뷰리스트
+	@RequestMapping("/site/myPageStyling.do")
+	public String myPageStyling(StylingVO vo, Paging paging, HttpServletRequest request, Model model) {
+		String memberId = (String) request.getSession().getAttribute("id");
+		vo.setMemberId(memberId);
+		
+		// 페이징 처리
+		if (paging == null) {
+			paging.setPage(1);
+		}
+		paging.setPageUnit(3);	// 3개
+		paging.setTotalRecord(styleService.myPageStylingCount(vo));
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast());
+		model.addAttribute("paging", paging);
+		
+		// 마이페이지 리뷰 조회
+		List<StylingVO> stylingList = styleService.myPageStyling(vo);
+		model.addAttribute("list", stylingList);
+		return "site/my/myStylingList";
+	}
 
 	// 마이페이지 - 좋아요 리스트
 	@RequestMapping("/site/myPageRecommend.do")
-	public String myPageStylingRecommend(StylingVO vo, HttpServletRequest request, Model model) {
+	public String myPageStylingRecommend(StylingVO vo, Paging paging, HttpServletRequest request, Model model) {
 		String memberId = (String) request.getSession().getAttribute("id");
 		vo.setMemberId(memberId);
+		
+		// 페이징 처리
+		if (paging == null) {
+			paging.setPage(1);
+		}
+		paging.setPageUnit(3);	// 3개
+		paging.setTotalRecord(styleService.myPageRecommendCount(vo));
+		vo.setStart(paging.getFirst());
+		vo.setEnd(paging.getLast());
+		model.addAttribute("paging", paging);
+		
+		// 마이페이지 리뷰 추천 조회
 		List<StylingVO> recommendList = styleService.myPageStylingRecommend(vo);
 		model.addAttribute("list", recommendList);
 		return "site/my/myStylingRecommend";
