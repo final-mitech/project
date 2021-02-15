@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>myStylingList.jsp</title>
 </head>
+<script>
+	// 페이징 실행
+function goList(page) {
+	location.href = '/etoile/site/myPageStyling.do?page=' + page;
+}
+</script>
 <body>
 <div class="container" style="max-width: 1400px;">
 		<div class="row">
@@ -40,7 +47,8 @@
 					</div>
 				</div>
 			</c:forEach>
-		</div>
+		</div><br/>
+		<tag:historyPaging jsFunc="goList" />
 	</div>
 </body>
 </html>

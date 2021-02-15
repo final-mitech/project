@@ -73,7 +73,6 @@
 		</where>
 	</select>
 	
-	
 	<!-- 리뷰 추천 등록 (좋아요) -->
 	<insert id="stylingRecommend" parameterType="RecommendVO">
 		INSERT INTO RECOMMEND VALUES ( #{memberId}, #{styleId} )
@@ -113,13 +112,6 @@
     	WHERE style_id = #{styleId}
   	</update>
 
-
-	<!-- 마이페이지: 해당회원 리뷰 리스트 -->
-	<select id="myPageStyling" resultType="stylingVO" parameterType="stylingVO">
-		SELECT * FROM STYLING
-		WHERE member_id = #{memberId}
-	</select>
-	
 	<!-- 마이페이지: 해당회원 리뷰 한 건 조회 -->
 	<select id="myPageStylingDetail" resultType="stylingVO" parameterType="stylingVO">
 		SELECT STYLE_ID, MEMBER_ID, STYLE_TAG, STYLE_DATE,
@@ -129,14 +121,45 @@
 		AND style_id = #{styleId}
 	</select>
 	
+	<!-- 마이페이지: 해당회원 리뷰 리스트 -->
+	<select id="myPageStyling" resultType="stylingVO" parameterType="stylingVO">
+		SELECT a.* FROM
+			( SELECT b.*, rownum rn FROM (
+			SELECT * FROM STYLING
+			WHERE member_id = #{memberId} ) b ) a
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
 	<!-- 마이페이지: 해당회원 추천 리스트 -->
 	<select id="myPageStylingRecommend" resultType="stylingVO" parameterType="stylingVO">
-		SELECT a.style_tag, a.style_date, a.style_content, a.style_image, b.style_id
-		FROM STYLING a, ( SELECT *
-					  	FROM RECOMMEND
-					  	WHERE member_id = #{memberId}
-						) b
-		WHERE a.style_id = b.style_id
+		SELECT a.* FROM
+			( SELECT b.*, rownum rn FROM (
+			SELECT a.style_tag, a.style_date, a.style_content, a.style_image, b.style_id
+			FROM STYLING a, ( SELECT *
+					  		  FROM RECOMMEND
+					  	      WHERE member_id = #{memberId}
+						    ) b
+			WHERE a.style_id = b.style_id ) b) a
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 마이페이지: 해당 회원 리뷰 수 조회 -->
+	<select id="myPageStylingCount" resultType="int">
+		SELECT count(*) FROM STYLING
+		<where>
+			<if test="memberId != null">
+				member_id = #{memberId}
+			</if>
+		</where>
+	</select>
+
+	<!-- 마이페이지: 해당 회원 추천 수 조회 -->
+	<select id="myPageRecommendCount" resultType="int">
+		SELECT count(*) FROM ( SELECT a.style_tag, a.style_date, a.style_content, a.style_image, b.style_id
+							   FROM STYLING a, ( SELECT * FROM RECOMMEND
+							 					 WHERE member_id = #{memberId}
+											    ) b
+		WHERE a.style_id = b.style_id )
 	</select>
 
 </mapper>

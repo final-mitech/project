@@ -44,7 +44,7 @@ function goList(page) {
 							<c:forEach var="vo" items="${list }">
 							<div class="col-4" align="center">
 								<div class="card" onclick='location.href="reviewDetail?styleId=${vo.styleId}"'>
-								<img class="img-fluid" style="width:100%" src="/etoile/images/${vo.styleImage }">
+								<img class="img-fluid w-auto"  style="width:100%" src="/etoile/images/${vo.styleImage }">
 									<div class="card-body">
 										<h5 class="card-title">${vo.memberId }</h5>
 										<p class="card-text">${vo.styleContent }</p>				
