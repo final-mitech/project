@@ -34,7 +34,10 @@ public class CommentsController {
 	
 	// 댓글 삭제
 	@RequestMapping("/site/commentsDelete.do")
-	public String commentsDelete(CommentsVO vo, Model model) {
+	public String commentsDelete(CommentsVO vo, HttpServletRequest request, Model model) {
+		//세션 값 가져오기
+		String memberId = (String) request.getSession().getAttribute("id");	
+		vo.setMemberId(memberId);	
 		commentsService.commentsDelete(vo);
 		return "redirect:reviewDetail?styleId="+vo.getStyleId();
 	}

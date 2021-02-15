@@ -45,7 +45,6 @@ public class StyleController {
 		vo.setStart(paging.getFirst());
 		vo.setEnd(paging.getLast());
 		model.addAttribute("paging", paging);
-		System.out.println("hi");
 
 		// 최신순 조회
 		List<StylingVO> stylingList = styleService.stylingList(vo);
@@ -107,6 +106,7 @@ public class StyleController {
 			int n = styleService.selectRecommend(vo);
 			model.addAttribute("like", n);
 		}
+		
 		vo = styleService.stylingSelect(vo);
 		model.addAttribute("list", vo);
 		model.addAttribute("comments", commentsList);
@@ -147,12 +147,14 @@ public class StyleController {
 		}
 		// DB에 저장
 		String memberId = (String) request.getSession().getAttribute("id");
-		vo.setMemberId(memberId);	
+		vo.setMemberId(memberId);
+		//List<StylingVO> stylingList = styleService.stylingList(vo);
 		styleService.stylingInsert(vo);
+		//model.addAttribute("list", vo);
 		model.addAttribute(vo.getStyleTag());
 		return "redirect:/site/MypageRental.do";
 	}
-
+	
 	// 리뷰 좋아요 등록 & 취소(삭제)
 	@RequestMapping("/site/reviewRecommend.do")
 	@ResponseBody

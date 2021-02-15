@@ -99,7 +99,7 @@ p {
 							</div>
 							<div class="card-body-footer" style="float: right; margin-right: 20px; height:100px">
 								<c:if test="${list.rentalWaybill ne null}">
-									<a href="/etoile/site/productReviewList.do">마이스타일링</a>
+									<a href="/etoile/site/productReviewList.do?styleTag=${list.productName }">마이스타일링</a>	
 								</c:if>
 								<c:if test="${list.rentalWaybill eq null}">
 									<c:if test="${list.productStatus == 'waiting'}">
