@@ -23,7 +23,7 @@ App = {
 	},
 	initContract: function() {
 		App.contract = new web3.eth.Contract(bidAbi);
-		App.contract.options.address = "0x8D2342d6ae006fF3e68747Dcd3e2F256dcc257D9";
+		App.contract.options.address = "0x72f18D6F46DA2D32fB51f952DF105C1Ce586369e";
 		App.bindEvents();
 	}, //contract생성
 	bindEvents: function() { //입찰합니다 버튼 이벤트 불러오기

@@ -70,6 +70,10 @@ input:focus {
 select {
 	border: 0;
 }
+
+#PName:link {
+	color: #000000;
+}
 </style>
 </head>
 <body>
@@ -104,29 +108,54 @@ select {
 				<form id="frm" name="frm" action="updateWaybill.a">
 					<c:forEach var="list" items="${list }">
 						<tr>
-							<td width="400">${list.productName }</td>
+							<td width="400">
+								<a id="PName" data-toggle="modal" href="#myModal${list.rentalId }">${list.productName }</a>
+							</td>
 							<td width="80" style="text-align: center">${list.ppl }</td>
-							<td width="300" style="text-align: center"><input type="text"
-								value="${list.rentalStart }" size="7" readonly> ~ <input
-								type="text" value="${list.rentalEnd }" size="7" readonly></td>
-							<td style="text-align: center"><c:if
-									test="${list.productStatus eq 'rental'}">
+							<td width="300" style="text-align: center">
+								<input type="text" value="${list.rentalStart }" size="7" readonly>
+								~
+								<input type="text" value="${list.rentalEnd }" size="7" readonly>
+							</td>
+							<td style="text-align: center">
+								<c:if test="${list.productStatus eq 'rental'}">
 									<select name="Status" id="Status${list.rentalId }"
 										onchange="selStatus(this)">
 										<option value="rental" selected>대여중</option>
 										<option value="waiting">회수완료</option>
 									</select>
-								</c:if> <c:if test="${list.productStatus eq 'waiting'}">
+								</c:if>
+								<c:if test="${list.productStatus eq 'waiting'}">
 									<select name="Status" id="Status${list.rentalId }"
 										onchange="selStatus(this)">
 										<option value="rental">대여중</option>
 										<option value="waiting" selected>회수완료</option>
 									</select>
-	
 								</c:if>
 								<input type="hidden" id="rentalId" value="${list.rentalId }">
 								<input type="hidden" id="productId" value="${list.productId }">
 								<input type="hidden" id="rentalWaybill" value="${list.rentalWaybill }">
+								<div class="modal fade" id="myModal${list.rentalId }" tabindex="-1"
+						aria-labelledby="dropLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="dropLabel">대여 고객 정보</h5>
+									<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<input type="text" id="rentalOrder" name="rentalOrder" value="${list.rentalOrder }" readonly><br>
+									<input type="text" id="name" name="name" value="${list.name }" readonly><br>
+									<input type="text" id="rentalAddress" name="rentalAddress" value="${list.rentalAddress }" readonly style="text-align: center" size="50"><br>
+								</div>
+								<div class="modal-footer">
+									<input type="hidden" id="rentalId" name="rentalId" value="${list.rentalId }">
+									<input type="hidden" id="${list.productId }" name="productId" value="${list.productId }">
+									<button type="button" class="btn btn-close btn-dark" data-dismiss="modal">닫기</button>
+								</div>
+							</div>
+						</div>
+					</div>
 							</td>
 						</tr>
 					</c:forEach>

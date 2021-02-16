@@ -29,7 +29,7 @@ contract Funding {
         fundInfo storage fund = fundingList[_fundingId];
         //마감일 설정
         fund.deadline = now + _duration; 
-        fund.goalAmount = _goalAmount*1000000000000000000;
+        fund.goalAmount = _goalAmount;
         fund.status = "Funding";
         fund.ended = false;
         fund.numInvestors = 0;
