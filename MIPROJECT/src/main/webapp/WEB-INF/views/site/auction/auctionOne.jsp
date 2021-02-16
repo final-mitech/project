@@ -122,8 +122,8 @@
 						</div>
 						<div class="form-group">
 							<label for="bcontent">상세내용</label>
-							<textarea type="text" class="form-control info" id="" value="${auctionContent}" name=""
-								readonly></textarea>
+							<textarea class="form-control info" id="" name=""
+								readonly>${vo.auctionContent}</textarea>
 						</div>
 						<br />
 						<input type="hidden" id="won" name="won" value="${won}">
