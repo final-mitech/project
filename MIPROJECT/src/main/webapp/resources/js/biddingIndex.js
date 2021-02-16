@@ -15,7 +15,7 @@ App = {
 		} else if (window.web3) {
 			App.web3Provider = window.web3.currentProvider;
 		} else {
-			App.web3Provider = new Web3.providers.HttpProvider("http://127.0.0.1:9545");
+			App.web3Provider = new Web3.providers.HttpProvider("http://192.168.0.36:7545");
 		}
 		web3 = new Web3(App.web3Provider);
 
@@ -23,13 +23,14 @@ App = {
 	},
 	initContract: function() {
 		App.contract = new web3.eth.Contract(bidAbi);
-		App.contract.options.address = "0x8D2342d6ae006fF3e68747Dcd3e2F256dcc257D9";
+		App.contract.options.address = "0x72f18D6F46DA2D32fB51f952DF105C1Ce586369e";
 		App.bindEvents();
 	}, //contract생성
 	bindEvents: function() { //입찰합니다 버튼 이벤트 불러오기
 		$(document).on('click', '#bidBtn', App.setBid);
 	},
 	setBid: function() { // 버튼 이벤트 핸들러
+	
 		event.preventDefault();
 
 		var immediateBid = parseInt($('#ImmediateBid').val());
@@ -38,11 +39,12 @@ App = {
 		var bidEth = parseInt($('#bid').val());
 		var auctionPay = parseInt($('#auctionPay').val());
 		var auctionImmediateBid = parseInt($('#auctionImmediateBid').val());
-		
-		bid = bidEth * (1000000000000000000);
-		imBid = immediateBid * (1000000000000000000);
-		pay = auctionPay * (1000000000000000000);
-		immediatePay = auctionImmediateBid * (1000000000000000000);
+	
+		//eth -> milli화
+		bid = bidEth;
+		imBid = immediateBid;
+		pay = auctionPay;
+		immediatePay = auctionImmediateBid;
 
 		web3.eth.getAccounts(function(error, accounts) {
 			if (error) {
@@ -50,13 +52,14 @@ App = {
 				return;
 			}
 
-			var account = accounts[0]; //첫번쨰 계정을 가져옴
+			var account = accounts[0]; //첫번째 계정을 가져옴
 
 			if(pay != immediatePay){
+				pay = String(pay);
 				return App.contract.methods.bidding(title, name)
 					.send({
 						from: account,
-						value: pay,
+						value: web3.utils.toWei(pay, 'milli'),
 						gasLimit: web3.utils.toHex(3000000)
 					}) //end of send
 					.then(function(result) {
@@ -79,10 +82,11 @@ App = {
 						}); //end of ajax
 					}); //end of then 
 			} else {
+				pay = String(pay);
 				return App.contract.methods.bidding(title, name)
 					.send({
 						from: account,
-						value: pay,
+						value: web3.utils.toWei(pay, 'milli'),
 						gasLimit: web3.utils.toHex(3000000)
 					}) //end of send
 					.then(function(result) {
@@ -106,24 +110,6 @@ App = {
 					}); //end of then
 			} //end of else
 		}); //end of web3
-
-		App.contract.methods.checkSelfReached().then(
-			function() {
-				$.ajax({
-					url: "/etoile/site/auctionBidRevert.do",
-					type: 'POST',
-					success: function(data) {
-						if (data == "1") {
-							console.log("환불 성공 :)");
-						} else {
-							console.log("환불되지 않았습니다 :(")
-						}
-					},
-					error: function(e) {
-						console.log("환불되지 않았습니다!");
-					}
-				}); //end of ajax
-			});//end of checkSelfReached() then		
 	} //end of setBid
 }; //end of App
 

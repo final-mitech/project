@@ -51,7 +51,7 @@
 						<th scope="col" style="word-break: break-all; width: 100px">브랜드</th>
 						<th scope="col" style="word-break: break-all; width: 100px">모델번호</th>
 						<th scope="col" style="word-break: break-all; width: 100px">카테고리</th>
-						<th scope="col" style="word-break: break-all; width: 250px">요청사항</th>
+						<th scope="col" style="word-break: break-all; width: 230px">요청사항</th>
 						<th scope="col">펀딩상태</th>
 					</tr>
 				</thead>

@@ -31,8 +31,8 @@ function goList(page) {
 						<!-- 검색 기능 -->
 						<div class="row">
 							<div class="col-lg-12" align="right">
-								<div align="left">
-									<br/><a href="reviewList">최신순</a> / <a href="reviewList2">추천순</a>
+								<div align="left"><br/>
+										<a href="reviewList">최신순</a> / <a href="reviewList2">추천순</a>
 								</div>
 								<form id="searchForm" action="reviewSearch">
 									<input type="text" name="styleTag" placeholder="상품명을 입력하세요" size="25px">
@@ -40,11 +40,13 @@ function goList(page) {
 								</form><br/>
 							</div>
 						</div>
-						<div class="row" align="center">
+						<div class="row" style="overflow: auto" align="center">
 							<c:forEach var="vo" items="${list }">
 							<div class="col-4" align="center">
 								<div class="card" onclick='location.href="reviewDetail?styleId=${vo.styleId}"'>
+								<div style="overflow: hidden">
 								<img class="img-fluid" style="width:100%" src="/etoile/images/${vo.styleImage }">
+								</div>
 									<div class="card-body">
 										<h5 class="card-title">${vo.memberId }</h5>
 										<p class="card-text">${vo.styleContent }</p>				
@@ -56,6 +58,7 @@ function goList(page) {
 								</div>
 							</div>
 							</c:forEach>
+							
 						</div>
 						<tag:historyPaging jsFunc="goList" />
 					</div>

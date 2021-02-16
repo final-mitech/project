@@ -1,21 +1,33 @@
 package com.etoile.app.auction.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.velocity.runtime.directive.Parse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.etoile.app.history.common.Paging;
+import com.etoile.app.admin.common.FileRenamePolicy;
 import com.etoile.app.auction.service.AuctionService;
+import com.etoile.app.crawling.EthApi;
 import com.etoile.app.vo.AuctionJoinVO;
 import com.etoile.app.vo.AuctionVO;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 
 @Controller
 public class AuctionController {
@@ -72,6 +84,10 @@ public class AuctionController {
 		String loginId = (String) request.getSession().getAttribute("id");
 		model.addAttribute("loginId", loginId);
 
+		//이더리움 원화 시세
+		String won = EthApi.getWon();
+		model.addAttribute("won", won);
+		
 		return "site/auction/auctionOne";
 	}
 
@@ -177,8 +193,28 @@ public class AuctionController {
 	// 등록
 	@RequestMapping(value = "/site/auctionJoin.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertAuction(AuctionVO vo) {
+	public String insertAuction(AuctionVO vo, @RequestParam(required = false) MultipartFile uploadFile,
+			HttpServletRequest request) {
+		// url을 통한 실제경로 가져오기
+		String path = request.getSession().getServletContext().getRealPath("/images");
+		System.out.println(path);
+		//첨부파일 처리
+		if (uploadFile != null && uploadFile.getSize() > 0) {
+			File file = new File(path, uploadFile.getOriginalFilename());
+			file = FileRenamePolicy.rename(file);
+			try {
+				uploadFile.transferTo(file);
+				vo.setAuctionImage(file.getName());
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+
 		System.out.println(vo.toString());
+
 		int result = auctionService.insertAuction(vo);
 		String str = Integer.toString(result);
 		System.out.println(str);
@@ -201,8 +237,8 @@ public class AuctionController {
 		auctionService.updateAuctionCount(bo);
 		return str;
 	}
-	
-	//즉시낙찰
+
+	// 즉시낙찰
 	@RequestMapping(value = "/site/auctionImmediateBid.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateImmediateBid(AuctionVO bo, AuctionJoinVO vo) {
@@ -213,16 +249,16 @@ public class AuctionController {
 		int result = auctionService.insertAuctionJoin(vo);
 		String str = Integer.toString(result);
 		System.out.println(str);
-		
-		//경매 배송상태 등록
+
+		// 경매 배송상태 등록
 		auctionService.updateAuctionDelivery(vo);
-		
+
 		// 경매 참여 수 등록
 		auctionService.updateAuctionCount(bo);
-		
-		//경매상태 변경
+
+		// 경매상태 변경
 		auctionService.updateImmediateBid(bo);
-		
+
 		return str;
 	}
 
@@ -466,14 +502,14 @@ public class AuctionController {
 
 		System.out.println(vo.getAuctionCondition());
 		System.out.println(vo.getAuctionId());
-		
+
 		// 경매상태 데이터로 변경
 		if (vo.getAuctionCondition().equals("0")) {
 			vo.setAuctionCondition("4");
 		} else if (vo.getAuctionCondition().equals("4")) {
 			vo.setAuctionCondition("5");
 		}
-		
+
 		System.out.println(vo.getAuctionCondition());
 		System.out.println(vo.getAuctionId());
 
@@ -542,6 +578,5 @@ public class AuctionController {
 
 		return "admin/auction/auctionAdminList";
 	}
-	
 
 }

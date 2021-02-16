@@ -21,7 +21,7 @@ public class FundingScheduler {
 	MemberService memberService;
 	
 	@Scheduled(cron = "0 0 0 * * *")
-//	@Scheduled(cron = "0 0 * * * *")
+	//@Scheduled(cron = "0 * * * * *")
 	public void fundingScheduleUpdate() {
 		System.out.println("매일 오전 12시에 업뎃");
 		/*System.out.println("매시간 0분에 호출");*/
@@ -29,10 +29,13 @@ public class FundingScheduler {
 		FundingVO vo = new FundingVO();
 		
 		//펀딩 오픈 예정 -> 펀딩 중
-		fundingService.fundingStartUpdate(vo);
+		//fundingService.fundingStartUpdate(vo);
 		
 		//펀딩 중 -> 펀딩 마감 
-		fundingService.fundingEndUpdate(vo);
+		//fundingService.fundingEndUpdate(vo);
+		
+		//펀딩오픈예정
+		//fundingService.fundingOpenUpdate(vo);
 		
 		//성공한 펀딩내역 받아오기
 		List<FundingVO> fundingList = memberService.sucessFunding();

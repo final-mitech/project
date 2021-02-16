@@ -396,13 +396,13 @@
 			if (index % 2 == 0) {
 				result += $(el).find('select').val() + ":";
 			} else {
-				result += $(el).find('input').val() + 'eth,';
+				result += $(el).find('input').val() + 'wei,';
 			}
 			//result+=$(el).find('select').val() +":" + $(el).find('input').val() + 'eth,';
 		});
 		$.each($(".plus"), function(index, el) {
 			result += $(el).find('select').val() + ":"
-					+ $(el).find('input').val() + 'eth,';
+					+ $(el).find('input').val() + 'wei,';
 		});
 		$('[name="fundingGift"]').val(result);
 		//	return true;
@@ -668,8 +668,8 @@
 													</c:if>
 													<c:if
 														test="${token2 ne '1일권' and token2 ne '2일권' and token2 ne '3일권' and token2 ne '4일권' and token2 ne '5일권'  }">
-														<c:forTokens items="${token2}" delims="eth" var="token3">
-															<input style="width: 100px;" value="${token3}"> eth
+														<c:forTokens items="${token2}" delims="wei" var="token3">
+															<input style="width: 100px;" value="${token3}"> wei
 													</c:forTokens>
 													</c:if>
 												</div>
@@ -683,7 +683,7 @@
 											<option>3일권</option>
 											<option>4일권</option>
 											<option>5일권</option>
-										</select> <input style="width: 100px;" id="optionPlz" name="optionPlz"  required> eth
+										</select> <input style="width: 100px;" id="optionPlz" name="optionPlz"  required> wei
 									</div>
 								</div>
 							</div>

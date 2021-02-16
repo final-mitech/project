@@ -372,7 +372,7 @@
 					<div class="col-md-6">
 						<div id="slider" class="owl-carousel product-slider">
 							<div class="item">
-								<img src="/etoile/images/${selectVo.fundingImage}" />
+								<img src="/etoile/images/${selectVo.fundingImage}" height="380px"/>
 							</div>
 						</div>
 						<div id="thumb" class="owl-carousel product-thumb">
@@ -426,6 +426,7 @@
 								<div class="product-totalprice">
 									<span>현재모금액 : </span> <span id="fundingTotalprice"> ${selectVo.fundingTotalprice}</span>
 								</div>
+								</br>
 								<!-- 상태바 -->
 								<div class="product-percent">
 									<fmt:formatNumber var="percent"
@@ -487,6 +488,7 @@
 									</c:choose>
 									<span class="badge badge-pill badge-dark">${selectVo.fundingDday}</span>
 								</div>
+								</br>
 								<div class="product-gift">
 									<span>펀딩 기프트 선택</span> <select onchange="selectGift()"
 										id="fundingGift" name="fundingGift" class="form-control">
@@ -496,6 +498,8 @@
 										</c:forTokens>
 									</select>
 								</div>
+								</br>
+								
 								<div class="product-price">
 									<span>총 가격 : </span> <span id="fundingPrice"
 										name="fundingPrice"></span>
@@ -535,13 +539,15 @@
 							id="description-tab" data-toggle="tab" href="#description"
 							role="tab" aria-controls="description" aria-selected="true">상품설명</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" id="review-tab"
+					<!-- 	<li class="nav-item"><a class="nav-link" id="review-tab"
 							data-toggle="tab" href="#review" role="tab"
-							aria-controls="review" aria-selected="false">문의하기</a></li>
+							aria-controls="review" aria-selected="false">문의하기</a></li> -->
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="description"
 							role="tabpanel" aria-labelledby="description-tab">${selectVo.fundingContent}</div>
+							<%--
+							
 						<div class="tab-pane fade" id="review" role="tabpanel"
 							aria-labelledby="review-tab">
 
@@ -568,7 +574,7 @@
 								<button class="round-black-btn">문의하기</button>
 							</form>
 						</div>
-					</div>
+					</div> --%>
 				</div>
 			</div>
 		</div>
@@ -587,8 +593,8 @@
 
 	<!-- 블록체인 -->
 	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-	<script src="/etoile/resources/js/abi.js"></script>
-	<script src="/etoile/resources/js/index.js"></script>
+	<script src="/etoile/resources/js/fundingAbi.js"></script>
+	<script src="/etoile/resources/js/fundingExample.js"></script>
 	
 	<script>
 		var memberid = '${sessionScope.id}';

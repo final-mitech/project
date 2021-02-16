@@ -26,8 +26,8 @@
 		</div>
 		<!-- 등급별 혜택 -->
 		<div class="row mt-3">
-			<div class="card" style="width: 50rem;">
-				<div class="card-body">
+			<div class="card border-dark" style="width: 140rem;">
+				<div class="card-body text-white bg-dark">
 					<h5 class="card-title">등급별 혜택</h5>
 					<p class="card-text">고객님의 등급은 ${info.grade }입니다.</p>
 				</div>
@@ -46,8 +46,8 @@
 		</div>
 		<!-- 펀딩성공시 구입 -->
 		<div class="row mt-3">
-			<div class="card" style="width: 50rem;">
-				<div class="card-body">
+			<div class="card border-secondary" style="width: 140rem;">
+				<div class="card-body text-white bg-secondary">
 					<h5 class="card-title">펀딩 쿠폰</h5>
 					<p class="card-text">펀딩 참여 시 구입한 내역입니다.</p>
 				</div>

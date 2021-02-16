@@ -219,7 +219,7 @@ public class FundingContorller {
 	}
 
 	// 펀딩 상태 수정
-	@PostMapping("admin/conditionUpdate.a")
+	@GetMapping("admin/conditionUpdate.a")
 	@ResponseBody
 	public String conditionUpdate(FundingVO vo) {
 
