@@ -52,6 +52,10 @@ button {
 	outline: none;
 	background-color: #e5e5e5;
 }
+
+#PName:link {
+	color: #000000;
+}
 </style>
 </head>
 <body>
@@ -89,7 +93,7 @@ button {
 					<form name="form${list.rentalId }" action="updateStatus2">
 					<tr>
 						<td width="300">
-							<input type="text" id="rentalOrder" value="${list.rentalOrder }" readonly>
+							<a id="PName" data-toggle="modal" href="#myModal${list.rentalId }">${list.rentalOrder }</a>
 						</td>
 						<td width="400">${list.productName }</td>
 						<td width="80">${list.ppl }</td>
@@ -102,6 +106,27 @@ button {
 							<input type="hidden" name="productId" value="${list.productId }">
 							<input type="hidden" name="productStatus" value="${list.productStatus }">
 							<button type="button" onclick="cancelPay(this.form)">승인</button>
+							<div class="modal fade" id="myModal${list.rentalId }" tabindex="-1"
+						aria-labelledby="dropLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="dropLabel">대여 고객 정보</h5>
+									<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<input type="text" id="rentalOrder" name="rentalOrder" value="${list.rentalOrder }" readonly><br>
+									<input type="text" id="name" name="name" value="${list.memberId }" readonly><br>
+									<input type="text" id="rentalAddress" name="rentalAddress" value="${list.rentalAddress }" readonly style="text-align: center" size="50"><br>
+								</div>
+								<div class="modal-footer">
+									<input type="hidden" id="rentalId" name="rentalId" value="${list.rentalId }">
+									<input type="hidden" id="${list.productId }" name="productId" value="${list.productId }">
+									<button type="button" class="btn btn-close btn-dark" data-dismiss="modal">닫기</button>
+								</div>
+							</div>
+						</div>
+					</div>
 						</td>
 					</tr>
 					</form>
