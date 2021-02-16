@@ -60,6 +60,10 @@
                         <a class="nav-link active"
                             onclick="location.href='/etoile/admin/auctionAdminList.a'">경매현황리스트</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            onclick="location.href='/etoile/admin/auctionAdminForm.a'">경매 상품 등록</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-3" style="padding-top: 10px; padding-right: 0px;">
@@ -125,10 +129,10 @@
                         <td>${vo.memberId}</td>
                         <c:if test="${vo.auctionCondition eq '1'}">
                             <td><input type="text" class="form-control condition" data-toggle="modal"
-                                    data-target="#biddingModal"
+                                    data-target="#biddingModal${vo.auctionId}"
                                     style="width: 90px; background-color: #fdbab5; border-color: #fdbab5; text-align: center;"
                                     value="경매중" readonly>
-                                <div class="modal fade" id="biddingModal">
+                                <div class="modal fade" id="biddingModal${vo.auctionId}">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -139,7 +143,7 @@
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="">이미지</label>
-                                                    <img src="/etoile/images/${vo.auctionImage}" class="img-fluid"
+                                                    <img onerror="this.src='/etoile/images/노이미지1.png';" src="/etoile/images/${vo.auctionImage}" class="img-fluid"
                                                         style="width: 30%">
                                                 </div>
                                                 <div class="form-group">
@@ -160,19 +164,27 @@
                                                 <div class="form-group form-inline">
                                                     현재 최고액 입찰가&nbsp;<input type="text" class="form-control"
                                                         id="auctionBestPrice" name="auctionBestPrice"
-                                                        style="width: 80px; text-align: center;"
-                                                        value="${vo.auctionBestPrice}" readonly>&nbsp;eth
+                                                        style="width: 60px; text-align: center;"
+                                                        value="${vo.auctionBestPrice}" readonly>&nbsp;Milli
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     즉시낙찰가&nbsp;<input type="text" class="form-control"
                                                         id="auctionImmediateBid" name="auctionImmediateBid"
-                                                        style="width: 80px; text-align: center;"
-                                                        value="${vo.auctionImmediateBid}" readonly>&nbsp;eth<br />
+                                                        style="width: 60px; text-align: center;"
+                                                        value="${vo.auctionImmediateBid}" readonly>&nbsp;Milli<br />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="">현재 최고 입찰액 아이디</label>
-                                                    <input type="text" class="form-control" id="auctionMemberId"
-                                                        value="${vo.auctionMemberId }" name=""
-                                                        style="width: 30%; background-color: #fde8e8; border-color:  #fde8e8;" readonly>
+                                                	<c:if test="${not empty vo.auctionRecentName}">
+                                                    	<label for="">현재 최고 입찰액 아이디</label>
+                                                    	<input type="text" class="form-control" id="auctionRecentName"
+                                                        	value="${vo.auctionRecentName }" name=""
+                                                        	style="width: 30%; background-color: #fde8e8; border-color:  #fde8e8;" readonly>
+                                                     </c:if>
+                                                     <c:if test="${empty vo.auctionRecentName}">
+                                                     	<label for="">현재 최고 입찰액 아이디</label>
+                                                    	<input type="text" class="form-control" id="auctionRecentName"
+                                                        	value="" name=""
+                                                        	style="width: 30%; background-color: #fde8e8; border-color:  #fde8e8;" readonly>
+                                                     </c:if>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Title</label>
@@ -193,10 +205,10 @@
                             </td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '2'}">
-                            <td><input type="text" class="form-control condition" data-toggle="modal" data-target="#biddingSoonModal"
+                            <td><input type="text" class="form-control condition" data-toggle="modal" data-target="#biddingSoonModal${vo.auctionId}"
                                     style="width: 90px; background-color: #b5d7fd; border-color: #b5d7fd; text-align: center;"
                                     value="오픈예정" readonly>
-                                <div class="modal fade" id="biddingSoonModal">
+                                <div class="modal fade" id="biddingSoonModal${vo.auctionId}">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -207,7 +219,7 @@
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="">이미지</label>
-                                                    <img src="/etoile/images/${vo.auctionImage}" class="img-fluid"
+                                                    <img onerror="this.src='/etoile/images/노이미지1.png';" src="/etoile/images/${vo.auctionImage}" class="img-fluid"
                                                         style="width: 30%">
                                                 </div>
                                                 <div class="form-group">
@@ -228,13 +240,13 @@
                                                 <div class="form-group form-inline">
                                                     최저입찰가&nbsp;<input type="text" class="form-control"
                                                         id="auctionBestPrice" name="auctionBestPrice"
-                                                        style="width: 100px; text-align: center;"
-                                                        value="${vo.auctionBestPrice}" readonly>&nbsp;eth
+                                                        style="width: 60px; text-align: center;"
+                                                        value="${vo.auctionBestPrice}" readonly>&nbsp;Milli
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     즉시낙찰가&nbsp;<input type="text" class="form-control"
                                                         id="auctionImmediateBid" name="auctionImmediateBid"
-                                                        style="width: 100px; text-align: center;"
-                                                        value="${vo.auctionImmediateBid}" readonly>&nbsp;eth<br />
+                                                        style="width: 60px; text-align: center;"
+                                                        value="${vo.auctionImmediateBid}" readonly>&nbsp;Milli<br />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">경매오픈 일자</label>
@@ -261,10 +273,11 @@
                             </td>
                         </c:if>
                         <c:if test="${vo.auctionCondition eq '3'}">
-                            <td><input type="text" class="form-control condition" data-toggle="modal" data-target="#biddingEndedModal"
+                            <td>
+                                <input type="text" class="form-control condition" data-toggle="modal" data-target="#biddingEndedModal${vo.auctionId}"
                                     style="width: 90px; background-color: #c5c4cf; border-color: #c5c4cf; text-align: center;"
                                     value="경매마감" readonly>
-                                    <div class="modal fade" id="biddingEndedModal">
+                                    <div class="modal fade" id="biddingEndedModal${vo.auctionId}">
                                         <div class="modal-dialog modal-dialog-centered modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -275,7 +288,7 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="">이미지</label>
-                                                        <img src="/etoile/images/${vo.auctionImage}" class="img-fluid"
+                                                        <img onerror="this.src='/etoile/images/노이미지1.png';" src="/etoile/images/${vo.auctionImage}" class="img-fluid"
                                                             style="width: 30%">
                                                     </div>
                                                     <div class="form-group">
@@ -296,13 +309,13 @@
                                                     <div class="form-group form-inline">
                                                         낙찰자 아이디&nbsp;<input type="text" class="form-control"
                                                             id="auctionMemberId" name="auctionMemberId"
-                                                            style="width: 100px; text-align: center;"
-                                                            value="${vo.auctionMemberId}" readonly>&nbsp;eth
+                                                            style="width: 60px; text-align: center;"
+                                                            value="${vo.auctionMemberId}" readonly>&nbsp;Milli
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         낙찰가&nbsp;<input type="text" class="form-control"
                                                             id="auctionBestPrice" name="auctionBestPrice"
-                                                            style="width: 100px; text-align: center;"
-                                                            value="${vo.auctionBestPrice}" readonly>&nbsp;eth<br />
+                                                            style="width: 60px; text-align: center;"
+                                                            value="${vo.auctionBestPrice}" readonly>&nbsp;Milli<br />
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">경매마감일자</label>

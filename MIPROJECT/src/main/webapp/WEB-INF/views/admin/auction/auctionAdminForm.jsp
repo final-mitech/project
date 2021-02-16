@@ -6,13 +6,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>auctionJoin.jsp</title>
+    <title>관리자 경매 상품 등록</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="./resources/json.min.js"></script>
     <style>
+     	.nav-link {
+            color: rgb(78, 68, 68);
+        }
+
+        .nav-link:hover {
+            color: rgb(78, 68, 68)
+        }
         .form1 {
             border-color: rgb(156, 151, 147);
             border-style: solid;
@@ -165,12 +172,26 @@
 <body>
     <div class="container-fluid">
         <div class="row">
+        <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link " onclick="location.href='/etoile/admin/auctionReqList.a'">실시간 경매요청</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            onclick="location.href='/etoile/admin/auctionAdminList.a'">경매현황리스트</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link active"
+                            onclick="location.href='/etoile/admin/auctionAdminForm.a'">경매 상품 등록</a>
+                    </li>
+                </ul>
+            </div>
+          </div>
             <div class="col-2"></div>
             <div class="col-8">
-
+				<br/>
                 <div>
-                    <h4 class="h4" align="center">경매 등록 상품 정보 입력</h4>
-                    <br/>
                     <form id="frm" name="frm" action="" class="">
                         <div class="form1">
                             <div class="form-group">
@@ -182,7 +203,7 @@
                                 <div class="filebox preview-image">
                                     <input class="form-control" readonly id="auctionImage" name="auctionImage"
                                         style="width: 50%">&nbsp;&nbsp;&nbsp;
-                                    <label for="input-file">파일업로드</label> <input type="file" id="input-file"
+                                    <label for="input-file">파일업로드</label> <input type="file" id="input-file" name="uploadFile"
                                         class="upload-hidden">
                                 </div>
                             </div>
@@ -252,16 +273,20 @@
     $(function () {
 
         $('.putBtn').click(function () {
-
+        	var form = $('#frm')[0];
+            var formData = new FormData(form);
+            
             $.ajax({
-                url: "auctionAdminPut.a",
+                url: "${pageContext.request.contextPath}/admin/auctionAdminPut.a",
                 type: 'POST',
-                //dataType: 'json', //받아오는 타입
-                data: $("#frm").serialize(),
+                dataType: 'json', //받아오는 타입
+                processData: false,
+                contentType: false,
+                data: formData,
                 success: function (data) {
                     if (data == "1") {
                         alert("정상적으로 등록되었습니다 :)");
-                        location.href = "auctionAdminList.a";
+                        location.href = "${pageContext.request.contextPath}/admin/auctionAdminList.a";
                     } else {
                         alert("등록되지 않았습니다 :(")
                     }

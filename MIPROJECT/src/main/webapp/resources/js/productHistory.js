@@ -84,7 +84,7 @@ App = {
 				"type": "function"
 			}
 		]);
-		App.contract.options.address = "0xc8A67962b14c8f00D3dc2240198CeD80354ef41B";
+		App.contract.options.address = "0x5F26E200a4e66707BF7D3BeafF329869a3f6c3f5";
 		getHistory();
 	},
 	setStatus: function(productId, status, date, form) {
@@ -125,7 +125,7 @@ App = {
 
 					$('tbody').append(trTag);
 				}
-
+					$('#data').DataTable();
 			});
 
 

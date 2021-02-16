@@ -127,8 +127,7 @@ input:focus {
 						<input type="text" value="${list.rentalEnd }" size="7" readonly>
 					</td>
 					<td style="text-align: center">
-						<button id="insertWay" type="button" data-toggle="modal"
-							data-target="#myModal${list.rentalId }">등록</button>
+						<button id="insertWay" type="button" data-toggle="modal" data-target="#myModal${list.rentalId }">등록</button>
 					</td>
 				</tr>
 				<form id="frm${list.rentalId }" name="frm${list.rentalId }" action="updateWaybill.a" >

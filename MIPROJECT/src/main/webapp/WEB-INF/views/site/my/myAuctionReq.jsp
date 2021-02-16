@@ -130,7 +130,7 @@
                             <div class="col-4">
                                 <div class="card-body">
                                     <a href="auctionOne?id=${vo.auctionId}">
-                                        <img class="imgCard" src="/etoile/images/${vo.auctionImage}" alt="Card image"
+                                        <img class="imgCard" onerror="this.src='/etoile/images/노이미지1.png';" src="/etoile/images/${vo.auctionImage}" alt="Card image"
                                             width="100%" height="213px"></a>
                                 </div>
                             </div>

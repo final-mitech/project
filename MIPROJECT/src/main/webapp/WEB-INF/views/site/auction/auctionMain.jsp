@@ -12,7 +12,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     .nav-link {
       color: rgb(78, 68, 68);
@@ -24,7 +24,7 @@
 
     .card-image-top {
       width: auto;
-      height: 100%;
+      
     }
 
     .btnReq {
@@ -141,8 +141,10 @@
               </button>
               <c:if test="${vo.auctionCondition eq '2' }">
                 <div class="card-body">
-                  <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top"
-                      src="/etoile/images/${vo.auctionImage}" alt="Card image" width="100%" height="280px"></a>
+                  <a href="auctionOne?id=${vo.auctionId}">
+                  	<img class="card-img-top" onerror="this.src='/etoile/images/노이미지1.png';"
+                      src="/etoile/images/${vo.auctionImage}" alt="Card image"  height="250px">
+                  </a>
                 </div>
                 <div class="card-text">
                   <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>
@@ -153,8 +155,8 @@
               </c:if>
               <c:if test="${vo.auctionCondition eq '1' }">
                 <div class="card-body">
-                  <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top"
-                      src="/etoile/images/${vo.auctionImage}" alt="Card image" width="100%" height="280px"></a>
+                  <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top" onerror="this.src='/etoile/images/노이미지1.png';"
+                      src="/etoile/images/${vo.auctionImage}" alt="Card image" height="250px"></a>
                 </div>
                 <div class="card-text">
                   <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>
@@ -165,8 +167,8 @@
               </c:if>
               <c:if test="${vo.auctionCondition eq '3' }">
                 <div class="card-body">
-                  <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top"
-                      src="/etoile/images/${vo.auctionImage}" alt="Card image" width="100%" height="280px"></a>
+                  <a href="auctionOne?id=${vo.auctionId}"><img class="card-img-top" onerror="this.src='/etoile/images/노이미지1.png';"
+                      src="/etoile/images/${vo.auctionImage}" alt="Card image" height="250px"></a>
                 </div>
                 <div class="card-text">
                   <p style="font-size: medium; font-weight: bold; text-align: center;">${vo.auctionName} </p>

@@ -148,6 +148,25 @@ $(function() {
 			var renTalPostcode = document.getElementById('postcode').value;
 			var ProductName = document.getElementById('productName').value;
 			var rentalOrder = 'ren_' + new Date().getTime();
+			
+			if($("#rentalName").val().length == 0) {
+				alert("이름을 입력하세요.");
+				$("#rentalName").focus();
+				return false;
+			}
+			
+			if($("#phone").val().length == 0) {
+				alert("휴대폰 번호를 입력하세요.");
+				$("#phone").focus();
+				return false;
+			}
+			
+			if($("#address").val().length == 0) {
+				alert("주소를 입력하세요.");
+				$("#address").focus();
+				return false;
+			}
+			
 			document.getElementById('rentalOrder').value = rentalOrder;
 			IMP.init('imp74103314');
 			IMP.request_pay({

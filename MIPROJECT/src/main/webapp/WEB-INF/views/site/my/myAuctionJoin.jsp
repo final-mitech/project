@@ -89,7 +89,7 @@
 							</c:if>
 							<c:if test="${vo.auctionCondition eq '1' }">
 								<span class="badge badge-pill badge-light"
-									style="background-color: #f8f8d2; color:rgb(78, 68, 68);">경매중</span>
+									style="background-color: #fdbab5; color:rgb(78, 68, 68);">경매중</span>
 
 							</c:if>
 							<c:if test="${vo.auctionCondition eq '3' }">
@@ -102,7 +102,7 @@
 							<div class="col-4">
 								<div class="card-body">
 									<a href="auctionOne?id=${vo.auctionId}">
-										<img class="imgCard" src="/etoile/images/${vo.auctionImage}" alt="Card image"
+										<img class="imgCard" onerror="this.src='/etoile/images/노이미지1.png';" src="/etoile/images/${vo.auctionImage}" alt="Card image"
 											width="100%" height="218px"></a>
 								</div>
 							</div>

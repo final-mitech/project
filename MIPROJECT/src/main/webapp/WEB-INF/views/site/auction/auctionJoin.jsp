@@ -176,7 +176,7 @@
                     </span>
                     <br />
                     <br />
-                    <form id="frm" name="frm" action="" class="">
+                    <form id="frm" name="frm" action="" class="" method="post" encType="multipart/form-data">
                         <div class="form1">
                             <div class="form-group">
                                 <label for="">아이디</label> <input type="text" class="form-control" id="memberId"
@@ -187,7 +187,7 @@
                                 <div class="filebox preview-image">
                                     <input class="form-control" readonly id="auctionImage" name="auctionImage"
                                         style="width: 50%">&nbsp;&nbsp;&nbsp;
-                                    <label for="input-file">파일업로드</label> <input type="file" id="input-file"
+                                    <label for="input-file">파일업로드</label> <input type="file" id="input-file" name="uploadFile"
                                         class="upload-hidden">
                                 </div>
                             </div>
@@ -253,16 +253,20 @@
     $(function () {
 
         $('#joinBtn').click(function () {
+        	var form = $('#frm')[0];
+            var formData = new FormData(form);
 
             $.ajax({
-                url: "/etoile/site/auctionJoin.do",
+                url: "${pageContext.request.contextPath}/site/auctionJoin.do",
                 type: 'POST',
-                //dataType: 'json', //받아오는 타입
-                data: $("#frm").serialize(),
+                dataType: 'json', //받아오는 타입
+                processData: false,
+                contentType: false,
+                data: formData,
                 success: function (data) {
                     if (data == "1") {
                         alert("정상적으로 등록되었습니다 :)");
-                        location.href = "/etoile/site/auctionMain.do";
+                        location.href = "${pageContext.request.contextPath}/site/auctionMain.do";
                     } else {
                         alert("등록되지 않았습니다 :(")
                     }
