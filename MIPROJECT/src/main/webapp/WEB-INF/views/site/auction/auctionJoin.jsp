@@ -172,7 +172,7 @@
                     <h3 class="h2" align="center">Auction Request Info</h3>
                     <br />
                     <span class="rounded" align="center">
-                        고객님의 상품을 경매에 올릴 수 있습니다. 아래의 정보를 모두 기입해 주세요!
+                        <p>고객님의 상품을 경매에 올릴 수 있습니다. 아래의 정보를 모두 기입해 주세요!</p>
                     </span>
                     <br />
                     <br />

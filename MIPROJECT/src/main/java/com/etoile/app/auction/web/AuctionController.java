@@ -28,7 +28,6 @@ import com.etoile.app.vo.AuctionVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-
 @Controller
 public class AuctionController {
 
@@ -84,10 +83,10 @@ public class AuctionController {
 		String loginId = (String) request.getSession().getAttribute("id");
 		model.addAttribute("loginId", loginId);
 
-		//이더리움 원화 시세
+		// 이더리움 원화 시세
 		String won = EthApi.getWon();
 		model.addAttribute("won", won);
-		
+
 		return "site/auction/auctionOne";
 	}
 
@@ -198,7 +197,7 @@ public class AuctionController {
 		// url을 통한 실제경로 가져오기
 		String path = request.getSession().getServletContext().getRealPath("/images");
 		System.out.println(path);
-		//첨부파일 처리
+		// 첨부파일 처리
 		if (uploadFile != null && uploadFile.getSize() > 0) {
 			File file = new File(path, uploadFile.getOriginalFilename());
 			file = FileRenamePolicy.rename(file);
@@ -210,7 +209,7 @@ public class AuctionController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		System.out.println(vo.toString());
@@ -487,7 +486,26 @@ public class AuctionController {
 	// 관리자 경매 DB 등록
 	@RequestMapping(value = "/admin/auctionAdminPut.a", method = RequestMethod.POST)
 	@ResponseBody
-	public String auctionAdminPut(AuctionVO vo) {
+	public String auctionAdminPut(AuctionVO vo, @RequestParam(required = false) MultipartFile uploadFile,
+			HttpServletRequest request) {
+		// url을 통한 실제경로 가져오기
+		String path = request.getSession().getServletContext().getRealPath("/images");
+		System.out.println(path);
+		// 첨부파일 처리
+		if (uploadFile != null && uploadFile.getSize() > 0) {
+			File file = new File(path, uploadFile.getOriginalFilename());
+			file = FileRenamePolicy.rename(file);
+			try {
+				uploadFile.transferTo(file);
+				vo.setAuctionImage(file.getName());
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+
 		System.out.println(vo.toString());
 		int result = auctionService.auctionAdminPut(vo);
 		String str = Integer.toString(result);

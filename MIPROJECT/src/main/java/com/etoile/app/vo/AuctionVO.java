@@ -35,4 +35,5 @@ public class AuctionVO {
 	private String auctionUpdateDate;
 	private String selectWord;
 	private String last;
+	private String auctionRecentName;
 }

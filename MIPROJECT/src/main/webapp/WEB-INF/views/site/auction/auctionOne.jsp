@@ -56,7 +56,7 @@
 				<br />
 				<h3 align="left" style="padding-left:10px;">Auction Info</h3>
 				<br />
-				<img class="card-img-top" src="/etoile/images/${vo.auctionImage}" alt="Card image" style="width: 100%">
+				<img class="card-img-top" onerror="this.src='/etoile/images/노이미지1.png';" src="/etoile/images/${vo.auctionImage}" alt="Card image" style="width: 100%">
 				<br />
 				<br />
 				<br />
@@ -227,7 +227,7 @@
 	var bestPrice = $('#bestPrice').val();
 	var auctionImmediateBid = $('#auctionImmediateBid').val();	
 
-	//전자화폐 원화 환율 (1eth = 1000*mili)
+	//전자화폐 원화 환율 (1eth = 1000*milli)
 	var won = $('#won').val();
 	miliWon = parseInt(won) / parseInt(1000); 
 

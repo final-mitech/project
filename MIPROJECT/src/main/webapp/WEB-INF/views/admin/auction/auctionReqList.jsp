@@ -72,7 +72,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-10">
+            <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" onclick="location.href='/etoile/admin/auctionReqList.a'">실시간 경매요청</a>
@@ -80,11 +80,11 @@
                     <li class="nav-item">
                         <a class="nav-link" onclick="location.href='/etoile/admin/auctionAdminList.a'">경매현황리스트</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            onclick="location.href='/etoile/admin/auctionAdminForm.a'">경매 상품 등록</a>
+                    </li>
                 </ul>
-            </div>
-            <div class="col-2" style="padding-left: 0px; padding-right: 10px;">
-                <button class="btn btnAdmin btn-lg" onclick="location.href='/etoile/admin/auctionAdminForm.a'">관리자
-                    경매등록</button>
             </div>
         </div>
         <br />
@@ -172,7 +172,7 @@
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="">이미지</label>
-                                                    <img src="/etoile/images/${vo.auctionImage}" class="img-fluid"
+                                                    <img onerror="this.src='/etoile/images/노이미지1.png';" src="/etoile/images/${vo.auctionImage}" class="img-fluid"
                                                         style="width: 30%">
                                                 </div>
                                                 <div class="form-group">
