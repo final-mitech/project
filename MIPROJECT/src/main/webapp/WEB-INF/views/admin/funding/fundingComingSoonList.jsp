@@ -158,26 +158,6 @@
 				App.fundingResult(""+fundingId);
 			}
 			
-			$.ajax({
-				url: 'conditionUpdate.a',
-				type: 'post',
-				data: {
-					fundingId: fundingId,
-					fundingCondition: fundingCondition
-				},
-				success: function(data) {
-					if(data=="SUCCESS") {
-						alert(fundingCondition+"으로 상태가 변경되었습니다.");
-					}
-					else {
-					location.href="/etoile/admin/funding/fundingUpdateFail"; 
-					}
-				},
-				error: function(data) {
-					location.href="/etoile/admin/funding/fundingUpdateFail"; 
-				}
-				
-			}); 
 		}
 		
 		$('.tdColor').parent().css('background-color', '#87CEFA' ).css('opacity', '0.9');

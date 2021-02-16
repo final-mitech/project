@@ -31,7 +31,7 @@ App = {
 	initContract: function() { //abi 
 		//컨트랙트 생성
 		App.contract = new web3.eth.Contract(abi);
-		App.contract.options.address = "0x4f39B6a64dFC94F88b57d13C0959177414c87fD3";
+		App.contract.options.address = "0x4BE2c8Be2F3f1A2907356BF65810B10b7aCfC8dB";
 
 		App.joinButtonEvents(); //펀딩 참여 버튼 누르는 이벤트
 
@@ -86,7 +86,9 @@ App = {
 		var fundingGift = $('#fundingGift').val();
 
 		var fundingTotalprice = parseInt($('#fundingTotalprice').html()) + parseInt(price); //fundingSelect의 name값 속성
-
+		
+		var fromWeiValue =  web3.utils.fromWei(price, 'wei');
+		console.log(fromWeiValue);
 		web3.eth.getAccounts(function(error, accounts) {
 
 			if (error) {
@@ -99,8 +101,7 @@ App = {
 				.fund(fundingId)
 				.send({
 					from: account,
-					//value: web3.utils.toWei(price, "ether")
-					value: price
+					value: fromWeiValue
 				}) //send로 호출할때는 account
 				.then(function(result) {
 					alert('펀딩에 참여되었습니다');
