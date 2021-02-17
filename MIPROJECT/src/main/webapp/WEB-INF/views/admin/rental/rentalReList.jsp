@@ -18,24 +18,14 @@
 		var status = $("#" + tag.id).val();
 		var rentalId = $("#rentalId").val();
 		var productId = $("#" + tag.id).parent().find("#productId").val();
-		var form = $("#frm").attr("name", "frmr" + rentalId);
+		var form = $("#frm" + rentalId);
 
 		let today = new Date();
 		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-'
 				+ today.getDate();
 
 		App.setStatus(productId, status, date, form);
-		$.ajax({
-			url : "rentalProductStatus.a",
-			type : "post",
-			data : {
-				ProductStatus : status,
-				rentalId : rentalId
-			},
-			success : function() {
-				location.href = "/etoile/admin/rentalReList.a";
-			}
-		})
+		
 	}
 </script>
 <style>
@@ -104,9 +94,9 @@ select {
 					<th width="100">상품상태</th>
 				</tr>
 			</thead>
-			<tbody>
-				<form id="frm" name="frm" action="updateWaybill.a">
-					<c:forEach var="list" items="${list }">
+			<tbody>		
+				<c:forEach var="list" items="${list }">
+					<form id="frm${list.rentalId }" name="frm${list.rentalId }" action="updateWaybill.a">
 						<tr>
 							<td width="400">
 								<a id="PName" data-toggle="modal" href="#myModal${list.rentalId }">${list.productName }</a>
@@ -158,8 +148,8 @@ select {
 					</div>
 							</td>
 						</tr>
-					</c:forEach>
-				</form>
+					</form>
+				</c:forEach>				
 			</tbody>
 		</table>
 	</div>
